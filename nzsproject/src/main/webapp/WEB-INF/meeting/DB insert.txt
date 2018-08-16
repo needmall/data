@@ -1,0 +1,190 @@
+-- 고객 테이블
+INSERT INTO customer ( c_num, cs_division, c_id, c_pwd, c_name, c_gender, c_birthday, c_address, c_mail, c_cell, c_lat, c_lon) VALUES (
+  1, 0, 'customer_user1', 'customer_user1' , '김승주', '1', '1977/01/28', '서울 종로구 종로66길 20', 'user_java1@naver.com','010-6542-6542', 37.574161, 127.021684 );
+INSERT INTO customer ( c_num, cs_division, c_id, c_pwd, c_name, c_gender, c_birthday, c_address, c_mail, c_cell, c_lat, c_lon) VALUES (
+  2, 0, 'customer_user2', 'customer_user2', '손민기', '1', '1978/12/12', '서울 종로구 종로 374', 'user_sql2@naver.com', '010-6543-9875', 37.573916, 127.019063 );
+INSERT INTO customer ( c_num, cs_division, c_id, c_pwd, c_name, c_gender, c_birthday, c_address, c_mail, c_cell) VALUES (
+  3, 0, 'customer_user3', 'customer_user3' , '강기복', '1', '1979/03/07', '서울 중구 장충단로8길 28 아싸컴빌딩', 'user_jsp3@naver.com', '010-9851-6548');
+INSERT INTO customer ( c_num, cs_division, c_id, c_pwd, c_name, c_gender, c_birthday, c_address, c_mail, c_cell) VALUES (
+  4, 0, 'customer_user4', 'customer_user4' , '박찬건', '1', '1977/10/09', '서울 성동구 왕십리로21길 29', 'user_html4@naver.com', '010-6542-6857');
+INSERT INTO customer ( c_num, cs_division, c_id, c_pwd, c_name, c_gender, c_birthday, c_address, c_mail, c_cell) VALUES (
+  5, 0, 'customer_user5', 'customer_user5' , '건물주', '2','1977/11/30' , '서울 동대문구 고산자로 407 1층', 'user_css5@naver.com', '010-6874-6542');
+insert into customer(c_num, cs_division, c_id, c_pwd, c_name, c_gender, c_birthday, c_address, c_mail, c_cell, c_lat, c_lon)
+values (10, 0, 'nm0816', 'Needmall9999@', '박찬건', 1, 930918, '서울시 강서구', 'needmall@naver.com', '010-8888-8888', 37.562176, 127.0352);
+insert into customer(c_num, cs_division, c_id, c_pwd, c_name, c_gender, c_birthday, c_address, c_mail, c_cell, c_lat, c_lon)
+values (11, 0, 'need0918', 'Rodls65486@', '강기복', 2, 850402, '서울시 성동구', 'trustray@naver.com', '010-7777-0000', 35.486125, 126.8542);
+
+-- 판매자 테이블
+INSERT INTO seller (s_num, cs_division, s_id, s_pwd, s_name, s_gender, s_birthday, s_address, s_mail, s_phone, s_cell) VALUES (
+    1 , 1, 'seller_user1', 'seller_user1', '김승주', '1', '1990/01/05', '서울 성동구 고산자로 269', 'javauser1@naver.com', '010-4562-5423', '02-352-6521');
+INSERT INTO seller (s_num, cs_division, s_id, s_pwd, s_name, s_gender, s_birthday, s_address, s_mail, s_phone, s_cell) VALUES (
+    2 , 1, 'seller_user2', 'seller_user2', '손민기', '1', '1992/05/08', '서울 성동구 행당로 104-1 한승빌딩 1층 102', 'scriptuser2@naver.com', '010-4562-4562', '02-352-4562');
+INSERT INTO seller (s_num, cs_division, s_id, s_pwd, s_name, s_gender, s_birthday, s_address, s_mail, s_phone, s_cell) VALUES (
+    3, 1, 'seller_user3', 'seller_user3', '강기복', '1', '1987/06/23', '서울 성동구 홍익동 578', 'sqluser3@naver.com', '010-4562-4562', '02-352-4561');
+INSERT INTO seller (s_num, cs_division, s_id, s_pwd, s_name, s_gender, s_birthday, s_address, s_mail, s_phone, s_cell) VALUES (
+    4, 1, 'seller_user4', 'seller_user4', '박찬건', '1', '1993/08/14', '서울 성동구 왕십리로 363-1','jspuser4@naver.com', '010-4565-7854', '02-352-4567');
+INSERT INTO seller (s_num, cs_division, s_id, s_pwd, s_name, s_gender, s_birthday, s_address, s_mail, s_phone, s_cell) VALUES (
+    5, 1, 'seller_user5', 'seller_user5', '건물주', '2', '1988/06/02', '서울 성동구 하왕십리동 669', 'cssuser5@naver.com', '010-4567-78654', '02-352-5467');
+
+-- store 정보
+INSERT INTO store ( st_num, s_num, st_bnum, st_name, st_address, st_email, st_hours, st_cell, st_ceo, st_lat, st_lon, si_division)VALUES (
+    1, 1,'123-45-67890','GS25 황학점','서울특별시 중구 황학동 2545','javauser1@naver.com','00:00-24:00','010-5842-9854','김승주',37.571109, 127.021412, 'gs');
+INSERT INTO store ( st_num, s_num, st_bnum, st_name, st_address, st_email, st_hours, st_cell, st_ceo, st_lat, st_lon, si_division)VALUES (
+    2, 2,'223-45-67890','GS25 종로동묘점','서울특별시 종로구 숭인동 316-2','javauser2@naver.com','00:00-24:00','010-9882-6542','손민기', 37.571943, 127.015951,'gs');
+INSERT INTO store ( st_num, s_num, st_bnum, st_name, st_address, st_email, st_hours, st_cell, st_ceo, st_lat, st_lon, si_division)VALUES (
+    3, 3,'323-45-67890','미니스톱 동대문역점','서울특별시 종로구 종로','javauser3@naver.com','00:00-24:00','010-6153-8762','강기복',37.572557,127.012544,'mini');
+INSERT INTO store ( st_num, s_num, st_bnum, st_name, st_address, st_email, st_hours, st_cell, st_ceo, st_lat, st_lon, si_division)VALUES (
+    4, 4,'423-45-67890','CU 강북삼양점','서울특별시 강북구 미아동 삼양로24길 45','javauser4@naver.com','05:00-22:00','010-6523-9873','박찬건',37.619535,127.022092, 'cu');
+INSERT INTO store ( st_num, s_num, st_bnum, st_name, st_address, st_email, st_hours, st_cell, st_ceo, st_lat, st_lon, si_division)VALUES (
+    5, 5,'523-45-67890','CU 중구흥인점','서울특별시 중구 흥인동 다산로 265','javauser5@naver.com','06:00-22:00','010-8952-6845','건물주',37.567543,127.015865, 'cu');
+
+-- 카테고리 대
+INSERT INTO category1dep (c1_num, c1_name) VALUES (1,'간편식사');
+INSERT INTO category1dep (c1_num, c1_name) VALUES (2,'즉석조리');
+INSERT INTO category1dep (c1_num, c1_name) VALUES (3,'식품');
+INSERT INTO category1dep (c1_num, c1_name) VALUES (4,'과자류');
+INSERT INTO category1dep (c1_num, c1_name) VALUES (5,'아이스크림');
+
+-- 카테고리 소
+INSERT INTO category2dep (c2_num,c2_name,c1_num) VALUES (1,'도시락',1);
+INSERT INTO category2dep (c2_num,c2_name,c1_num) VALUES (2,'삼각김밥',1);
+INSERT INTO category2dep (c2_num,c2_name,c1_num) VALUES (3,'김밥',1);
+INSERT INTO category2dep (c2_num,c2_name,c1_num) VALUES (4,'샌드위치',1);
+INSERT INTO category2dep (c2_num,c2_name,c1_num) VALUES (5,'햄버거',1);
+
+INSERT INTO category2dep (c2_num,c2_name,c1_num) VALUES (6,'즉석빵',2);
+INSERT INTO category2dep (c2_num,c2_name,c1_num) VALUES (7,'튀김',2);
+INSERT INTO category2dep (c2_num,c2_name,c1_num) VALUES (8,'도너츠',2);
+INSERT INTO category2dep (c2_num,c2_name,c1_num) VALUES (9,'그릴',2);
+
+-- store 이미지
+INSERT INTO storeimage (si_division, si_image) VALUES ('gs','gs.jpg');
+INSERT INTO storeimage (si_division, si_image) VALUES ('mini','mini.jsp');
+INSERT INTO storeimage (si_division, si_image) VALUES ('7','7.jsp');
+INSERT INTO storeimage (si_division, si_image) VALUES ('cu','cu.jsp');
+
+-- 상품정보(등록) 테이블
+INSERT INTO product (p_num, c2_num, p_name, p_price, p_content, p_division, pi_num) VALUES (
+    1, 1, '도)민물장어계란초밥', 6900, '2만개 한정운영! 프리미엄 초밥출시!!국내산 민물장어+일본식 계란구이 초밥 신상품', 'cu', 1);
+    INSERT INTO product (p_num, c2_num, p_name, p_price, p_content, p_division, pi_num) VALUES (
+    2, 1, '도)의성마늘떡갈비정식', 4500, '달고 진한맛의 최상의 품질 의성마늘 떡갈비 도시락 구성:흑미밥+의성마늘떡갈비+계란찜+매콤어묵조림+건새우호박볶음+볶음김치', 'cu', 2);
+   INSERT INTO product (p_num, c2_num, p_name, p_price, p_content, p_division, pi_num) VALUES (
+    3, 1, '도)민물장어도시락', 10900, '하절기 프리미엄 보양식 민물장어 5만개 한정운영 구성:민물장어  인삼밥 수삼 장어 밑반찬 : 마늘절임, 초생강, 양파절임, 장어소스2종+매콤불고기', 'cu', 3);
+    INSERT INTO product (p_num, c2_num, p_name, p_price, p_content, p_division, pi_num) VALUES (
+    4, 1, '도)뿌먹치밥', 3900, '취양에 따라 뿌려먹고, 찍어먹는 치밥 도시락 구성: 순살치킨+후리카케밥+특제소스+콘샐러드', 'cu', 4);
+    INSERT INTO product (p_num, c2_num, p_name, p_price, p_content, p_division, pi_num) VALUES (
+    5, 1, '김)찍먹팝콘만두', 3200, '간식형 간편식_팝콘만두 구성:꼬마김밥+팝콘만두+감자튀김+달콤칠리소스', 'cu', 5);
+    
+    INSERT INTO product (p_num, c2_num, p_name, p_price, p_content, p_division, pi_num) VALUES (
+    6, 2, '주)명란크랩마요Ball', 1400, '일본 가정식 느낌이 고스란히 담긴 명란크랩마요Ball 주먹밥', 'cu', 6);
+   INSERT INTO product (p_num, c2_num, p_name, p_price, p_content, p_division, pi_num) VALUES (
+    7, 2, '주)제주햄참치김볶Ball', 1500, '당사만의 대표 차별화 상품 Ball형태 주먹밥! 인기원재료 활용 제주 전용 삼각김밥', 'cu', 7);
+    INSERT INTO product (p_num, c2_num, p_name, p_price, p_content, p_division, pi_num) VALUES (
+    8, 6, '즉석빵)듬뿍땅콩크림빵', 1200, '기존 크림중량 대비 10g 증량된 즉석빵', 'gs', 8);
+    INSERT INTO product (p_num, c2_num, p_name, p_price, p_content, p_division, pi_num) VALUES (
+    9, 6, '즉석빵)듬뿍우유크림빵', 1100, '기존 크림중량 대비 10g 증량된 즉석빵', 'gs', 9);
+    INSERT INTO product (p_num, c2_num, p_name, p_price, p_content, p_division, pi_num) VALUES (
+    10, 6, '즉석빵)듬뿍연유소보로빵', 1200, '기존 크림중량 대비 5g 증량된 즉석빵', '공통', 10);
+
+-- 상품정보(판매) 테이블
+INSERT INTO productsell ( ps_num, p_num, ps_expiration, ps_count, ps_price, s_num, ps_state ) 
+VALUES ( 1, 1, TO_DATE('2018/08/13 20:00','yyyy/mm/dd hh24:mi'), 10, 5000, 1, 0);
+INSERT INTO productsell ( ps_num, p_num, ps_expiration, ps_count, ps_price, s_num, ps_state ) 
+VALUES ( 2, 2, TO_DATE('2018/08/13 20:00','yyyy/mm/dd hh24:mi'), 5, 3500, 1, 0);
+INSERT INTO productsell ( ps_num, p_num, ps_expiration, ps_count, ps_price, s_num, ps_state ) 
+VALUES ( 3, 3, TO_DATE('2018/08/13 19:00','yyyy/mm/dd hh24:mi'), 8, 7200, 1, 0);
+INSERT INTO productsell ( ps_num, p_num, ps_expiration, ps_count, ps_price, s_num, ps_state ) 
+VALUES ( 4, 4, TO_DATE('2018/08/20 22:00','yyyy/mm/dd hh24:mi'), 8, 2600, 1, 1);
+INSERT INTO productsell ( ps_num, p_num, ps_expiration, ps_count, ps_price, s_num, ps_state ) 
+VALUES ( 5, 5, TO_DATE('2018/08/21 19:00','yyyy/mm/dd hh24:mi'), 10, 2400, 1, 1);
+INSERT INTO productsell ( ps_num, p_num, ps_expiration, ps_count, ps_price, s_num, ps_state ) 
+VALUES ( 6, 1, TO_DATE('2018/08/16 23:00','yyyy/mm/dd hh24:mi'), 12, 4800, 2, 1);
+INSERT INTO productsell ( ps_num, p_num, ps_expiration, ps_count, ps_price, s_num, ps_state ) 
+VALUES ( 7, 2, TO_DATE('2018/08/17 00:00','yyyy/mm/dd hh24:mi'), 14, 3700, 2, 0);
+INSERT INTO productsell ( ps_num, p_num, ps_expiration, ps_count, ps_price, s_num, ps_state ) 
+VALUES ( 8, 6, TO_DATE('2018/08/19 15:00','yyyy/mm/dd hh24:mi'), 5, 900, 2, 0);
+INSERT INTO productsell ( ps_num, p_num, ps_expiration, ps_count, ps_price, s_num, ps_state ) 
+VALUES ( 9, 7, TO_DATE('2018/08/19 15:00','yyyy/mm/dd hh24:mi'), 7, 800, 2, 0);
+INSERT INTO productsell ( ps_num, p_num, ps_expiration, ps_count, ps_price, s_num, ps_state ) 
+VALUES ( 10, 8, TO_DATE('2018/08/13 15:00','yyyy/mm/dd hh24:mi'), 8, 900, 2, 1);
+
+-- fees 인스턴스
+INSERT INTO fees (f_num, s_num, f_receiptdate, f_setdate) values(1,1,TO_DATE('2018/08/17 18:00','yyyy/mm/dd hh24:mi'), TO_DATE('2018/08/18 13:00','yyyy/mm/dd hh24:mi'));
+INSERT INTO fees (f_num, s_num, f_receiptdate, f_setdate) values(2,2,TO_DATE('2018/08/17 18:00','yyyy/mm/dd hh24:mi'), TO_DATE('2018/08/18 13:00','yyyy/mm/dd hh24:mi'));
+
+-------------------------------구매 상위 테이블
+INSERT INTO buy1dep (b1_num, b1_date,c_num) VALUES (1,TO_DATE('2018/08/15 18:00','yyyy/mm/dd hh24:mi'),1);
+INSERT INTO buy1dep (b1_num,b1_date,c_num) VALUES (2,TO_DATE('2018/08/16 18:00','yyyy/mm/dd hh24:mi'),2)
+
+------------------------------구매 하위 테이블
+INSERT INTO buy2dep (b2_num,b1_num,ps_num,b_count,b_confirm) VALUES (1,1,1,3,0);
+INSERT INTO buy2dep (b2_num,b1_num,ps_num,b_count,b_confirm) VALUES (2,2,2,2,1);
+
+------------------------------장바구니 상위 테이블
+INSERT INTO cart1dep (cart1_num,cart1_date,c_num) VALUES (1,TO_DATE('2018/08/17 18:00','yyyy/mm/dd hh24:mi'),1);
+INSERT INTO cart1dep (cart1_num,cart1_date,c_num) VALUES (2,TO_DATE('2018/08/16 18:00','yyyy/mm/dd hh24:mi'),2);
+
+------------------------------장바구니 하위 테이블
+INSERT INTO cart2dep (cart2_num,cart1_num,ps_num,cart2_count) VALUES (1,2,1,1);
+INSERT INTO cart2dep (cart2_num,cart1_num,ps_num,cart2_count) VALUES (2,2,2,10);
+
+
+
+-- 매장즐겨찾기 정보
+INSERT INTO favstore (fs_num, c_num, st_num) VALUES (1, 1,  1);
+INSERT INTO favstore (fs_num, c_num, st_num) VALUES (2, 1,  2);
+INSERT INTO favstore (fs_num, c_num, st_num) VALUES (3, 2,  1);
+INSERT INTO favstore (fs_num, c_num, st_num) VALUES (4, 3,  2);
+INSERT INTO favstore (fs_num, c_num, st_num) VALUES (5, 4,  2);
+INSERT INTO favstore (fs_num, c_num, st_num) VALUES (6, 4,  1);
+
+-- favproduct 인스턴스
+INSERT INTO favproduct (fp_num, c_num, p_num, fp_date) values(1, 1, 1, TO_DATE('2018/08/19 17:00','yyyy/mm/dd hh24:mi'));
+INSERT INTO favproduct (fp_num, c_num, p_num, fp_date) values(2, 2, 2, TO_DATE('2018/08/19 18:00','yyyy/mm/dd hh24:mi'));
+
+-- preview 인스턴스
+INSERT INTO preview (prv_num, c_num, p_num, prv_date, prv_image, prv_content, prv_scope) values( 1, 4, 3, TO_DATE('2018/08/19 17:00','yyyy/mm/dd hh24:mi'), 'sdfsdfd.jpg','리뷰내용', 4.5);
+INSERT INTO preview (prv_num, c_num, p_num, prv_date, prv_image, prv_content, prv_scope) values( 2, 2, 3, TO_DATE('2018/08/19 18:00','yyyy/mm/dd hh24:mi'), '','리뷰내용', 4.5);
+
+-- sreview 인스턴스 
+INSERT INTO sreview (srv_num, c_num, s_num, srv_date, srv_image, srv_content, srv_scope) values(1, 4, 3, TO_DATE('2018/08/19 17:00','yyyy/mm/dd hh24:mi'),'sdfsdfd11.jpg', '리뷰내용', 4.5);
+INSERT INTO sreview (srv_num, c_num, s_num, srv_date, srv_image, srv_content, srv_scope) values(2, 1, 3, TO_DATE('2018/08/19 17:00','yyyy/mm/dd hh24:mi'),'', '리뷰내용', 4.5);
+
+-- qna 인스턴스
+INSERT INTO qna (qna_num, qna_title, qna_content, qna_date, c_num) values(1, '이메일 인증은 어떻게 하나요?', '문의 내용~!문의 내용~!문의 내용~!문의 내용~!', TO_DATE('2018/08/14 14:00','yyyy/mm/dd hh24:mi'), 3);
+INSERT INTO qna (qna_num, qna_title, qna_content, qna_date, c_num) values(2, '회원 가입 무늬', '문의 내용~!문의 내용~!문의 내용~!문의 내용~!', TO_DATE('2018/08/16 13:00','yyyy/mm/dd hh24:mi'), 2);
+
+-- qnareply 인스턴스
+INSERT INTO qnareply (qr_num, qna_num, qr_content, qr_date) values(1, 1, '이메일 인증은 어떻게 하나요?의 답변글', TO_DATE('2018/08/14 17:00','yyyy/mm/dd hh24:mi'));
+INSERT INTO qnareply (qr_num, qna_num, qr_content, qr_date) values(2, 2, '회원 가입 문의의 답변글의 답변글', TO_DATE('2018/08/16 17:00','yyyy/mm/dd hh24:mi'));
+
+-- prosinfo
+insert into prosinfo(prosin_num, prosin_content)
+values (1, '약관내용1');
+insert into prosinfo(prosin_num, prosin_content)
+values (2, '약관내용2');
+
+-- sinfo
+insert into sinfo(sin_num, s_num, sin_sms, sin_email, sin_prov1, sin_prov2, sin_prov3, sin_prov4, sin_prov5, prosin_num)
+values (1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+
+insert into sinfo(sin_num, s_num, sin_sms, sin_email, sin_prov1, sin_prov2, sin_prov3, sin_prov4, sin_prov5, prosin_num)
+values (2, 2, 1, 1, 1, 1, 1, 1, 1, 2);
+
+-- procinfo
+insert into procinfo(procin_num, procin_content)
+values (1, '약관내용1');
+
+insert into procinfo(procin_num, procin_content)
+values (2, '약관내용2');
+
+-- cinfo
+insert into cinfo(cin_num, c_num, cin_sms, cin_email, cin_prov1, cin_prov2, cin_prov3, cin_prov4, cin_prov5, procin_num)
+values (1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+insert into cinfo(cin_num, c_num, cin_sms, cin_email, cin_prov1, cin_prov2, cin_prov3, cin_prov4, cin_prov5, procin_num)
+values (2, 1, 1, 1, 1, 1, 1, 1, 1, 2);
+
+
+-- logincheck
+insert into logincheck(lc_num, c_num, s_num, lc_success, lc_fail, lc_check, lc_ip) values (2, 2, '', 0, 1, 2, '192.168.0.119');
+insert into logincheck(lc_num, c_num, s_num, lc_success, lc_fail, lc_check, lc_ip) values (3, '', 2, 1, 0, 3, '192.168.0.109');
