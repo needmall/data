@@ -1,0 +1,2 @@
+18/08/16 16:50 : 테이블 변경
+alter table store modify(st_name varchar2(200));
