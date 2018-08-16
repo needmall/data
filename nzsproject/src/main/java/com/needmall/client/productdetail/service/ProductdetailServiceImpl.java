@@ -1,7 +1,20 @@
 package com.needmall.client.productdetail.service;
 
-import com.needmall.client.productdetail.dao.ProductdetailDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class ProductdetailServiceImpl implements ProductdetailDao {
+import com.needmall.client.productdetail.dao.ProductdetailDao;
+import com.needmall.client.productdetail.vo.ProductdetailVO;
+
+@Service
+public class ProductdetailServiceImpl implements ProductdetailService {
+
+	@Autowired
+	private ProductdetailDao productdetailDao;
+	@Override
+	public ProductdetailVO productdetailmain(ProductdetailVO dvo) {
+		// TODO Auto-generated method stub
+		return productdetailDao.productdetailmain(dvo);
+	}
 
 }

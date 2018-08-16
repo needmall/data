@@ -4,4 +4,8 @@
  	<!-- <typeAliases> 
 		<typeAlias type="com.needmall.client.productall.vo.VO" alias="vo"/>
 	</typeAliases> -->
+<!-- 	주석 처리라 아래에 하나 더 만들었어요 -->
+	<typeAliases>
+		<typeAlias type="com.needmall.client.productdetail.vo.ProductdetailVO" alias="productdetail"/>
+	</typeAliases>
 </configuration>
