@@ -15,10 +15,11 @@
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp"></put-attribute>
 	</definition>
 	<!-- 요청 이름과 jsp이름이 같을 경우 *과 {1}  (*가 여러개 일경우 숫자 순차적 적용)로 연결 가능하며  extends속성으로 위의 내용 상속받아 내용만 변경 가능 -->
-	<!-- <definition name="board/*" extends="content">
-		<put-attribute name="title" value="기본 게시판"/>
-		<put-attribute name="body" value="/WEB-INF/views/board/{1}.jsp"/>
+	<definition name="storeall/*" extends="content">
+		<put-attribute name="title" value="전체 매장"/>
+		<put-attribute name="body" value="/WEB-INF/views/client/storeall/{1}.jsp"/>
 	</definition>
+	<!-- 
 	<definition name="replies/*" extends="content">
 		<put-attribute name="body" value="/WEB-INF/views/board/reply.jsp"/>
 	</definition>

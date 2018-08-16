@@ -55,7 +55,7 @@
         <div class="col-md-4">
           <h2>전체 스토어</h2>
           <p>모든 스토어들이 거리순으로 정렬되어 있습니다.</p>
-          <p><a class="btn btn-default" href="#" role="button">전체 스토어 보기 &raquo;</a></p>
+          <p><a class="btn btn-default" href="/storeall/storeall.do" role="button">전체 스토어 보기 &raquo;</a></p>
        </div>
         <div class="col-md-4">
           <h2>로그인 및 회원 관리</h2>

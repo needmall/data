@@ -1,5 +1,12 @@
 package com.needmall.client.storeall.dao;
 
-public class StoreallDaoImpl implements StoreallDao{
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+@Repository
+public class StoreallDaoImpl implements StoreallDao{
+	
+	@Autowired
+	private SqlSession session;
 }
