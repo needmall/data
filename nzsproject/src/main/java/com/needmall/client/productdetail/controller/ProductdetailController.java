@@ -18,10 +18,10 @@ public class ProductdetailController {
 	
 	@RequestMapping(value="/productdetailmain.do",method=RequestMethod.GET)
 	public String productdetailmain(ProductdetailVO dvo,Model model) {
-		ProductdetailVO detail = new ProductdetailVO();
-		detail =productdetailService.productdetailmain(dvo);
-		model.addAttribute("detail",detail);
-		return "/productdetail/productdetailmain";
+//		ProductdetailVO detail = new ProductdetailVO();
+//		detail =productdetailService.productdetailmain(dvo);
+//		model.addAttribute("detail",detail);
+		return "productdetail/productdetailmain";
 		
 	}
 	

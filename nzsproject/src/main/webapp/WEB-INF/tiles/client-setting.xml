@@ -19,6 +19,13 @@
 		<put-attribute name="title" value="전체 매장"/>
 		<put-attribute name="body" value="/WEB-INF/views/client/storeall/{1}.jsp"/>
 	</definition>
+	<definition name="productdetail/*" extends="content">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/client/productdetail/{1}.jsp"/>
+	</definition>
+	
 	<!-- 
 	<definition name="replies/*" extends="content">
 		<put-attribute name="body" value="/WEB-INF/views/board/reply.jsp"/>
