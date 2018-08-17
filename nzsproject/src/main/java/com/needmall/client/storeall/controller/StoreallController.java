@@ -11,10 +11,11 @@ import com.needmall.client.storeall.service.StoreallService;
 public class StoreallController {
 	
 	@Autowired
-	private StoreallService StoreallService;
+	private StoreallService storeallService;
 	
 	@RequestMapping(value="/storeall.do")
 	public String storeall() {
+			
 		return "storeall/storeall";
 	}
 }
