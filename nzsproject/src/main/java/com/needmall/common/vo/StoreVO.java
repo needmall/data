@@ -1,8 +1,8 @@
-package com.needmall.client.storeall.vo;
+package com.needmall.common.vo;
 
 import java.sql.Date;
 
-public class StoreVO extends SellerVO{
+public class StoreVO {
 	private int st_num=0;
 	private String st_bnum="";
 	private String st_name="";
@@ -14,8 +14,7 @@ public class StoreVO extends SellerVO{
 	private int st_lat=0;
 	private int st_lon=0;
 	private Date st_date;
-	private String si_division="";
-	private String si_image="";
+	
 	public int getSt_num() {
 		return st_num;
 	}
@@ -82,25 +81,11 @@ public class StoreVO extends SellerVO{
 	public void setSt_date(Date st_date) {
 		this.st_date = st_date;
 	}
-	public String getSi_division() {
-		return si_division;
-	}
-	public void setSi_division(String si_division) {
-		this.si_division = si_division;
-	}
-	public String getSi_image() {
-		return si_image;
-	}
-	public void setSi_image(String si_image) {
-		this.si_image = si_image;
-	}
 	@Override
 	public String toString() {
 		return "StoreVO [st_num=" + st_num + ", st_bnum=" + st_bnum + ", st_name=" + st_name + ", st_address="
 				+ st_address + ", st_email=" + st_email + ", st_hours=" + st_hours + ", st_cell=" + st_cell
-				+ ", st_ceo=" + st_ceo + ", st_lat=" + st_lat + ", st_lon=" + st_lon + ", st_date=" + st_date
-				+ ", si_division=" + si_division + ", si_image=" + si_image + "]";
+				+ ", st_ceo=" + st_ceo + ", st_lat=" + st_lat + ", st_lon=" + st_lon + ", st_date=" + st_date + "]";
 	}
-	
 	
 }

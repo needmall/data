@@ -7,5 +7,6 @@
 <!-- 	주석 처리라 아래에 하나 더 만들었어요 -->
 	<typeAliases>
 		<typeAlias type="com.needmall.client.productdetail.vo.ProductdetailVO" alias="productdetail"/>
+		<typeAlias type="com.needmall.client.storeall.vo.StoreallVO" alias="storeall"/>
 	</typeAliases>
 </configuration>

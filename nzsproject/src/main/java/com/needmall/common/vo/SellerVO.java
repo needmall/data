@@ -1,4 +1,4 @@
-package com.needmall.client.storeall.vo;
+package com.needmall.common.vo;
 
 import java.sql.Date;
 

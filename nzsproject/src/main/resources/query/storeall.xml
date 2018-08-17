@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.needmall.client.storeall.dao.StoreallDao">
-	
+<!-- <select id="storelist" parameterType="customer" resultType="storeall">
+	      /* Storeall - storelist */
+	      select seller.S_NUM,CS_DIVISION,S_ID,S_PWD,S_NAME,S_GENDER,S_BIRTHDAY,S_ADDRESS,S_MAIL,S_PHONE,S_CELL,S_DATE, 
+	      ST_NUM,ST_BNUM,ST_NAME,ST_ADDRESS,ST_EMAIL,ST_HOURS,ST_CELL,ST_CEO,ST_LAT,ST_LON,ST_DATE,store.SI_DIVISION, 
+	      SI_IMAGE, calc_distance(37.571109, 127.021412,ST_LAT,ST_LON) as distance 
+	      from seller inner join store on seller.s_num=store.s_num inner join storeimage 
+	      on store.SI_DIVISION=storeimage.SI_DIVISION order by distance	      
+	</select> -->
 </mapper>
