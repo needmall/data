@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.needmall.client.productdetail.dao/ProductdetailDao">
 	<select id="productdetailmain" parameterType="productdetail" resultType="productdetail">
-		
+<!-- 		select pi_image,p_name,p_price,p_content,P_DIVISION,ps_regdate,ps_expiration,ps_count,ps_price,ps_state,ps_update -->
+<!-- 		from proimage  -->
+<!-- 		inner join product on proimage.pi_num = product.pi_num -->
+<!-- 		inner join productsell on product.p_num = productsell.p_num; -->
 	</select>
 </mapper>
