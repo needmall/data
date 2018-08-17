@@ -1,4 +1,4 @@
-package com.spring.common.file;
+package com.needmall.common.file;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
