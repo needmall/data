@@ -2,16 +2,19 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf"%>
 
-<div>목록영역</div>
+
+
 
 <!-- 아래부터 지도 영역  -->
 <!-- 지도 영역 -->
 	<div id="map" style="width: 500px; height: 400px;"></div>
-	
+		<button onclick="panTo()">지도 중심좌표 부드럽게 이동시키기</button>
 <div>
+<!--  목록 영역   -->
+<div id="storeList" >
+</div>
 <!-- 지도 API -->
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b262aa5fd1eb6fa9c51a3235fa41046a"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b262aa5fd1eb6fa9c51a3235fa41046a"></script>
 <!-- services와 clusterer 라이브러리 불러오기 -->
 <!-- clusterer: 마커를 클러스터링 할 수 있는 클러스터러 라이브러리 입니다.
       services: 장소 검색 과 주소-좌표 변환 을 할 수 있는 services 라이브러리 입니다.
@@ -120,6 +123,89 @@
 		
 		//// 목록을 클릭 했을 때   마커 전부 지우고 클릭한 마커 이미지만 다르게 등록 필요 , 아니면 마커에 이벤트를 걸어야 하는데 
 		    
+		
+		
+		//스토어 리스트 출력
+		function listAll(c_lat, c_lon) {
+			$("#storeList").html(""); //초기화 작업
+			var url = "/storeall/storeall.do?c_lat="+c_lat+",c_lon="+c_lon;			
+			$.getJSON(url, function(data) {							
+				$(data).each(function() {
+					var st_num = this.st_num;
+					var si_image = this.si_image;
+					var st_name = this.st_name;
+					var st_address = this.st_address;										
+					var distance = this.distance;
+					addNewItem(st_num, si_image, st_name, st_address, distance);
+				});
+			}).fail(function() {
+				alert("스토어 리스트를 불러오는데 실패 하였습니다.");
+			});			
+		}
+		
+		//아래 함수 addNewItem(이미지, 상호, 주소, 거리)
+		function addNewItem(st_num,si_image, st_name, st_address, distance) {
+			// 새로운 store가 추가될 li태그 객체
+			var new_li =$("<li>");
+			new_li.attr("data-num",st_num);
+			new_li.addClass("new_li");
+			
+			var new_a = $("<a>");
+			new_a.attr("href","javascript:mapchange()")
+			new_a.addClass("new_a");
+			
+			// 이미지가 들어갈  <img>태그
+			var store_img=$("<img>");
+			new_li.attr("src",si_image);
+			store_img.addClass("store_img");
+			
+			// 상호가 들어갈 <p>태그
+			var store_name = $("<p>");
+			store_name.html(st_name);
+			store_name.addClass("store_name");
+			
+			
+			// 주소가 들어갈 <p>태그
+			var store_address =$("<p>");
+			store_address.html(st_address);
+			store_address.addClass("store_address");
+			
+			
+			// 거리가 들어갈 <p>태크
+			var store_distance =$("<p>");
+			store_distance.html(distance+"M");
+			store_distance.addClass("store_distance");
+			
+			
+			//조립하기			
+			new_a.append(store_img).append(store_name).append(store_address).append(store_distance);
+			new_li.append(new_a);
+			$("#storeList").append(new_li);
+		}
 	</script>
-	<button onclick="panTo()">지도 중심좌표 부드럽게 이동시키기</button>
+
 </div>
+
+<!-- <!-- 
+
+					매장 리스트
+					<ul class="list">
+<form name="search" method="post" action="javascript:search()">
+				<div class="shopSch">
+					<div class="selType02" style="width:156px;">
+						<select id="sido1" class="selectCus" title="시/도 선택">
+							<option value="0">시/도</option>
+						</select>
+					</div>
+					<div class="selType02" style="width:156px;">
+						<select id="sido2" class="selectCus" title="시/군/구 선택">
+							<option value="0">시/군/구</option>
+						</select>
+					</div>
+					<input type="text" id="txt_search" title="매장명 입력" placeholder="매장명 입력" value="" />&nbsp;
+					<input type="text" id="txt_search" title="매장명 입력" placeholder="매장명 입력" value="" />&nbsp;
+					<a href="javascript:search();" class="bs btn red faqSchBtn">검색</a>
+				</div>
+				</form>
+
+				 --> -->
