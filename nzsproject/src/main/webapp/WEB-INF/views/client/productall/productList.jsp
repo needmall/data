@@ -39,6 +39,7 @@
 <body>
 	<div class="main_prodlist main_prodlist_list">
 		<ul class="product_list">
+			<%-- 상품 li --%>
 			<li>
 				<div class="prod_main_info">
 					<div>
