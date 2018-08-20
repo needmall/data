@@ -4,27 +4,34 @@
 
 
 <!-- 지도 API -->
-<script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b262aa5fd1eb6fa9c51a3235fa41046a&libraries=services"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b262aa5fd1eb6fa9c51a3235fa41046a&libraries=services"></script>
 <!-- services와 clusterer 라이브러리 불러오기 -->
 <!-- clusterer: 마커를 클러스터링 할 수 있는 클러스터러 라이브러리 입니다.
       services: 장소 검색 과 주소-좌표 변환 을 할 수 있는 services 라이브러리 입니다.
       <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b262aa5fd1eb6fa9c51a3235fa41046a&libraries=services,clusterer"></script> -->
 
 
+<!-- 당신의 위치 -->
+<div>
+	<input type="text" id="address" name="address"><input
+		type="button" value="검색">
+</div>
+<div>
+	<h3 id="yourlocation"></h3>
+</div>
 <!--  목록 영역   -->
 <div id="storeList">
 	<ul>
 		<c:choose>
 			<c:when test="${not empty storeList}">
 				<c:forEach var="store" items="${storeList}" varStatus="status">
-					<li data-num="${store.st_num}">					
-						<a href="javascript:panTo(${store.st_lat},${store.st_lon})">								
-							<img src=""/>
-							<span>${store.st_name }<br>
-							${store.st_address }<br>
-							거리 : ${store.distance }m</span>												
-						</a>
-					</li>					
+					<li data-num="${store.st_num}"><a
+						href="javascript:panTo(${store.st_lat},${store.st_lon})"> <img
+							src="" /> <span>${store.st_name }<br>
+								${store.st_address }<br> 거리 : ${store.distance }m
+						</span>
+					</a></li>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
@@ -39,87 +46,99 @@
 <!-- 지도 영역 -->
 <div id="map" style="width: 500px; height: 400px;"></div>
 
-<script type="text/javascript">
-		/* 지도를 띄우는 코드 */
-		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-		var options = { //지도를 생성할 때 필요한 기본 옵션
-			center : new daum.maps.LatLng(37.562176, 127.035180), //지도의 중심좌표.
-			level : 3
-		//지도의 레벨(확대, 축소 정도)
-		};
-		var selectedMarker = null;  //선택된 마커
+<script type="text/javascript"> 
 
-		var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
+			/* 지도를 띄우는 코드 */
+			var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+			var options = { //지도를 생성할 때 필요한 기본 옵션
+				center : new daum.maps.LatLng(37.562176, 127.035180), //지도의 중심좌표.
+				level : 3
+			//지도의 레벨(확대, 축소 정도)
+			};
+			var selectedMarker = null;  //선택된 마커
 
-		// 주소-좌표 변환 객체를 생성합니다
-		var geocoder = new daum.maps.services.Geocoder();
-		
-		
-	    // 좌표로 행정동 주소 정보를 요청합니다
-	    geocoder.coord2RegionCode(127.035180, 37.562176, displayCenterInfo);         
-		
-	 // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
-	    function displayCenterInfo(result, status) {
-	        if (status === daum.maps.services.Status.OK) {
-	            var infoDiv = document.getElementById('centerAddr');
+			var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
 
-	            for(var i = 0; i < result.length; i++) {
-	                // 행정동의 region_type 값은 'H' 이므로
-	                if (result[i].region_type === 'H') {
-	                    infoDiv.innerHTML = result[i].address_name;
-	                    break;
-	                }
-	            }
-	        }    
-	    }
-		
-		//현위치 마커 이미지 만들기
-		var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
-    	imageSize = new daum.maps.Size(50, 50), // 마커이미지의 크기입니다
-    	imageOption = {offset: new daum.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new daum.maps.services.Geocoder();
 
-    	       
-		// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-		var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
-    	
-    	
-		// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
-		if (navigator.geolocation) {
+			
+			
+		    // 좌표로 행정동 주소 정보를 요청합니다
+		    geocoder.coord2RegionCode(127.035180, 37.562176, getCenterInfo);         
+			
+		    // 주소로  위도 경도 찍기
+		    geocoder.addressSearch('성동구 마장동', getLocation);
+			
+		    function getLocation(result, status) {
+			   if (status === daum.maps.services.Status.OK) {
+				        result[0].address.x
+				        result[0].address.y			        
+				    }
+				};
 
-			// GeoLocation을 이용해서 접속 위치를 얻어옵니다
-			navigator.geolocation.getCurrentPosition(function(position) {
-
-				var lat = position.coords.latitude, // 위도
-				lon = position.coords.longitude; // 경도
-
-				var locPosition = new daum.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+			//고객의 위치 담을 변수
+			var yourlocation="";
 				
+			 // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+		    function getCenterInfo(result, status) {
+		        if (status === daum.maps.services.Status.OK) {
+		        	yourlocation = result[0].address_name;		            
+		            $("#yourlocation").html("매장 검색 위치 :" + yourlocation);
+		        }    
+		    }  
+
+			 
+		  //현위치 마커 이미지 만들기
+			var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
+	    	imageSize = new daum.maps.Size(50, 50), // 마커이미지의 크기입니다
+	    	imageOption = {offset: new daum.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+	    	       
+			// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+			var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
+	    	
+	    	
+			// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+			if (navigator.geolocation) {
+
+				// GeoLocation을 이용해서 접속 위치를 얻어옵니다
+				navigator.geolocation.getCurrentPosition(function(position) {
+
+					var lat = position.coords.latitude, // 위도
+					lon = position.coords.longitude; // 경도
+
+					var locPosition = new daum.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+					
+					// 지도 중심좌표를 접속위치로 변경합니다
+					map.setCenter(locPosition);
+					// 현위치 마커 표시
+					imgmarker(locPosition, '대략적인 고객님 위치(기준점)',markerImage );
+				});
+
+			} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+				var locPosition = new daum.maps.LatLng(37.562176, 127.035180); // 없을 경우 이동 좌표  일단, 미래능력 교육 개발원
 				// 지도 중심좌표를 접속위치로 변경합니다
 				map.setCenter(locPosition);
 				// 현위치 마커 표시
 				imgmarker(locPosition, '대략적인 고객님 위치(기준점)',markerImage );
-			});
+			}
 
-		} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-			var locPosition = new daum.maps.LatLng(37.562176, 127.035180); // 없을 경우 이동 좌표  일단, 미래능력 교육 개발원
-			// 지도 중심좌표를 접속위치로 변경합니다
-			map.setCenter(locPosition);
-			// 현위치 마커 표시
-			imgmarker(locPosition, '대략적인 고객님 위치(기준점)',markerImage );
-		}
-
-		//여러개 출력시
-		// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
-		var markers = [];
-		
-		// 마커들을 지도위에 표시합니다 
-		<c:forEach var="store" items="${storeList}" varStatus="status">		
-				var st_lat = "${store.st_lat }";
-				var st_lon = "${store.st_lon }";
-				var st_name = "${store.st_name }";
-				addMarker(new daum.maps.LatLng(st_lat, st_lon), st_name);		
-		</c:forEach>	    
-		  
+			//여러개 출력시
+			// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
+			var markers = [];
+			
+			// 마커들을 지도위에 표시합니다 
+			<c:forEach var="store" items="${storeList}" varStatus="status">		
+					var st_lat = "${store.st_lat }";
+					var st_lon = "${store.st_lon }";
+					var st_name = "${store.st_name }";
+					addMarker(new daum.maps.LatLng(st_lat, st_lon), st_name);		
+			</c:forEach>	    
+			
+			
+			
+			 	
 		
     	// 마커를 생성하고 지도위에 표시하는 함수입니다
 		function imgmarker(position, title, img) {
@@ -165,6 +184,9 @@
 		}
 		
 		//// 목록을 클릭 했을 때   마커 전부 지우고 클릭한 마커 이미지만 다르게 등록 필요 , 아니면 마커에 이벤트를 걸어야 하는데 	
+		
+		
+		
 	</script>
 
 

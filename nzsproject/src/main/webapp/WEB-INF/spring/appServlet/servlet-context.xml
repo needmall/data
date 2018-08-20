@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -61,3 +62,68 @@
 	</beans:bean>
 	
 </beans:beans>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />	
+	<resources mapping="/uploadStorage/**" location="/uploadStorage/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean> -->
+	
+	<!-- 타일즈(tiles) 설정 - 타일즈를 통해서만 ViewResolver 처리
+	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles2.TilesViewResolver"/>
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/tiles/tiles-setting.xml</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean> -->
+	
+	<!-- 타일즈(tiles) 설정 - ViewResolver은 타일즈를 통해서, 설정파일에 존재하지 않으면 우선순위2로 name="order" 우선순위설정을 결정 -->
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/tiles/client-setting.xml</beans:value>				
+				<beans:value>/WEB-INF/tiles/admin-setting.xml</beans:value>				
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
+		<beans:property name="order" value="1"/>
+	</beans:bean><!-- 우선순위 1은 tilesresolver -->
+		
+	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="2"/>
+	</beans:bean><!-- 우선순위 2은 viewResolver (header와 footer가 안 붙는다.) -->
+	
+	<context:component-scan base-package="com.needmall.**.**.**" />
+	
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding" value="UTF-8"></beans:property>
+		<beans:property name="maxUploadSize" value="16777216"></beans:property>		
+	</beans:bean>
+	
+</beans:beans>
+>>>>>>> branch 'master' of https://github.com/needmall/data.git
