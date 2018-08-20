@@ -4,12 +4,12 @@
 
 
 <!-- 지도 API -->
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b262aa5fd1eb6fa9c51a3235fa41046a"></script>
+<script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b262aa5fd1eb6fa9c51a3235fa41046a&libraries=services"></script>
 <!-- services와 clusterer 라이브러리 불러오기 -->
 <!-- clusterer: 마커를 클러스터링 할 수 있는 클러스터러 라이브러리 입니다.
       services: 장소 검색 과 주소-좌표 변환 을 할 수 있는 services 라이브러리 입니다.
       <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b262aa5fd1eb6fa9c51a3235fa41046a&libraries=services,clusterer"></script> -->
+
 
 <!--  목록 영역   -->
 <div id="storeList">
@@ -18,14 +18,13 @@
 			<c:when test="${not empty storeList}">
 				<c:forEach var="store" items="${storeList}" varStatus="status">
 					<li data-num="${store.st_num}">					
-						<a data-lat= "${store.st_lat}" data-lon="${store.st_lon}" href="javascript:panTo()">
-								
-								<img src=""/>
-								<span>${store.st_name }<br>
-								${store.st_address }<br>
-								${store.distance } M ${store.st_lat}</span>										
+						<a href="javascript:panTo(${store.st_lat},${store.st_lon})">								
+							<img src=""/>
+							<span>${store.st_name }<br>
+							${store.st_address }<br>
+							거리 : ${store.distance }m</span>												
 						</a>
-					</li>
+					</li>					
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
@@ -39,8 +38,6 @@
 
 <!-- 지도 영역 -->
 <div id="map" style="width: 500px; height: 400px;"></div>
-<button onclick="panTo()">지도 중심좌표 부드럽게 이동시키기</button>
-
 
 <script type="text/javascript">
 		/* 지도를 띄우는 코드 */
@@ -54,6 +51,28 @@
 
 		var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
 
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new daum.maps.services.Geocoder();
+		
+		
+	    // 좌표로 행정동 주소 정보를 요청합니다
+	    geocoder.coord2RegionCode(127.035180, 37.562176, displayCenterInfo);         
+		
+	 // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+	    function displayCenterInfo(result, status) {
+	        if (status === daum.maps.services.Status.OK) {
+	            var infoDiv = document.getElementById('centerAddr');
+
+	            for(var i = 0; i < result.length; i++) {
+	                // 행정동의 region_type 값은 'H' 이므로
+	                if (result[i].region_type === 'H') {
+	                    infoDiv.innerHTML = result[i].address_name;
+	                    break;
+	                }
+	            }
+	        }    
+	    }
+		
 		//현위치 마커 이미지 만들기
 		var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
     	imageSize = new daum.maps.Size(50, 50), // 마커이미지의 크기입니다
@@ -92,17 +111,16 @@
 		//여러개 출력시
 		// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
 		var markers = [];
-		// 마커 하나를 지도위에 표시합니다 
-		 var list = "${storeList}";
-		/* $(list).each(function() {
-			var st_lat = $(this).st_lat;
-			var st_lon = $(this).st_lon;
-			var st_name = $(this).st_name;			
-			addMarker(new daum.maps.LatLng(st_lat, st_lon), st_name);
-		});  */
 		
+		// 마커들을 지도위에 표시합니다 
+		<c:forEach var="store" items="${storeList}" varStatus="status">		
+				var st_lat = "${store.st_lat }";
+				var st_lon = "${store.st_lon }";
+				var st_name = "${store.st_name }";
+				addMarker(new daum.maps.LatLng(st_lat, st_lon), st_name);		
+		</c:forEach>	    
+		  
 		
-		    	
     	// 마커를 생성하고 지도위에 표시하는 함수입니다
 		function imgmarker(position, title, img) {
 
@@ -137,20 +155,16 @@
 		}
 		
 	
-		function panTo() {
-			var st_lat = $(this).attr("data-lat");
-			var st_lon = $(this).attr("data-lon");
-			// 이동할 위도 경도 위치를 생성합니다 
-			var moveLatLon = new daum.maps.LatLng(st_lat, st_lon);
-			
-			// 지도 중심을 부드럽게 이동시킵니다
-			// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-			map.panTo(moveLatLon);
+		function panTo(st_lat,st_lon) {			
+		    // 이동할 위도 경도 위치를 생성합니다 
+		    var moveLatLon = new daum.maps.LatLng(st_lat, st_lon);
+		    
+		    // 지도 중심을 부드럽게 이동시킵니다
+		    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+		    map.panTo(moveLatLon);         
 		}
 		
-		//// 목록을 클릭 했을 때   마커 전부 지우고 클릭한 마커 이미지만 다르게 등록 필요 , 아니면 마커에 이벤트를 걸어야 하는데 
-		    
-	
+		//// 목록을 클릭 했을 때   마커 전부 지우고 클릭한 마커 이미지만 다르게 등록 필요 , 아니면 마커에 이벤트를 걸어야 하는데 	
 	</script>
 
 
