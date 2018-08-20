@@ -50,7 +50,7 @@
         <div class="col-md-4">
           <h2>전체 상품</h2>
           <p>판매중인 모든 상품이 거리순으로  정렬되어 있습니다.</p>
-          <p><a class="btn btn-default" href="#" role="button">전체 상품 보기 &raquo;</a></p>
+          <p><a class="btn btn-default" href="/productall/productList.do" role="button">전체 상품 보기 &raquo;</a></p>
         </div>
         <div class="col-md-4">
           <h2>전체 스토어</h2>

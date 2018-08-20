@@ -44,7 +44,7 @@
 	  
 	  <ul class="nav navbar-nav">
       <li class="active"><a href="/">Home</a></li>
-      <li><a href="#">전체 상품</a></li>
+      <li><a href="/productall/productList.do">전체 상품</a></li>
       <li><a href="/storeall/storeall.do">전체 스토어</a></li>
       <li><a href="/productdetail/productdetailmain.do">이벤트</a></li>    
     </ul>

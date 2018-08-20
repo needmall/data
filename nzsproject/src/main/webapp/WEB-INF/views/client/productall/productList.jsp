@@ -20,12 +20,6 @@
 <!-- IE8이하 브라우저에서 HTML5를 인식하기 위해서는 아래의 패스 필터를 적용하면 된다. -->
 <!-- [if lt IE 9]> <script src="/resources/include/js/html5shiv.js"></script> <![endif]-->
 
-<link rel="stylesheet" type="text/css" href="">
-
-<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
-
-<script type="text/javascript" src=""></script>
-
 <script type="text/javascript">
 	(function() {
 
@@ -33,6 +27,32 @@
 </script>
 </head>
 <body>
-
+	<table class="table">
+				<tbody id="list">
+					<tr>
+						<td>번호</td>
+						<td>제목</td>
+						<td>작성일</td>
+						<td>작성자</td>
+					</tr>
+					<c:choose>
+						<c:when test="${not empty productFavList}" >
+							<c:forEach var="board" items="${productFavList}" varStatus="status">
+								<tr class="tac">
+									<td>${board.si_image}</td>
+									<td class="goDetail tal">${board.st_name}</td>
+									<td>${board.pi_image}</td>
+									<td class="name">${board.p_name}</td>
+								</tr>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<tr>
+								<td colspan="4" class="tac">등록된 게시물이 존재하지 않습니다.</td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
+				</tbody>
+			</table>
 </body>
 </html>

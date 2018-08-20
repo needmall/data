@@ -10,17 +10,12 @@ public class ProductallVO {
 	private String ps_expiration	= ""; 	// 상품 유통기한
 	private int ps_count			= 0; 	// 상품 갯수
 	private int ps_price			= 0;	// 상품 판매 가격
-	
-	@Override
-	public String toString() {
-		return "ProductallVO [판매상품 번호(ps_num) : " + ps_num + "\n편의점 이미지(si_image) : " + si_image + "\n편의점 상호명(st_name) : " + st_name + "\n상품 이미지 이름(pi_image) : "
-				+ pi_image + "\n상품 이름(p_name) : " + p_name + "\n상품 가격(p_price) : " + p_price + "\n상품 유통기한(ps_expiration) : " + ps_expiration
-				+ "\n상품 갯수(ps_count) : " + ps_count + "\n상품 판매 가격(ps_price) : " + ps_price + "]";
-	}
+	private double c_lat 			= 0.0;	// 위도
+	private double c_lon 			= 0.0;	// 경도
 	
 	public ProductallVO() {}
 	public ProductallVO(int ps_num, String si_image, String st_name, String pi_image, String p_name, int p_price,
-			String ps_expiration, int ps_count, int ps_price) {
+			String ps_expiration, int ps_count, int ps_price, double c_lat, double c_lon) {
 		super();
 		this.ps_num = ps_num;
 		this.si_image = si_image;
@@ -31,8 +26,9 @@ public class ProductallVO {
 		this.ps_expiration = ps_expiration;
 		this.ps_count = ps_count;
 		this.ps_price = ps_price;
+		this.c_lat = c_lat;
+		this.c_lon = c_lon;
 	}
-	
 	public int getPs_num() {
 		return ps_num;
 	}
@@ -87,9 +83,24 @@ public class ProductallVO {
 	public void setPs_price(int ps_price) {
 		this.ps_price = ps_price;
 	}
-	
-	
-	
+	public double getC_lat() {
+		return c_lat;
+	}
+	public void setC_lat(double c_lat) {
+		this.c_lat = c_lat;
+	}
+	public double getC_lon() {
+		return c_lon;
+	}
+	public void setC_lon(double c_lon) {
+		this.c_lon = c_lon;
+	}
+	@Override
+	public String toString() {
+		return "ProductallVO [판매상품 번호(ps_num) : " + ps_num + "\n편의점 이미지(si_image) : " + si_image + "\n편의점 상호명(st_name) : " + st_name + "\n상품 이미지 이름(pi_image) : "
+				+ pi_image + "\n상품 이름(p_name) : " + p_name + "\n상품 가격(p_price) : " + p_price + "\n상품 유통기한(ps_expiration) : " + ps_expiration
+				+ "\n상품 갯수(ps_count) : " + ps_count + "\n상품 판매 가격(ps_price) : " + ps_price + "\n위도(c_lat) : "+ c_lat + "\n경도(c_lon) : " + c_lon  + "]";
+	}
 	
 }
 
