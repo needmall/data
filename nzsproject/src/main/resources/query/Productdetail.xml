@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.needmall.client.productdetail.dao/ProductdetailDao">
-	<select id="productdetailmain" parameterType="productdetail" resultType="productdetail">
-<!-- 		select pi_image,p_name,p_price,p_content,P_DIVISION,ps_regdate,ps_expiration,ps_count,ps_price,ps_state,ps_update -->
-<!-- 		from proimage  -->
-<!-- 		inner join product on proimage.pi_num = product.pi_num -->
-<!-- 		inner join productsell on product.p_num = productsell.p_num; -->
+<mapper namespace="com.needmall.client.productdetail.dao.ProductdetailDao">
+	<select id="productdetailmain" resultType="productdetail">
+		select pi_image,p_name,p_price,p_content,ps_regdate,ps_expiration
+		,ps_count,ps_price,ps_state,ps_update,c1_name,c2_name,p_division
+		
+		from proimage 
+		inner join product on proimage.pi_num = product.pi_num
+		inner join productsell on product.p_num = productsell.p_num
+		inner join category2dep on product.c2_num = category2dep.c2_num
+		inner join category1dep on category1dep.c1_num = category2dep.c1_num
+		 
+		WHERE productsell.ps_num =1 
 	</select>
 </mapper>

@@ -27,14 +27,27 @@
 		<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+		<script type="text/javascript">
+// 			var intervals = ${detail.ps_regdate}
+// 			function timer() {
+// 			    $("#countdown").val(intervals);
+// 			    setTimeout(timer, 10); // 0.01초
+// 			    intervals--;
+// 			    if(intervals >= 0) {
+// 			      //아웃
+// 			    }
+// 			}
+// 			setTimeout(timer, 10);
+		</script>
+		
 		<style>
-			ul{width:650px;height:30px;list-style:none;padding-top:15px}
-			ul li{float:left;margin-right:10px;font-family:dotum; text-align: left;}
+			.ul-{width:650px; height:5px; list-style:none;padding-top:15px}
+			.ul- li{float:left;margin-right:10px;font-family:dotum; text-align: left;}
 			.all{width: 960px;margin: auto; text-align: center;}
 			.middle_left{width: 25%; margin: 5%}
 			.middle_light{width: 55%; margin: 5%}  
 			.middle{float:left;margin-right:10px;font-family:dotum;border: 1px solid black;}
-			h3{text-align: left;}
+			.h3-{text-align: left;}
 			.center{border: 1px solid black;}
 		</style> 
    </head>
@@ -42,14 +55,14 @@
 
 	<div class="all">
 		<div>
-			<ul>
+			<ul class="ul-">
 				<li class="middle"><a href="#">상위 카테고리 1</a></li>
 				<li class="middle"><a href="#">상위 카테고리 2</a></li>
 				<li class="middle"><a href="#">상위 카테고리 3</a></li>
 			</ul>
 		</div>
 		<div class="center" >
-			<ul>
+			<ul class="ul-">
 				<li class="middle">
 					<select>
 						<option>1</option>
@@ -67,48 +80,41 @@
 				</li>
 			</ul>
 		</div>
-		<h3>~ 편의점</h3> 
+		<h3 class="h3-">${detail.p_division }</h3> 
 		<div>
 		  	<div class="middle_left middle">
-		  		이미지 넣을거
+		  		<img src="/uploadStorage/product/${detail.pi_image}" width="100%" height="100%"/>
 		  	</div>
 		  	<div class="middle_light middle">
 		  		<table>
 		  			<tr>
-		  				<td>쇼킹딜 (시간)</td>
+		  				<td>쇼킹딜 (<span id="countdown"></span>)</td>
 		  			</tr>
 		  			<tr><td colspan="2"><hr></td></tr>
 		  			<tr>
 		  				<td>소비자 가격</td>
-		  				<td>	:00,000원</td>
+		  				<td>	:${detail.ps_price }원</td>
 		  			</tr>
 		  			<tr>
 		  				<td>판매가격</td>
-		  				<td>	:00,000원</td>
+		  				<td>	:${detail.p_price }원</td>
 		  			</tr>
 		  			<tr>
 		  				<td>제조사</td>
-		  				<td>	: cu</td>
+		  				<td>	:${detail.p_division}</td>
 		  			</tr>
 		  			
 		  			<tr>
 		  				<td>상품 설명	</td>
-		  				<td>:<textarea>숄라 숄라 김숄라</textarea>
+		  				<td>:${detail.p_content }</td>
 		  			</tr>
 		  			<tr>
 		  				<td>남은 재고</td>
-		  				<td>
-		  				:
-		  					<select>
-		  						<option>1</option>
-		  						<option>2</option>
-		<!--   						반복해줘야함 -->
-		  					</select>
-		  				</td>
+		  				<td>:<input type="number" min="1" max="${detail.ps_count }" value="1"> </td>
 		  			</tr>
 		  			<tr>
 		  				<td>
-		  					할인율 ?%
+		  					할인율 ${detail.discount }%
 		  				</td>
 		  				<td>
 		  					교환 환불 불가
@@ -122,7 +128,8 @@
 		  	</div>
 	  	</div>
 	  	<div>
-			<ul>
+	  	
+			<ul class="ul-">
 				<li><a href="#">상품</a></li>
 				<li><a href="#">상품 리뷰</a></li>
 				<li><a href="#">서비스 리뷰</a></li>

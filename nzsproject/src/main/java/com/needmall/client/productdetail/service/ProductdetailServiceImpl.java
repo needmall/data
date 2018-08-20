@@ -14,7 +14,9 @@ public class ProductdetailServiceImpl implements ProductdetailService {
 	@Override
 	public ProductdetailVO productdetailmain(ProductdetailVO dvo) {
 		// TODO Auto-generated method stub
-		return productdetailDao.productdetailmain(dvo);
+		ProductdetailVO detail = productdetailDao.productdetailmain(dvo);
+				
+		return detail;
 	}
 
 }

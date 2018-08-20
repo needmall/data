@@ -15,7 +15,7 @@ public class ProductdetailDaoImpl implements ProductdetailDao {
 	@Override
 	public ProductdetailVO productdetailmain(ProductdetailVO dvo) {
 		// TODO Auto-generated method stub
-		return session.selectOne("productdetailmain", dvo);
+		return (ProductdetailVO)session.selectOne("productdetailmain");
 	}
 
 }
