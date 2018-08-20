@@ -20,6 +20,16 @@
 <!-- IE8이하 브라우저에서 HTML5를 인식하기 위해서는 아래의 패스 필터를 적용하면 된다. -->
 <!-- [if lt IE 9]> <script src="/resources/include/js/html5shiv.js"></script> <![endif]-->
 
+
+<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/resources/include/css/board.css">
+<link rel="stylesheet" type="text/css" href="/resources/include/css/common.css">
+
+<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
+
+<script type="text/javascript" src="/resources/include/jquery/common.js"></script>
+
 <script type="text/javascript">
 	(function() {
 
@@ -27,7 +37,7 @@
 </script>
 </head>
 <body>
-	<table class="table">
+	<%-- <table class="table">
 				<tbody id="list">
 					<tr>
 						<td>번호 </td>
@@ -53,6 +63,6 @@
 						</c:otherwise>
 					</c:choose>
 				</tbody>
-			</table>
+			</table> --%>
 </body>
 </html>
