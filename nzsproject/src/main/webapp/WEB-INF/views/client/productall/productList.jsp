@@ -42,24 +42,24 @@
 			<li>
 				<div class="prod_main_info">
 					<div>
-					
+						<img alt="" src=""><p>CU 왕십리 도선점</p>
 					</div>
 					<div>
-					
+						<img alt="" src="">
 					</div>
 					<div>
-					
+						<p>도)의성마늘떡갈비정식</p>
+						<p>유통기한 18.08.10 20시</p>
 					</div>
 					<div>
-					
+						<p>남은 수량 2 개</p>
 					</div>
 					<div>
-					
+						<p></p><p>4,500원
+						   2,250원</p>
 					</div>
 				</div>
 			</li>
-			
-			
 		</ul>
 	</div>
 
