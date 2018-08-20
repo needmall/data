@@ -57,7 +57,7 @@
 			};
 			var selectedMarker = null;  //선택된 마커
 
-			var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
+			var map = new daum.maps.Map(container, options); //지도 생성 및   객체 리턴
 
 			// 주소-좌표 변환 객체를 생성합니다
 			var geocoder = new daum.maps.services.Geocoder();
