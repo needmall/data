@@ -11,8 +11,8 @@ public class StoreVO {
 	private String st_hours="";
 	private String st_cell="";
 	private String st_ceo="";
-	private int st_lat=0;
-	private int st_lon=0;
+	private Double st_lat=0.0;
+	private Double st_lon=0.0;
 	private Date st_date;
 	
 	public int getSt_num() {
@@ -63,16 +63,17 @@ public class StoreVO {
 	public void setSt_ceo(String st_ceo) {
 		this.st_ceo = st_ceo;
 	}
-	public int getSt_lat() {
+		
+	public Double getSt_lat() {
 		return st_lat;
 	}
-	public void setSt_lat(int st_lat) {
+	public void setSt_lat(Double st_lat) {
 		this.st_lat = st_lat;
 	}
-	public int getSt_lon() {
+	public Double getSt_lon() {
 		return st_lon;
 	}
-	public void setSt_lon(int st_lon) {
+	public void setSt_lon(Double st_lon) {
 		this.st_lon = st_lon;
 	}
 	public Date getSt_date() {

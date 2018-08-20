@@ -9,5 +9,6 @@
 		<typeAlias type="com.needmall.client.productdetail.vo.ProductdetailVO" alias="productdetail"/>
 		<typeAlias type="com.needmall.client.storeall.vo.StoreallVO" alias="storeall"/>
 		<typeAlias type="com.needmall.client.productall.vo.ProductallVO" alias="productall"/>
+		<typeAlias type="com.needmall.common.vo.CustomerVO" alias="customer"/>
 	</typeAliases>
 </configuration>

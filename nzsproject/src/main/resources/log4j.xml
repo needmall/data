@@ -15,10 +15,10 @@
 		<level value="info" />
 	</logger>
 	
-	<!-- 이외의 경로 추가 : com.needmall.admin이나  그 하위의 dao 폴더 설정(dao는 level value="trace" 로
-	<logger name="com.needmall.client">
-		<level value="info" />
-	</logger>-->
+	<!-- 이외의 경로 추가 : com.needmall.admin이나  그 하위의 dao 폴더 설정(dao는 level value="trace" 로 -->
+	<logger name="com.needmall.client.storeall.dao">
+		<level value="trace" />
+	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
