@@ -1,5 +1,7 @@
 package com.needmall.client.productdetail.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,6 +18,12 @@ public class ProductdetailDaoImpl implements ProductdetailDao {
 	public ProductdetailVO productdetailmain(ProductdetailVO dvo) {
 		// TODO Auto-generated method stub
 		return (ProductdetailVO)session.selectOne("productdetailmain");
+	}
+
+	@Override
+	public List<ProductdetailVO> productdetailSub(ProductdetailVO dvo) {
+		// TODO Auto-generated method stub
+		return session.selectList("productdetailSub", dvo);
 	}
 
 }

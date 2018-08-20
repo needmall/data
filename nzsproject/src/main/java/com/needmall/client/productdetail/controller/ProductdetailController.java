@@ -1,5 +1,7 @@
 package com.needmall.client.productdetail.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,8 +33,13 @@ public class ProductdetailController {
 		
 	}
 	
-	public String productdetailSub(ProductdetailVO dvo) {
-		return null;
+	@RequestMapping(value="/productdetailSub.do")
+	public String productdetailSub(ProductdetailVO dvo, Model model) {
+		logger.info("productdetailSub 호출");
+		List<ProductdetailVO> category = productdetailService.productdetailSub(dvo);
+		model.addAttribute("category",category);
+		logger.info(category.toString());
+		return "Redirect:productdetail/productdetailmain";
 		
 	}
 	
