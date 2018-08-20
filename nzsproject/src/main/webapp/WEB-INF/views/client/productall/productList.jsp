@@ -30,7 +30,7 @@
 	<table class="table">
 				<tbody id="list">
 					<tr>
-						<td>번호</td>
+						<td>번호 </td>
 						<td>제목</td>
 						<td>작성일</td>
 						<td>작성자</td>
