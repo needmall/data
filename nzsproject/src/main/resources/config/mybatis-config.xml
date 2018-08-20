@@ -10,5 +10,7 @@
 		<typeAlias type="com.needmall.client.storeall.vo.StoreallVO" alias="storeall"/>
 		<typeAlias type="com.needmall.client.productall.vo.ProductallVO" alias="productall"/>
 		<typeAlias type="com.needmall.common.vo.CustomerVO" alias="customer"/>
+		<typeAlias type="com.needmall.client.member.vo.MemberVO" alias="member" />
+      	<typeAlias type="com.needmall.client.member.vo.MemberSecurity" alias="security" />
 	</typeAliases>
 </configuration>
