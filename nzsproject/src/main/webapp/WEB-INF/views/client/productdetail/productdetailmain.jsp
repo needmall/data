@@ -19,6 +19,7 @@
          <!-- [endif] -->
          <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
          <script type="text/javascript" src="/resources/include/js/common.js"></script>
+         <script type="text/javascript" src="/resources/include/js/jquery.zoomooz.min.js"></script>
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 		<!-- 부가적인 테마 -->
@@ -28,30 +29,22 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 		<script type="text/javascript">
-// 			var intervals = ${detail.ps_regdate}
-// 			function timer() {
-// 			    $("#countdown").val(intervals);
-// 			    setTimeout(timer, 10); // 0.01초
-// 			    intervals--;
-// 			    if(intervals >= 0) {
-// 			      //아웃
-// 			    }
-// 			}
-// 			setTimeout(timer, 10);
+
 		</script>
-		
 		<style>
-			.ul-{width:650px; height:5px; list-style:none;padding-top:15px}
+			.ul-{width:650px; list-style:none;padding-top:15px}
 			.ul- li{float:left;margin-right:10px;font-family:dotum; text-align: left;}
-			.all{width: 960px;margin: auto; text-align: center;}
+			.all{width: 1024px;margin: auto; text-align: center;}
 			.middle_left{width: 25%; margin: 5%}
 			.middle_light{width: 55%; margin: 5%}  
 			.middle{float:left;margin-right:10px;font-family:dotum;border: 1px solid black;}
-			.h3-{text-align: left;}
-			.center{border: 1px solid black;}
+			.h3-{text-align: left; }
+/* 			.center{border: 1px solid black;} */
+			.table-main tr td{text-align: left;}
+			
 		</style> 
    </head>
-   <body>
+   <body  class="zoomContainer">
 
 	<div class="all">
 		<div>
@@ -80,13 +73,13 @@
 				</li>
 			</ul>
 		</div>
-		<h3 class="h3-">${detail.p_division }</h3> 
+		<div><h3 class="h3-">${detail.p_division }</h3></div>
 		<div>
-		  	<div class="middle_left middle">
+		  	<div class="middle_left middle zoomTarget level1">
 		  		<img src="/uploadStorage/product/${detail.pi_image}" width="100%" height="100%"/>
 		  	</div>
 		  	<div class="middle_light middle">
-		  		<table>
+		  		<table class="table-main">
 		  			<tr>
 		  				<td>쇼킹딜 (<span id="countdown"></span>)</td>
 		  			</tr>

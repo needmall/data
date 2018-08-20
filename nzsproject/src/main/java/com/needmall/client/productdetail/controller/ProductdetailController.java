@@ -31,4 +31,9 @@ public class ProductdetailController {
 		
 	}
 	
+	public String productdetailSub(ProductdetailVO dvo) {
+		return null;
+		
+	}
+	
 }
