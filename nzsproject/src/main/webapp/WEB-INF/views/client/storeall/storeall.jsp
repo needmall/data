@@ -12,31 +12,71 @@
       <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b262aa5fd1eb6fa9c51a3235fa41046a&libraries=services,clusterer"></script> -->
 
 <style type="text/css">
-	.img{
-		width: 50px;
+	*{
+		margin: 0px;
 	}
+	
+	#mainDiv{
+		width : 1150px;
+		height: 700px;
+		border : 1px solid gray;
+		float: left;
+	}
+	.storeListDiv{
+		margin-left : -100px; 
+		width : 450px;
+		height : 700px;
+		display: inline-block;		
+	}
+	#map{
+		width: 700px; 
+		height: 700px;
+		float: left;
+		display: inline-block;
+	}
+	.listDiv{
+		border : 1px solid gray;
+		height:100px; 
+		width: 400px;		
+	}
+	.listLi{
+		list-style: none;
+	}
+	.imgDiv{
+	}
+	.img{
+		vertical-align: middle;		
+		width: 80px;
+		display: inline-block;
+	}
+	.text{
+		width : 320px;
+		border : 1px solid red;
+		text-align: center;
+		display: inline-block;
+	}
+	
+	
 </style>
+
+
 <!-- 당신의 위치 -->
 <div>
+	<span id="yourlocation"></span>
+	<span id="nolocation"></span>
 	<input type="text" id="address" name="address" ><input type="button" id="search" value="검색">
 </div>
-<div>
-	<h3 id="yourlocation"></h3>
-	<h3 id="nolocation"></h3>
-</div>
+<div id="mainDiv">
 <!--  목록 영역   -->
 <div id="storeListDiv">
 	<ul id="storeList">
 	</ul>
 </div>
-
-	
+<!-- 지도 영역 -->
+<div id="map" ></div>
+</div>	
 <input type="hidden" name="c_lat" id="c_lat">
 <input type="hidden" name="c_lon" id="c_lon"> 
-
-<!-- 지도 영역 -->
-<div id="map" style="width: 500px; height: 400px;"></div>
-
 
 <script type="text/javascript">
 		// 맵 변수
@@ -205,9 +245,7 @@
 		}); // 최상위 마지막
 		
 		// 해당 위도경도 위치로 이동
-		function panTo(st_lat, st_lon) {
-			console.log(st_lat);
-			console.log(st_lon);				
+		function panTo(st_lat, st_lon) {					
 			
 			// 이동할 위도 경도 위치를 생성합니다 
 			var moveLatLon = new daum.maps.LatLng(st_lat, st_lon);
@@ -222,7 +260,8 @@
 					
 			// 새로운 글이 추가될 li태그 객체
 			var new_li =$("<li>");
-			new_li.attr("data-st_num",st_num);		
+			new_li.attr("data-st_num",st_num);
+			new_li.addClass("listLi");
 			
 			// 클릭하기 위한 a태그
 			var new_a = $("<a>");
@@ -231,6 +270,11 @@
 			
 			// 전체 div
 			var new_div = $("<div>");
+			new_div.addClass("listDiv");
+			
+			// img Div
+			var img_div =$("<div>");
+			img_div.addClass("imgDiv");
 			
 			// img 생성
 			var img = $("<img>");
@@ -239,20 +283,24 @@
 			
 			// 내용 div
 			var condiv = $("<div>");
+			condiv.addClass("text");
 			
 			// 상호 <p>
 			var name = $("<p>");
 			name.html(st_name);
+			
 			// 주소 <p>
 			var address = $("<p>");
 			address.html(st_address);
+			
 			// 거리 <p>
 			var m = $("<p>");
 			m.html("거리 :"+ distance + "m");
 				
 			//조립하기
 			condiv.append(name).append(address).append(m);
-			new_div.append(img).append(condiv);
+			img_div.append(img);
+			new_div.append(img_div).append(condiv);
 			new_a.append(new_div);
 			new_li.append(new_a);		
 			$("#storeList").append(new_li);
