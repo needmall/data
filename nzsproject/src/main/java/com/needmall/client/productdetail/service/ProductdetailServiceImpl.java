@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.needmall.client.productdetail.dao.ProductdetailDao;
+import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.ProductdetailVO;
 import com.needmall.common.vo.StoreVO;
 
@@ -32,7 +33,13 @@ public class ProductdetailServiceImpl implements ProductdetailService {
 	@Override
 	public StoreVO productdetailStore(ProductdetailVO dvo) {
 		// TODO Auto-generated method stub
-		return productdetailDao.productdetailStore(dvo);
+		StoreVO store = productdetailDao.productdetailStore(dvo);
+		return store;
+	}
+	@Override
+	public List<PreviewVO> productdetailPreviewlist(ProductdetailVO dvo) {
+		// TODO Auto-generated method stub
+		return productdetailDao.productdetailPreviewlist(dvo);
 	}
 }
 

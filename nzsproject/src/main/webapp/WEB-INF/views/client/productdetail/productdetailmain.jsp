@@ -17,6 +17,7 @@
          <!-- [if lt IE 9] -->
          <!-- <script src="/resources/js/html5shiv.js"</script> -->
          <!-- [endif] -->
+         
          <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
          <script type="text/javascript" src="/resources/include/js/common.js"></script>
          <script type="text/javascript" src="/resources/include/js/jquery.zoomooz.min.js"></script>
@@ -29,51 +30,88 @@
 		
 		<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		
 
 		<script type="text/javascript">
 			$(function() {
-				$("#item").click(function() {
-					submenu();
-				})
-				
+				$( "ul li" ).click(function() {
+					if($(this).index()==0){
+						itemReview();
+					}else if($(this).index()==1){
+						
+					}else if($(this).index()==2){
+						
+					}else if($(this).index()==3){
+						sellInformation();
+					}
+		       })
+               	$(".accordion_banner .accordion_title").click(function() {
+	            if($(this).next("div").is(":visible")){
+	            $(this).next("div").slideUp("fast");
+	            } else {
+	                $(".accordion_banner .accordion_sub").slideUp("fast");
+	                $(this).next("div").slideToggle("fast");
+           	 	}
+        		});
 			})
-			
-			
-			function submenu() {
-     			$.ajax({
-     				url : "/productdetail/productdetailStore.do",
-     				type : "get",
-//      				data : "p_num="+$("#p_num").val(), 이거 나중에 받아오면 넣어야함
-     				dataType : "text",
-     				error : function(){
-     					alert('시스템 오류입니다. 관리자에게 문의하세요');
-     				},
-     				success : function(resultData){
-     					if(resultData==0){
-     						for (var i = 0; i < array.length; i++) {
-     							a = $("<tr>").append($("<td>").val("판매자"))
-     							a.append($("<td>").val("정보 넣을거임"))
-     						}
-     						$("#submenu").append(a);
-     					}else{
-     						alert("정보 넣는 곳 에서 오류 납니다.");
-     						return;
-     					}
-     				}
-     			});
-     			
-
+			  
+			function itemReview(){
+				$("#contentTB").html("");  
+				$.getJSON("/productdetail/productdetailPreviewlist.do", function(data){
+					var accordion_banner = $("<div>");
+					accordion_banner.addClass("accordion_banner");
+					var accordion_title = $("<div>");
+					accordion_title.addClass("accordion_title");
+					var accordion_sub = $("<div>");
+					accordion_sub.addClass("accordion_sub");
+					
+// 					for()
+					accordion_title.val("");
+					accordion_sub.val("")
+					accordion_banner.append(accordion_title).append(accordion_sub);
+					$("#contentTB").append(accordion_banner);
+					//
+				})
 			}
+			function sellInformation() {
+				$("#contentTB").html("");  
+				//ps_num -> 받아오면 바꿔야함 ---------------------------------------
+     			$.getJSON("/productdetail/productdetailStore.do", function(data){
+//      				console.log(data.s_num);
+					var div =$("<div>")
+					div.addClass("contentTB");
+					var table =$("<table>");
+					var colgroup=$("<colgroup width='100%'><col width='20%'><col width='40%'></colgroup>");
+     				var tr=$("<tr>"); 
+					var title_td =$("<td>");
+					var content_td =$("<td>").val();
+					table.html(
+							"<tr><td>판매점 이름<td><td>"+data.st_name+"<td></tr>"
+							+"<tr><td>판매점 주소<td><td>"+data.st_address+"<td></tr>"
+							+"<tr><td>판매점 이메일<td><td>"+data.st_email+"<td></tr>"
+							+"<tr><td>고객문의 대표번호<td><td>"+data.st_bnum+"<td></tr>"
+							+"<tr><td>판매자명  <td><td>"+data.st_ceo+"<td></tr>"
+					);
+					div.append(table.append(colgroup));
+     				$("#contentTB").append(div);
+     			})
+			}
+			
 
 		</script>
 		<style>
 			.all{height: 3000px;}
 			.contentTB{width: 100%}
+			.accordion_sub { display: none; } /* 아코디언꺼 */
 		</style> 
    </head>
    
    <body  class="zoomContainer">
 
+	<input type="hidden" id="p_num" name="p_num">
+	<input type="hidden" id="ps_num" name="ps_num">
+	<input type="hidden" id="s_num" name="s_num">
+	
 	<div class="all">
 		<div>
 		<!--//////////////////////////////////////////////////////////////////////////  -->
@@ -173,25 +211,21 @@
 	  	</div>
 	  	<div>
 			<ul class="ul-">
-				<li><a href="#">상품</a></li>
-				<li><a href="#">상품 리뷰</a></li>
-				<li><a href="#">서비스 리뷰</a></li>
-				<li><a href="#">Q&A</a></li>
-				<li><a href="#">판매자 정보</a></li>
+				<li><a>상품 리뷰</a></li>
+				<li><a>서비스 리뷰</a></li>
+				<li><a>Q&A</a></li>
+				<li><a>판매자 정보</a></li>
 			</ul>
 		</div>
 		<div class="sub-menu">
-			<div class="contentTB" style="background: black;">
-			<table>
-				<tbody id="submenu">
-					<colgroup width="100%">
-						<col width="20%">
-						<col width="70%">  
-					</colgroup> 
+			<div class="contentTB" id="contentTB">
 
-				</tbody>
-			</table>
-		</div>
+			</div>
+
+<!-- 			///////////////////////////////////////////////////// -->
+
+
+
 		</div>
   	</div>
    </body>

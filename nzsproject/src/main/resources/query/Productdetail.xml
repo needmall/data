@@ -25,7 +25,7 @@
 		    category1dep on category2dep.c1_NUM(+) = category1dep.C1_NUM
 	</select>
 	
-	<select id="productdetailStore" resultType="customer">
+	<select id="productdetailStore" resultType="store">
 		SELECT
 		    st_num,
 		    s_num,
@@ -44,5 +44,17 @@
 		    store
 		WHERE
 			s_num =1
+	</select>
+	<select id="productdetailPreviewlist" resultType="Preview">
+		SELECT
+		    prv_num,
+		    c_num,
+		    p_num,
+		    prv_date,
+		    prv_image,
+		    prv_content,
+		    prv_scope
+		FROM
+		    preview
 	</select>
 </mapper>

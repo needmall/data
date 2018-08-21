@@ -15,6 +15,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.client.productall.controller.ProductallController;
 import com.needmall.client.productdetail.service.ProductdetailService;
+import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.ProductdetailVO;
 import com.needmall.common.vo.StoreVO;
 
@@ -35,7 +36,8 @@ public class ProductdetailController {
 //		Map<String, String> category = productdetailService.productdetailSub(dvo);
 		List<ProductdetailVO> category = productdetailService.productdetailSub(dvo);
 		List<ProductdetailVO> category2 = productdetailService.productdetailSub(dvo);
-
+		
+		logger.info("logger.info(detail)" +detail);
 		
 		model.addAttribute("category",category);
 		model.addAttribute("category2",category2);
@@ -45,22 +47,42 @@ public class ProductdetailController {
 		
 	}
 	
-//	@ResponseBody
-//	@RequestMapping(value="/productdetailStore.do",method= RequestMethod.GET,produces="text/plain; charset=UTF-8")
-//	public String productdetailStore(ProductdetailVO dvo, ObjectMapper mapper) {
-//		String value="";
-//		StoreVO store = new StoreVO();
-//		store =productdetailService.productdetailStore(dvo);
-//		try {
-//			value = mapper.writeValueAsString(store);
-//		}catch (JsonProcessingException e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}
-//		logger.info(store.toString());
-//		return value;
-//		
-//	}
+	@ResponseBody
+	@RequestMapping(value="/productdetailStore.do")
+	public String productdetailStore(ProductdetailVO dvo, ObjectMapper mapper) {
+		logger.info("productdetailStore 호출");
+		String value="";
+		StoreVO store = new StoreVO();
+		store =productdetailService.productdetailStore(dvo);
+//		logger.info("logger.info(store)" +store);
+		try {
+			value = mapper.writeValueAsString(store);
+		}catch (JsonProcessingException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+//		logger.info("logger.info(value)" +value);
+		return value;
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/productdetailPreviewlist.do")
+	public String productdetailPreviewlist(ProductdetailVO dvo, ObjectMapper mapper) {
+		logger.info("productdetailStore 호출");
+		String value="";
+		List<PreviewVO> pList = productdetailService.productdetailPreviewlist(dvo);
+//		logger.info("logger.info(store)" +store);
+		try {
+			value = mapper.writeValueAsString(pList);
+		}catch (JsonProcessingException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		logger.info("logger.info(value)" +value);
+		return value;
+		
+	}
 	
 	
 }
