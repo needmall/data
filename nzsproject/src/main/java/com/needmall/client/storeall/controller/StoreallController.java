@@ -8,7 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.client.storeall.service.StoreallService;
 import com.needmall.client.storeall.vo.StoreallVO;
 import com.needmall.common.vo.CustomerVO;
@@ -20,14 +24,36 @@ public class StoreallController {
 	
 	@Autowired
 	private StoreallService storeallService;
-		
+	
+	/**
+	 * storeall : 전체매장 화면 호출
+	 * @return
+	 */
 	@RequestMapping(value="/storeall.do", method=RequestMethod.GET)
-	public String storeall(CustomerVO cvo, StoreallVO svo, Model model ) {
-		logger.info("storeall 호출 성공");
-		
-		List<StoreallVO> storeList = storeallService.storeList(cvo);		
-		model.addAttribute("storeList", storeList);     
-		
+	public String storeall() {
+		logger.info("storeall 호출 성공");		
 		return "storeall/storeall";
+	}
+	
+	
+	/**
+	 * storelist : 스토어 리스트 반환
+	 * @param nowlat
+	 * @param nowlon
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/storelist.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
+	public String storelist(CustomerVO cvo, ObjectMapper mapper) {
+		logger.info("storelist 호출 성공");
+		String listData = "";
+		List<StoreallVO> list = storeallService.storeList(cvo);
+		try {
+			listData = mapper.writeValueAsString(list); // list의 객체를 listData에 jason형태로 담는다.
+		}catch(JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		return listData; // 문자열 반환
 	}
 }

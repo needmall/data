@@ -19,4 +19,5 @@ public class StoreallDaoImpl implements StoreallDao{
 	public List<StoreallVO> storeList(CustomerVO cvo) {		
 		return session.selectList("storeList", cvo);
 	}
+
 }

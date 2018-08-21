@@ -14,8 +14,8 @@ public class CustomerVO {
 	private String c_mail="";
 	private String c_cell="";
 	private Date c_date;
-	private int c_lat=0;
-	private int c_lon=0;
+	private Double c_lat=0.0;
+	private Double c_lon=0.0;
 	private Date c_update;
 	public int getC_num() {
 		return c_num;
@@ -83,16 +83,16 @@ public class CustomerVO {
 	public void setC_date(Date c_date) {
 		this.c_date = c_date;
 	}
-	public int getC_lat() {
+	public Double getC_lat() {
 		return c_lat;
 	}
-	public void setC_lat(int c_lat) {
+	public void setC_lat(Double c_lat) {
 		this.c_lat = c_lat;
 	}
-	public int getC_lon() {
+	public Double getC_lon() {
 		return c_lon;
 	}
-	public void setC_lon(int c_lon) {
+	public void setC_lon(Double c_lon) {
 		this.c_lon = c_lon;
 	}
 	public Date getC_update() {
