@@ -43,9 +43,9 @@
 			<input type="hidden" name="email" id="email" />
 			<input type="hidden" name="pinno" id="pinno" />
 			<div class="form-group form-group-sm">
-				<label for="userId" class="col-sm-2 control-label">사용자 ID</label>
+				<label for="c_id" class="col-sm-2 control-label">사용자 ID</label>
 				<div class="col-sm-3">
-					<input type="text" id="userId" name="userId"  maxlength="12" class="form-control" placeholder="User ID" />
+					<input type="text" id="c_id" name="c_id"  maxlength="12" class="form-control" placeholder="User ID" />
 				</div>
 				<div class="col-sm-2">
 					<input type="button" id="idConfirmBtn" value="아이디 중복체크" class="form-control btn-primary" />
@@ -55,27 +55,27 @@
 				</div>
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="userPw" class="col-sm-2 control-label">비밀 번호</label>
+				<label for="c_pwd" class="col-sm-2 control-label">비밀 번호</label>
 				<div class="col-sm-3">
-					<input type="password" id="userPw" name="userPw" maxlength="15" class="form-control" placeholder="Password" >
+					<input type="password" id="c_pwd" name="c_pwd" maxlength="15" class="form-control" placeholder="Password" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
 				</div>
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="userPwCheck" class="col-sm-2 control-label">비밀번호 확인</label>
+				<label for="c_pwdCheck" class="col-sm-2 control-label">비밀번호 확인</label>
 				<div class="col-sm-3">
-					<input type="password"  id="userPwCheck" name="userPwCheck" maxlength="15" class="form-control" placeholder="Password Confirm" >
+					<input type="password"  id="c_pwdCheck" name="c_pwdCheck" maxlength="15" class="form-control" placeholder="Password Confirm" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
 				</div>
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="userName" class="col-sm-2 control-label">회원이름</label>
+				<label for="c_name" class="col-sm-2 control-label">회원이름</label>
 				<div class="col-sm-3">
-					<input type="text" id="userName" name="userName" maxlength="10" class="form-control" placeholder="NAME" >
+					<input type="text" id="c_name" name="c_name" maxlength="10" class="form-control" placeholder="NAME" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -85,12 +85,12 @@
 			<!-- 성별(주민번호 뒷자리로 처리할지) -->
 			
 			<div class="form-group form-group-sm">
-				<label for="birth" class="col-sm-2 control-label">생년월일</label>
+				<label for="c_birthday" class="col-sm-2 control-label">생년월일</label>
 				<div class="col-sm-3">
-					<input type="text" id="birth" name="birth" maxlength="6" class="form-control" placeholder="주민등록번호 6자리">	
+					<input type="text" id="c_birthday" name="c_birthday" maxlength="6" class="form-control" placeholder="주민등록번호 6자리">	
 				</div>
 				<div class="col-sm-2">
-					<input type="text" id="gender" name="gender" maxlength="1" class="form-control" placeholder="주민등록번호 7번째 1자리">	
+					<input type="text" id="c_gender" name="c_gender" maxlength="1" class="form-control" placeholder="주민등록번호 7번째 1자리">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -100,18 +100,6 @@
 			<!-- 주소 -->
 			
 			<!-- 이메일 -->
-			
-			<div class="form-group form-group-sm">
-				<label for="phone" class="col-sm-2 control-label">핸드폰 번호</label>
-				<div class="col-sm-3">
-					<input type="text" id="phone" name="phone" maxlength="15" class="form-control" placeholder="Phone Number">	
-				</div>
-				<div class="col-sm-5">
-					<p class="form-control-static error"></p>
-				</div>
-			</div>	
-												
-			
 			<div class="form-group form-group-sm">
 				<label for="emailName" class="col-sm-2 control-label">회원 이메일</label>
 				<div class="col-sm-3">
@@ -128,6 +116,19 @@
 					<p class="form-control-static error"></p>
 				</div>
 			</div>
+			
+			<div class="form-group form-group-sm">
+				<label for="phone" class="col-sm-2 control-label">핸드폰 번호</label>
+				<div class="col-sm-3">
+					<input type="text" id="phone" name="phone" maxlength="15" class="form-control" placeholder="Phone Number">	
+				</div>
+				<div class="col-sm-5">
+					<p class="form-control-static error"></p>
+				</div>
+			</div>	
+												
+			
+			
 			<div class="form-group">	
 				<div class="col-sm-offset-2 col-sm-6">
 					<input type="button" value="확인" id="joinInsert" class="btn btn-default" /> 

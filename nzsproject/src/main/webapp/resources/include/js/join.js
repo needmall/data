@@ -1,3 +1,5 @@
+// join.js 도 2개 만들어야 하나여 아이디 다르니
+
 // 비밀번호와 비밀번호 확인 일치 여부 확인
 function passwordCheck(){
 	if($("#userPw").val() != $("#userPwCheck").val()){

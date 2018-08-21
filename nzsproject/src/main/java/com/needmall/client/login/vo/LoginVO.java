@@ -26,12 +26,28 @@ public class LoginVO extends LoginCheck {
 		this.s_id = s_id;
 	}
 
+	public String getS_pwd() {
+		return s_pwd;
+	}
+
+	public void setS_pwd(String s_pwd) {
+		this.s_pwd = s_pwd;
+	}
+
 	public String getC_id() {
 		return c_id;
 	}
 
 	public void setC_id(String c_id) {
 		this.c_id = c_id;
+	}
+
+	public String getC_pwd() {
+		return c_pwd;
+	}
+
+	public void setC_pwd(String c_pwd) {
+		this.c_pwd = c_pwd;
 	}
 
 	public String getS_name() {

@@ -16,7 +16,7 @@
           <!-- ★★ jQuery 쓰려면 무조건 정의 해줘야함! ↓↓↓ -->
 		  <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
           <script type="text/javascript" src="/resources/include/js/common.js"></script>
-          <script type="text/javascript" src="/resources/include/js/join.js"></script>
+          <!-- <script type="text/javascript" src="/resources/include/js/join.js"></script> -->
           
           <script type="text/javascript">
           	$(function(){
@@ -32,6 +32,6 @@
 <body>
 	<input type="button" id="customer" value="고객">
 	<input type="button" id="seller" value="판매자">
-	
+	<!-- client-setting.xml 안맞아서 404 및 500 떴었음 -->
 </body>
 </html>
