@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.needmall.client.productdetail.vo.ProductdetailVO;
+import com.needmall.common.vo.StoreVO;
 
 @Repository
 public class ProductdetailDaoImpl implements ProductdetailDao {
@@ -23,7 +24,14 @@ public class ProductdetailDaoImpl implements ProductdetailDao {
 	@Override
 	public List<ProductdetailVO> productdetailSub(ProductdetailVO dvo) {
 		// TODO Auto-generated method stub
+		
 		return session.selectList("productdetailSub", dvo);
+	}
+
+	@Override
+	public StoreVO productdetailStore(ProductdetailVO dvo) {
+		// TODO Auto-generated method stub
+		return (StoreVO)session.selectOne("productdetailStore");
 	}
 
 }
