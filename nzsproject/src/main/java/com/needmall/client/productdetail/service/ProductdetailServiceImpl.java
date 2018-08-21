@@ -23,6 +23,7 @@ public class ProductdetailServiceImpl implements ProductdetailService {
 	@Override
 	public List<ProductdetailVO> productdetailSub(ProductdetailVO dvo) {
 		// TODO Auto-generated method stub
+		
 		return productdetailDao.productdetailSub(dvo);
 	}
 

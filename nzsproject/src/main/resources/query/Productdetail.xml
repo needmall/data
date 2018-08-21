@@ -22,6 +22,6 @@
 		    category2dep.c1_num
 		FROM
 		    category2dep join
-		    category1dep on category2dep.c1_NUM(+) = category1dep.C1_NUM;
+		    category1dep on category2dep.c1_NUM(+) = category1dep.C1_NUM
 	</select>
 </mapper>
