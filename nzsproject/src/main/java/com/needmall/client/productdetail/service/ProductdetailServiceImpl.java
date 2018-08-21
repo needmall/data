@@ -1,5 +1,7 @@
 package com.needmall.client.productdetail.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,11 @@ public class ProductdetailServiceImpl implements ProductdetailService {
 		ProductdetailVO detail = productdetailDao.productdetailmain(dvo);
 				
 		return detail;
+	}
+	@Override
+	public List<ProductdetailVO> productdetailSub(ProductdetailVO dvo) {
+		// TODO Auto-generated method stub
+		return productdetailDao.productdetailSub(dvo);
 	}
 
 }

@@ -25,7 +25,7 @@ public class ProductdetailVO extends ProductsellVO {
 	
 	//CATEGORY1DEP
 	private int c2_num=0;		//카테고리 소분류 번호
-	private String c2_name;		//카테고리 소분류 이름
+	private String c2_name="";		//카테고리 소분류 이름
 	public int getPi_num() {
 		return pi_num;
 	}
