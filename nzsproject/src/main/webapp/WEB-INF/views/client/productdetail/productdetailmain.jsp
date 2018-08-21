@@ -36,7 +36,7 @@
                     dataType:"text"  //응답 받을 데이터 타입
                     
                 });
-                console.log(${category.c1_name})
+                
 			});
 
 		</script>
@@ -64,6 +64,7 @@
 		<!--//////////////////////////////////////////////////////////////////////////  -->
 			<nav id="topMenu" >
 				<ul>
+				
 <%-- 					<c:foreach items="${category}" var="categoryList" varStatus="status"> --%>
 <%-- 						<c:choose> --%>
 <%-- 							<c:when test="${status.first}"> --%>

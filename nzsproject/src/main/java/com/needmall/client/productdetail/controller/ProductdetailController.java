@@ -26,6 +26,9 @@ public class ProductdetailController {
 		logger.info("productdetailmain 호출");
 		ProductdetailVO detail = new ProductdetailVO();
 		detail =productdetailService.productdetailmain(dvo);
+		List<ProductdetailVO> category = productdetailService.productdetailSub(dvo);
+		
+		model.addAttribute("category",category);
 		model.addAttribute("detail",detail);
 		logger.info(detail.toString());
 	
@@ -33,14 +36,5 @@ public class ProductdetailController {
 		
 	}
 	
-	@RequestMapping(value="/productdetailSub.do")
-	public String productdetailSub(ProductdetailVO dvo, Model model) {
-		logger.info("productdetailSub 호출");
-		List<ProductdetailVO> category = productdetailService.productdetailSub(dvo);
-		model.addAttribute("category",category);
-		logger.info(category.toString());
-		return "Redirect:productdetail/productdetailmain";
-		
-	}
 	
 }
