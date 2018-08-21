@@ -35,7 +35,7 @@ public class ProductallController {
 			model.addAttribute("productFavList", productFavList);
 		}
 		
-		return "client/productall/productList";
+		return "client/productall/productList";   
 	}
 	
 	

@@ -29,15 +29,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 		<script type="text/javascript">
-			$(document).ready(function() { 
-                $.ajax({  //{}->제이슨 표기임.
-                    url:"/productdetail/productdetailSub.do",  //요청 url  //전송url
-                    type:"post",  //get/post  //전송시 메서드 방식
-                    dataType:"text"  //응답 받을 데이터 타입
-                    
-                });
-                
-			});
+
 
 		</script>
 		<style>
