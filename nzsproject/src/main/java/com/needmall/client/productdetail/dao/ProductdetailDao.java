@@ -11,12 +11,14 @@ public interface ProductdetailDao {
 
 	ProductdetailVO productdetailmain(ProductdetailVO dvo);
 
-	List<ProductdetailVO> productdetailSub(ProductdetailVO dvo);
-
 	StoreVO productdetailStore(ProductdetailVO dvo);
 
 	List<PreviewVO> productdetailPreviewlist(ProductdetailVO dvo);
 
 	List<SreviewVO> productdetailSreviewlist(ProductdetailVO dvo);
+
+	List<ProductdetailVO> productdetailcategory1List(ProductdetailVO dvo);
+
+	List<ProductdetailVO> productdetailcategory2List(ProductdetailVO dvo);
 
 }

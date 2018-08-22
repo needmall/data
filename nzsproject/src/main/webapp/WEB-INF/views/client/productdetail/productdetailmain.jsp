@@ -34,6 +34,8 @@
 
 		<script type="text/javascript">
 			$(function() {
+// 				category();
+
 				$( "ul li" ).click(function() {
 					if($(this).index()==0){
 // 						console.log($(this).index());
@@ -41,12 +43,11 @@
 					}else if($(this).index()==1){
 						sellerReview();
 					}else if($(this).index()==2){
-						
-					}else if($(this).index()==3){
 						sellInformation();
 					}
+					
 		       })
-		       
+		         
                	$(document).on("click",".accordion_banner > .accordion_title",function() {
 		            if($(this).next("div").is(":visible")){
 		           		$(this).next("div").slideUp("fast");
@@ -57,6 +58,36 @@
         		});
 			})
 			
+			
+			function category(){
+// 				<c:forEach items="${category1}" var="category">
+// // 				console.log("${category.c1_name}");
+
+// 					var div =$("<div>");
+// 					div.addClass("dropdown");
+// 					div.html("${category.c1_name}");
+					
+// 					var a =$("<a id='dLabel' data-target='#' data-toggle='dropdown' aria-haspopup='true' role='button' aria-expanded='false'>");
+// 					var buttun =$("<button id='dLabel' data-toggle='dropdown' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>");
+					
+// 					var span =$("<span>")
+// 					span.addClass("caret");
+					
+// 					var ul =$("<ul class='dropdown-menu' role='menu' aria-labelledby='dLabel'>");
+					
+// 					var li =$("<li>");
+// 					li.html("zzzzzzzzz")
+					
+// 					a.append(span);
+// 					ul.append(li);
+// 					div.append(buttun).append(ul);
+// 					$("#topMenu").append(div);
+// 				</c:forEach>
+				<c:forEach items="${category1}" var="category">
+					$("#dropdown-menu").append("<li>dsadasdas</li>");
+				</c:forEach>
+
+			}
 			function sellerReview(){
 				$("#contentTB").html("");  
 				$.getJSON("/productdetail/productdetailSreviewlist.do", function(data){
@@ -112,10 +143,10 @@
 			}
 			
 			function sellInformation() {
-				$("#contentTB").html("");  
+				$("#contentTB").html("");
 				//ps_num -> 받아오면 바꿔야함 ---------------------------------------
      			$.getJSON("/productdetail/productdetailStore.do", function(data){
-//      				console.log(data.s_num);
+     				console.log(data.s_num);
 					var div =$("<div>")
 					div.addClass("contentTB");
 					var table =$("<table>");
@@ -144,39 +175,30 @@
 		</style> 
    </head>
    
-   <body  class="zoomContainer">
+   <body >
 	<input type="hidden" id="p_num" name="p_num">
 	<input type="hidden" id="ps_num" name="ps_num">
 	<input type="hidden" id="s_num" name="s_num">
+	
+	<c:forEach items="${category1}" var="category1">
+		<div class="dropdown">
+	  		<button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	  		${category1.c1_name }
+	   			<span class="caret"></span>
+	  		</button>
+	  		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+<%-- 	  			<c:forEach items="${category2}" var="category2"> --%>
+<%-- 	<%-- 	  				<li>${category2.c2_name }</li>	 --%> --%>
+					
+<%-- 	  			</c:forEach> --%>
+	  			<li>dsadasdsa</li>
+	  		</ul>
+		</div>
+	</c:forEach>
 	<div class="all">
 		<div>
 		<!--//////////////////////////////////////////////////////////////////////////  -->
-			<nav id="topMenu" >
-				<ul>
-<%-- 					<c:if test="${not empty category }"> --%>
 
-<%-- 						<c:forEach var="category" items="${category }" varStatus="status"> --%>
-<%-- 							<c:set var="check" value="${category.c1_num }"></c:set> --%>
-<%-- 							<c:choose> --%>
-<%-- 								<c:when test="${status.first }"> --%>
-<!-- 									<li class="topMenuLi"> -->
-<%--  					                	<a class="menuLink" href="#">${category.getC1_name() }</a> --%>
-<%--  					                	<c:forEach var= "category2" items="${category2 }" varStatus="status2"> --%>
-<%-- 	 					                	<c:if test="${category.getC1_name()} eq ${category2.getC1_name()}"> --%>
-<!-- 		 					             		<ul class="submenu"> -->
-<%-- 								                    <li><a href="#">${category.getC2_name()  }</a></li> --%>
-<!-- 								                </ul> -->
-<%-- 								            </c:if> --%>
-<%-- 						                </c:forEach> --%>
-<!-- 						        	</li> -->
-<%-- 								</c:when> --%>
-
-<%-- 							</c:choose> --%>
-<%-- 						</c:forEach> --%>
-<%-- 					</c:if> --%>
-				</ul>
-			</nav>
-							
 	<!--//////////////////////////////////////////////////////////////////////////  -->
 		</div>
 		

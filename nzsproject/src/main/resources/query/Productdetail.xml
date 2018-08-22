@@ -13,16 +13,20 @@
 		 
 		WHERE productsell.ps_num =1 
 	</select>
-	<select id="productdetailSub" resultType="productdetail">
+	<select id="productdetailcategory1List" resultType="productdetail">
 		SELECT
-		    category1dep.c1_num,
-		    category1dep.c1_name,
-		    category2dep.c2_num,
-		    category2dep.c2_name,
-		    category2dep.c1_num
+		    c1_num,
+		    c1_name
 		FROM
-		    category2dep join
-		    category1dep on category2dep.c1_NUM(+) = category1dep.C1_NUM
+		    category1dep
+	</select>
+	<select id="productdetailcategory2List" resultType="productdetail">
+	    SELECT
+		    c2_num,
+		    c2_name,
+		    c1_num
+		FROM
+		    category2dep
 	</select>
 	
 	<select id="productdetailStore" resultType="store">

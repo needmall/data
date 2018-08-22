@@ -35,12 +35,13 @@ public class ProductdetailController {
 		ProductdetailVO detail = new ProductdetailVO();
 		detail =productdetailService.productdetailmain(dvo);
 //		Map<String, String> category = productdetailService.productdetailSub(dvo);
-		List<ProductdetailVO> category = productdetailService.productdetailSub(dvo);
-		List<ProductdetailVO> category2 = productdetailService.productdetailSub(dvo);
+		List<ProductdetailVO> category1 = productdetailService.productdetailcategory1List(dvo);
+		List<ProductdetailVO> category2 = productdetailService.productdetailcategory2List(dvo);
 		
-		logger.info("logger.info(detail)" +detail);
+		logger.info("logger.info(category)" +category1);
+		logger.info("logger.info(category)" +category2);
 		
-		model.addAttribute("category",category);
+		model.addAttribute("category1",category1);
 		model.addAttribute("category2",category2);
 		model.addAttribute("detail",detail);
 	
