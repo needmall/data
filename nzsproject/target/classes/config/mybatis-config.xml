@@ -15,5 +15,6 @@
 		<typeAlias type="com.needmall.common.vo.StoreVO" alias="store"/>
 		<typeAlias type="com.needmall.client.member.vo.MemberVO" alias="member"/>
       	<typeAlias type="com.needmall.client.member.vo.MemberSecurity" alias="security"/>
+      	<typeAlias type="com.needmall.common.vo.Category1depVO" alias="Category1dep"/>
 	</typeAliases>
 </configuration>
