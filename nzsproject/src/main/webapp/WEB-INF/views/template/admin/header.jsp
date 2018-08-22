@@ -9,7 +9,7 @@
 	    <span class="icon-bar"></span>
 	    <span class="icon-bar"></span>
 	  </button>
-	  <a class="navbar-brand" href="/resources/index.html">NZS project</a>
+	  <a class="navbar-brand" href="/resources/index.html">NZS 관리자 페이지</a>
 	</div>
 	<!-- 추후 필요 시 주석 해제 
 	<div id="navbar" class="navbar-collapse collapse">

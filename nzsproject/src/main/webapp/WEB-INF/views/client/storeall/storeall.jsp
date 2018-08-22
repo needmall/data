@@ -41,7 +41,7 @@
 		border :  1px solid gray;
 		height: 665px;
 		width: 450px;
-		overflow: scroll;
+		overflow-y: scroll;
 		float: left;
 	}
 	.text{
@@ -97,6 +97,13 @@
 <script type="text/javascript">
 		// 맵 변수
 		var map;
+	
+		// 선택된 마커를 담을 변수
+		var selectedmarker;		
+		
+		// 선택된 마커 이미지
+		var selectedmarkerImage;
+		
 		
 		$(function() {		
 			/* 지도를 띄우는 코드 */
@@ -120,15 +127,21 @@
 			var markers = [];
 			
 			//현위치 마커 이미지 만들기
-			var imageSrc = '/resources/images/imgmarker.png', // 마커이미지의 주소입니다    
-			imageSize = new daum.maps.Size(33, 43), // 마커이미지의 크기입니다
+			var imageSrc = '/resources/images/imgmarker0.png', // 마커이미지의 주소입니다    
+			imageSize = new daum.maps.Size(37, 50), // 마커이미지의 크기입니다
 			imageOption = {
-				offset : new daum.maps.Point(27, 69)
+				//offset : new daum.maps.Point(27, 69)
+				offset : new daum.maps.Point(17, 43)
 			}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
 			// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-			var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
-			
+			var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);			
+
+			// 선택된  마커 이미지 만들기
+			var selectedimageSrc = '/resources/images/imgmarker.png'; // 마커이미지의 주소입니다	
+			// 선택된 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+			selectedmarkerImage = new daum.maps.MarkerImage(selectedimageSrc, imageSize, imageOption); 
+		
 									
 			// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 			if (navigator.geolocation) {
@@ -231,7 +244,7 @@
 														
 							// 이미지 마커를 생성합니다
 							var marker = new daum.maps.Marker({
-								position :  new daum.maps.LatLng(lat, lon),
+								position :  new daum.maps.LatLng(lat, lon),								
 								title : '매장 검색 기준',
 								image : markerImage
 							});
@@ -300,7 +313,7 @@
 			
 			// 클릭하기 위한 a태그
 			var new_a = $("<a>");
-			new_a.attr("href","javascript:panTo("+st_lat+","+st_lon+")");
+			new_a.attr("href","javascript:selectList("+st_lat+","+st_lon+",'"+st_name+"')");
 			new_a.addClass("list-group-item");
 			
 			// 전체 div
@@ -342,6 +355,31 @@
 			
 		}
 		
+		// 목록 선택이 이동, 선택된 마커 오버레이
+		function selectList(st_lat, st_lon, st_name) {					
+			// 선택된 마커를 담을 변수 삭제하기
+			if(selectedmarker!=null)selectedmarker.setMap(null);
+				
+			
+			// 이미지 마커를 생성합니다
+			selectedmarker = new daum.maps.Marker({
+				position :  new daum.maps.LatLng(st_lat, st_lon),
+				title : st_name,
+				image : selectedmarkerImage
+			});
+			
+			
+			//  이미지 마커가 지도 위에 표시되도록 설정합니다
+			selectedmarker.setMap(map);
+		
+			// 이동할 위도 경도 위치를 생성합니다 
+			var moveLatLon = new daum.maps.LatLng(st_lat, st_lon);
+			
+			// 지도 중심을 부드럽게 이동시킵니다
+			// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+			map.panTo(moveLatLon);
+		}	
+		
 		// 맵의 가운데 위도 경도를 행정주소로 반환
 		function getAddress (result, status) {  
 			if (status === daum.maps.services.Status.OK) {
@@ -349,6 +387,7 @@
 				$("#yourlocation").val( nowlocation);
 			}
 		}; 	
+		
 		
 		/* // 지도 중심좌표를 접속위치로 변경합니다
 		map.setCenter(locPosition);	  */
