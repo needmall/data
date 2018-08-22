@@ -77,7 +77,7 @@ public class MemberController {
 	 ********************************************************************/
 	@RequestMapping(value="/join_customer.do", method = RequestMethod.POST)
 	public ModelAndView customerInsert(MemberVO mvo) {	// console창에 sever 구동할때 "{[/member/join.do],methods=[POST]}"
-		logger.info("join.do post 방식에 의한 메서드 호출 성공");
+		logger.info("join_customer.do post 방식에 의한 메서드 호출 성공");
 		ModelAndView mav = new ModelAndView();
 		
 		int result = 0;
@@ -86,15 +86,15 @@ public class MemberController {
 		switch(result) {
 		case 1:
 			mav.addObject("errCode", 1);	//userId already exist
-			mav.setViewName("member/join");
+			mav.setViewName("client/member/join_customer");	//client 넣어줘?
 			break;
 		case 3:
 			mav.addObject("errCode", 3);
-			mav.setViewName("member/join_success");	// success to add new member
+			mav.setViewName("client/member/join_success");	// success to add new member
 			break;
 		default:
 			mav.addObject("errCode", 2);
-			mav.setViewName("member/join");	// failed to add new member
+			mav.setViewName("client/member/join_customer");	// failed to add new member
 			break;
 		}
 		mvo.setCs_division(0);

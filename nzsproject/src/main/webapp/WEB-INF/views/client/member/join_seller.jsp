@@ -38,42 +38,42 @@
          <div class="contentContainer">
 	<div class="well">
 		<form id="memberForm" class="form-horizontal">
-			<input type="hidden" name="email" id="email" />
-			<input type="hidden" name="pinno" id="pinno" />
+			<input type="hidden" name="s_mail" id="s_mail" />
+			<input type="hidden" name="s_num" id="s_num" />
 			<div class="form-group form-group-sm">
-				<label for="userId" class="col-sm-2 control-label">사용자 ID</label>
+				<label for="s_id" class="col-sm-2 control-label">사용자 ID</label>
 				<div class="col-sm-3">
-					<input type="text" id="userId" name="userId"  maxlength="12" class="form-control" placeholder="User ID" />
+					<input type="text" id="s_id" name="s_id"  maxlength="12" class="form-control" placeholder="User ID" />
 				</div>
 				<div class="col-sm-2">
-					<input type="button" id="idConfirmBtn" value="아이디 중복체크" class="form-control btn-primary" />
+					<input type="button" id="sellerIdConfirmBtn" value="아이디 중복체크" class="form-control btn-primary" />
 				</div> 
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
 				</div>
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="userPw" class="col-sm-2 control-label">비밀 번호</label>
+				<label for="s_pwd" class="col-sm-2 control-label">비밀 번호</label>
 				<div class="col-sm-3">
-					<input type="password" id="userPw" name="userPw" maxlength="15" class="form-control" placeholder="Password" >
+					<input type="password" id="s_pwd" name="s_pwd" maxlength="15" class="form-control" placeholder="Password" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
 				</div>
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="userPwCheck" class="col-sm-2 control-label">비밀번호 확인</label>
+				<label for="s_pwdCheck" class="col-sm-2 control-label">비밀번호 확인</label>
 				<div class="col-sm-3">
-					<input type="password"  id="userPwCheck" name="userPwCheck" maxlength="15" class="form-control" placeholder="Password Confirm" >
+					<input type="password"  id="s_pwdCheck" name="s_pwdCheck" maxlength="15" class="form-control" placeholder="Password Confirm" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
 				</div>
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="phone" class="col-sm-2 control-label">핸드폰 번호</label>
+				<label for="s_cell" class="col-sm-2 control-label">핸드폰 번호</label>
 				<div class="col-sm-3">
-					<input type="text" id="phone" name="phone" maxlength="15" class="form-control" placeholder="Phone Number">	
+					<input type="text" id="s_cell" name="s_cell" maxlength="15" class="form-control" placeholder="s_cell Number">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -101,12 +101,12 @@
 				</div>						
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="emailName" class="col-sm-2 control-label">회원 이메일</label>
+				<label for="s_mailName" class="col-sm-2 control-label">회원 이메일</label>
 				<div class="col-sm-3">
-					<input type="text" id="emailName" name="emailName" maxlength="60" class="form-control" placeholder="EMAIL">
+					<input type="text" id="s_mailName" name="s_mailName" maxlength="60" class="form-control" placeholder="s_mail">
 				</div>
 				<div class="col-sm-2">
-					<select id="emailDomain" class="form-control">
+					<select id="s_mailDomain" class="form-control">
 						<option value="naver.com">네이버</option>
 						<option value="daum.net">다음</option>
 						<option value="nate.com">네이트</option>																	
