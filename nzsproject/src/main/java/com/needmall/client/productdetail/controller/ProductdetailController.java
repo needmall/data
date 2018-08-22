@@ -17,6 +17,7 @@ import com.needmall.client.productall.controller.ProductallController;
 import com.needmall.client.productdetail.service.ProductdetailService;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.ProductdetailVO;
+import com.needmall.client.productdetail.vo.SreviewVO;
 import com.needmall.common.vo.StoreVO;
 
 @Controller
@@ -79,10 +80,28 @@ public class ProductdetailController {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		logger.info("logger.info(value)" +value);
+//		logger.info("logger.info(value)" +value);
 		return value;
 		
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value="/productdetailSreviewlist.do")
+	public String productdetailSreviewlist(ProductdetailVO dvo, ObjectMapper mapper) {
+		logger.info("productdetailStore 호출");
+		String value="";
+		List<SreviewVO> pList = productdetailService.productdetailSreviewlist(dvo);
+//		logger.info("logger.info(store)" +store);
+		try {
+			value = mapper.writeValueAsString(pList);
+		}catch (JsonProcessingException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		logger.info("logger.info(value)" +value);
+		return value;
+		
+	}
 	
 }

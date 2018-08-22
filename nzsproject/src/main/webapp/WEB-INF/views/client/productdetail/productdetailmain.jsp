@@ -22,8 +22,8 @@
          <script type="text/javascript" src="/resources/include/js/common.js"></script>
          <script type="text/javascript" src="/resources/include/js/jquery.zoomooz.min.js"></script>
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- 		 <link rel="stylesheet" type="text/css" href="/resources/include/css/common.css" /> -->
-<!-- 		 <link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" /> -->
+		 <link rel="stylesheet" type="text/css" href="/resources/include/css/common.css" />
+		 <link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
 		 
 		<!-- 부가적인 테마 -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -36,43 +36,81 @@
 			$(function() {
 				$( "ul li" ).click(function() {
 					if($(this).index()==0){
+// 						console.log($(this).index());
 						itemReview();
 					}else if($(this).index()==1){
-						
+						sellerReview();
 					}else if($(this).index()==2){
 						
 					}else if($(this).index()==3){
 						sellInformation();
 					}
 		       })
-               	$(".accordion_banner .accordion_title").click(function() {
-	            if($(this).next("div").is(":visible")){
-	            $(this).next("div").slideUp("fast");
-	            } else {
-	                $(".accordion_banner .accordion_sub").slideUp("fast");
-	                $(this).next("div").slideToggle("fast");
-           	 	}
+		       
+               	$(document).on("click",".accordion_banner > .accordion_title",function() {
+		            if($(this).next("div").is(":visible")){
+		           		$(this).next("div").slideUp("fast");
+		            } else {
+		                $(".accordion_banner .accordion_sub").slideUp("fast");
+		                $(this).next("div").slideToggle("fast");
+	           	 	}
         		});
 			})
+			
+			function sellerReview(){
+				$("#contentTB").html("");  
+				$.getJSON("/productdetail/productdetailSreviewlist.do", function(data){
+					$(data).each(function() {
+// 					console.log(data.length);	
+// 					accordion_sub.html(this.prv_num);
+						var srv_date = this.srv_date;
+						var srv_image = this.srv_image;
+						var srv_content = this.srv_content;
+						var srv_scope = this.srv_scope;
+						var c_id= this.c_id;
+						
+						itemReviewTag(srv_date,srv_image,srv_content,srv_scope,c_id);
+						
+					})
+				})
+			}
 			  
 			function itemReview(){
 				$("#contentTB").html("");  
 				$.getJSON("/productdetail/productdetailPreviewlist.do", function(data){
-					var accordion_banner = $("<div>");
-					accordion_banner.addClass("accordion_banner");
-					var accordion_title = $("<div>");
-					accordion_title.addClass("accordion_title");
-					var accordion_sub = $("<div>");
-					accordion_sub.addClass("accordion_sub");
-					
-// 					for()
-					accordion_title.val("");
-					accordion_sub.val("")
-					accordion_banner.append(accordion_title).append(accordion_sub);
-					$("#contentTB").append(accordion_banner);
-					//
+					$(data).each(function() {
+// 					console.log(data.length);	
+// 					accordion_sub.html(this.prv_num);
+						var prv_date = this.prv_date;
+						var prv_image = this.prv_image;
+						var prv_content = this.prv_content;
+						var prv_scope = this.prv_scope;
+						var c_id= this.c_id;
+						
+						itemReviewTag(prv_date,prv_image,prv_content,prv_scope,c_id);
+						
+					})
 				})
 			}
+			
+			function itemReviewTag(prv_date,prv_image,prv_content,prv_scope,c_id) {
+				var accordion_banner = $("<div>");
+				accordion_banner.addClass("accordion_banner");
+				
+				var accordion_title = $("<div>");
+				accordion_title.addClass("accordion_title");
+				accordion_title.html("평점"+prv_scope+"아이디"+c_id+"날짜"+prv_date);
+				//accordion_title.html(prv_date);
+				
+				var accordion_sub = $("<div>");
+				accordion_sub.addClass("accordion_sub");
+				accordion_sub.html("<img src='/uploadStorage/product/'"+prv_image+"' width='10%' height='10%'/>"+prv_content);
+// 				console.log(prv_content);
+
+				accordion_banner.append(accordion_title).append(accordion_sub);
+				$("#contentTB").append(accordion_banner);
+			}
+			
 			function sellInformation() {
 				$("#contentTB").html("");  
 				//ps_num -> 받아오면 바꿔야함 ---------------------------------------
@@ -100,18 +138,16 @@
 
 		</script>
 		<style>
-			.all{height: 3000px;}
-			.contentTB{width: 100%}
+/* 			.all{height: 3000px;} */
+ 			.contentTB{width: 100%;height: 200px; text-align: center; } 
 			.accordion_sub { display: none; } /* 아코디언꺼 */
 		</style> 
    </head>
    
    <body  class="zoomContainer">
-
 	<input type="hidden" id="p_num" name="p_num">
 	<input type="hidden" id="ps_num" name="ps_num">
 	<input type="hidden" id="s_num" name="s_num">
-	
 	<div class="all">
 		<div>
 		<!--//////////////////////////////////////////////////////////////////////////  -->
@@ -143,28 +179,12 @@
 							
 	<!--//////////////////////////////////////////////////////////////////////////  -->
 		</div>
-		<div class="center" >
-			<ul class="ul-">
-				<li class="middle">
-					<select>
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-					</select>
-				</li>
-				<li>&lt</li>
-				<li class="middle">
-					<select>
-						<option>4</option>
-						<option>5</option>
-						<option>6</option>				
-					</select>
-				</li>
-			</ul>
-		</div>
+		
+
 		<div><h3 class="h3-">${detail.p_division }</h3></div>
 		<div>
-		  	<div class="middle_left middle zoomTarget level0">
+<!-- 		class=" zoomTarget level0" 아래 div-->
+		  	<div class="middle_left middle">
 		  		<img src="/uploadStorage/product/${detail.pi_image}" width="100%" height="100%"/>
 		  	</div>
 		  	<div class="middle_light middle">
@@ -213,20 +233,14 @@
 			<ul class="ul-">
 				<li><a>상품 리뷰</a></li>
 				<li><a>서비스 리뷰</a></li>
-				<li><a>Q&A</a></li>
 				<li><a>판매자 정보</a></li>
 			</ul>
 		</div>
-		<div class="sub-menu">
-			<div class="contentTB" id="contentTB">
-
-			</div>
-
-<!-- 			///////////////////////////////////////////////////// -->
-
-
-
-		</div>
   	</div>
+	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+		<div class="contentTB" id="contentTB">
+		</div>
+	</div>
+  	
    </body>
 </html>
