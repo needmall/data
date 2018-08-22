@@ -28,9 +28,33 @@
 				
 			});
 			}).fail(function() {
-				alert("매장 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
+				alert("카테고리1 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
 		});
-	})
+		
+		$("#category1").change(function() {  //on(이벤트, 대상, 콜백함수) 
+			console.log("ajaaaax");
+			var url = "/admin/product/Category2dep.do?c1_num="+$("#category1 > option:selected").val();
+			$.getJSON(url, function(data) {
+				// 초기화
+				$("#category2").html("");
+				$("#category2").append("<option>-----선택하세요-----</option>");
+				//불러온 데이터 처리
+				$(data).each(function() {
+					var c2_name = this.c2_name;
+					var c2_num = this.c2_num;
+					
+					var option = $("<option>");
+					var span = $("<span>");
+					option.attr("value",c2_num);
+					span.html(c2_name);
+					option.append(span);				
+					$("#category2").append(option);
+				});
+			}).fail(function() {
+				alert("카테고리2 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
+			});		
+		});
+	})//최상위 마지막
 </script>
 
 
@@ -42,6 +66,7 @@
 	    		<select name="category1" id="category1" class="form-control">
 					<option>-----선택하세요-----</option>		
 				</select>
+				 > 
 				<select name="category2" id="category2" class="form-control">
 					<option>-----선택하세요-----</option>		
 				</select>

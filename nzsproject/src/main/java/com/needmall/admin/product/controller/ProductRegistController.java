@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,16 +27,26 @@ public class ProductRegistController {
 	}
 	
 	/**
-	 * storelist : 스토어 리스트 반환
-	 * @param nowlat
-	 * @param nowlon
+	 * category1dep : 카테고리 1 반환
+	 * @param mapper
 	 * @return
 	 */
-
 	@ResponseBody
 	@RequestMapping(value="/Category1dep.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
 	public String category1dep( ObjectMapper mapper) {		
 		String catedep1 = productRegistService.Category1dep(mapper);		
+		return catedep1; // 문자열 반환
+	}
+	
+	/**
+	 * category2dep : 카테고리 2 반환
+	 * @param mapper
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/Category2dep.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
+	public String category2dep(@RequestParam("c1_num") int c1_num,  ObjectMapper mapper) {		
+		String catedep1 = productRegistService.Category2dep(c1_num, mapper);		
 		return catedep1; // 문자열 반환
 	}
 }

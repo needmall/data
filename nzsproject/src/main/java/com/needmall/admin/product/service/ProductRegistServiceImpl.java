@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.product.dao.ProductRegistDao;
 import com.needmall.common.vo.Category1depVO;
+import com.needmall.common.vo.Category2depVO;
 
 @Service
 public class ProductRegistServiceImpl implements ProductRegistService{
@@ -26,6 +27,18 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 			e.printStackTrace();
 		}		
 		return catedep1;
+	}
+
+	@Override
+	public String Category2dep(int c1_num, ObjectMapper mapper) {
+		List<Category2depVO> list = productRegistDao.category2dep(c1_num);
+		String catedep2="";
+		try {
+			catedep2=mapper.writeValueAsString(list);
+		} catch (JsonProcessingException e) {			
+			e.printStackTrace();
+		}		
+		return catedep2;
 	}
 
 	
