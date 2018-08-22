@@ -14,66 +14,82 @@
 <style type="text/css">
 	*{
 		margin: 0px;
+		padding:0px;
 	}
 	
-	#mainDiv{
-		width : 1150px;
-		height: 700px;
-		border : 1px solid gray;
+	label{
+		padding: 10px;
+	}
+	#yourlocation{
+		width: 300px !important;
+		text-align: center;
+	}
+	#address{
+		width: 400px !important;
+	}
+
+	.form-group{
+		padding: 10px;
+		margin-left: 30px;	
+	}
+	
+	
+	#storeList{		
+		padding-left: 0px ;	
+	}
+	.listarea{
+		border :  1px solid gray;
+		height: 665px;
+		width: 450px;
+		overflow: scroll;
 		float: left;
-	}
-	.storeListDiv{
-		margin-left : -100px; 
-		width : 450px;
-		height : 700px;
-		display: inline-block;		
-	}
-	#map{
-		width: 700px; 
-		height: 700px;
-		float: left;
-		display: inline-block;
-	}
-	.listDiv{
-		border : 1px solid gray;
-		height:100px; 
-		width: 400px;		
-	}
-	.listLi{
-		list-style: none;
-	}
-	.imgDiv{
-	}
-	.img{
-		vertical-align: middle;		
-		width: 80px;
-		display: inline-block;
 	}
 	.text{
-		width : 320px;
-		border : 1px solid red;
-		text-align: center;
-		display: inline-block;
+		padding-left : 10px;
 	}
 	
+	.img{
+		width: 80px;
+		margin: auto;
+	}
+	
+	.imgDiv{
+		width: 90px;
+		height: 90px;		
+		float: left;			
+	}
+	
+	#map{
+		width: 665px;
+		height: 665px;
+	}
 	
 </style>
 
 
 <!-- 당신의 위치 -->
-<div>
-	<span id="yourlocation"></span>
-	<span id="nolocation"></span>
-	<input type="text" id="address" name="address" ><input type="button" id="search" value="검색">
+<div class="form-inline">
+	<div class="form-group">
+		<label for="yourlocation"> 검색된 지역  </label>
+		<input class="form-control" type="text" id="yourlocation" readonly="readonly">
+	</div>
+	<div class="form-group" >
+		<label for="address">매장 검색 지역  </label>				
+		<input class="form-control" type="text" id="address" name="address" placeholder="검색할 지역을 입력하세요(예, 성동구 도선동)">
+		<input class="btn btn-default" type="button" id="search" value="변 경">
+	</div>
+	
 </div>
-<div id="mainDiv">
-<!--  목록 영역   -->
-<div id="storeListDiv">
-	<ul id="storeList">
-	</ul>
-</div>
-<!-- 지도 영역 -->
-<div id="map" ></div>
+
+<div class="container center-block">
+	<!--  목록 영역   -->
+	<div class="listarea">
+		<ul id="storeList">
+		</ul>
+	</div>
+	
+	<!-- 지도 영역 -->
+	<div id="map"  ></div>
 </div>	
 <input type="hidden" name="c_lat" id="c_lat">
 <input type="hidden" name="c_lon" id="c_lon"> 
@@ -92,12 +108,20 @@
 			};
 			map = new daum.maps.Map(container, options); //지도 생성 및   객체 리턴
 			
+			// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+			var zoomControl = new daum.maps.ZoomControl();
+			map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+			
 			// 주소-좌표 변환 객체를 생성합니다
 			var geocoder = new daum.maps.services.Geocoder();
 			
+			//여러개 출력시
+			// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
+			var markers = [];
+			
 			//현위치 마커 이미지 만들기
-			var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
-			imageSize = new daum.maps.Size(50, 50), // 마커이미지의 크기입니다
+			var imageSrc = '/resources/images/imgmarker.png', // 마커이미지의 주소입니다    
+			imageSize = new daum.maps.Size(33, 43), // 마커이미지의 크기입니다
 			imageOption = {
 				offset : new daum.maps.Point(27, 69)
 			}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
@@ -105,12 +129,7 @@
 			// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 			var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
 			
-					
-			//여러개 출력시
-			// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
-			var markers = [];
-					
-			
+									
 			// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 			if (navigator.geolocation) {
 				// GeoLocation을 이용해서 접속 위치를 얻어옵니다
@@ -131,15 +150,20 @@
 					var url = "/storeall/storelist.do?c_lat="+lat+"&c_lon="+lon;
 					$.getJSON(url, function(data) {
 						$("#storeList").html("");  // 목록 초기화
-						markers = []; //마커 배열 초기화
-						
+																		
 						// 이미지 마커를 생성합니다
 						var marker = new daum.maps.Marker({
 							position :  new daum.maps.LatLng(lat, lon),
 							title : '매장 검색 기준',
 							image : markerImage
 						});
+						//  이미지 마커가 지도 위에 표시되도록 설정합니다
+						marker.setMap(map);
+																						
+						// 이미지 생성된 마커를 배열에 추가합니다
+						markers.push(marker);
 						
+						//불러온 데이터 처리
 						$(data).each(function() {
 							var st_num = this.st_num;
 							var st_lat = this.st_lat;
@@ -177,7 +201,13 @@
 			
 						
 			// 검색해서 해당 위치로 이동, 목록 , 마커 생성
-			$("#search").click(function() {				
+			$("#search").click(function() {	
+				//마커 초기화
+				for ( var i = 0; i < markers.length; i++ ) {
+					   markers[i].setMap(null);
+					 } 
+					 markers = [];
+					 
 				// 주소로  위도 경도 찍기
 				geocoder.addressSearch($("#address").val(), function (result, status) { // 주소 검색으로 나오는 첫번째 결과를  위도 경도로 받아오기
 				
@@ -198,15 +228,20 @@
 						var url = "/storeall/storelist.do?c_lat="+lat+"&c_lon="+lon;
 						$.getJSON(url, function(data) {
 							$("#storeList").html("");  // 목록 초기화
-							markers = []; //마커 배열 초기화
-							
+														
 							// 이미지 마커를 생성합니다
 							var marker = new daum.maps.Marker({
 								position :  new daum.maps.LatLng(lat, lon),
 								title : '매장 검색 기준',
 								image : markerImage
 							});
-							
+							//  이미지 마커가 지도 위에 표시되도록 설정합니다
+							marker.setMap(map);
+																							
+							// 이미지 생성된 마커를 배열에 추가합니다
+							markers.push(marker);
+				
+							//불러온 데이터 처리
 							$(data).each(function() {
 								var st_num = this.st_num;
 								var st_lat = this.st_lat;
@@ -261,12 +296,12 @@
 			// 새로운 글이 추가될 li태그 객체
 			var new_li =$("<li>");
 			new_li.attr("data-st_num",st_num);
-			new_li.addClass("listLi");
+			new_li.addClass("list-group-item");
 			
 			// 클릭하기 위한 a태그
 			var new_a = $("<a>");
 			new_a.attr("href","javascript:panTo("+st_lat+","+st_lon+")");
-			
+			new_a.addClass("list-group-item");
 			
 			// 전체 div
 			var new_div = $("<div>");
@@ -311,7 +346,7 @@
 		function getAddress (result, status) {  
 			if (status === daum.maps.services.Status.OK) {
 				var nowlocation = result[0].address_name;
-				$("#yourlocation").html("매장 검색 위치 :" + nowlocation);
+				$("#yourlocation").val( nowlocation);
 			}
 		}; 	
 		
