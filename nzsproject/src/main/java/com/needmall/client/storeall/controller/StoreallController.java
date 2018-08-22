@@ -46,6 +46,14 @@ public class StoreallController {
 	@RequestMapping(value="/storelist.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
 	public String storelist(CustomerVO cvo, ObjectMapper mapper) {
 		logger.info("storelist 호출 성공");
+		String listData = storeallService.storeList(cvo, mapper);	
+		return listData; // 문자열 반환
+	}
+	/*
+	@ResponseBody
+	@RequestMapping(value="/storelist.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
+	public String storelist(CustomerVO cvo, ObjectMapper mapper) {
+		logger.info("storelist 호출 성공");
 		String listData = "";
 		List<StoreallVO> list = storeallService.storeList(cvo);
 		try {
@@ -55,5 +63,5 @@ public class StoreallController {
 		}
 		
 		return listData; // 문자열 반환
-	}
+	}*/
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.client.storeall.dao.StoreallDao;
 import com.needmall.client.storeall.vo.StoreallVO;
 import com.needmall.common.vo.CustomerVO;
@@ -16,9 +18,15 @@ public class StoreallServiceImpl implements StoreallService{
 	private StoreallDao storeallDao;
 
 	@Override
-	public List<StoreallVO> storeList(CustomerVO cvo) {
-		List<StoreallVO> storeList = null;
-		storeList = storeallDao.storeList(cvo);
+	public String storeList(CustomerVO cvo, ObjectMapper mapper) {
+		List<StoreallVO> list = null;
+		list = storeallDao.storeList(cvo);
+		String storeList="";
+		try {
+			storeList = mapper.writeValueAsString(list);
+		} catch (JsonProcessingException e) {			
+			e.printStackTrace();
+		}
 		return storeList;
 	}
 	
