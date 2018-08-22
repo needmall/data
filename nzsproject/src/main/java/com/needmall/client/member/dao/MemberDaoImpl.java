@@ -14,8 +14,13 @@ public class MemberDaoImpl implements MemberDao {
 	private SqlSession session;
 
 	@Override
-	public int securityInsert(MemberSecurity sec) {
-		return session.insert("securityInsert", sec);
+	public int customerSecurityInsert(MemberSecurity sec) {		
+		return session.insert("customerSecurityInsert", sec);
+	}
+	
+	@Override
+	public int sellerSecurityInsert(MemberSecurity sec) {		
+		return session.insert("sellerSecurityInsert", sec);
 	}
 
 	@Override
@@ -30,26 +35,22 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public MemberVO customerSelect(String c_id) {
-		// TODO Auto-generated method stub
-		return null;
+		return (MemberVO)session.selectOne("customerSelect", c_id);
 	}
 
 	@Override
 	public MemberVO sellerSelect(String s_id) {
-		// TODO Auto-generated method stub
-		return null;
+		return (MemberVO)session.selectOne("sellerSelect", s_id);
 	}
 
 	@Override
 	public int customerInsert(MemberVO mvo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return session.insert("customerInsert", mvo);
 	}
 
 	@Override
 	public int sellerInsert(MemberVO mvo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return session.insert("sellerInsert", mvo);
 	}
 
 }

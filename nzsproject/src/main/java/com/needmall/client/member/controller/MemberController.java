@@ -36,7 +36,7 @@ public class MemberController {
 	@RequestMapping(value="/join_customer.do", method = RequestMethod.GET)	// console창에 sever 구동할때 "{[/member/join.do],methods=[GET]}"
 	public String joinCustomer(Model model) {
 		logger.info("join.do get 방식에 의한 메서드 호출 성공");
-		return "member/join_select";
+		return "member/join_customer";
 	}
 	
 	/********************************************************************
@@ -45,7 +45,7 @@ public class MemberController {
 	@RequestMapping(value="/join_seller.do", method = RequestMethod.GET)	// console창에 sever 구동할때 "{[/member/join.do],methods=[GET]}"
 	public String joinSeller(Model model) {
 		logger.info("join.do get 방식에 의한 메서드 호출 성공");
-		return "member/join_select";
+		return "member/join_seller";
 	}
 	
 	/********************************************************************
