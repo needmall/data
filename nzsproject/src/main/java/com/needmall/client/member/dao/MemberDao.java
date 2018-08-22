@@ -5,7 +5,9 @@ import com.needmall.client.member.vo.MemberVO;
 
 public interface MemberDao {
 	
-	public int securityInsert(MemberSecurity sec);
+	public int customerSecurityInsert(MemberSecurity sec);
+	public int sellerSecurityInsert(MemberSecurity sec);
+	
 	public MemberSecurity customerSecuritySelect(String c_id);
 	public MemberSecurity sellerSecuritySelect(String s_id);
 	

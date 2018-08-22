@@ -40,15 +40,15 @@
          <div class="contentContainer">
 	<div class="well">
 		<form id="memberForm" class="form-horizontal">
-			<input type="hidden" name="email" id="email" />
-			<input type="hidden" name="pinno" id="pinno" />
+			<input type="hidden" name="c_mail" id="c_mail" />
+			
 			<div class="form-group form-group-sm">
 				<label for="c_id" class="col-sm-2 control-label">사용자 ID</label>
 				<div class="col-sm-3">
 					<input type="text" id="c_id" name="c_id"  maxlength="12" class="form-control" placeholder="User ID" />
 				</div>
 				<div class="col-sm-2">
-					<input type="button" id="idConfirmBtn" value="아이디 중복체크" class="form-control btn-primary" />
+					<input type="button" id="customerIdConfirmBtn" value="아이디 중복체크" class="form-control btn-primary" />
 				</div> 
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -87,10 +87,10 @@
 			<div class="form-group form-group-sm">
 				<label for="c_birthday" class="col-sm-2 control-label">생년월일</label>
 				<div class="col-sm-3">
-					<input type="text" id="c_birthday" name="c_birthday" maxlength="6" class="form-control" placeholder="주민등록번호 6자리">	
+					<input type="date" id="c_birthday" name="c_birthday" class="form-control" placeholder="주민등록번호 6자리">	
 				</div>
 				<div class="col-sm-2">
-					<input type="text" id="c_gender" name="c_gender" maxlength="1" class="form-control" placeholder="주민등록번호 7번째 1자리">	
+					<input type="text" id="c_gendernum" name="c_gendernum" maxlength="1" class="form-control" placeholder="주민등록번호 7번째 1자리">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -98,15 +98,24 @@
 			</div>
 			
 			<!-- 주소 -->
+			<div class="form-group form-group-sm">
+				<label for="c_address" class="col-sm-2 control-label">주소</label>
+				<div class="col-sm-3">
+					<input type="text" id="c_address" name="c_address" class="form-control" placeholder="c_address">	
+				</div>
+				<div class="col-sm-5">
+					<p class="form-control-static error"></p>
+				</div>
+			</div>	
 			
 			<!-- 이메일 -->
 			<div class="form-group form-group-sm">
-				<label for="emailName" class="col-sm-2 control-label">회원 이메일</label>
+				<label for="c_mailName" class="col-sm-2 control-label">회원 이메일</label>
 				<div class="col-sm-3">
-					<input type="text" id="emailName" name="emailName" maxlength="60" class="form-control" placeholder="EMAIL">
+					<input type="text" id="c_mailName" name="c_mailName" maxlength="60" class="form-control" placeholder="c_mail">
 				</div>
 				<div class="col-sm-2">
-					<select id="emailDomain" class="form-control">
+					<select id="c_mailDomain" class="form-control">
 						<option value="naver.com">네이버</option>
 						<option value="daum.net">다음</option>
 						<option value="nate.com">네이트</option>																	
@@ -118,9 +127,9 @@
 			</div>
 			
 			<div class="form-group form-group-sm">
-				<label for="phone" class="col-sm-2 control-label">핸드폰 번호</label>
+				<label for="c_cell" class="col-sm-2 control-label">핸드폰 번호</label>
 				<div class="col-sm-3">
-					<input type="text" id="phone" name="phone" maxlength="15" class="form-control" placeholder="Phone Number">	
+					<input type="text" id="c_cell" name="c_cell" maxlength="15" class="form-control" placeholder="Phone Number">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -131,7 +140,7 @@
 			
 			<div class="form-group">	
 				<div class="col-sm-offset-2 col-sm-6">
-					<input type="button" value="확인" id="joinInsert" class="btn btn-default" /> 
+					<input type="button" value="확인" id="customerJoinInsert" class="btn btn-default" /> 
 					<input type="button" value="재작성" id="joinReset" class="btn btn-default" />
 					<input type="button" value="취소" id="joinCancel" class="btn btn-default" />						
 				</div>	

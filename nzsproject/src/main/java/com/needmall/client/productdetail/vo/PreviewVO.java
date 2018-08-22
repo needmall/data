@@ -10,6 +10,7 @@ public class PreviewVO {
     private String prv_image="";
     private String prv_content="";
     private int prv_scope=0;
+    private String c_id="";
 	public int getPrv_num() {
 		return prv_num;
 	}
@@ -52,10 +53,17 @@ public class PreviewVO {
 	public void setPrv_scope(int prv_scope) {
 		this.prv_scope = prv_scope;
 	}
+	public String getC_id() {
+		return c_id;
+	}
+	public void setC_id(String c_id) {
+		this.c_id = c_id;
+	}
 	@Override
 	public String toString() {
 		return "PreviewVO [prv_num=" + prv_num + ", c_num=" + c_num + ", p_num=" + p_num + ", prv_date=" + prv_date
-				+ ", prv_image=" + prv_image + ", prv_content=" + prv_content + ", prv_scope=" + prv_scope + "]";
+				+ ", prv_image=" + prv_image + ", prv_content=" + prv_content + ", prv_scope=" + prv_scope + ", c_id="
+				+ c_id + "]";
 	}
     
     

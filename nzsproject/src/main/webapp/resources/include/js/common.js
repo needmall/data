@@ -45,7 +45,7 @@ function checkForm(item, msg){
 	}
 }
 /* formCheck(유효성 체크 대상, 출력 영역, 메시지 내용)*/
-function fromCheck(main, item, msg) {
+function formCheck(main, item, msg) {
 	if($(main).val().replace(/\s/g,"")==""){
 		$(item).html(msg+" 입력해 주세요");
 		$(main).val("");
@@ -68,3 +68,24 @@ function getDateFormat(dateValue){
 	var result = year + "-" + month + "-" + day;
 	return result;
 }
+
+/* 배열 : 유효성 체크 시 필요한 정규식으로 배열을 초기화.
+ * pattern = [아이디, 비밀번호, 핸드폰번호]
+ * 함수명 : inputVerify(배열 인덱스번호, 비교할 값, 출력영역)
+ *  */
+var pattern = [
+	"((?=.*[a-zA-Z])(?=.*[0-9]).{6,10})",
+	"((?=.*[a-zA-Z])(?=.*[0-9@#$%]).{8,12})",
+	"^\\d{3}-\\d{3,4}-\\d{4}"];
+function inputVerify(index, data, printarea){
+	var data_regExp = new RegExp(pattern[index]);
+	var match = data_regExp.exec($(data).val());
+	if(match==null){
+		$(printarea).html("입력값이 형식에 맞지 않습니다. 다시 입력해주세요.");
+		$(data).val("");
+		return false;
+	} else {
+		return true;
+	}
+}
+

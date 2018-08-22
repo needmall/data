@@ -43,18 +43,39 @@
 		FROM
 		    store
 		WHERE
-			s_num =1
+			st_num =1
 	</select>
 	<select id="productdetailPreviewlist" resultType="Preview">
 		SELECT
 		    prv_num,
-		    c_num,
+		    preview.c_num,
 		    p_num,
 		    prv_date,
 		    prv_image,
 		    prv_content,
-		    prv_scope
+		    prv_scope,
+            c_id
 		FROM
-		    preview
+		    preview inner join customer on preview.c_num = customer.c_num
+		WHERE
+			preview.p_num =3
+<!-- 			조건 수정해야함 -->
 	</select>
+	<select id="productdetailSreviewlist" resultType="Sreview">
+		SELECT
+		    srv_num,
+		    sreview.c_num,
+		    s_num,
+		    srv_date,
+		    srv_image,
+		    srv_content,
+		    srv_scope,
+            c_id
+		FROM
+		    sreview inner join customer on sreview.c_num = customer.c_num
+		WHERE
+			sreview.s_num =3
+	</select>
+
+	
 </mapper>

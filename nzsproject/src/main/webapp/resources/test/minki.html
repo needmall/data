@@ -1,12 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+         <!-- 브라우저의 호환성 보기 모드를 막고, 해당 브러우저에서 지원하는 가장 최신 버전의 방식으로 HTML 보여주도록 설정. -->
+      
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+        <!-- viewport : 화면에 보이는 영역을 제어하는 기술. width는 device-width로 설정. initial-scale는 초기비율 -->
+      
+         <!-- 모바일 웹 페이지 설정 -->
+         <!-- 모바일 웹 페이지 설정 종료 -->
+      
+         <!-- IE8이하 브라우저에서 HTML5를 인식하기 위해서는 아래의 패스필터를 적용하면 된다. -->
+         <!-- [if lt IE 9] -->
+         <!-- <script src="/resources/js/html5shiv.js"</script> -->
+         <!-- [endif] -->
+         
+         <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
+         <script type="text/javascript" src="/resources/include/js/common.js"></script>
+         <script type="text/javascript" src="/resources/include/js/jquery.zoomooz.min.js"></script>
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		 <link rel="stylesheet" type="text/css" href="/resources/include/css/common.css" />
+		 <link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
+		 
+		<!-- 부가적인 테마 -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+		
+		<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 </head> 
 <body>
-	<a href="/productdetail/productdetailmain.do">문자열 출력</a>
-	<a href="/productdetail/productdetailSub.do">문자열 출력2</a>
-	
-</body>
+   <body  class="zoomContainer">
+
+	<input type="hidden" id="p_num" name="p_num">
+	<input type="hidden" id="ps_num" name="ps_num">
+	<input type="hidden" id="s_num" name="s_num">
+	<div class="all">
+		<div>
+		<!--//////////////////////////////////////////////////////////////////////////  -->
+
+							
+	<!--//////////////////////////////////////////////////////////////////////////  -->
+		</div>
+		<div><h3 class="h3-">${detail.p_division }</h3></div>
+		<div>
+		  	<div class="middle_light middle">
+		  		<table class="table-main">
+
+		  			<tr>
+		  				<td><input type="button" value="바로 구매하기"></td>
+		  				<td><input type="button" value="장바구니 담기"></td>
+		  			</tr>
+		  		</table>
+		  	</div>
+	  	</div>
+
+		<div class="sub-menu">
+			<div class="contentTB" id="contentTB">
+			</div>
+		</div>
+  	</div>
+   </body>
 </html>

@@ -1,5 +1,6 @@
 package com.needmall.client.member.vo;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import com.needmall.client.login.vo.LoginVO;
@@ -8,7 +9,8 @@ public class MemberVO extends LoginVO {
 	private int c_num;
 	private int cs_division;
 	private String c_gender;
-	private String c_birthday;
+	private int c_gendernum;
+	private Date c_birthday;
 	private String c_address;
 	private String c_mail;
 	private String c_cell;
@@ -44,10 +46,16 @@ public class MemberVO extends LoginVO {
 	public void setC_gender(String c_gender) {
 		this.c_gender = c_gender;
 	}
-	public String getC_birthday() {
+	public int getC_gendernum() {
+		return c_gendernum;
+	}
+	public void setC_gendernum(int c_gendernum) {
+		this.c_gendernum = c_gendernum;
+	}
+	public Date getC_birthday() {
 		return c_birthday;
 	}
-	public void setC_birthday(String c_birthday) {
+	public void setC_birthday(Date c_birthday) {
 		this.c_birthday = c_birthday;
 	}
 	public String getC_address() {

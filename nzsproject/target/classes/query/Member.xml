@@ -1,5 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.needmall.client.member.dao.MemberDao">
-
+	<select id="customerSecuritySelect" parameterType="String" resultType="security">
+		select c_id, salt from membersecurity inner join customer on customer.c_num = membersecurity.c_num
+		where c_id=#{c_id};
+	</select>
+	
+	<select id="sellerSecuritySelect" parameterType="String" resultType="security">
+		select s_id, salt from membersecurity
+		where s_id=#{s_id}
+	</select>
+	
+	<!-- select inner join 으로 조회해온 거 그대로 넣어주면 됨! -->
+	<insert id="customerSecurityInsert" parameterType="security">
+		insert into security(c_id, salt)
+		values(#{c_id}, #{salt})
+	</insert>
+	
+	<insert id="sellerSecurityInsert" parameterType="security">
+		insert into security(s_id, salt)
+		values(#{s_id}, #{salt})
+	</insert>
+	
+	<select id="customerSelect" parameterType="String" resultType="member">
+		select c_num, cs_division, c_id, c_pwd, c_name, c_gender, c_birthday, c_address, c_mail, c_cell
+		from customer
+		where c_id = #{c_id}
+	</select>
+	
+	<select id="sellerSelect" parameterType="String" resultType="member">
+		select s_num, cs_division, s_id, s_pwd, s_name, s_gender, s_birthday, s_address, s_mail, s_phone, s_cell
+		from seller
+		where s_id = #{s_id}
+	</select>
+	
+	<insert id="customerInsert" parameterType="member">
+		/* customer - "customerInsert" */
+		<selectKey keyProperty="c_num" resultType="int" order="BEFORE">
+			select customer_seq.nextval from dual
+		</selectKey>
+		insert into customer(c_num, cs_division, c_id, c_pwd, c_name, c_gender, c_birthday, c_address, c_mail, c_cell)
+		values(#{c_num}, #{cs_division}, #{c_id}, #{c_pwd}, #{c_name}, #{c_gender}, #{c_birthday}, #{c_address}, #{c_mail}, #{c_cell})
+	</insert>
+	
+	<insert id="sellerInsert" parameterType="member">
+		/* seller - "sellerInsert" */
+		<selectKey keyProperty="s_num" resultType="int" order="BEFORE">
+			select seller_seq.nextval from dual
+		</selectKey>
+		insert into customer(s_num, cs_division, s_id, s_pwd, s_name, s_gender, s_birthday, s_address, s_mail, s_phone, s_cell)
+		values(#{s_num}, #{cs_division}, #{s_id}, #{s_pwd}, #{s_name}, #{s_gender}, #{s_birthday}, #{s_address}, #{s_mail}, #{s_phone}, #{s_cell})
+	</insert>
+	
 </mapper>

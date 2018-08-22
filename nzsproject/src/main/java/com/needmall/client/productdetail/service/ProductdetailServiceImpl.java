@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.needmall.client.productdetail.dao.ProductdetailDao;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.ProductdetailVO;
+import com.needmall.client.productdetail.vo.SreviewVO;
 import com.needmall.common.vo.StoreVO;
 
 @Service
@@ -40,6 +41,11 @@ public class ProductdetailServiceImpl implements ProductdetailService {
 	public List<PreviewVO> productdetailPreviewlist(ProductdetailVO dvo) {
 		// TODO Auto-generated method stub
 		return productdetailDao.productdetailPreviewlist(dvo);
+	}
+	@Override
+	public List<SreviewVO> productdetailSreviewlist(ProductdetailVO dvo) {
+		// TODO Auto-generated method stub
+		return productdetailDao.productdetailSreviewlist(dvo);
 	}
 }
 

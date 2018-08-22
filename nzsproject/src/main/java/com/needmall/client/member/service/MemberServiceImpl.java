@@ -49,7 +49,16 @@ public class MemberServiceImpl implements MemberService {
 				MemberSecurity sec = new MemberSecurity();
 				sec.setC_id(mvo.getC_id());
 				sec.setSalt(Util.getRandomString());	// 암호 randomString으로 바꿔주기
-				sCode = memberDao.securityInsert(sec);
+				sCode = memberDao.customerSecurityInsert(sec);
+				
+				if(mvo.getC_gendernum()==1 || mvo.getC_gendernum()==3) {
+					mvo.setC_gender("남자");
+				}else if(mvo.getC_gendernum()==2 || mvo.getC_gendernum()==4){
+					mvo.setC_gender("여자");
+				}else {
+					// 옳바른 주민번호 뒷자리를 입력해주세요 해야하나
+					return 2;
+				}
 				
 				if(sCode==1) {
 					mvo.setC_pwd(new String(OpenCrypt.getSHA256(mvo.getC_pwd(), sec.getSalt())));
@@ -75,7 +84,16 @@ public class MemberServiceImpl implements MemberService {
 				MemberSecurity sec = new MemberSecurity();
 				sec.setS_id(mvo.getS_id());
 				sec.setSalt(Util.getRandomString());	// 암호 randomString으로 바꿔주기
-				sCode = memberDao.securityInsert(sec);
+				sCode = memberDao.sellerSecurityInsert(sec);
+				
+				if(mvo.getC_gendernum()==1 || mvo.getC_gendernum()==3) {
+					mvo.setC_gender("남자");
+				}else if(mvo.getC_gendernum()==2 || mvo.getC_gendernum()==4){
+					mvo.setC_gender("여자");
+				}else {
+					// 옳바른 주민번호 뒷자리를 입력해주세요 해야하나
+					return 2;
+				}
 				
 				if(sCode==1) {
 					mvo.setS_pwd(new String(OpenCrypt.getSHA256(mvo.getS_pwd(), sec.getSalt())));
