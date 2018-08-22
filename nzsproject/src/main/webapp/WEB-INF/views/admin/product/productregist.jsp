@@ -11,34 +11,20 @@
  
 
 <script type="text/javascript">
-	$(function name() {
-		var url = "/admin/product/catedep1.do;
+	$(function() {
+		var url = "/admin/product/Category1dep.do";
 		$.getJSON(url, function(data) {
 			//불러온 데이터 처리
 			$(data).each(function() {
-				var st_num = this.st_num;
-				var st_lat = this.st_lat;
-				var st_lon = this.st_lon;
-				var si_image = this.si_image;
-				var st_name = this.st_name;
-				var st_address = this.st_address;
-				var distance = this.distance;
-										
-				//목록 생성
-				addNewItem(st_num, st_lat, st_lon,si_image, st_name, st_address, distance, map);
+				var c1_name = this.c1_name;
+				var c1_num = this.c1_num;
 				
-				// 마커들을 지도위에 표시합니다																				
-				// 마커를 생성합니다
-				var marker = new daum.maps.Marker({
-					position : new daum.maps.LatLng(st_lat, st_lon),
-					title :st_name
-				});
-
-				// 마커가 지도 위에 표시되도록 설정합니다
-				marker.setMap(map);
-																				
-				// 생성된 마커를 배열에 추가합니다
-				markers.push(marker);
+				var option = $("<option>");
+				var span = $("<span>");
+				option.attr("value",c1_num);
+				span.html(c1_name);
+				option.append(span);				
+				$("#category1").append(option);
 				
 			});
 			}).fail(function() {
@@ -53,10 +39,10 @@
   		<div class="form-group">
     		<label for="category1" class="col-sm-3 control-label">카테고리</label>
     		<div class="col-sm-4">    		
-	    		<select name="p_division" id="p_division" class="form-control">
+	    		<select name="category1" id="category1" class="form-control">
 					<option>-----선택하세요-----</option>		
 				</select>
-				<select name="p_division" id="p_division" class="form-control">
+				<select name="category2" id="category2" class="form-control">
 					<option>-----선택하세요-----</option>		
 				</select>
 			</div>
