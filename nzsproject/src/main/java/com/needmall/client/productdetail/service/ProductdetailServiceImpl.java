@@ -23,13 +23,7 @@ public class ProductdetailServiceImpl implements ProductdetailService {
 				
 		return detail;
 	}
-	@Override
-	public List<ProductdetailVO> productdetailSub(ProductdetailVO dvo) {
-		// TODO Auto-generated method stub
-//		Map<String, String> map =new HashMap<String, String>();
-		List<ProductdetailVO> list=productdetailDao.productdetailSub(dvo);
-		return list;
-	}
+
 	
 	@Override
 	public StoreVO productdetailStore(ProductdetailVO dvo) {
@@ -46,6 +40,16 @@ public class ProductdetailServiceImpl implements ProductdetailService {
 	public List<SreviewVO> productdetailSreviewlist(ProductdetailVO dvo) {
 		// TODO Auto-generated method stub
 		return productdetailDao.productdetailSreviewlist(dvo);
+	}
+	@Override
+	public List<ProductdetailVO> productdetailcategory1List(ProductdetailVO dvo) {
+		// TODO Auto-generated method stub
+		return productdetailDao.productdetailcategory1List(dvo);
+	}
+	@Override
+	public List<ProductdetailVO> productdetailcategory2List(ProductdetailVO dvo) {
+		// TODO Auto-generated method stub
+		return productdetailDao.productdetailcategory2List(dvo);
 	}
 }
 

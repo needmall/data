@@ -21,7 +21,7 @@
 		<put-attribute name="body" value="/WEB-INF/views/client/storeall/{1}.jsp"/>
 	</definition>
 	<definition name="productdetail/*" extends="content">
-		<put-attribute name="title" value=""/>
+		<put-attribute name="title" value="상품 상세 페이지"/>
 
 		<put-attribute name="body" value="/WEB-INF/views/client/productdetail/{1}.jsp"/>
 	</definition>

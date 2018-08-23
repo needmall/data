@@ -2,15 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.needmall.client.member.dao.MemberDao">
 	<select id="customerSecuritySelect" parameterType="String" resultType="security">
-		select c_id, salt from security
-		where c_id=#{c_id}
+		select c_id, salt from membersecurity inner join customer on customer.c_num = membersecurity.c_num
+		where c_id=#{c_id};
 	</select>
 	
 	<select id="sellerSecuritySelect" parameterType="String" resultType="security">
-		select s_id, salt from security
+		select s_id, salt from membersecurity
 		where s_id=#{s_id}
 	</select>
 	
+	<!-- select inner join 으로 조회해온 거 그대로 넣어주면 됨! -->
 	<insert id="customerSecurityInsert" parameterType="security">
 		insert into security(c_id, salt)
 		values(#{c_id}, #{salt})

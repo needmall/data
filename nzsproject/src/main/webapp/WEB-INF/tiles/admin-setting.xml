@@ -10,8 +10,8 @@
 		<put-attribute name="left" value="/WEB-INF/views/template/admin/left.jsp"></put-attribute>
 	</definition>
 	<!-- 요청 이름과 jsp이름이 같을 경우 *과 {1}  (*가 여러개 일경우 숫자 순차적 적용)로 연결 가능하며  extends속성으로 위의 내용 상속받아 내용만 변경 가능 -->
-	<definition name="admin/board/*" extends="basic">
+	<definition name="admin/product/*" extends="basic">
 		<put-attribute name="title" value="관리자 페이지"/>
-		<put-attribute name="main" value="/WEB-INF/views/admin/board/{1}.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/views/admin/product/{1}.jsp"/>
 	</definition>
 </tiles-definitions>

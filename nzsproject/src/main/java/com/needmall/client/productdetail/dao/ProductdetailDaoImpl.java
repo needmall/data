@@ -24,13 +24,6 @@ public class ProductdetailDaoImpl implements ProductdetailDao {
 	}
 
 	@Override
-	public List<ProductdetailVO> productdetailSub(ProductdetailVO dvo) {
-		// TODO Auto-generated method stub
-		
-		return session.selectList("productdetailSub", dvo);
-	}
-
-	@Override
 	public StoreVO productdetailStore(ProductdetailVO dvo) {
 		// TODO Auto-generated method stub
 		return (StoreVO)session.selectOne("productdetailStore");
@@ -47,5 +40,19 @@ public class ProductdetailDaoImpl implements ProductdetailDao {
 		// TODO Auto-generated method stub
 		return session.selectList("productdetailSreviewlist");
 	}
+
+	@Override
+	public List<ProductdetailVO> productdetailcategory1List(ProductdetailVO dvo) {
+		// TODO Auto-generated method stub
+		return session.selectList("productdetailcategory1List", dvo);
+	}
+
+	@Override
+	public List<ProductdetailVO> productdetailcategory2List(ProductdetailVO dvo) {
+		// TODO Auto-generated method stub
+		return session.selectList("productdetailcategory2List", dvo);
+	}
+
+
 
 }

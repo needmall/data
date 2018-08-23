@@ -38,7 +38,7 @@
 		padding-left: 0px ;	
 	}
 	.listarea{
-		border :  1px solid gray;
+		border :  1px solid #efefef;
 		height: 665px;
 		width: 450px;
 		overflow-y: scroll;
@@ -84,7 +84,7 @@
 <div class="container center-block">
 	<!--  목록 영역   -->
 	<div class="listarea">
-		<ul id="storeList">
+		<ul id="storeList">			
 		</ul>
 	</div>
 	
@@ -105,11 +105,12 @@
 		var selectedmarkerImage;
 		
 		
-		$(function() {		
+		$(function() {	
+			getlist();
 			/* 지도를 띄우는 코드 */
 			var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 			var options = { //지도를 생성할 때 필요한 기본 옵션
-				center : new daum.maps.LatLng(37.562176, 127.035180), //지도의 중심좌표.(기본 위치는 회사위치)
+				center : new daum.maps.LatLng(37.562307, 127.035154), //지도의 중심좌표.(기본 위치는 회사위치)
 				level : 3
 			//지도의 레벨(확대, 축소 정도)
 			};
@@ -175,7 +176,8 @@
 																						
 						// 이미지 생성된 마커를 배열에 추가합니다
 						markers.push(marker);
-						
+												
+											
 						//불러온 데이터 처리
 						$(data).each(function() {
 							var st_num = this.st_num;
@@ -208,13 +210,14 @@
 					});
 					 
 				});				
-			} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다			
-				alert("지역을 검색하여 주세요 (예, 성동구 도선동 )");
+			} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다	
+								
 			}
 			
 						
 			// 검색해서 해당 위치로 이동, 목록 , 마커 생성
-			$("#search").click(function() {	
+			$("#search").click(function() {						
+				
 				//마커 초기화
 				for ( var i = 0; i < markers.length; i++ ) {
 					   markers[i].setMap(null);
@@ -262,7 +265,7 @@
 								var si_image = this.si_image;
 								var st_name = this.st_name;
 								var st_address = this.st_address;
-								var distance = this.distance;
+								var distance = this.distance + "m";
 														
 								//목록 생성
 								addNewItem(st_num, st_lat, st_lon,si_image, st_name, st_address, distance, map);
@@ -281,11 +284,15 @@
 								markers.push(marker);
 								
 							});
+														
 						}).fail(function() {
 							alert("매장 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
 						});
 											
 					}
+				
+					// 주소 초기화
+					$("#address").val("");
 				});		
 				
 			});	//검색해서 해당 위치로 이동, 목록 , 마커 생성 마지막		
@@ -343,7 +350,7 @@
 			
 			// 거리 <p>
 			var m = $("<p>");
-			m.html("거리 :"+ distance + "m");
+			m.html("거리 :"+ distance);
 				
 			//조립하기
 			condiv.append(name).append(address).append(m);
@@ -388,6 +395,35 @@
 			}
 		}; 	
 		
+		function getlist(){
+			var url = "/storeall/storelist.do?c_lat=37.562307&c_lon=127.035154"; //회사위치 기준
+			$.getJSON(url, function(data) {
+				$("#storeList").html("");  // 목록 초기화
+									
+				//불러온 데이터 처리
+				$(data).each(function() {
+					var st_num = this.st_num;
+					var st_lat = this.st_lat;
+					var st_lon = this.st_lon;
+					var si_image = this.si_image;
+					var st_name = this.st_name;
+					var st_address = this.st_address;
+					var distance = "미확인";
+											
+					//목록 생성
+					addNewItem(st_num, st_lat, st_lon,si_image, st_name, st_address, distance, map);
+					
+					// 마커들을 지도위에 표시합니다																				
+					// 마커를 생성합니다
+					var marker = new daum.maps.Marker({
+						position : new daum.maps.LatLng(st_lat, st_lon),
+						title :st_name
+					});
+				});
+				}).fail(function() {
+					alert("매장 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
+			});
+		}
 		
 		/* // 지도 중심좌표를 접속위치로 변경합니다
 		map.setCenter(locPosition);	  */
