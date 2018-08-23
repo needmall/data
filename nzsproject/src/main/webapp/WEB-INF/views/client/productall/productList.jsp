@@ -61,10 +61,7 @@
 			$(".discountRate").eq(index).html(Math.round(discountRate));
 		})
 		
-		
-		
-		
-		
+
 		/* 상세페이지 이동 */
 		$(".restaurants-info").click(function() {
 			var ps_num = $(this).parents("tr").attr("data-num");
@@ -77,6 +74,44 @@
 			$("#detailForm").submit();
 		});
 		
+		
+		/* 비밀번호 입력 */
+		/* $("#pwdBtn").click(function() {
+			if($("#b_pwd").val().replace("/\s/g", "") == "") {
+				alert("비밀번호를 입력해 주세요.");
+				$("#b_pwd").focus();
+			} else {
+				$.ajax({
+					url : "/board/pwdConfirm.do",
+					type : "POST",
+					data : $("#f_pwd").serialize(),	// 폼 데이터 전송
+					datatype : "text",
+					error : function() {
+						alert("시스템 오류입니다. 관리자에게 문의하세요.")
+					},
+					success : function(resultData) {
+						var goUrl = "";
+						if(resultData == "실패") {
+							$("#msg").text("작성시 입력한 비밀번호가 일치하지 않습니다.");
+							$("#b_pwd").select();
+						} else if(resultData == "성공") {
+							$("#msg").text("");
+							if(btnChk == 1) {
+								goUrl = "/board/updateForm.do";
+							} else if(btnChk == 2) {
+								goUrl = "/board/boardDelete.do";
+							}
+							$("#f_data").attr({
+								"method" : "GET",
+								"action" : goUrl
+							});
+							$("#f_data").submit();
+						}
+					}
+				}); // END AJAX 
+			}
+		});
+		 */
 		// 구매 버튼 생성 및 삭제
 		/* $('.col-sm-6').hover(function(){
 			var new_span = $("<span>");
@@ -87,6 +122,7 @@
 			//$(this).children(".new_buy").remove();
 			}
 		); */
+		
 		
 	}); // End Jquery
 
