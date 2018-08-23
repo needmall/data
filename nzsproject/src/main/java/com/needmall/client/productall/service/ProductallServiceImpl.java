@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.needmall.client.productall.dao.ProductallDao;
+import com.needmall.client.productall.vo.PreviewcfmVO;
 import com.needmall.client.productall.vo.ProductallVO;
 
 
@@ -46,6 +47,14 @@ public class ProductallServiceImpl implements ProductallService {
 		
 		list = productallDao.productStoList(st_address);
 		 
+		return list;
+	}
+
+	@Override
+	public List<PreviewcfmVO> previewConfirm(String c_id) {
+		List<PreviewcfmVO> list = null;
+		
+		list = productallDao.previewConfirm(c_id);
 		return list;
 	}
 

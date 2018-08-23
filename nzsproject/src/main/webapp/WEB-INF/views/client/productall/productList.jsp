@@ -36,14 +36,14 @@
 					/* geocoder.coord2RegionCode(lon, lat, getAddress); */
 					//$("#yourlocation").show();
 									
-				/* 	var url = "/storeall/storelist.do?c_lat="+lat+"&c_lon="+lon;
+					var url = "/storeall/storelist.do?c_lat="+lat+"&c_lon="+lon;
 					$.getJSON(url, function(data) {
 						$(data).each(function() {
 							console.log("1: " + this.st_num);
 						});
 					}).fail(function() {
 						alert("매장 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
-					}); */
+					}); 
 				}
 			});
 		});
@@ -204,6 +204,7 @@
 </div>
 <div class="main_prodlist main_prodlist_list">
 	<h2>☆ 즐겨찾기 매장 상품</h2>
+	
 	<c:choose>
 		<c:when test="${not empty productFavList}">
 			<c:forEach var="FavList" items="${productFavList}" varStatus="status">
@@ -225,16 +226,22 @@
 									</td>
 									<td>
 										<div class="restaurants-info">
-											<div class="restaurant-name ng-binding" title="${FavList.p_name}">${FavList.p_name}</div>
-											<div class="restaurant-name ng-binding" title="${FavList.ps_expiration}">${FavList.ps_expiration}</div>
-											<div class="stars">
-												<%-- <span> <span class="ico-star1 ng-binding"
-														ng-show="restaurant.review_avg > 0">★ 4.5</span>
-													 </span> <span class="review_num ng-binding"
-														ng-show="restaurant.review_count > 0"> 리뷰 1305 </span>
-													<span class="review_num ng-binding" ng-show="restaurant.owner_reply_count > 0"> 사장님댓글 438</span>
-													<span ng-show="restaurant.review_count < 1" class="ng-hide"> 첫번째 리뷰를 남겨주세요! </span> --%>
-											</div>
+											<div class="restaurant-name ng-binding"
+												title="${FavList.p_name}">${FavList.p_name}</div>
+											<div class="restaurant-name ng-binding"
+												title="${FavList.ps_expiration}">${FavList.ps_expiration}</div>
+											<c:choose>
+												<c:when test="${not empty previewConfirm}">
+													<c:forEach var="previewData" items="${previewConfirm}"
+														varStatus="status">
+														<div class="stars">
+															<span><span class="ico-star1 ng-binding">★${previewData.prv_scope}</span>
+															</span><span class="review_num ng-binding"> 리뷰
+																${previewData.prv_count} </span>
+														</div>
+													</c:forEach>
+												</c:when>
+											</c:choose>
 										</div>
 									</td>
 									<td>

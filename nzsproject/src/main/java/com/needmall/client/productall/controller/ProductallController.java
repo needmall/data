@@ -35,22 +35,16 @@ public class ProductallController {
 			// 즐겨찾기
 			List<ProductallVO> productFavList = productallService.productFavList(c_id);
 			model.addAttribute("productFavList", productFavList);
+			
+			List<PreviewcfmVO> previewConfirm = productallService.previewConfirm(c_id);
+			model.addAttribute("previewConfirm", previewConfirm);
 		}
 		
 		return "client/productall/productList";   
 	}
 	
-	/*
-	@ResponseBody
-	@RequestMapping(value="/previewConfirm.do", method=RequestMethod.POST, produces = "text/plain; charset=UTF-8") // 한글 인코딩
-	public String previewConfirm(PreviewcfmVO pvo) {
-		logger.info("previewConfirm 호출 성공");
-		
-		int result = productallService.previewConfirm(pvo);
-
-		return value;
-	}
-	*/
+	
+	 
 	/*@RequestMapping(value="/productList.do", method = RequestMethod.GET)
 	public String productallList(@RequestParam("st_address") String st_address, @RequestParam("c_lat") double c_lat, @RequestParam("c_lon") double c_lon, Model model) {
 		logger.info("productList 호출 성공");
