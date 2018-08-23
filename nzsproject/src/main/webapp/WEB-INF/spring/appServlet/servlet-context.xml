@@ -84,7 +84,7 @@
     	<aop:advisor advice-ref="txAdvice" pointcut-ref="allPointcut"/>
     </aop:config>
 	 
-	<beans:bean class="com.needmall.common.exception.SpringExceptionMessage">
+	<!-- <beans:bean class="com.needmall.common.exception.SpringExceptionMessage">
     	<beans:property name="exceptionMappings">
     		<beans:props>
     			<beans:prop key="java.lang.Exception">
@@ -92,7 +92,7 @@
     			</beans:prop>
     		</beans:props>
     	</beans:property>
-    </beans:bean>
+    </beans:bean> -->
 	
 	<context:component-scan base-package="com.needmall.**.**.**" />
 	
