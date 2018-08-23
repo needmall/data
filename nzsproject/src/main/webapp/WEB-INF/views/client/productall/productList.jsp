@@ -61,10 +61,21 @@
 			$(".discountRate").eq(index).html(Math.round(discountRate));
 		})
 		
-		$(".buy").click(function() {
-			location.href = "/productdetail/productdetailmain.do?" + "ps_num=" + $(this).attr("data-num")
-		});
 		
+		
+		
+		
+		/* 상세페이지 이동 */
+		$(".restaurants-info").click(function() {
+			var ps_num = $(this).parents("tr").attr("data-num");
+			$("#ps_num").val(ps_num);
+			
+			$("#detailForm").attr({
+				"method" : "GET",
+				"action" : "/productdetail/productdetailmain.do"
+			});
+			$("#detailForm").submit();
+		});
 		
 		// 구매 버튼 생성 및 삭제
 		/* $('.col-sm-6').hover(function(){
@@ -150,6 +161,11 @@
 		</span>
 	</div>
 </div>
+<div>
+	<form action="" id="detailForm" name="detailForm">
+		<input type="hidden" id="ps_num" name="ps_num" />
+	</form>
+</div>
 <div class="main_prodlist main_prodlist_list">
 	<h2>☆ 즐겨찾기 매장 상품</h2>
 	<c:choose>
@@ -159,7 +175,7 @@
 					<div class="item clearfix">
 						<table>
 							<tbody>
-								<tr class="data-num" data-num="${FavList.ps_num}">
+								<tr class="tac" data-num="${FavList.ps_num}">
 									<td>
 										<div class="logo">
 											<img class="fileImage" src="/uploadStorage/store/${FavList.si_image}">
@@ -199,10 +215,6 @@
 													<span class="discountRate"></span><span>%</span>
 												</li>
 											</ul>
-										</div>
-										<div>
-											<span class="buy">구매</span>
-											<span class="cart">장바구니</span>
 										</div>
 									</td>
 									<td>

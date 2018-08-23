@@ -33,6 +33,9 @@ public class ProductallController {
 			// 즐겨찾기
 			List<ProductallVO> productFavList = productallService.productFavList(c_id);
 			model.addAttribute("productFavList", productFavList);
+			
+			
+			
 		}
 		
 		return "client/productall/productList";   

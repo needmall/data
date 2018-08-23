@@ -11,6 +11,7 @@
 		<typeAlias type="com.needmall.client.productdetail.vo.SreviewVO" alias="Sreview"/>
 		<typeAlias type="com.needmall.client.storeall.vo.StoreallVO" alias="storeall"/>
 		<typeAlias type="com.needmall.client.productall.vo.ProductallVO" alias="productall"/>
+		<typeAlias type="com.needmall.client.productall.vo.PreviewcfmVO" alias="Previewcfm"/>
 		<typeAlias type="com.needmall.common.vo.CustomerVO" alias="customer"/>
 		<typeAlias type="com.needmall.common.vo.StoreVO" alias="store"/>
 		<typeAlias type="com.needmall.client.member.vo.MemberVO" alias="member"/>
