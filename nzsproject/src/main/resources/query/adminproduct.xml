@@ -7,4 +7,7 @@
 	<select id="category2dep" parameterType="int" resultType="category2dep">
 		select c2_num, c2_name, c1_num from category2dep where c1_num=#{c1_num}
 	</select>
+	<select id="divisionlist" resultType="product">
+		select distinct(p_division) from product
+	</select>	
 </mapper>

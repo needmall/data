@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.needmall.common.vo.Category1depVO;
 import com.needmall.common.vo.Category2depVO;
+import com.needmall.common.vo.ProductVO;
 
 @Repository
 public class ProductRegistDaoImpl implements ProductRegistDao{
@@ -23,6 +24,11 @@ public class ProductRegistDaoImpl implements ProductRegistDao{
 	@Override
 	public List<Category2depVO> category2dep(int c1_num) {		
 		return session.selectList("category2dep", c1_num);
+	}
+
+	@Override
+	public List<ProductVO> divisionlist() {		
+		return session.selectList("divisionlist");
 	}
 
 

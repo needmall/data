@@ -3,6 +3,7 @@ package com.needmall.client.member.service;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.needmall.client.member.dao.MemberDao;
 import com.needmall.client.member.vo.MemberSecurity;
@@ -39,16 +40,22 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Transactional
 	@Override
 	public int customerInsert(MemberVO mvo) {
-		int sCode = 2;
+		//int sCode = 2;
 		if (memberDao.customerSelect(mvo.getC_id()) != null) {
-			return 1;
+			//return 1;
+			throw new RuntimeException();
 		} else {
-			try {	// 비밀번호 암호화(단방향)
+			/*try {	// 비밀번호 암호화(단방향)
 				MemberSecurity sec = new MemberSecurity();
 				sec.setC_id(mvo.getC_id());
 				sec.setSalt(Util.getRandomString());	// 암호 randomString으로 바꿔주기
+				
+				logger.info(sec.getC_id() +" / "+ sec.getSalt());
+				
+				
 				sCode = memberDao.customerSecurityInsert(sec);
 				
 				if(mvo.getC_gendernum()==1 || mvo.getC_gendernum()==3) {
@@ -56,7 +63,7 @@ public class MemberServiceImpl implements MemberService {
 				}else if(mvo.getC_gendernum()==2 || mvo.getC_gendernum()==4){
 					mvo.setC_gender("여자");
 				}else {
-					// 옳바른 주민번호 뒷자리를 입력해주세요 해야하나
+					// 올바른 주민번호 뒷자리를 입력해주세요 해야하나
 					return 2;
 				}
 				
@@ -70,7 +77,18 @@ public class MemberServiceImpl implements MemberService {
 			} catch(RuntimeException e) {
 				e.printStackTrace();
 				return 2;	// 2 : default 값으로
-			}
+			} */
+			
+			MemberSecurity sec = new MemberSecurity();
+			sec.setC_id(mvo.getC_id());
+			sec.setSalt(Util.getRandomString());
+			memberDao.customerSecurityInsert(sec);
+			
+			mvo.setC_pwd(new String(OpenCrypt.getSHA256(mvo.getC_pwd(), sec.getSalt())));
+			
+			int result = memberDao.customerInsert(mvo);
+			return result;
+				
 		}
 	}
 

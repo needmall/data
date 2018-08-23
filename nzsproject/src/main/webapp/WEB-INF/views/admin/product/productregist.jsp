@@ -6,12 +6,18 @@
 	.btnarea{
 		text-align: center;
 	}
+
 </style>
 	
  
 
 <script type="text/javascript">
 	$(function() {
+		
+		// 구분 직접입력 숨기기
+		$("#p_division").hide();
+		
+		//카테고리dep1 호출
 		var url = "/admin/product/Category1dep.do";
 		$.getJSON(url, function(data) {
 			//불러온 데이터 처리
@@ -31,13 +37,35 @@
 				alert("카테고리1 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
 		});
 		
+		// 구분 목록 반환
+		var url_d = "/admin/product/division.do";
+		$.getJSON(url_d, function(data) {
+			//불러온 데이터 처리
+			$(data).each(function() {
+				var p_division = this.p_division;
+				
+				var option = $("<option>");
+				var span = $("<span>");
+				option.attr("value",p_division);
+				span.html(p_division);
+				option.append(span);				
+				$("#division").append(option);				
+			});
+			//마지막 기타란 추가
+			$("#division").append("<option value='none'>기타 (직접입력) </option>");
+			
+			}).fail(function() {
+				alert("구분목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
+		});
+		
+		//category1 변경시 category2 불러오기
 		$("#category1").change(function() {  //on(이벤트, 대상, 콜백함수) 
-			console.log("ajaaaax");
+			
 			var url = "/admin/product/Category2dep.do?c1_num="+$("#category1 > option:selected").val();
 			$.getJSON(url, function(data) {
 				// 초기화
 				$("#category2").html("");
-				$("#category2").append("<option>-----선택하세요-----</option>");
+				$("#category2").append("<option>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 선택하세요 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ</option>");
 				//불러온 데이터 처리
 				$(data).each(function() {
 					var c2_name = this.c2_name;
@@ -54,21 +82,36 @@
 				alert("카테고리2 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
 			});		
 		});
+			
+		// 구분 선택이 none으로 변경시 직접 입력하는 창 띄우기	
+		$("#division").change(function() {  //on(이벤트, 대상, 콜백함수) 
+			if($(this).find("option:selected").val()=="none"){
+				$("#p_division").show();			
+			}else{
+				$("#p_division").hide();
+			}
+		});
+		
+		// 등록 버튼 클릭시
+		$("#registBtn").click(function() {
+			/* 첨부파일 보낼때에는 post 방식에서 enctype="multipart/form-data" 속성을 설정하여야 한다. */						
+			$("#productInsertForm").attr({"method":"post","action":"/admin/product/productUpdate.do","enctype":"multipart/form-data"});
+			$("#productInsertForm").submit();
+		})
 	})//최상위 마지막
 </script>
 
 
 
-	<form class="form-horizontal">
+	<form class="form-horizontal" id="productInsertForm">
   		<div class="form-group">
     		<label for="category1" class="col-sm-3 control-label">카테고리</label>
     		<div class="col-sm-4">    		
 	    		<select name="category1" id="category1" class="form-control">
-					<option>-----선택하세요-----</option>		
-				</select>
-				 > 
+					<option>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 선택하세요 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ</option>		
+				</select>			
 				<select name="category2" id="category2" class="form-control">
-					<option>-----선택하세요-----</option>		
+					<option>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 선택하세요 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ</option>		
 				</select>
 			</div>
   		</div>
@@ -83,7 +126,7 @@
     		<div class="col-sm-4">
 	    		<div class="input-group">
 	      			<div class="input-group-addon">￦</div>
-	      			<input type="text" class="form-control col-xs-3" id="exampleInputAmount" placeholder="Amount">
+	      			<input type="text" class="form-control col-xs-3" id="exampleInputAmount">
 	      			<div class="input-group-addon">WON</div>
 	    		</div>
     		</div>
@@ -101,17 +144,18 @@
 	     	</div>
 	  	</div>
 	  	<div class="form-group" >
-	    	<label for="p_division" class="col-sm-3  control-label">상품구분</label>
+	    	<label for="p_division" class="col-sm-3  control-label">판매점구분</label>
 	    	<div class="col-sm-4">
-		    	<select name="p_division" id="p_division" class="form-control col-xs-3">
-					<option>-----선택하세요-----</option>		
+		    	<select name="division" id="division" class="form-control col-xs-3">
+					<option>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 선택하세요 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ</option>								
 				</select>
+				<input type="text" class="form-control col-xs-3" id="p_division" name="p_division" placeholder="판매구분을 직접 입력하세요.">
 			</div>    
 	  	</div>
 		<div class="form-group" > 
 			<div class="btnarea">
-  				<input type="button" class="btn btn-default" value="등  록"/>
-  				<input type="button" class="btn btn-default" value="취  소"/>
+  				<input type="button" class="btn btn-default" id="registBtn" value="등  록"/>
+  				<input type="reset" class="btn btn-default" value="취  소"/>
   			</div>
   		</div>
 	</form>	
