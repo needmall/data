@@ -230,7 +230,7 @@
 												title="${FavList.p_name}">${FavList.p_name}</div>
 											<div class="restaurant-name ng-binding"
 												title="${FavList.ps_expiration}">${FavList.ps_expiration}</div>
-											<c:choose>
+											<%--<c:choose>
 												<c:when test="${not empty previewConfirm}">
 													<c:forEach var="previewData" items="${previewConfirm}"
 														varStatus="status">
@@ -241,7 +241,7 @@
 														</div>
 													</c:forEach>
 												</c:when>
-											</c:choose>
+											</c:choose> --%>
 										</div>
 									</td>
 									<td>
