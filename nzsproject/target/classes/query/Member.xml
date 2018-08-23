@@ -56,4 +56,10 @@
 		values(#{s_num}, #{cs_division}, #{s_id}, #{s_pwd}, #{s_name}, #{s_gender}, #{s_birthday}, #{s_address}, #{s_mail}, #{s_phone}, #{s_cell})
 	</insert>
 	
+	<select id="storeSelect" parameterType="String" resultType="member">
+		select st_num, s_num, st_bnum, st_name, st_address, st_email, st_hours, st_cell, st_ceo
+		from store
+		where st_bnum = #{st_bnum}
+	</select>
+	
 </mapper>

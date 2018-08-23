@@ -19,7 +19,7 @@ import org.springframework.util.StopWatch;
 public class LoggerAdvice {
 private static final Logger logger = LoggerFactory.getLogger(LoggerAdvice.class);
 	
-	@Before("execution(* com.spring..*Impl.*(..))")
+	@Before("execution(* com.needmall..*Impl.*(..))")
 	public void printLogging(JoinPoint jp) {
 		logger.info("--------------------------------------");
 		logger.info("[공통 로그 Log] 비즈니스 로직 수행 전 동작");
@@ -30,7 +30,7 @@ private static final Logger logger = LoggerFactory.getLogger(LoggerAdvice.class)
 		logger.info("--------------------------------------");		
 	}
 	
-	@Around("execution(* com.spring..*Impl.*(..))")
+	@Around("execution(* com.needmall..*Impl.*(..))")
 	public Object aroundLog(ProceedingJoinPoint pjp) throws Throwable{
 		String method = pjp.getSignature().getName();
 		
@@ -45,7 +45,7 @@ private static final Logger logger = LoggerFactory.getLogger(LoggerAdvice.class)
 		return obj;	
 	}
 	
-	@AfterThrowing(pointcut="execution(* com.spring..*Impl.*(..))", throwing="exp")
+	@AfterThrowing(pointcut="execution(* com.needmall..*Impl.*(..))", throwing="exp")
 	public void exceptionLogging(JoinPoint jp, Throwable exp){
 		logger.info("-------------------------------------");
 		logger.info("[예외발생] ");

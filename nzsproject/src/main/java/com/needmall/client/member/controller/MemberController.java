@@ -26,7 +26,7 @@ public class MemberController {
 	 ********************************************************************/
 	@RequestMapping(value="/join_select.do", method = RequestMethod.GET)	// console창에 sever 구동할때 "{[/member/join.do],methods=[GET]}"
 	public String joinSelect(Model model) {
-		logger.info("join.do get 방식에 의한 메서드 호출 성공");
+		logger.info("join_select.do get 방식에 의한 메서드 호출 성공");
 		return "member/join_select";
 	}
 	
@@ -35,7 +35,7 @@ public class MemberController {
 	 ********************************************************************/
 	@RequestMapping(value="/join_customer.do", method = RequestMethod.GET)	// console창에 sever 구동할때 "{[/member/join.do],methods=[GET]}"
 	public String joinCustomer(Model model) {
-		logger.info("join.do get 방식에 의한 메서드 호출 성공");
+		logger.info("join_customer.do get 방식에 의한 메서드 호출 성공");
 		return "member/join_customer";
 	}
 	
@@ -44,7 +44,7 @@ public class MemberController {
 	 ********************************************************************/
 	@RequestMapping(value="/join_seller.do", method = RequestMethod.GET)	// console창에 sever 구동할때 "{[/member/join.do],methods=[GET]}"
 	public String joinSeller(Model model) {
-		logger.info("join.do get 방식에 의한 메서드 호출 성공");
+		logger.info("join_seller.do get 방식에 의한 메서드 호출 성공");
 		return "member/join_seller";
 	}
 	
@@ -69,6 +69,18 @@ public class MemberController {
 	public String sellerIdConfirm(@RequestParam("s_id") String s_id) {
 		
 		int result = memberService.sellerIdConfirm(s_id);
+		return result+"";
+	}
+	
+	/********************************************************************
+	 * 사업자 번호(st_bnum) 중복 체크 메서드
+	 ********************************************************************/
+	// ↓ browser가 바로 응답해줄 수 있게 @ResponseBody	// console창에 sever 구동할때 "{[/member/userIdConfirm.do],methods=[POST]}" 뜸
+	@ResponseBody
+	@RequestMapping(value="/stBnumConfirm.do", method=RequestMethod.POST)
+	public String stBnumConfirm(@RequestParam("st_bnum") String st_bnum) {
+		
+		int result = memberService.stBnumConfirm(st_bnum);
 		return result+"";
 	}
 	
@@ -114,31 +126,14 @@ public class MemberController {
 	}
 	
 	/********************************************************************
-	 * 회원 가입 처리(seller)
+	 * 회원 가입 처리(seller)	(AOP)
 	 ********************************************************************/
 	@RequestMapping(value="/join_seller.do", method = RequestMethod.POST)
-	public ModelAndView sellerInsert(MemberVO mvo) {	// console창에 sever 구동할때 "{[/member/join.do],methods=[POST]}"
-		logger.info("join.do post 방식에 의한 메서드 호출 성공");
-		ModelAndView mav = new ModelAndView();
+	public ModelAndView sellerInsert(MemberVO mvo, ModelAndView mav) {	// console창에 sever 구동할때 "{[/member/join.do],methods=[POST]}"
+		logger.info("join_seller.do post 방식에 의한 메서드 호출 성공");
 		
-		int result = 0;
-		result = memberService.sellerInsert(mvo);
-		
-		switch(result) {
-		case 1:
-			mav.addObject("errCode", 1);	//userId already exist
-			mav.setViewName("member/join");
-			break;
-		case 3:
-			mav.addObject("errCode", 3);
-			mav.setViewName("member/join_success");	// success to add new member
-			break;
-		default:
-			mav.addObject("errCode", 2);
-			mav.setViewName("member/join");	// failed to add new member
-			break;
-		}
-		mvo.setCs_division(1);
+		memberService.sellerInsert(mvo);
+		mav.setViewName("client/member/join_success");
 		return mav;
 	}
 	
