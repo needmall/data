@@ -1,5 +1,7 @@
 package com.needmall.admin.product.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.product.service.ProductRegistService;
+import com.needmall.admin.product.vo.ProductRegistVO;
 
 
 @Controller
@@ -60,4 +63,16 @@ public class ProductRegistController {
 		String catedep1 = productRegistService.divisionlist();		
 		return catedep1; // 문자열 반환
 	}
+	
+	/**
+	 * division : 판매점 구분 반환	  
+	 * @return
+	 */	
+	@RequestMapping(value="/productInsert.do", method=RequestMethod.POST, produces ="text/plain; charset=UTF-8")
+	public int productInsert(ProductRegistVO prvo, HttpServletRequest request) {
+		int result=0;			
+		result = productRegistService.productInsert(prvo, request);
+		return result; 
+	}
+	
 }

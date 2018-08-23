@@ -1,6 +1,9 @@
 package com.needmall.admin.product.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.product.dao.ProductRegistDao;
+import com.needmall.admin.product.vo.ProductRegistVO;
+import com.needmall.common.file.FileUploadUtil;
 import com.needmall.common.vo.Category1depVO;
 import com.needmall.common.vo.Category2depVO;
 import com.needmall.common.vo.ProductVO;
@@ -53,6 +58,23 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 			e.printStackTrace();
 		}		
 		return divisionlist;
+	}
+
+	@Override
+	public int productInsert(ProductRegistVO prvo, HttpServletRequest request) {
+		int result = 0;
+		String fileName="";
+		try {
+			fileName = FileUploadUtil.fileUpload(prvo.getFile(), request, "product");
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		prvo.setPi_image(fileName);
+		int result1 = productRegistDao.proimageInsert(prvo);
+		int result2 = productRegistDao.productInsert(prvo);		
+		result=result1+result2;
+		return result;
 	}
 
 		

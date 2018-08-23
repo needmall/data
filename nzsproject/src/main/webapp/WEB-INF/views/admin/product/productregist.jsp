@@ -95,7 +95,7 @@
 		// 등록 버튼 클릭시
 		$("#registBtn").click(function() {
 			/* 첨부파일 보낼때에는 post 방식에서 enctype="multipart/form-data" 속성을 설정하여야 한다. */						
-			$("#productInsertForm").attr({"method":"post","action":"/admin/product/productUpdate.do","enctype":"multipart/form-data"});
+			$("#productInsertForm").attr({"method":"post","action":"/admin/product/productInsert.do","enctype":"multipart/form-data"});
 			$("#productInsertForm").submit();
 		})
 	})//최상위 마지막

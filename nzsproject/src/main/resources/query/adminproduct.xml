@@ -9,5 +9,10 @@
 	</select>
 	<select id="divisionlist" resultType="product">
 		select distinct(p_division) from product
-	</select>	
+	</select>
+	
+<!-- 	<insert id="productInsert" parameterType="productRegist">
+		insert into product (p_num,c2_num,p_name,p_price,p_content,p_division,pi_num) 
+		values (PRODUCT_SEQ.NEXTVAL, #{}, #{}, #{}, #{}, #{}, #{})
+	</insert>	 -->
 </mapper>

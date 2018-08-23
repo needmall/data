@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.needmall.admin.product.vo.ProductRegistVO;
 import com.needmall.common.vo.Category1depVO;
 import com.needmall.common.vo.Category2depVO;
 import com.needmall.common.vo.ProductVO;
@@ -29,6 +30,16 @@ public class ProductRegistDaoImpl implements ProductRegistDao{
 	@Override
 	public List<ProductVO> divisionlist() {		
 		return session.selectList("divisionlist");
+	}
+
+	@Override
+	public int productInsert(ProductRegistVO prvo) {		
+		return session.insert("productInsert", prvo);
+	}
+
+	@Override
+	public int proimageInsert(ProductRegistVO prvo) {		
+		return session.insert("proimageInsert", prvo);
 	}
 
 
