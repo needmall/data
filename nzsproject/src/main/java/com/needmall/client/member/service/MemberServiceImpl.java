@@ -84,6 +84,12 @@ public class MemberServiceImpl implements MemberService {
 			sec.setSalt(Util.getRandomString());
 			memberDao.customerSecurityInsert(sec);
 			
+			if(mvo.getC_gendernum()==1 || mvo.getC_gendernum()==3) {
+				mvo.setC_gender("남자");
+			}else{
+				mvo.setC_gender("여자");
+			}
+			
 			mvo.setC_pwd(new String(OpenCrypt.getSHA256(mvo.getC_pwd(), sec.getSalt())));
 			
 			int result = memberDao.customerInsert(mvo);
