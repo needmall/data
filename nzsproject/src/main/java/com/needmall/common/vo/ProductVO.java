@@ -12,6 +12,7 @@ public class ProductVO {
 	private String p_content		= "";
 	private int pi_num			  	= 0;
 	private String p_division	    = "";
+	
 	public int getP_num() {
 		return p_num;
 	}
