@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.product.dao.ProductRegistDao;
 import com.needmall.common.vo.Category1depVO;
 import com.needmall.common.vo.Category2depVO;
+import com.needmall.common.vo.ProductVO;
 
 @Service
 public class ProductRegistServiceImpl implements ProductRegistService{
@@ -44,7 +45,7 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 	@Override
 	public String divisionlist() {
 		ObjectMapper mapper = new ObjectMapper();
-		List<Category2depVO> list = productRegistDao.divisionlist();
+		List<ProductVO> list = productRegistDao.divisionlist();
 		String divisionlist="";
 		try {
 			divisionlist=mapper.writeValueAsString(list);
