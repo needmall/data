@@ -95,15 +95,15 @@
 		// 등록 버튼 클릭시
 		$("#registBtn").click(function() {
 			/* 첨부파일 보낼때에는 post 방식에서 enctype="multipart/form-data" 속성을 설정하여야 한다. */						
-			$("#f_writeForm").attr({"method":"post","action":"/board/updateBoard.do","enctype":"multipart/form-data"});
-			$("#f_writeForm").submit();
+			$("#productInsertForm").attr({"method":"post","action":"/admin/product/productUpdate.do","enctype":"multipart/form-data"});
+			$("#productInsertForm").submit();
 		})
 	})//최상위 마지막
 </script>
 
 
 
-	<form class="form-horizontal" id="productInsertform">
+	<form class="form-horizontal" id="productInsertForm">
   		<div class="form-group">
     		<label for="category1" class="col-sm-3 control-label">카테고리</label>
     		<div class="col-sm-4">    		

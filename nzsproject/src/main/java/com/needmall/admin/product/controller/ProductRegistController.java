@@ -51,7 +51,7 @@ public class ProductRegistController {
 	}
 	
 	/**
-	 * division : 카테고리 2 반환	  
+	 * division : 판매점 구분 반환	  
 	 * @return
 	 */
 	@ResponseBody
