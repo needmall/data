@@ -49,6 +49,10 @@ public class MemberServiceImpl implements MemberService {
 				MemberSecurity sec = new MemberSecurity();
 				sec.setC_id(mvo.getC_id());
 				sec.setSalt(Util.getRandomString());	// 암호 randomString으로 바꿔주기
+				
+				logger.info(sec.getC_id() +" / "+ sec.getSalt());
+				
+				
 				sCode = memberDao.customerSecurityInsert(sec);
 				
 				if(mvo.getC_gendernum()==1 || mvo.getC_gendernum()==3) {
