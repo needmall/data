@@ -1,7 +1,6 @@
 package com.needmall.client.productdetail.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +28,16 @@ public class ProductdetailController {
 	
 	@Autowired
 	private ProductdetailService productdetailService;
-	@Autowired
-	private ProductRegistService productRegistService;
-	
+
 	@RequestMapping(value="/productdetailmain.do",method=RequestMethod.GET)
 
 	public String productdetailmain(ProductdetailVO dvo,Model model) {
+//		logger.info("테스트용 ps_num"+dvo.getPs_num());
 		logger.info("productdetailmain 호출");
 		ProductdetailVO detail = new ProductdetailVO();
 		detail =productdetailService.productdetailmain(dvo);
 //		Map<String, String> category = productdetailService.productdetailSub(dvo);
-		logger.info("나와라 디테일"+detail.toString());
+//		logger.info("나와라 디테일"+detail.toString());
 		model.addAttribute("detail",detail);
 	
 		return "productdetail/productdetailmain";
@@ -68,7 +66,7 @@ public class ProductdetailController {
 	@ResponseBody
 	@RequestMapping(value="/productdetailPreviewlist.do")
 	public String productdetailPreviewlist(ProductdetailVO dvo, ObjectMapper mapper) {
-		logger.info("productdetailStore 호출");
+		logger.info("productdetailPreviewlist 호출");
 		String value="";
 		List<PreviewVO> pList = productdetailService.productdetailPreviewlist(dvo);
 //		logger.info("logger.info(store)" +store);
@@ -87,7 +85,7 @@ public class ProductdetailController {
 	@ResponseBody
 	@RequestMapping(value="/productdetailSreviewlist.do")
 	public String productdetailSreviewlist(ProductdetailVO dvo, ObjectMapper mapper) {
-		logger.info("productdetailStore 호출");
+		logger.info("productdetailSreviewlist 호출");
 		String value="";
 		List<SreviewVO> pList = productdetailService.productdetailSreviewlist(dvo);
 //		logger.info("logger.info(store)" +store);
@@ -97,7 +95,7 @@ public class ProductdetailController {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		logger.info("logger.info(value)" +value);
+//		logger.info("logger.info(value)" +value);
 		return value;
 		
 	}

@@ -20,16 +20,16 @@ public class ProductdetailServiceImpl implements ProductdetailService {
 	public ProductdetailVO productdetailmain(ProductdetailVO dvo) {
 		// TODO Auto-generated method stub
 		ProductdetailVO detail = productdetailDao.productdetailmain(dvo);
-		int a =detail.getP_price();
-		int b =detail.getPs_price();
-		double result =(double)(a-b)/a*100.0;
+//		int a =detail.getP_price();
+//		int b =detail.getPs_price();
+//		double result =(double)(a-b)/a*100.0;
 //		System.out.println("a " +a);
 //		System.out.println("b " +b);
 //		Math.round(result);
 //		System.out.println(Double.parseDouble(String.format("%.2f", result)));
 //		System.out.println(Math.round(result));
-		detail.setDiscount(result);
-		System.out.println("디테일 서비스단" +detail.toString());
+//		detail.setDiscount(result);
+//		System.out.println("디테일 서비스단" +detail.toString());
 		return detail;
 	}
 

@@ -29,21 +29,42 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="/resources/include/js/countTime_1.1.js"></script>
 		<script>
-
-		$(function(){
-		
-			$('#countTime').countTime({
-				time:'2018-08-24 00:00:00'//기준시간
-			});
-		});
-		
+		$('#myModal').on('shown.bs.modal', function () {
+			  $('#myInput').focus()
+			})
 		</script>
 
 <title>Insert title here</title>
 </head> 
 	<body>
-
-			<span id="countTime"></span>
-
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+		  Launch demo modal
+		</button>
+		
+		<!-- Modal -->
+		<div class="modal fade bs-example-modal-lg"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg" >
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+		      </div>
+		      <div class="modal-body">
+		       	 <div class="container-fluid">
+		            <div class="row">
+		              <div class="col-md-4">상품이름 <img src="/uploadStorage/product/product_1532500063152_9A0D35E8009C43C09C47A06F9B2AFD65.jpg" width="150px" height="150px;"></div>
+		              
+		              <div class=".col-md-2 ">가격46462 수량 23개</div>
+		            </div>
+		          </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Save changes</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
    </body>
 </html>

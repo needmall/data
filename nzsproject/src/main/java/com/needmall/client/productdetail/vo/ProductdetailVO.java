@@ -19,6 +19,9 @@ public class ProductdetailVO extends ProductsellVO {
 	private String p_division="";// 상품 판매점 구분
 	private double discount=0;
 	
+	//st num
+	private int st_num=0;
+	
 	//CATEGORY1DEP
 	private int c1_num=0;		//카테고리 대분류 번호
 	private String c1_name="";	//카테고리 대분류 이름
@@ -27,6 +30,12 @@ public class ProductdetailVO extends ProductsellVO {
 	private int c2_num=0;		//카테고리 소분류 번호
 	private String c2_name="";		//카테고리 소분류 이름
 	
+	public int getSt_num() {
+		return st_num;
+	}
+	public void setSt_num(int st_num) {
+		this.st_num = st_num;
+	}
 	public int getPi_num() {
 		return pi_num;
 	}
@@ -81,6 +90,12 @@ public class ProductdetailVO extends ProductsellVO {
 	public void setP_division(String p_division) {
 		this.p_division = p_division;
 	}
+	public double getDiscount() {
+		return discount;
+	}
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
 	public int getC1_num() {
 		return c1_num;
 	}
@@ -105,25 +120,19 @@ public class ProductdetailVO extends ProductsellVO {
 	public void setC2_name(String c2_name) {
 		this.c2_name = c2_name;
 	}
-	public double getDiscount() {
-		return discount;
-	}
-	public void setDiscount(double discount) {
-		this.discount = discount;
-	}
-	
 	@Override
 	public String toString() {
 		return "ProductdetailVO [pi_num=" + pi_num + ", pi_image=" + pi_image + ", p_num=" + p_num + ", p_name="
 				+ p_name + ", p_price=" + p_price + ", p_date=" + p_date + ", p_update=" + p_update + ", p_content="
-				+ p_content + ", p_division=" + p_division + ", discount=" + discount + ", c1_num=" + c1_num
-				+ ", c1_name=" + c1_name + ", c2_num=" + c2_num + ", c2_name=" + c2_name + ", getPs_num()="
-				+ getPs_num() + ", getPs_regdate()=" + getPs_regdate() + ", getPs_expiration()=" + getPs_expiration()
-				+ ", getPs_count()=" + getPs_count() + ", getPs_price()=" + getPs_price() + ", getS_num()=" + getS_num()
-				+ ", getPs_state()=" + getPs_state() + ", getPs_update()=" + getPs_update()
-				+ ", getPs_expirationChange()=" + getPs_expirationChange() + ", toString()=" + super.toString()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+				+ p_content + ", p_division=" + p_division + ", discount=" + discount + ", st_num=" + st_num
+				+ ", c1_num=" + c1_num + ", c1_name=" + c1_name + ", c2_num=" + c2_num + ", c2_name=" + c2_name
+				+ ", getPs_num()=" + getPs_num() + ", getPs_regdate()=" + getPs_regdate() + ", getPs_expiration()="
+				+ getPs_expiration() + ", getPs_count()=" + getPs_count() + ", getPs_price()=" + getPs_price()
+				+ ", getS_num()=" + getS_num() + ", getPs_state()=" + getPs_state() + ", getPs_update()="
+				+ getPs_update() + ", getPs_expirationChange()=" + getPs_expirationChange() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+
 	
 
 	
