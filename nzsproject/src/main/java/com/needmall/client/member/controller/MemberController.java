@@ -75,7 +75,7 @@ public class MemberController {
 	/********************************************************************
 	 * 회원 가입 처리(customer)
 	 ********************************************************************/
-	@RequestMapping(value="/join_customer.do", method = RequestMethod.POST)
+	/*@RequestMapping(value="/join_customer.do", method = RequestMethod.POST)
 	public ModelAndView customerInsert(MemberVO mvo) {	// console창에 sever 구동할때 "{[/member/join.do],methods=[POST]}"
 		logger.info("join_customer.do post 방식에 의한 메서드 호출 성공");
 		ModelAndView mav = new ModelAndView();
@@ -98,6 +98,18 @@ public class MemberController {
 			break;
 		}
 		mvo.setCs_division(0);
+		return mav;
+	}*/
+	
+	/********************************************************************
+	 * 회원 가입 처리(customer)	(AOP)
+	 ********************************************************************/
+	@RequestMapping(value="/join_customer.do", method = RequestMethod.POST)
+	public ModelAndView customerInsert(MemberVO mvo, ModelAndView mav) {
+		logger.info("join_customer.do post 방식에 의한 메서드 호출 성공");
+		
+		memberService.customerInsert(mvo);
+		mav.setViewName("client/member/join_success");
 		return mav;
 	}
 	

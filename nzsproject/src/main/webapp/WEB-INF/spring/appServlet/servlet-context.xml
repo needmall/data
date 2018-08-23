@@ -80,7 +80,7 @@
     </tx:advice>
     
     <aop:config>
-    	<aop:pointcut expression="execution(* com.spring..*Impl.*(..))" id="allPointcut" />
+    	<aop:pointcut expression="execution(* com.needmall..*Impl.*(..))" id="allPointcut" />
     	<aop:advisor advice-ref="txAdvice" pointcut-ref="allPointcut"/>
     </aop:config>
 	
