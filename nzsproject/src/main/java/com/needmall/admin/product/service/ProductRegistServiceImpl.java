@@ -44,14 +44,14 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 	@Override
 	public String divisionlist() {
 		ObjectMapper mapper = new ObjectMapper();
-		List<Category2depVO> list = productRegistDao.category2dep(c1_num);
-		String catedep2="";
+		List<Category2depVO> list = productRegistDao.divisionlist();
+		String divisionlist="";
 		try {
-			catedep2=mapper.writeValueAsString(list);
+			divisionlist=mapper.writeValueAsString(list);
 		} catch (JsonProcessingException e) {			
 			e.printStackTrace();
 		}		
-		return catedep2;
+		return divisionlist;
 	}
 
 		
