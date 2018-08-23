@@ -235,6 +235,6 @@ public class MemberVO extends LoginVO {
 		this.si_division = si_division;
 	}
 	
-	
+	 
 	
 }
