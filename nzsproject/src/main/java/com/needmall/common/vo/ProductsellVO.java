@@ -1,6 +1,11 @@
 package com.needmall.common.vo;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class ProductsellVO {
    private int ps_num=0;	//번호
@@ -12,8 +17,9 @@ public class ProductsellVO {
    private int s_num=0;		// 판매자 번호
    private int ps_state=0;	// 상태번호
    private Date ps_update;	// 수정 날짜
+   private String ps_expirationChange="";
 public int getPs_num() {
-	return ps_num; 
+	return ps_num;
 }
 public void setPs_num(int ps_num) {
 	this.ps_num = ps_num;
@@ -34,6 +40,7 @@ public Date getPs_expiration() {
 	return ps_expiration;
 }
 public void setPs_expiration(Date ps_expiration) {
+//	setPs_expirationChange();
 	this.ps_expiration = ps_expiration;
 }
 public int getPs_count() {
@@ -66,12 +73,31 @@ public Date getPs_update() {
 public void setPs_update(Date ps_update) {
 	this.ps_update = ps_update;
 }
+public String getPs_expirationChange() {
+	long longValue2 = ps_expiration.getTime();
+
+    LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(longValue2), ZoneId.systemDefault());
+    String formattedString = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+//    System.out.println(formattedString);     // 2018-03-06 15:59:30.278
+	return formattedString;
+}
+public void setPs_expirationChange() {
+	
+	 SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+	 String strDate = sdfDate.format(ps_expiration);
+	 
+	this.ps_expirationChange = strDate;
+}
+
+
 @Override
 public String toString() {
 	return "ProductsellVO [ps_num=" + ps_num + ", p_num=" + p_num + ", ps_regdate=" + ps_regdate + ", ps_expiration="
 			+ ps_expiration + ", ps_count=" + ps_count + ", ps_price=" + ps_price + ", s_num=" + s_num + ", ps_state="
-			+ ps_state + ", ps_update=" + ps_update + "]";
+			+ ps_state + ", ps_update=" + ps_update + ", ps_expirationChange=" + ps_expirationChange + "]";
 }
 
+   
    
 }

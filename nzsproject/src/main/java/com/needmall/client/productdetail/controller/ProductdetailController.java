@@ -9,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.needmall.admin.product.service.ProductRegistService;
 import com.needmall.client.productall.controller.ProductallController;
 import com.needmall.client.productdetail.service.ProductdetailService;
 import com.needmall.client.productdetail.vo.PreviewVO;
@@ -27,6 +29,8 @@ public class ProductdetailController {
 	
 	@Autowired
 	private ProductdetailService productdetailService;
+	@Autowired
+	private ProductRegistService productRegistService;
 	
 	@RequestMapping(value="/productdetailmain.do",method=RequestMethod.GET)
 
@@ -35,14 +39,7 @@ public class ProductdetailController {
 		ProductdetailVO detail = new ProductdetailVO();
 		detail =productdetailService.productdetailmain(dvo);
 //		Map<String, String> category = productdetailService.productdetailSub(dvo);
-		List<ProductdetailVO> category1 = productdetailService.productdetailcategory1List(dvo);
-		List<ProductdetailVO> category2 = productdetailService.productdetailcategory2List(dvo);
-		
-		logger.info("logger.info(category)" +category1);
-		logger.info("logger.info(category)" +category2);
-		
-		model.addAttribute("category1",category1);
-		model.addAttribute("category2",category2);
+		logger.info("나와라 디테일"+detail.toString());
 		model.addAttribute("detail",detail);
 	
 		return "productdetail/productdetailmain";
@@ -104,5 +101,7 @@ public class ProductdetailController {
 		return value;
 		
 	}
+	
+
 	
 }

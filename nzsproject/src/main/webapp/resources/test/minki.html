@@ -27,29 +27,23 @@
 		
 		<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<script src="/resources/include/js/countTime_1.1.js"></script>
+		<script>
+
+		$(function(){
+		
+			$('#countTime').countTime({
+				time:'2018-08-24 00:00:00'//기준시간
+			});
+		});
+		
+		</script>
+
 <title>Insert title here</title>
 </head> 
 	<body>
-		<div class="dropdown">
-	  		<button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	  		ㅇㄴㅁㅇㄴㅁ
-	   			<span class="caret"></span>
-	  		</button>
-	  		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-	  			<li>하나</li>
-	  			<li>둘</li>
-	  		</ul>
-		</div>
-		<div class="dropdown">
-	  		<button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	  		ㅇㄴㅁㅇㄴㅁ
-	   			<span class="caret"></span>
-	  		</button>
-	  		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-	  			<li>하나</li>
-	  			<li>둘</li>
-	  		</ul>
-		</div>
+
+			<span id="countTime"></span>
 
    </body>
 </html>

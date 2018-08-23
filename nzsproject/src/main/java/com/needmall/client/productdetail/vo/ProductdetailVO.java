@@ -17,7 +17,7 @@ public class ProductdetailVO extends ProductsellVO {
 	private Date p_update;		// 상품 수정일
 	private String p_content="";// 상품 내용
 	private String p_division="";// 상품 판매점 구분
-	private int discount=0;
+	private double discount=0;
 	
 	//CATEGORY1DEP
 	private int c1_num=0;		//카테고리 대분류 번호
@@ -26,6 +26,7 @@ public class ProductdetailVO extends ProductsellVO {
 	//CATEGORY1DEP
 	private int c2_num=0;		//카테고리 소분류 번호
 	private String c2_name="";		//카테고리 소분류 이름
+	
 	public int getPi_num() {
 		return pi_num;
 	}
@@ -104,12 +105,13 @@ public class ProductdetailVO extends ProductsellVO {
 	public void setC2_name(String c2_name) {
 		this.c2_name = c2_name;
 	}
-	public int getDiscount() {
+	public double getDiscount() {
 		return discount;
 	}
-	public void setDiscount(int discount) {
+	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
+	
 	@Override
 	public String toString() {
 		return "ProductdetailVO [pi_num=" + pi_num + ", pi_image=" + pi_image + ", p_num=" + p_num + ", p_name="
@@ -118,8 +120,9 @@ public class ProductdetailVO extends ProductsellVO {
 				+ ", c1_name=" + c1_name + ", c2_num=" + c2_num + ", c2_name=" + c2_name + ", getPs_num()="
 				+ getPs_num() + ", getPs_regdate()=" + getPs_regdate() + ", getPs_expiration()=" + getPs_expiration()
 				+ ", getPs_count()=" + getPs_count() + ", getPs_price()=" + getPs_price() + ", getS_num()=" + getS_num()
-				+ ", getPs_state()=" + getPs_state() + ", getPs_update()=" + getPs_update() + ", toString()="
-				+ super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+				+ ", getPs_state()=" + getPs_state() + ", getPs_update()=" + getPs_update()
+				+ ", getPs_expirationChange()=" + getPs_expirationChange() + ", toString()=" + super.toString()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
 	
 

@@ -11,23 +11,9 @@
 		inner join category2dep on product.c2_num = category2dep.c2_num
 		inner join category1dep on category1dep.c1_num = category2dep.c1_num
 		 
-		WHERE productsell.ps_num =1 
+		WHERE productsell.ps_num =10
 	</select>
-	<select id="productdetailcategory1List" resultType="productdetail">
-		SELECT
-		    c1_num,
-		    c1_name
-		FROM
-		    category1dep
-	</select>
-	<select id="productdetailcategory2List" resultType="productdetail">
-	    SELECT
-		    c2_num,
-		    c2_name,
-		    c1_num
-		FROM
-		    category2dep
-	</select>
+
 	
 	<select id="productdetailStore" resultType="store">
 		SELECT

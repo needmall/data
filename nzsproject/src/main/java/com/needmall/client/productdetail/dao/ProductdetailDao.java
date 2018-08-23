@@ -17,8 +17,5 @@ public interface ProductdetailDao {
 
 	List<SreviewVO> productdetailSreviewlist(ProductdetailVO dvo);
 
-	List<ProductdetailVO> productdetailcategory1List(ProductdetailVO dvo);
-
-	List<ProductdetailVO> productdetailcategory2List(ProductdetailVO dvo);
 
 }
