@@ -32,7 +32,7 @@
 		});
 		
 		$("#category1").change(function() {  //on(이벤트, 대상, 콜백함수) 
-			console.log("ajaaaax");
+			
 			var url = "/admin/product/Category2dep.do?c1_num="+$("#category1 > option:selected").val();
 			$.getJSON(url, function(data) {
 				// 초기화
@@ -65,8 +65,7 @@
     		<div class="col-sm-4">    		
 	    		<select name="category1" id="category1" class="form-control">
 					<option>-----선택하세요-----</option>		
-				</select>
-				 > 
+				</select>			
 				<select name="category2" id="category2" class="form-control">
 					<option>-----선택하세요-----</option>		
 				</select>
@@ -101,7 +100,7 @@
 	     	</div>
 	  	</div>
 	  	<div class="form-group" >
-	    	<label for="p_division" class="col-sm-3  control-label">상품구분</label>
+	    	<label for="p_division" class="col-sm-3  control-label">판매점구분</label>
 	    	<div class="col-sm-4">
 		    	<select name="p_division" id="p_division" class="form-control col-xs-3">
 					<option>-----선택하세요-----</option>		

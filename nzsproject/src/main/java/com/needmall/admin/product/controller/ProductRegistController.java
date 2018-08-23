@@ -34,7 +34,7 @@ public class ProductRegistController {
 	@ResponseBody
 	@RequestMapping(value="/Category1dep.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
 	public String category1dep( ObjectMapper mapper) {		
-		String catedep1 = productRegistService.Category1dep(mapper);		
+		String catedep1 = productRegistService.category1dep(mapper);		
 		return catedep1; // 문자열 반환
 	}
 	
@@ -46,7 +46,18 @@ public class ProductRegistController {
 	@ResponseBody
 	@RequestMapping(value="/Category2dep.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
 	public String category2dep(@RequestParam("c1_num") int c1_num,  ObjectMapper mapper) {		
-		String catedep1 = productRegistService.Category2dep(c1_num, mapper);		
+		String catedep1 = productRegistService.category2dep(c1_num, mapper);		
+		return catedep1; // 문자열 반환
+	}
+	
+	/**
+	 * division : 카테고리 2 반환	  
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/division.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
+	public String divisionlist() {		
+		String catedep1 = productRegistService.divisionlist();		
 		return catedep1; // 문자열 반환
 	}
 }

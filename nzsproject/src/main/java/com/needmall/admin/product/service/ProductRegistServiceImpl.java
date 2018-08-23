@@ -18,7 +18,7 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 	private ProductRegistDao productRegistDao;
 	
 	@Override
-	public String Category1dep(ObjectMapper mapper) {
+	public String category1dep(ObjectMapper mapper) {
 		List<Category1depVO> list = productRegistDao.category1dep();
 		String catedep1="";
 		try {
@@ -30,7 +30,7 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 	}
 
 	@Override
-	public String Category2dep(int c1_num, ObjectMapper mapper) {
+	public String category2dep(int c1_num, ObjectMapper mapper) {
 		List<Category2depVO> list = productRegistDao.category2dep(c1_num);
 		String catedep2="";
 		try {
@@ -41,6 +41,18 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 		return catedep2;
 	}
 
-	
-	
+	@Override
+	public String divisionlist() {
+		ObjectMapper mapper = new ObjectMapper();
+		List<Category2depVO> list = productRegistDao.category2dep(c1_num);
+		String catedep2="";
+		try {
+			catedep2=mapper.writeValueAsString(list);
+		} catch (JsonProcessingException e) {			
+			e.printStackTrace();
+		}		
+		return catedep2;
+	}
+
+		
 }
