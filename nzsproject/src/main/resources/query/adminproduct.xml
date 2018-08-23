@@ -11,8 +11,15 @@
 		select distinct(p_division) from product
 	</select>
 	
-<!-- 	<insert id="productInsert" parameterType="productRegist">
+	<insert id="proimageInsert" parameterType="productRegist">
+		insert into proimage (pi_num, pi_image)	values(proimage_seq.nextval, #{pi_num})	
+	</insert>
+		
+	<insert id="productInsert" parameterType="productRegist">
+		<selectKey keyProperty="pi_num" resultType="int" order="BEFORE">
+			select spring_reply_seq.nextval from dual
+		</selectKey>
 		insert into product (p_num,c2_num,p_name,p_price,p_content,p_division,pi_num) 
-		values (PRODUCT_SEQ.NEXTVAL, #{}, #{}, #{}, #{}, #{}, #{})
-	</insert>	 -->
+		values (PRODUCT_SEQ.NEXTVAL, #{c2_num}, #{p_name}, #{p_price}, #{p_content}, #{p_division}, #{pi_num})
+	</insert>	 
 </mapper>

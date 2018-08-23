@@ -33,14 +33,12 @@ public class ProductRegistDaoImpl implements ProductRegistDao{
 	}
 
 	@Override
-	public int productInsert(ProductRegistVO prvo) {		
-		return session.insert("productInsert", prvo);
-	}
-
-	@Override
 	public int proimageInsert(ProductRegistVO prvo) {		
 		return session.insert("proimageInsert", prvo);
 	}
-
-
+	
+	@Override
+	public int productInsert(ProductRegistVO prvo) {		
+		return session.insert("productInsert", prvo);
+	}
 }
