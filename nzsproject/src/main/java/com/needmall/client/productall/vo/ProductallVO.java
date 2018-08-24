@@ -12,10 +12,14 @@ public class ProductallVO {
 	private int ps_price			= 0;	// 상품 판매 가격
 	private double c_lat 			= 0.0;	// 위도
 	private double c_lon 			= 0.0;	// 경도
+	private int prv_count			= 0;	// 댓글
+	private double prv_scope 		= 0.0;	// 평점
+	private double distance			= 0.0; 	// 거리
 	
 	public ProductallVO() {}
 	public ProductallVO(int ps_num, String si_image, String st_name, String pi_image, String p_name, int p_price,
-			String ps_expiration, int ps_count, int ps_price, double c_lat, double c_lon) {
+			String ps_expiration, int ps_count, int ps_price, double c_lat, double c_lon, int prv_count,
+			double prv_scope, double distance) {
 		super();
 		this.ps_num = ps_num;
 		this.si_image = si_image;
@@ -28,7 +32,11 @@ public class ProductallVO {
 		this.ps_price = ps_price;
 		this.c_lat = c_lat;
 		this.c_lon = c_lon;
+		this.prv_count = prv_count;
+		this.prv_scope = prv_scope;
+		this.distance = distance;
 	}
+	
 	public int getPs_num() {
 		return ps_num;
 	}
@@ -95,13 +103,24 @@ public class ProductallVO {
 	public void setC_lon(double c_lon) {
 		this.c_lon = c_lon;
 	}
-	@Override
-	public String toString() {
-		return "ProductallVO [판매상품 번호(ps_num) : " + ps_num + "\n편의점 이미지(si_image) : " + si_image + "\n편의점 상호명(st_name) : " + st_name + "\n상품 이미지 이름(pi_image) : "
-				+ pi_image + "\n상품 이름(p_name) : " + p_name + "\n상품 가격(p_price) : " + p_price + "\n상품 유통기한(ps_expiration) : " + ps_expiration
-				+ "\n상품 갯수(ps_count) : " + ps_count + "\n상품 판매 가격(ps_price) : " + ps_price + "\n위도(c_lat) : "+ c_lat + "\n경도(c_lon) : " + c_lon  + "]";
+	public int getPrv_count() {
+		return prv_count;
 	}
-	
+	public void setPrv_count(int prv_count) {
+		this.prv_count = prv_count;
+	}
+	public double getPrv_scope() {
+		return prv_scope;
+	}
+	public void setPrv_scope(double prv_scope) {
+		this.prv_scope = prv_scope;
+	}
+	public double getDistance() {
+		return distance;
+	}
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
 }
 
 

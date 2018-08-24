@@ -8,11 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.client.productall.service.ProductallService;
-import com.needmall.client.productall.vo.PreviewcfmVO;
 import com.needmall.client.productall.vo.ProductallVO;
 
 
@@ -32,43 +32,38 @@ public class ProductallController {
 		
 		
 		if(c_id != null) {
-			// 즐겨찾기
+			// 즐겨찾기 매장 판매 상품
 			List<ProductallVO> productFavList = productallService.productFavList(c_id);
 			model.addAttribute("productFavList", productFavList);
-			
-			List<PreviewcfmVO> previewConfirm = productallService.previewConfirm(c_id);
-			model.addAttribute("previewConfirm", previewConfirm);
 		}
+		
+		// 모든 매장 판매 상품
+		List<ProductallVO> productAllList = productallService.productAllList();
+		model.addAttribute("productAllList", productAllList);
 		
 		return "client/productall/productList";   
 	}
 	
-	
-	 
-	/*@RequestMapping(value="/productList.do", method = RequestMethod.GET)
-	public String productallList(@RequestParam("st_address") String st_address, @RequestParam("c_lat") double c_lat, @RequestParam("c_lon") double c_lon, Model model) {
-		logger.info("productList 호출 성공");
+	@ResponseBody
+	@RequestMapping(value="/productLocList.do", method=RequestMethod.POST, produces = "text/plain; charset=UTF-8") 
+	public String pwdConfirm(ProductallVO pvo, ObjectMapper mapper) {
+		logger.info("pwdConfirm 호출 성공");
+		String listData = "";
 		
-		
-		if(c_id != null) {
-			// 즐겨찾기
-			List<ProductallVO> productFavList = productallService.productFavList(c_id);
-			model.addAttribute("productFavList", productFavList);
+		if(pvo.getC_lat() > 0.0 && pvo.getC_lon() > 0.0) {
+			// 검색 주소의 위도, 경도
+			List<ProductallVO> productLocList = productallService.productLocList(pvo);
+			
+			try {
+				listData = mapper.writeValueAsString(productLocList);
+				logger.info(listData);
+			} catch(JsonProcessingException e) {
+				e.printStackTrace();
+			}
+			return listData;
 		}
-
-		if(c_lat > 0.0 && c_lon > 0.0) {
-			// Location : 위도, 경도
-			List<ProductallVO> productLocList = productallService.productLocList(c_lat, c_lon);
-			model.addAttribute("productLocList", productLocList);
-		} else if(st_address != null) {
-			// 주소 검색
-			List<ProductallVO> productStoList = productallService.productStoList(st_address);
-			model.addAttribute("productStoList", productStoList);
-		}	
 		
-		return "productall/productList";
-	}*/
-	
-	
+		return listData;
+	}
 	
 }
