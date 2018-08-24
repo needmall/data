@@ -126,14 +126,15 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 	
 	@Override
 	public int productDelete(ProductRegistVO prvo, HttpServletRequest request) {
-		int imgresult=0;
-		int proresult=0;
+		int imgResult=0;
+		int proResult=0;
 		int result=0;
 		
 		//proimage 데이터 삭제
-		imgresult = productRegistDao.productImageDelete(prvo.getPi_num());
+		imgResult = productRegistDao.productImageDelete(prvo.getPi_num());
 		//product 데이터 삭제
-		proresult = productRegistDao.productDelete(prvo.getP_num());
+		proResult = productRegistDao.productDelete(prvo.getP_num());
+		result=imgResult+proResult;
 		if(result == 2) {
 			try {
 				FileUploadUtil.fileDelete(prvo.getPi_image(), request);

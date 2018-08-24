@@ -14,7 +14,19 @@
 		$(".goDetail").click(function() {					
 			var p_num = $(this).attr("data-num");				
 			location.href="/admin/product/productDetail.do?p_num="+p_num;		
-		});			
+		});
+		var img = $("<img>");
+		$(".imgtd").hover(function () {
+			
+			img.attr({
+				src:"/uploadStorage/product/"+$(this).html(),
+				width:"200px"				
+			});
+			img.addClass("imgViewData img-thumbnail");
+			$(this).append(img);
+		}, function () {
+			img.remove();   /* 마우스 벗어났을때 이미지 지우기 */
+		});
 	})//최상위 마지막
 </script>
 
@@ -60,7 +72,7 @@
 							<td>${product.p_division}</td>
 							<td>${product.p_date}</td>
 							<td>${product.p_udate}</td>							
-							<td class="imgtd">${product.pi_image}</td>
+							<td class="imgtd" >${product.pi_image}</td>
 						</tr>	
 					</c:forEach>		
 				</c:when>
