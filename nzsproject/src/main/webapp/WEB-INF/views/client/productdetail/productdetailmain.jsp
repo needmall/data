@@ -1,3 +1,4 @@
+<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -36,20 +37,34 @@
 <script type="text/javascript">
 			$(function() {
 // 				category();
-				
-                 $("#count").keyup(function(event){
+				var ps_count = ${detail.ps_count };
+
+                $("#count").keyup(function(event){
                     if ((event.keyCode >=37 && event.keyCode<=40)) {
                         var inputVal = $(this).val();
                         $(this).val(inputVal.replace(/[^0-9]/gi,''));
                         
                     }
-                    if($("#count").val() > ${detail.ps_count}){
+                    if($("#count").val().replace(/\s/g,"")==""){
+                   		$("#count").val(1);
+                   	}
+                    
+                    if($("#count").val() > ps_count){
                     	$("#count").val(1);
-                    	alert("최대 수량은 "+${detail.ps_count}  +"입니다.");
+                    	alert("최대 수량은 "+ps_count  +"입니다.");
 //                     	${detail.ps_count} 수정해야함
                     }
                 }); 
                 
+    			$('#myModal').on('shown.bs.modal', function () {
+  				  	$('#myInput').focus();
+	  				$('#myModal').modal({
+	  				  backdrop: 'static',
+	  				  keyboard: false
+	  				})
+
+  				})
+
                 //쇼킹딜 타임
 //              time:'2018-08-24 00:00:00'//기준시간
 	            $('#countTime').countTime({
@@ -229,9 +244,17 @@
 </head>
 <body>
 <div class="all">
-	<input type="hidden" id="p_num" name="p_num">
-	<input type="hidden" id="ps_num" name="ps_num">
-	<input type="hidden" id="s_num" name="s_num">
+	<form>
+		<input type="hidden" id="datasize" name="datasize" value="">
+		<input type="hidden" id="p_num" name="p_num" value="${detail.p_num }">
+		<input type="hidden" id="ps_num" name="ps_num" value="${detail.ps_num }">
+		<input type="hidden" id="s_num" name="s_num" value="${detail.s_num }">
+		<input type="hidden" id="prv_image" name="prv_image" value="${detail.pi_image }">
+		<input type="hidden" id="p_content" name="p_content" value="${detail.p_content }">
+		<input type="hidden" id="ps_expiration" name="ps_expiration" value="${detail.ps_expirationChange }">
+		<input type="hidden" id="ps_count" name="ps_count" value="${detail.ps_count }">
+		<input type="hidden" id="ps_price" name="ps_price" value="${detail.ps_price }">
+	</form>
 	
 	<div class="form-group">
 		<label for="category1" class="col-sm-3 control-label">카테고리</label>
@@ -250,6 +273,9 @@
 			<img id="simg" class="img-thumbnail" src="/uploadStorage/product/${detail.pi_image}" width="100%"
 				height="100%" />
 		</div>
+		
+		
+		
 		<div >
 			<table class="table-striped" id="table_left">
 				<colgroup>
@@ -259,6 +285,7 @@
 				</colgroup>
 				<tr>
 					<td colspan="3">
+						<p><label>상품명 ${detail.p_name }</label> </p>
 						남은시간 (<span id="countTime"></span>)
 						<button type="button" class="btn btn-link" style="text-align: right;"><strong><mark>☆</mark></strong> 상품 즐겨찾기(미)</button>
 						<button type="button" class="btn btn-link" style="text-align: right;"><strong><mark>☆</mark></strong> 판매점 즐겨찾기(미)</button>
@@ -309,7 +336,8 @@
 				</tr>
 				
 				<tr>
-					<td><input class="btn btn-default" type="button" value="바로 구매하기" id="buy" name="buy"></td>
+<!-- 				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"> -->
+					<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">바로 구매하기</button></td>
 					<td><input class="btn btn-default" type="button" value="장바구니 담기" id="cart" name="cart"></td>
 				</tr>
 			</table>
@@ -330,6 +358,8 @@
 		<div class="contentTB" id="contentTB"></div>
 	</div>
 	
+<%-- 	<c:import url="productdetallbuy.jsp"></c:import> --%>
+	<%@include file="productdetallbuy.jsp" %>
 </div>
 </body>
 </html>
