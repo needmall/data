@@ -14,5 +14,5 @@ public interface ProductRegistDao {
 	public List<ProductVO> divisionlist();
 	public int productInsert(ProductRegistVO prvo);
 	public int proimageInsert(ProductRegistVO prvo);
-	
+	public List<ProductRegistVO> productListAll();
 }

@@ -41,4 +41,11 @@ public class ProductRegistDaoImpl implements ProductRegistDao{
 	public int productInsert(ProductRegistVO prvo) {		
 		return session.insert("productInsert", prvo);
 	}
+
+	@Override
+	public List<ProductRegistVO> productListAll() {
+		return session.selectList("productListAll");
+	}
+	
+	
 }

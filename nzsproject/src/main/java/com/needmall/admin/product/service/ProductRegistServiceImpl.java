@@ -23,6 +23,10 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 	@Autowired
 	private ProductRegistDao productRegistDao;
 	
+	
+	/**
+	 * category1dep: 카테고리 1부르기
+	 */
 	@Override
 	public String category1dep(ObjectMapper mapper) {
 		List<Category1depVO> list = productRegistDao.category1dep();
@@ -35,6 +39,9 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 		return catedep1;
 	}
 
+	/**
+	 * category2dep: 카테고리 2부르기
+	 */
 	@Override
 	public String category2dep(int c1_num, ObjectMapper mapper) {
 		List<Category2depVO> list = productRegistDao.category2dep(c1_num);
@@ -46,7 +53,11 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 		}		
 		return catedep2;
 	}
-
+	
+	
+	/**
+	 * divisionlist: 상품구분 부르기
+	 */
 	@Override
 	public String divisionlist() {
 		ObjectMapper mapper = new ObjectMapper();
@@ -59,7 +70,10 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 		}		
 		return divisionlist;
 	}
-
+	
+	/**
+	 * productInsert: 상품등록 하기
+	 */
 	@Override
 	public int productInsert(ProductRegistVO prvo, HttpServletRequest request) {
 		int result = 0;
@@ -75,6 +89,15 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 		int result2 = productRegistDao.productInsert(prvo);		
 		result=result1+result2;
 		return result;
+	}
+
+	@Override
+	public List<ProductRegistVO> productList(ProductRegistVO prvo) {
+		List<ProductRegistVO> list = null;
+		if (prvo.getSearch()=="") {
+		list = productRegistDao.productListAll();
+		}
+		return list;
 	}
 
 		

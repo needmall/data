@@ -17,9 +17,15 @@
 		
 	<insert id="productInsert" parameterType="productRegist">
 		<selectKey keyProperty="pi_num" resultType="int" order="BEFORE">
-			select max(pi_num) from proimage
+			select pi_num from proimage where pi_image = #{pi_image}
 		</selectKey>
-		insert into product (p_num,c2_num,p_name,p_price,p_content,p_division,pi_num) 
-		values (PRODUCT_SEQ.NEXTVAL, #{c2_num}, #{p_name}, #{p_price}, #{p_content}, #{p_division}, #{pi_num})
-	</insert>	 
+		insert into product (p_num, c2_num, p_name, p_price, p_content, p_division, pi_num, p_date, p_udate) 
+		values (PRODUCT_SEQ.NEXTVAL, #{c2_num}, #{p_name}, #{p_price}, #{p_content}, #{p_division}, #{pi_num}, sysdate, sysdate)
+	</insert>
+		
+	<select id="productListAll" resultType="productRegist">
+		select p_num, p_name, p_price, p_content, p_division, pi_image, c1_name, c2_name, p_date, p_udate from product
+		inner join proimage on product.pi_num=proimage.pi_num inner join category2dep on product.c2_num=category2dep.c2_num 
+		inner join category1dep on category2dep.c1_num = category1dep.c1_num order by p_udate;
+	</select>	 
 </mapper>

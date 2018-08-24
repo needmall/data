@@ -1,5 +1,7 @@
 package com.needmall.admin.product.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,4 +12,5 @@ public interface ProductRegistService {
 	public String category2dep(int c1_num, ObjectMapper mapper);
 	public String divisionlist();
 	public int productInsert(ProductRegistVO prvo, HttpServletRequest request);
+	public List<ProductRegistVO> productList(ProductRegistVO prvo);
 }

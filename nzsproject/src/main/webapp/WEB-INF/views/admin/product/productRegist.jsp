@@ -11,7 +11,7 @@
 	
  
 
-<script type="text/javascript">
+ <script type="text/javascript">
 	$(function() {
 			
 		// 구분 직접입력 숨기기
@@ -189,5 +189,3 @@
   			</div>
   		</div>
 	</form>	
-
-
