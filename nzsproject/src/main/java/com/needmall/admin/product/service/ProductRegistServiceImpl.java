@@ -66,10 +66,10 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 		String fileName="";
 		try {
 			fileName = FileUploadUtil.fileUpload(prvo.getFile(), request, "product");
-		} catch (IOException e) {
-			
+		} catch (IOException e) {			
 			e.printStackTrace();
 		}
+		
 		prvo.setPi_image(fileName);
 		int result1 = productRegistDao.proimageInsert(prvo);
 		int result2 = productRegistDao.productInsert(prvo);		

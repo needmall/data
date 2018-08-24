@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class ProductVO {
 	private int p_num				= 0;
-	private int c2__num				= 0;	
+	private int c2_num				= 0;	
 	private String p_name			= "";	
 	private int p_price				= 0;
 	private Date p_date				;
@@ -19,11 +19,12 @@ public class ProductVO {
 	public void setP_num(int p_num) {
 		this.p_num = p_num;
 	}
-	public int getC2__num() {
-		return c2__num;
+	
+	public int getC2_num() {
+		return c2_num;
 	}
-	public void setC2__num(int c2__num) {
-		this.c2__num = c2__num;
+	public void setC2_num(int c2_num) {
+		this.c2_num = c2_num;
 	}
 	public String getP_name() {
 		return p_name;
@@ -69,7 +70,7 @@ public class ProductVO {
 	}
 	@Override
 	public String toString() {
-		return "ProductVO [p_num=" + p_num + ", c2__num=" + c2__num + ", p_name=" + p_name + ", p_price=" + p_price
+		return "ProductVO [p_num=" + p_num + ", c2_num=" + c2_num + ", p_name=" + p_name + ", p_price=" + p_price
 				+ ", p_date=" + p_date + ", p_udate=" + p_udate + ", p_content=" + p_content + ", pi_num=" + pi_num
 				+ ", p_division=" + p_division + "]";
 	}

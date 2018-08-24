@@ -12,12 +12,12 @@
 	</select>
 	
 	<insert id="proimageInsert" parameterType="productRegist">
-		insert into proimage (pi_num, pi_image)	values(proimage_seq.nextval, #{pi_num})	
+		insert into proimage (pi_num, pi_image)	values(proimage_seq.nextval, #{pi_image})	
 	</insert>
 		
 	<insert id="productInsert" parameterType="productRegist">
 		<selectKey keyProperty="pi_num" resultType="int" order="BEFORE">
-			select spring_reply_seq.nextval from dual
+			select max(pi_num) from proimage
 		</selectKey>
 		insert into product (p_num,c2_num,p_name,p_price,p_content,p_division,pi_num) 
 		values (PRODUCT_SEQ.NEXTVAL, #{c2_num}, #{p_name}, #{p_price}, #{p_content}, #{p_division}, #{pi_num})
