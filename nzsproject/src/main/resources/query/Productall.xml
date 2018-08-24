@@ -4,31 +4,11 @@
 	
 	<!-- 즐겨찾기 매장 -->
 	<select id="productFavList" parameterType="String" resultType="productall">
-		select ps_num, si_image, st_name, pi_image, p_name, p_price, TO_char(ps_expiration ,'yyyy/mm/dd hh24:mi') as ps_expiration, ps_count, ps_price
-		FROM customer c, favstore fs, storeimage si, store st, productsell ps, product p, proimage pi
-		WHERE c_id = #{c_id} AND c.c_num = fs.c_num AND fs.st_num = st.st_num AND ps_state = 0 AND st.si_division = si.si_division AND st.s_num = ps.s_num AND ps.p_num = p.p_num AND p.pi_num = pi.pi_num
+		SELECT ps_num, si_image, st_name, pi_image, p_name, p_price, TO_CHAR(ps_expiration ,'yyyy/mm/dd hh24:mi') AS ps_expiration, ps_count, ps_price
+		FROM customer c INNER JOIN favstore fs ON c.c_num = fs.c_num INNER JOIN store st ON fs.st_num = st.st_num INNER JOIN productsell ps ON st.s_num = ps.s_num INNER JOIN product p ON ps.p_num = p.p_num INNER JOIN proimage pi ON p.pi_num = pi.pi_num INNER JOIN storeimage si ON st.si_division = si.si_division
+		WHERE c_id = #{c_id} AND ps_state = 0
+		ORDER BY st_name
 	</select>
 
-	<!-- 상품전체, 위도/경도 -->
-	<select id="productLocList" parameterType="Map" resultType="productall">
-		SELECT ps_num, si_image, st_name, pi_image, p_name, p_price, TO_CHAR(ps_expiration ,'yyyy/mm/dd hh24:mi') as ps_expiration, ps_count, ps_price
-		FROM storeimage si, store st, productsell ps, product p, proimage pi 
-		WHERE 
-		
-		ps_state = 0 AND st.si_division = si.si_division AND st.s_num = ps.s_num AND ps.p_num = p.p_num AND p.pi_num = pi.pi_num
-	</select>
-	
-	<!-- 주소 검색 -->
-	<select id="">
-		select st_num, s_num, st_bnum, st_name, st_address, st_email, st_hours, st_cell, st_ceo, st_lat, st_lon, si_division
-		FROM store
-		WHERE st_address LIKE '%' || #{st_address} || '%';
-	</select>
-	
-	<!-- 주소 검색된 매장 상품 -->
-	<select id="productStoList" parameterType="String" resultType="productall">
-		select ps_num, si_image, st_name, pi_image, p_name, p_price, TO_char(ps_expiration ,'yyyy/mm/dd hh24:mi') as ps_expiration, ps_count, ps_price
-		FROM storeimage si, store st, productsell ps, product p, proimage pi 
-		WHERE st_address LIKE '%' || #{st_address} || '%' AND ps_state = 0 AND st.si_division = si.si_division AND st.s_num = ps.s_num AND ps.p_num = p.p_num AND p.pi_num = pi.pi_num
-	</select>
+
 </mapper>

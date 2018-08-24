@@ -18,4 +18,5 @@ public interface MemberDao {
 	public int customerInsert(MemberVO mvo);
 	public int sellerInsert(MemberVO mvo);
 	
+	public MemberVO storeSelect(String st_bnum);
 }

@@ -53,4 +53,9 @@ public class MemberDaoImpl implements MemberDao {
 		return session.insert("sellerInsert", mvo);
 	}
 
+	@Override
+	public MemberVO storeSelect(String st_bnum) {
+		return (MemberVO)session.selectOne("storeSelect", st_bnum);
+	}
+
 }

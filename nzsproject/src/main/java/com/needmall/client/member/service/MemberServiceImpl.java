@@ -132,4 +132,16 @@ public class MemberServiceImpl implements MemberService {
 			}
 		}
 	}
+
+	@Override
+	public int stBnumConfirm(String st_bnum) {
+		int result;
+		if (memberDao.storeSelect(st_bnum) != null) {
+			result=1;
+		} else {
+			result=2;
+		}
+		return result;
+	}
+		
 }

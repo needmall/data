@@ -34,7 +34,7 @@
 				
 			});
 			}).fail(function() {
-				alert("카테고리1 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
+				alert("카테고리1 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.	");
 		});
 		
 		// 구분 목록 반환
@@ -89,6 +89,7 @@
 				$("#p_division").show();			
 			}else{
 				$("#p_division").hide();
+				$("#p_division").val($(this).find("option:selected").val());
 			}
 		});
 		
@@ -107,10 +108,10 @@
   		<div class="form-group">
     		<label for="category1" class="col-sm-3 control-label">카테고리</label>
     		<div class="col-sm-4">    		
-	    		<select name="category1" id="category1" class="form-control">
+	    		<select name="c1_num" id="category1" class="form-control">
 					<option>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 선택하세요 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ</option>		
 				</select>			
-				<select name="category2" id="category2" class="form-control">
+				<select name="c2_num" id="category2" class="form-control">
 					<option>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 선택하세요 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ</option>		
 				</select>
 			</div>
@@ -126,7 +127,7 @@
     		<div class="col-sm-4">
 	    		<div class="input-group">
 	      			<div class="input-group-addon">￦</div>
-	      			<input type="text" class="form-control col-xs-3" id="exampleInputAmount">
+	      			<input type="text" class="form-control col-xs-3" id="exampleInputAmount" name="p_price">
 	      			<div class="input-group-addon">WON</div>
 	    		</div>
     		</div>
@@ -149,7 +150,7 @@
 		    	<select name="division" id="division" class="form-control col-xs-3">
 					<option>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 선택하세요 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ</option>								
 				</select>
-				<input type="text" class="form-control col-xs-3" id="p_division" name="p_division" placeholder="판매구분을 직접 입력하세요.">
+				<input type="text" class="form-control col-xs-3" id="p_division" name="p_division" placeholder="판매구분을 직접 입력하세요.">				
 			</div>    
 	  	</div>
 		<div class="form-group" > 

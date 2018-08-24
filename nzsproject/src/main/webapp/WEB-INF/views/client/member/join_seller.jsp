@@ -122,12 +122,12 @@
 				</div>						
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="st_emailName" class="col-sm-2 control-label">회원 이메일</label>
+				<label for="s_mailName" class="col-sm-2 control-label">회원 이메일</label>
 				<div class="col-sm-3">
-					<input type="text" id="st_emailName" name="st_emailName" maxlength="60" class="form-control" placeholder="st_email">
+					<input type="text" id="s_mailName" name="s_mailName" maxlength="60" class="form-control" placeholder="s_mailName">
 				</div>
 				<div class="col-sm-2">
-					<select id="st_emailDomain" class="form-control">
+					<select id="s_mailDomain" class="form-control">
 						<option value="naver.com">네이버</option>
 						<option value="daum.net">다음</option>
 						<option value="nate.com">네이트</option>																	
@@ -146,7 +146,7 @@
 					<input type="text" id="st_bnum" name="st_bnum"  maxlength="20" class="form-control" placeholder="사업자 번호" />
 				</div>
 				<div class="col-sm-2">
-					<input type="button" id="st_bnumConfirmBtn" value="사업자 번호 중복체크" class="form-control btn-primary" />
+					<input type="button" id="stBnumConfirmBtn" value="사업자 번호 중복체크" class="form-control btn-primary" />
 				</div> 
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -158,9 +158,6 @@
 				<div class="col-sm-3">
 					<input type="text" id="st_name" name="st_name"  maxlength="20" class="form-control" placeholder="User ID" />
 				</div>
-				<div class="col-sm-2">
-					<input type="button" id="st_nameConfirmBtn" value="상호명 중복체크" class="form-control btn-primary" />
-				</div> 
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
 				</div>

@@ -19,46 +19,41 @@
 <!-- <script src="/resources/js/html5shiv.js"</script> -->
 <!-- [endif] -->
 
-<script type="text/javascript"
-	src="/resources/include/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
-<script type="text/javascript"
-	src="/resources/include/js/jquery.zoomooz.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 		 <link rel="stylesheet" type="text/css" href="/resources/include/css/common.css" /> -->
 <link rel="stylesheet" type="text/css"
 	href="/resources/include/css/productdetail.css" />
 
 <!-- 부가적인 테마 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="/resources/include/js/countTime_1.1.js"></script>
 
 <script type="text/javascript">
 			$(function() {
 // 				category();
-
-/*                 $("#count").keyup(function(event){
+				
+                 $("#count").keyup(function(event){
                     if ((event.keyCode >=37 && event.keyCode<=40)) {
                         var inputVal = $(this).val();
                         $(this).val(inputVal.replace(/[^0-9]/gi,''));
-                        alert("??")
                         
                     }
-                    if(("#count").val> ${detail.ps_count}){
+                    if($("#count").val() > ${detail.ps_count}){
+                    	$("#count").val(1);
                     	alert("최대 수량은 "+${detail.ps_count}  +"입니다.");
 //                     	${detail.ps_count} 수정해야함
                     }
-                }); */
+                }); 
                 
                 //쇼킹딜 타임
+//              time:'2018-08-24 00:00:00'//기준시간
 	            $('#countTime').countTime({
-// 					time:'2018-08-24 00:00:00'//기준시간
+ 					
 					time:'${detail.ps_expirationChange}'
 				});
                 
@@ -79,7 +74,6 @@
 					}else if($(this).index()==2){
 						sellInformation();
 					}
-					
 		       })
 		         
                	$(document).on("click",".accordion_banner > .accordion_title",function() {
@@ -90,29 +84,44 @@
 		                $(this).next("div").slideToggle("fast");
 	           	 	}
         		});
+				
+				$(".ul- li:first-child").trigger("click");
 			});
 			
 			function sellerReview(){
-				$("#contentTB").html("");  
-				$.getJSON("/productdetail/productdetailSreviewlist.do", function(data){
+				var label =$("<label>");
+				label.html("판매점 서비스 리뷰");
+				$("#contentTB").html("");
+				$("#contentTB").append(label);
+				var url ="/productdetail/productdetailSreviewlist.do?s_num="+${detail.s_num};
+				$.getJSON(url, function(data){
+// 					console.log("아니 이거 실행안함?"+data.length);
+					if(data.length==0){
+						notitemReviewTag();
+					}
 					$(data).each(function() {
-// 					console.log(data.length);	
 // 					accordion_sub.html(this.prv_num);
 						var srv_date = this.srv_date;
 						var srv_image = this.srv_image;
 						var srv_content = this.srv_content;
 						var srv_scope = this.srv_scope;
 						var c_id= this.c_id;
-						
+
 						itemReviewTag(srv_date,srv_image,srv_content,srv_scope,c_id);
-						
 					})
 				})
 			}
 			  
 			function itemReview(){
-				$("#contentTB").html("");  
-				$.getJSON("/productdetail/productdetailPreviewlist.do", function(data){
+				var label =$("<label>");
+				label.html("상품 리뷰");
+				$("#contentTB").html("");
+				$("#contentTB").append(label);
+				var url ="/productdetail/productdetailPreviewlist.do?p_num="+${detail.p_num}
+				$.getJSON(url, function(data){
+					if(data.length==0){
+						notitemReviewTag();
+					}
 					$(data).each(function() {
 // 					console.log(data.length);	
 // 					accordion_sub.html(this.prv_num);
@@ -121,35 +130,59 @@
 						var prv_content = this.prv_content;
 						var prv_scope = this.prv_scope;
 						var c_id= this.c_id;
-						
+
 						itemReviewTag(prv_date,prv_image,prv_content,prv_scope,c_id);
 						
 					})
 				})
 			}
-			
-			function itemReviewTag(prv_date,prv_image,prv_content,prv_scope,c_id) {
+			function notitemReviewTag(){
 				var accordion_banner = $("<div>");
 				accordion_banner.addClass("accordion_banner panel panel-primary");
 				
 				var accordion_title = $("<div>");
 				accordion_title.addClass("accordion_title panel-body");
-				accordion_title.html("평점"+prv_scope+"아이디"+c_id+"날짜"+prv_date);
+				accordion_title.html("현재 리뷰가 없습니다.");
+				//accordion_title.html(prv_date);
+				
+				var accordion_sub = $("<div>");
+				accordion_sub.addClass("accordion_sub panel-footer");
+				accordion_sub.html("");
+				
+				var buttun = $("<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>");
+				
+				accordion_banner.append(accordion_title.append(buttun)).append(accordion_sub);
+				$("#contentTB").append(accordion_banner);
+			}
+			
+			function itemReviewTag(prv_date,prv_image,prv_content,prv_scope,c_id,msg) {
+
+				var accordion_banner = $("<div>");
+				accordion_banner.addClass("accordion_banner panel panel-primary");
+				
+				var accordion_title = $("<div>");
+				accordion_title.addClass("accordion_title panel-body");
+				accordion_title.html("아이디"+c_id+"님의 리뷰 입니다. &nbsp;&nbsp;평점 :"+prv_scope+"점&nbsp;&nbsp;&nbsp;&nbsp;"+prv_date+"작성");
 				//accordion_title.html(prv_date);
 				
 				var accordion_sub = $("<div>");
 				accordion_sub.addClass("accordion_sub panel-footer");
 				accordion_sub.html("<img src='/uploadStorage/product/'"+prv_image+"' width='10%' height='10%'/>"+prv_content);
 // 				console.log(prv_content);
-
-				accordion_banner.append(accordion_title).append(accordion_sub);
+				
+				var buttun = $("<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>");
+				
+				accordion_banner.append(accordion_title.append(buttun)).append(accordion_sub);
 				$("#contentTB").append(accordion_banner);
+				
+				
 			}
 			
 			function sellInformation() {
 				$("#contentTB").html("");
+				var url = "/productdetail/productdetailStore.do?st_num="+${detail.st_num};
 				//ps_num -> 받아오면 바꿔야함 ---------------------------------------
-     			$.getJSON("/productdetail/productdetailStore.do", function(data){
+     			$.getJSON(url, function(data){
      				console.log(data.s_num);
 					var div =$("<div>")
 					div.addClass("contentTB");
@@ -187,15 +220,19 @@
 	h4{padding: 15px;}
 	.all{height: 1024px;}
 
-	.accordion_banner{background-color: silver; color:white; }
+	.accordion_banner{background-color: silver; color:black; }
+	.ul-{padding-top: 10px; }
+	.h4color{background-color: #F6F6F6; font-size: 20px; font-weight: bold;}]
 </style>
+
+
 </head>
 <body>
+<div class="all">
 	<input type="hidden" id="p_num" name="p_num">
 	<input type="hidden" id="ps_num" name="ps_num">
 	<input type="hidden" id="s_num" name="s_num">
-
-<div class="all">
+	
 	<div class="form-group">
 		<label for="category1" class="col-sm-3 control-label">카테고리</label>
 		<div class="col-sm-4">
@@ -204,7 +241,7 @@
 	</div>
 	<br/>
 	<div>
-		<h4>판매점 : ${detail.p_division }</h4>
+		<h4 class="h4color">판매 브랜드 : ${detail.p_division }</h4>
 	</div>
 	  
 	<div class="list-group-item">
@@ -221,23 +258,24 @@
 					<col width="400px;">
 				</colgroup>
 				<tr>
-					<td colspan="3">남은시간 (<span id="countTime"></span>)<br><hr></td>
+					<td colspan="3">
+						남은시간 (<span id="countTime"></span>)
+						<button type="button" class="btn btn-link" style="text-align: right;"><strong><mark>☆</mark></strong> 상품 즐겨찾기(미)</button>
+						<button type="button" class="btn btn-link" style="text-align: right;"><strong><mark>☆</mark></strong> 판매점 즐겨찾기(미)</button>
+						
+						<br><hr>
+					</td>
 				</tr>
 
 				<tr>
 					<td >소비자 가격</td>
 					<td>:</td>
-					<td >${detail.ps_price }원</td>
+					<td >${detail.p_price }원</td>
 				</tr>
 				<tr>
 					<td >판매가격</td>
 					<td >:</td>
-					<td >${detail.p_price }원</td>
-				</tr>
-				<tr>
-					<td >제조사</td>
-					<td >:</td>
-					<td >${detail.p_division}</td>
+					<td >${detail.ps_price }원</td>
 				</tr>
 
 				<tr>
@@ -246,7 +284,19 @@
 					<td >${detail.p_content }</td>
 				</tr>
 				<tr>
+					<td >유통기한</td>
+					<td >:</td>
+					<td >${detail.ps_expiration } 까지 !!</td>
+				</tr>
+				<tr>
 					<td>남은 재고</td>
+					<td>:</td>
+					<td>
+						<label>"${detail.ps_count }개 남았습니다."</label>
+					</td>
+				</tr>
+				<tr>
+					<td>구입 수량</td>
 					<td>:</td>
 					<td>
 						<input id="count" type="number" min="1" max="${detail.ps_count }" value="1">
@@ -255,7 +305,7 @@
 				<tr>
 					<td>할인율 <span id="discountspan"></span> &#37;</td>
 					<td></td>
-					<td>교환 환불 불가</td>
+					<td><span class="trade" style="color: red;">교환 환불 불가</span></td>
 				</tr>
 				
 				<tr>
@@ -265,18 +315,21 @@
 			</table>
 		</div>
 	</div>
-	<div>
+	<form class="form-inline">
+ 		<div class="form-group">
 		<ul class="ul- list-group" >
-			<li class="list-group-item list-group-item-warning"><a>상품 리뷰</a></li>
-			<li class="list-group-item list-group-item-warning"><a>서비스 리뷰</a></li>
-			<li class="list-group-item list-group-item-warning"><a>판매자 정보</a></li>
+			<li class="form-control"  ><a>상품 리뷰</a></li>
+			<li class="form-control" ><a>서비스 리뷰</a></li>
+			<li class="form-control" ><a>판매자 정보</a></li>
 		</ul>
-	</div>
+		</div>
+	</form>
 
 	<div class="panel-group" id="accordion" role="tablist"
 		aria-multiselectable="true">
 		<div class="contentTB" id="contentTB"></div>
 	</div>
+	
 </div>
 </body>
 </html>

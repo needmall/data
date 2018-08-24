@@ -29,21 +29,50 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="/resources/include/js/countTime_1.1.js"></script>
 		<script>
-
-		$(function(){
-		
-			$('#countTime').countTime({
-				time:'2018-08-24 00:00:00'//기준시간
-			});
-		});
+		$(function() {
+			$('#myModal').on('shown.bs.modal', function () {
+				  $('#myInput').focus();
+			})
+			
+			
+		})
+		function dynamic() {
+			var 
+		}
 		
 		</script>
+
 
 <title>Insert title here</title>
 </head> 
 	<body>
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+			 바로구매 버튼
+		</button>
+		
+		<!-- Modal -->
+		<div class="modal fade bs-example-modal-lg"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg" style="width: 1500px;" >
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">상품 구매 페이지</h4>
+		      </div>
+		      <div class="modal-body">
+		       	 <div class="container-fluid">
 
-			<span id="countTime"></span>
-
+				</div>
+		      </div>
+			<!-- 		밑에 버튼 ///////////////////////////////////////////////////////////////// -->
+          
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+		        <button type="button" class="btn btn-primary">결제</button>
+		      </div>
+			<!-- 		끝 ///////////////////////////////////////////////////////////////// -->
+		    </div>
+		  </div>
+		</div>
    </body>
 </html>

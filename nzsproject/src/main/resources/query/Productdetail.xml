@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.needmall.client.productdetail.dao.ProductdetailDao">
-	<select id="productdetailmain" resultType="productdetail">
+	<select id="productdetailmain" resultType="productdetail" parameterType="productdetail">
 		select pi_image,p_name,p_price,p_content,ps_regdate,ps_expiration
-		,ps_count,ps_price,ps_state,ps_update,c1_name,c2_name,p_division
+		,ps_count,ps_price,ps_state,ps_update,c1_name,c2_name,p_division,seller.s_num,store.st_num,product.p_num
 		
 		from proimage 
+		
 		inner join product on proimage.pi_num = product.pi_num
 		inner join productsell on product.p_num = productsell.p_num
 		inner join category2dep on product.c2_num = category2dep.c2_num
 		inner join category1dep on category1dep.c1_num = category2dep.c1_num
+        inner join seller on productsell.s_num = seller.s_num 
+        inner join store on store.s_num = seller.s_num
 		 
-		WHERE productsell.ps_num =10
+		WHERE productsell.ps_num =#{ps_num}
 	</select>
 
 	
-	<select id="productdetailStore" resultType="store">
+	<select id="productdetailStore" resultType="store" parameterType="store">
 		SELECT
 		    st_num,
 		    s_num,
@@ -33,9 +36,9 @@
 		FROM
 		    store
 		WHERE
-			st_num =1
+			st_num =#{st_num}
 	</select>
-	<select id="productdetailPreviewlist" resultType="Preview">
+	<select id="productdetailPreviewlist" resultType="Preview" parameterType="Preview">
 		SELECT
 		    prv_num,
 		    preview.c_num,
@@ -48,10 +51,10 @@
 		FROM
 		    preview inner join customer on preview.c_num = customer.c_num
 		WHERE
-			preview.p_num =3
+			preview.p_num =#{p_num}
 <!-- 			조건 수정해야함 -->
 	</select>
-	<select id="productdetailSreviewlist" resultType="Sreview">
+	<select id="productdetailSreviewlist" resultType="Sreview" parameterType="Sreview">
 		SELECT
 		    srv_num,
 		    sreview.c_num,
@@ -64,7 +67,7 @@
 		FROM
 		    sreview inner join customer on sreview.c_num = customer.c_num
 		WHERE
-			sreview.s_num =3
+			sreview.s_num =#{s_num}
 	</select>
 
 	

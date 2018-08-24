@@ -8,5 +8,6 @@ public interface MemberService {
 	public int customerInsert(MemberVO mvo);
 	public int sellerInsert(MemberVO mvo);
 	
+	public int stBnumConfirm(String st_bnum);
 	
 }
