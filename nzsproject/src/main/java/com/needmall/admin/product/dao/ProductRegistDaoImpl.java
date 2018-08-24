@@ -46,6 +46,15 @@ public class ProductRegistDaoImpl implements ProductRegistDao{
 	public List<ProductRegistVO> productListAll() {
 		return session.selectList("productListAll");
 	}
-	
+
+	@Override
+	public ProductRegistVO productDetail(ProductRegistVO prvo) {		
+		return (ProductRegistVO)session.selectOne("productDetail",prvo);
+	}
+
+	@Override
+	public int productUsageCount(int p_num) {		
+		return (Integer)session.selectOne("productUsageCount", p_num);
+	}
 	
 }

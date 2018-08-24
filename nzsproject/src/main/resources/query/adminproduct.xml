@@ -26,6 +26,14 @@
 	<select id="productListAll" resultType="productRegist">
 		select p_num, p_name, p_price, p_content, p_division, pi_image, c1_name, c2_name, p_date, p_udate from product
 		inner join proimage on product.pi_num=proimage.pi_num inner join category2dep on product.c2_num=category2dep.c2_num 
-		inner join category1dep on category2dep.c1_num = category1dep.c1_num order by p_udate;
-	</select>	 
+		inner join category1dep on category2dep.c1_num = category1dep.c1_num order by p_udate desc
+	</select>
+	<select id="productDetail" resultType="productRegist">
+		select p_num, p_name, p_price, p_content, p_division, pi_image, c1_name, c2_name, p_date, p_udate from product
+		inner join proimage on product.pi_num=proimage.pi_num inner join category2dep on product.c2_num=category2dep.c2_num 
+		inner join category1dep on category2dep.c1_num = category1dep.c1_num where p_num= #{p_num}
+	</select>
+	<select id="productUsageCount" parameterType="int" resultType="int">
+		select count(ps_num) from productsell where p_num = #{p_num}
+	</select>		 
 </mapper>

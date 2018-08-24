@@ -90,7 +90,10 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 		result=result1+result2;
 		return result;
 	}
-
+	
+	/**
+	 * productList : 상품 리스트 출력
+	 */
 	@Override
 	public List<ProductRegistVO> productList(ProductRegistVO prvo) {
 		List<ProductRegistVO> list = null;
@@ -99,6 +102,28 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 		}
 		return list;
 	}
+
+	/**
+	 * productDetail : 상품 상세보기
+	 */
+	@Override
+	public ProductRegistVO productDetail(ProductRegistVO prvo) {
+		prvo = productRegistDao.productDetail(prvo);
+		prvo.setP_content(prvo.getP_content().toString().replaceAll("\n", "<br>")); //엔터 br태그로 바꿔주기		
+		return prvo;
+	}
+	
+	/**
+	 * productUsageCount : 상품 사용량 확인
+	 */
+	@Override
+	public int productUsageCount(int p_num) {
+		int result=0; 
+		result = productRegistDao.productUsageCount(p_num);
+		return result;
+	}
+	
+	
 
 		
 }

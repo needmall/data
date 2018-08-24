@@ -15,4 +15,6 @@ public interface ProductRegistDao {
 	public int productInsert(ProductRegistVO prvo);
 	public int proimageInsert(ProductRegistVO prvo);
 	public List<ProductRegistVO> productListAll();
+	public ProductRegistVO productDetail(ProductRegistVO prvo);
+	public int productUsageCount(int p_num);
 }

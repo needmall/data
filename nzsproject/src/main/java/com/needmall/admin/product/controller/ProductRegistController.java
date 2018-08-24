@@ -69,7 +69,7 @@ public class ProductRegistController {
 	}
 	
 	/**
-	 * division : 판매점 구분 반환	  
+	 * division : 상품 등록	  
 	 * @return
 	 */	
 	@RequestMapping(value="/productInsert.do", method=RequestMethod.POST, produces ="text/plain; charset=UTF-8")
@@ -81,15 +81,42 @@ public class ProductRegistController {
 	}
 	
 	/**
-	 * 
+	 * productList : 상품 리스트
 	 * @return
 	 */
 	@RequestMapping(value="/productList.do",method=RequestMethod.GET)
-	public String productList(@ModelAttribute("data") ProductRegistVO prvo, Model model) {
+	public String productList(ProductRegistVO prvo, Model model) {
 		logger.info("productList 호출 성공");	
 		List<ProductRegistVO> list = productRegistService.productList(prvo);
 		model.addAttribute("productList", list);
 		return "admin/product/productList";
 	}
 	
+	/**
+	 * 상세 페이지 조회
+	 * **/
+	@RequestMapping(value="/productDetail.do", method=RequestMethod.GET)
+	public String productDetail(ProductRegistVO prvo, Model model) {
+		logger.info("productDetail 호출 성공");
+		
+		ProductRegistVO detail= productRegistService.productDetail(prvo);		
+		model.addAttribute("productDetail", detail);
+		
+		return "admin/product/productDetail";
+	}
+	
+	/**
+	 * productUsageCount : 상품 사용중 여부
+	 * 
+	 */
+	@ResponseBody
+	@RequestMapping(value="/productUsageCount.do",method=RequestMethod.POST, produces ="text/plain; charset=UTF-8")
+	public int productUsageCount(@RequestParam("p_num") int p_num) {
+		logger.info("productUsageCount 호출 성공");	
+		int result = 0;		
+		result = productRegistService.productUsageCount(p_num);		
+		logger.info("개수가 몇개? :"+result);
+		return result;
+	}
+
 }

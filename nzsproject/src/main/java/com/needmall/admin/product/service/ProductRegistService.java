@@ -13,4 +13,6 @@ public interface ProductRegistService {
 	public String divisionlist();
 	public int productInsert(ProductRegistVO prvo, HttpServletRequest request);
 	public List<ProductRegistVO> productList(ProductRegistVO prvo);
+	public ProductRegistVO productDetail(ProductRegistVO prvo);
+	public int productUsageCount(int p_num);
 }
