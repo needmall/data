@@ -20,6 +20,7 @@ import com.needmall.common.vo.ProductVO;
 @Service
 public class ProductRegistServiceImpl implements ProductRegistService{
 
+	
 	@Autowired
 	private ProductRegistDao productRegistDao;
 	
@@ -123,7 +124,25 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 		return result;
 	}
 	
-	
+	@Override
+	public int productDelete(ProductRegistVO prvo, HttpServletRequest request) {
+		int imgresult=0;
+		int proresult=0;
+		int result=0;
+		
+		//proimage 데이터 삭제
+		imgresult = productRegistDao.productImageDelete(prvo.getPi_num());
+		//product 데이터 삭제
+		proresult = productRegistDao.productDelete(prvo.getP_num());
+		if(result == 2) {
+			try {
+				FileUploadUtil.fileDelete(prvo.getPi_image(), request);
+			} catch (IOException e) {				
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 
 		
 }

@@ -56,5 +56,14 @@ public class ProductRegistDaoImpl implements ProductRegistDao{
 	public int productUsageCount(int p_num) {		
 		return (Integer)session.selectOne("productUsageCount", p_num);
 	}
-	
+
+	@Override
+	public int productImageDelete(int pi_num) {	
+		return session.insert("productImageDelete", pi_num);
+	}
+
+	@Override
+	public int productDelete(int p_num) {		
+		return session.insert("productDelete", p_num);
+	}		
 }

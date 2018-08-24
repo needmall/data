@@ -8,7 +8,7 @@ public class ProductRegistVO extends ProductVO{
 	// 파일 업로드를 위한 필드
 	private String pi_image  	="";//실제 서버에 저정한 파일명
 	private MultipartFile file; // 첨부 파일
-	
+	private int pi_num		=0;
 	//조건 검색시 사용할 필드
 	private String search ="";
 	private String keyword="";
@@ -66,6 +66,13 @@ public class ProductRegistVO extends ProductVO{
 	}
 	public void setC2_name(String c2_name) {
 		this.c2_name = c2_name;
-	}	
+	}
+	public int getPi_num() {
+		return pi_num;
+	}
+	public void setPi_num(int pi_num) {
+		this.pi_num = pi_num;
+	}
+	
 	
 }

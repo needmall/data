@@ -17,4 +17,6 @@ public interface ProductRegistDao {
 	public List<ProductRegistVO> productListAll();
 	public ProductRegistVO productDetail(ProductRegistVO prvo);
 	public int productUsageCount(int p_num);
+	public int productImageDelete(int pi_num); 
+	public int productDelete(int p_num);
 }

@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -110,13 +110,18 @@ public class ProductRegistController {
 	 * 
 	 */
 	@ResponseBody
-	@RequestMapping(value="/productUsageCount.do",method=RequestMethod.POST, produces ="text/plain; charset=UTF-8")
+	@RequestMapping(value="/productUsageCount.do",method=RequestMethod.POST)  // 변환 타입 위랑 다름 이유 확인!!
 	public int productUsageCount(@RequestParam("p_num") int p_num) {
 		logger.info("productUsageCount 호출 성공");	
 		int result = 0;		
-		result = productRegistService.productUsageCount(p_num);		
-		logger.info("개수가 몇개? :"+result);
+		result = productRegistService.productUsageCount(p_num);				
 		return result;
 	}
-
+	
+	@RequestMapping(value="/productDelete.do",method=RequestMethod.POST)
+	public String productDelete(ProductRegistVO prvo, HttpServletRequest request) {
+		logger.info("productDelete 호출 성공");	
+		productRegistService.productDelete(prvo, request);
+		return "redirect:/admin/product/productList.do";
+	}
 }

@@ -15,4 +15,5 @@ public interface ProductRegistService {
 	public List<ProductRegistVO> productList(ProductRegistVO prvo);
 	public ProductRegistVO productDetail(ProductRegistVO prvo);
 	public int productUsageCount(int p_num);
+	public int productDelete(ProductRegistVO prvo, HttpServletRequest request);
 }
