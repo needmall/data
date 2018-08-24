@@ -1,5 +1,7 @@
 package com.needmall.admin.product.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -23,10 +25,10 @@ public class ProductRegistController {
 	@Autowired
 	private ProductRegistService productRegistService;
 	
-	@RequestMapping(value="/productregist.do",method=RequestMethod.GET)
+	@RequestMapping(value="/productRegist.do",method=RequestMethod.GET)
 	public String productRegist() {
 		logger.info("productRegist 호출 성공");		
-		return "admin/product/productregist";
+		return "admin/product/productRegist";
 	}
 	
 	
@@ -74,7 +76,18 @@ public class ProductRegistController {
 		int result =0;	
 		result = productRegistService.productInsert(prvo, request);
 		model.addAttribute("registresult",result);
-		return "admin/product/productregist"; 
+		return "admin/product/productRegist"; 
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value="/productList.do",method=RequestMethod.GET)
+	public String productList(Model model) {
+		logger.info("productList 호출 성공");	
+		List<ProductRegistVO> list;
+		return "admin/product/productList";
 	}
 	
 }
