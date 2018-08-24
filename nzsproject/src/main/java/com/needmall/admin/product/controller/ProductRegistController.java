@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.product.service.ProductRegistService;
 import com.needmall.admin.product.vo.ProductRegistVO;
-
 
 @Controller
 @RequestMapping(value="/admin/product")
@@ -28,6 +28,7 @@ public class ProductRegistController {
 		logger.info("productRegist 호출 성공");		
 		return "admin/product/productregist";
 	}
+	
 	
 	/**
 	 * category1dep : 카테고리 1 반환
@@ -69,10 +70,11 @@ public class ProductRegistController {
 	 * @return
 	 */	
 	@RequestMapping(value="/productInsert.do", method=RequestMethod.POST, produces ="text/plain; charset=UTF-8")
-	public int productInsert(ProductRegistVO prvo, HttpServletRequest request) {
-		int result=0;			
+	public String productInsert(ProductRegistVO prvo, HttpServletRequest request, Model model) {	
+		int result =0;	
 		result = productRegistService.productInsert(prvo, request);
-		return result; 
+		model.addAttribute("registresult",result);
+		return "admin/product/productregist"; 
 	}
 	
 }

@@ -13,7 +13,13 @@
 
 <script type="text/javascript">
 	$(function() {
-		
+		//상품 등록 여부 확인
+		var result = 0;
+		result= document.getElementById("registresult"); 
+		console.log(result);
+		/* if (result =2){
+			alert("상품 등록을 성공하셨습니다.");			
+		} */
 		// 구분 직접입력 숨기기
 		$("#p_division").hide();
 		
@@ -95,6 +101,7 @@
 		
 		// 등록 버튼 클릭시
 		$("#registBtn").click(function() {
+			
 			/* 첨부파일 보낼때에는 post 방식에서 enctype="multipart/form-data" 속성을 설정하여야 한다. */						
 			$("#productInsertForm").attr({"method":"post","action":"/admin/product/productInsert.do","enctype":"multipart/form-data"});
 			$("#productInsertForm").submit();
@@ -103,7 +110,7 @@
 </script>
 
 
-
+	
 	<form class="form-horizontal" id="productInsertForm">
   		<div class="form-group">
     		<label for="category1" class="col-sm-3 control-label">카테고리</label>
@@ -141,7 +148,7 @@
 	  	<div class="form-group">
 	    	<label for="pi_image" class="col-sm-3 control-label">상품사진</label>
 	    	<div class="col-sm-4">
-	     		<input type="file" id="exampleInputFile">
+	     		<input type="file" id="exampleInputFile" name="file">
 	     	</div>
 	  	</div>
 	  	<div class="form-group" >
