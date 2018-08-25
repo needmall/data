@@ -83,8 +83,7 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 			fileName = FileUploadUtil.fileUpload(prvo.getFile(), request, "product");
 		} catch (IOException e) {			
 			e.printStackTrace();
-		}
-		
+		}		
 		prvo.setPi_image(fileName);
 		int result1 = productRegistDao.proimageInsert(prvo);
 		int result2 = productRegistDao.productInsert(prvo);		
@@ -124,12 +123,15 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 		return result;
 	}
 	
+	/**
+	 * productDelete: 등록상품 삭제
+	 */
 	@Override
 	public int productDelete(ProductRegistVO prvo, HttpServletRequest request) {
 		int imgResult=0;
 		int proResult=0;
 		int result=0;
-		
+		String preimagename=prvo.getPi_image();
 		//proimage 데이터 삭제
 		imgResult = productRegistDao.productImageDelete(prvo.getPi_num());
 		//product 데이터 삭제
@@ -137,10 +139,56 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 		result=imgResult+proResult;
 		if(result == 2) {
 			try {
-				FileUploadUtil.fileDelete(prvo.getPi_image(), request);
+				FileUploadUtil.fileDelete(preimagename, request);
 			} catch (IOException e) {				
 				e.printStackTrace();
 			}
+		}
+		return result;
+	}
+
+	/**
+	 * productUpdate : 등록상품 수정
+	 */
+	@Override
+	public int productUpdate(ProductRegistVO prvo, HttpServletRequest request) {
+		int result = 0;
+		int result1=0;
+		int result2=0;
+		String preimg= prvo.getPi_image();
+		String fileName="";
+		if(prvo.getFile()!=null) {
+			try {
+				fileName = FileUploadUtil.fileUpload(prvo.getFile(), request, "product");
+				prvo.setPi_image(fileName);
+				result1 = productRegistDao.proimageUpdate(prvo);
+			} catch (IOException e) {			
+				e.printStackTrace();
+			}		
+		}
+		
+		result2 = productRegistDao.productUpdate(prvo);		
+		result=result1+result2;
+		
+		if(result == 2) { //첨부파일의 변화가 없을 경우 이미지 업데이트 안함으로 1이되기때문에 파일 삭제가 안된다.
+			try {
+				FileUploadUtil.fileDelete(preimg, request);
+			} catch (IOException e) {				
+				e.printStackTrace();
+			}
+		}
+		return result;		
+	}
+	/**
+	 * productUpdate : 상태 토글하기
+	 */
+	@Override
+	public int stateUpdate(int p_num, int p_state) {
+		int result =0;
+		if(p_state==0) {
+			result = productRegistDao.p_stateX(p_num);
+		}else {
+			result = productRegistDao.p_stateO(p_num);
 		}
 		return result;
 	}

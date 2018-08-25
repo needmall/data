@@ -19,17 +19,17 @@
 		<selectKey keyProperty="pi_num" resultType="int" order="BEFORE">
 			select pi_num from proimage where pi_image = #{pi_image}
 		</selectKey>
-		insert into product (p_num, c2_num, p_name, p_price, p_content, p_division, pi_num, p_date, p_udate) 
-		values (PRODUCT_SEQ.NEXTVAL, #{c2_num}, #{p_name}, #{p_price}, #{p_content}, #{p_division}, #{pi_num}, sysdate, sysdate)
+		insert into product (p_num, c2_num, p_name, p_price, p_content, p_division, pi_num, p_date, p_udate, p_state) 
+		values (PRODUCT_SEQ.NEXTVAL, #{c2_num}, #{p_name}, #{p_price}, #{p_content}, #{p_division}, #{pi_num}, sysdate, sysdate, 0)
 	</insert>
 		
 	<select id="productListAll" resultType="productRegist">
-		select p_num, p_name, p_price, p_content, p_division, pi_image, c1_name, c2_name, p_date, p_udate from product
+		select p_num, p_name, p_price, p_content, p_division, pi_image, c1_name, c2_name, p_date, p_udate, p_state from product
 		inner join proimage on product.pi_num=proimage.pi_num inner join category2dep on product.c2_num=category2dep.c2_num 
 		inner join category1dep on category2dep.c1_num = category1dep.c1_num order by p_udate desc
 	</select>
 	<select id="productDetail" resultType="productRegist">
-		select p_num, p_name, p_price, p_content, p_division, pi_image, c1_name, c2_name, p_date, p_udate, proimage.pi_num from product
+		select p_num, p_name, p_price, p_content, p_division, pi_image, c1_name, category1dep.c1_num, c2_name, category2dep.c2_num, p_date, p_udate, proimage.pi_num from product
 		inner join proimage on product.pi_num=proimage.pi_num inner join category2dep on product.c2_num=category2dep.c2_num 
 		inner join category1dep on category2dep.c1_num = category1dep.c1_num where p_num= #{p_num}
 	</select>
@@ -41,5 +41,23 @@
 	</delete>		
 	<delete id="productDelete" parameterType="int">
 		delete from product where p_num=#{p_num}
-	</delete> 
+	</delete>
+	<update id="proimageUpdate" parameterType="productRegist">
+		update proimage set pi_image=#{pi_image} where pi_num=#{pi_num}
+	</update> 
+	<update id="productUpdate" parameterType="productRegist">
+		update product set c2_num=#{c2_num}, p_name=#{p_name}, p_price=#{p_price}, p_udate=sysdate, p_content=#{p_content}, p_division=#{p_division} where p_num=#{p_num}
+	</update>
+	<update id="p_stateX" parameterType="int">
+		update product set p_state=1 where p_num=#{p_num}
+	</update>
+	<update id="p_stateO" parameterType="int">
+		update product set p_state=0 where p_num=#{p_num}
+	</update>
+<!-- 	<update id="updateBoard" parameterType="board"> -->
+<!-- 		update spring_board set b_title=#{b_title}, b_content=#{b_content}, b_date=sysdate  -->
+<!-- 		<if test="b_pwd !=''">, b_pwd=#{b_pwd} </if>   if를 사용하여 비밀번호가 없을때를 컨트롤하며 이때 빈문자 사용을 위해 VO초기값을 ''로 세팅  -->
+<!-- 		<if test="b_file != null and b_file != '' ">, b_file=#{b_file} </if> -->
+<!-- 	    where b_num=#{b_num}  -->
+<!-- 	</update> -->
 </mapper>

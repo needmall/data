@@ -65,5 +65,29 @@ public class ProductRegistDaoImpl implements ProductRegistDao{
 	@Override
 	public int productDelete(int p_num) {		
 		return session.insert("productDelete", p_num);
-	}		
+	}
+
+	@Override
+	public int proimageUpdate(ProductRegistVO prvo) {
+		return session.update("proimageUpdate",prvo);
+	}	
+	
+	@Override
+	public int productUpdate(ProductRegistVO prvo) {		
+		return session.update("productUpdate",prvo);
+	}
+
+	@Override
+	public int p_stateX(int p_num) {		
+		return session.update("p_stateX",p_num);
+	}
+
+	@Override
+	public int p_stateO(int p_num) {		
+		return session.update("p_stateO",p_num);
+	}
+
+	
+	
+	
 }

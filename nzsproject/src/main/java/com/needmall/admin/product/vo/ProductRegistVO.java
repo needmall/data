@@ -14,7 +14,10 @@ public class ProductRegistVO extends ProductVO{
 	private String keyword="";
 	private String start_date="";
 	private String end_date="";
-
+	private int c1_num=0;
+	private int c2_num=0;
+	private int p_state=0;
+	
 	// 추가로 필요한 필드
 	private String c1_name="";
 	private String c2_name="";
@@ -72,6 +75,24 @@ public class ProductRegistVO extends ProductVO{
 	}
 	public void setPi_num(int pi_num) {
 		this.pi_num = pi_num;
+	}
+	public int getC1_num() {
+		return c1_num;
+	}
+	public void setC1_num(int c1_num) {
+		this.c1_num = c1_num;
+	}
+	public int getC2_num() {
+		return c2_num;
+	}
+	public void setC2_num(int c2_num) {
+		this.c2_num = c2_num;
+	}
+	public int getP_state() {
+		return p_state;
+	}
+	public void setP_state(int p_state) {
+		this.p_state = p_state;
 	}
 	
 	
