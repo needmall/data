@@ -70,6 +70,12 @@ public class StoreRegistServiceImpl implements StoreRegistService{
 		return result;
 	}
 
+	@Override
+	public List<StoreRegistVO> storeList() {
+		List<StoreRegistVO> list = storeRegistDao.storeList();
+		return list;
+	}
+
 	
 //	/**
 //	 * productList : 상품 리스트 출력

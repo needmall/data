@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class StoreVO {
 	private int st_num=0;
+	private int s_num=0;
 	private String st_bnum="";
 	private String st_name="";
 	private String st_address="";
@@ -81,6 +82,13 @@ public class StoreVO {
 	}
 	public void setSt_date(Date st_date) {
 		this.st_date = st_date;
+	}
+	
+	public int getS_num() {
+		return s_num;
+	}
+	public void setS_num(int s_num) {
+		this.s_num = s_num;
 	}
 	@Override
 	public String toString() {

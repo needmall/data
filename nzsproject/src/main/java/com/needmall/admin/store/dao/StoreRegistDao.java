@@ -11,7 +11,7 @@ public interface StoreRegistDao {
 	public List<StoreimageVO> divisionlist();	
 	public int storeInsert(StoreRegistVO srvo);
 	public int storeimageInsert(StoreRegistVO srvo);
-	
+	public List<StoreRegistVO> storeList();
 //	public List<ProductRegistVO> productListAll();
 //	public ProductRegistVO productDetail(ProductRegistVO prvo);
 //	public int productUsageCount(int p_num);

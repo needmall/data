@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.needmall.admin.store.dao.StoreRegistDao">
 	<select id="storeReqList" resultType="reqstore">
-		select reqst_num, s_num, st_bnum, st_name, st_address, st_email, st_hours, st_cell, st_ceo, st_date, st_num from reqstore
+		select reqst_num, reqstore.s_num, reqstore.st_bnum, reqstore.st_name, reqstore.st_address, reqstore.st_email, reqstore.st_hours, reqstore.st_cell, reqstore.st_ceo, reqstore.st_date, reqstore.st_num, store.s_num from reqstore left outer join  store on reqstore.s_num=store.s_num where store.s_num is null		
 	</select>
 	<select id="divisionlist" resultType="storeimage">
 		select distinct(si_division) from storeimage
@@ -15,4 +15,7 @@
 		insert into store (st_num,s_num,st_bnum,st_name,st_address,st_email,st_hours,st_cell,st_ceo,st_lat,st_lon,st_date,si_division) 
 		values (store_seq.nextval,#{s_num},#{st_bnum},#{st_name},#{st_address},#{st_email},#{st_hours},#{st_cell},#{st_ceo},#{st_lat},#{st_lon},sysdate,#{si_division})
 	</insert>
+	<select id="storeList" resultType="storeRegist">
+		select st_num,s_num,st_bnum,st_name,st_address,st_email,st_hours,st_cell,st_ceo,st_lat,st_lon,st_date,si_division from store		
+	</select>
 </mapper>

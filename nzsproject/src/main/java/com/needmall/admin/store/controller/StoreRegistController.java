@@ -27,7 +27,7 @@ public class StoreRegistController {
 	
 //	
 	/**
-	 * storeReqList: 등록 리스트 화면 호출용
+	 * storeReqList: 등록요청 리스트 화면 호출용
 	 * @return
 	 */
 	@RequestMapping(value="/storeReqList.do",method=RequestMethod.GET)
@@ -67,17 +67,29 @@ public class StoreRegistController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/storeInsert.do", method=RequestMethod.POST, produces ="text/plain; charset=UTF-8")
+	@RequestMapping(value="/storeInsert.do", method=RequestMethod.POST)
 	public String storeInsert(StoreRegistVO srvo, HttpServletRequest request, Model model) {	
 		int result =0;	
 		result = storeRegistService.storeInsert(srvo, request);
 		model.addAttribute("registresult",result);
-		return "admin/store/storeInsert"; 
+		return "redirect:/admin/store/storeReqList.do"; 
+	}
+	
+	/**
+	 * storeList: 매장 리스트 화면 호출용
+	 * @return
+	 */
+	@RequestMapping(value="/storeList.do",method=RequestMethod.GET)
+	public String storeList(Model model) {
+		logger.info("storeList 호출 성공");
+		List<StoreRegistVO> list = storeRegistService.storeList();
+		model.addAttribute("storeList", list);
+		return "admin/store/storeList";
 	}
 	
 //
 //	/**
-//	 * productList : 상품 리스트
+//	 * productList : 상품 리스트   produces ="text/plain; charset=UTF-8"
 //	 * @param prvo
 //	 * @param model
 //	 * @return

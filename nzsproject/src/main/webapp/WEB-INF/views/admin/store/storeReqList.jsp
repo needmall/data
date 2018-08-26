@@ -45,7 +45,7 @@
 	<table class="table table-bordered table-hover">	
 		<thead>			
 			<tr>
-				<th>판매요청번호</th>
+				<th>매장요청번호</th>
 				<th>판매자번호</th>
 				<th>사업자번호</th>
 				<th>상호명</th>
@@ -77,7 +77,7 @@
 					</c:forEach>		
 				</c:when>
 				<c:otherwise>
-					<tr><td colspan="9" class="tac">등록된 게시물이 존재하지 않습니다.</td></tr>
+					<tr><td colspan="10" class="tac">매장 요청이 존재하지 않습니다.</td></tr>
 				</c:otherwise>
 			</c:choose>
 		</tbody>	

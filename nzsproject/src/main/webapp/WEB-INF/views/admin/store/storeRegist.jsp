@@ -25,6 +25,7 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b262aa5fd1eb6fa9c51a3235fa41046a&libraries=services"></script>
 <script type="text/javascript">
+
 	$(function() {
 		// 구분 직접입력 숨기기
 		$("#si_division").hide();
@@ -85,13 +86,14 @@
 					var lon = result[0].address.x						
 					$("#st_lat").val(lat);
 					$("#st_lon").val(lon);
-					console.log("위도 : "+lat +", 경도 :"+ lat);
-										
+															
 					// 행정동 표시
 					// 좌표로 행정동 주소 정보를 요청합니다
 					geocoder.coord2RegionCode(lon, lat, getAddress);					
 				}else{
-					alert("주소를 다시 입력하여 주세요.");
+					$("#latlonAddress").val("");
+					$("#latlonAddress").focus();
+					alert("주소를 제대로 다시 입력하여 주세요.(예,성동구 무학로2길 54)");
 				}
 			})	
 	})
@@ -110,7 +112,7 @@
 			return;
 		}else if(!chkData("#st_address","사업지 주소를")){
 			return;
-		}else if(!chkData("#st_emial","이메일을")){
+		}else if(!chkData("#st_email","이메일을")){
 			return;
 		}else if(!chkData("#st_hours","영업시간을")){
 			return;
@@ -122,7 +124,13 @@
 			return;
 		}else if($("#division").find("option:selected").val()=="none"){
 			alert("판매점 구분을 선택해 주세요.");			
-			return;				
+			return;
+		}else if(!chkData("#si_division","판매점 구분을" )){
+			return;			
+		}else if($("#division").find("option:selected").val()=="extra" && !chkData("#file","사진을")){
+			return;
+		}else if($("#division").find("option:selected").val()=="extra" && !chkFile($("#file"))){
+			return;
 		}else{	
 			/* 첨부파일 보낼때에는 post 방식에서 enctype="multipart/form-data" 속성을 설정하여야 한다. */						
 			$("#registForm").attr({"method":"post","action":"/admin/store/storeInsert.do","enctype":"multipart/form-data"});
@@ -138,7 +146,6 @@ function getAddress (result, status) {
 	if (status === daum.maps.services.Status.OK) {
 		var nowlocation = result[0].address_name;
 		$("#latlonAddress").val( nowlocation);
-		console.log(nowlocation);
 	}
 } 	
 

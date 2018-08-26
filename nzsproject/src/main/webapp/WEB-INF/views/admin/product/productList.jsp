@@ -10,6 +10,9 @@
  
 
 <script type="text/javascript">
+if(${registresult >= 1} ){
+	alert("등록이 완료 되었습니다.");	
+}
 	
 	$(function() {
 		/* 상세페이지 이동 이벤트 */
@@ -179,7 +182,7 @@
 					</c:forEach>		
 				</c:when>
 				<c:otherwise>
-					<tr><td colspan="9" class="tac">등록된 게시물이 존재하지 않습니다.</td></tr>
+					<tr><td colspan="11" class="tac">등록된 물품이 존재하지 않습니다.</td></tr>
 				</c:otherwise>
 			</c:choose>
 		</tbody>	

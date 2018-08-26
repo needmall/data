@@ -37,6 +37,11 @@ public class StoreRegistDaoImpl implements StoreRegistDao{
 		return session.insert("storeInsert", srvo);
 	}
 
+	@Override
+	public List<StoreRegistVO> storeList() {		
+		return session.selectList("storeList");
+	}
+
 	
 
 	

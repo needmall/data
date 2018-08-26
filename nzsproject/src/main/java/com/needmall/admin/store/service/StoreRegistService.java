@@ -11,6 +11,7 @@ public interface StoreRegistService {
 	public List<ReqstoreVO> storeReqList();
 	public String divisionlist();
 	public int storeInsert(StoreRegistVO srvo, HttpServletRequest request);
+	public List<StoreRegistVO> storeList();
 	
 	
 //	public List<ProductRegistVO> productList(ProductRegistVO prvo);
