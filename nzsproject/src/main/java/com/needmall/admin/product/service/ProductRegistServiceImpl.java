@@ -108,8 +108,7 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 	 */
 	@Override
 	public ProductRegistVO productDetail(ProductRegistVO prvo) {
-		prvo = productRegistDao.productDetail(prvo);
-		prvo.setP_content(prvo.getP_content().toString().replaceAll("\n", "<br>")); //엔터 br태그로 바꿔주기		
+		prvo = productRegistDao.productDetail(prvo);			
 		return prvo;
 	}
 	
@@ -157,10 +156,10 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 		int result2=0;
 		String preimg= prvo.getPi_image();
 		String fileName="";
-		if(prvo.getFile()!=null) {
+		if(!prvo.getFile().isEmpty()) {  // null 로 하면 경우에 따라서 오류!!!
 			try {
 				fileName = FileUploadUtil.fileUpload(prvo.getFile(), request, "product");
-				prvo.setPi_image(fileName);
+				prvo.setPi_image(fileName);				
 				result1 = productRegistDao.proimageUpdate(prvo);
 			} catch (IOException e) {			
 				e.printStackTrace();

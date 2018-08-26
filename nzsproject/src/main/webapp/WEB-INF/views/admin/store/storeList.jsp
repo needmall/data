@@ -3,8 +3,7 @@
 <%@ include file="/WEB-INF/views/common/common.jspf"%>
 
 <style type="text/css">
-  	.addimg{position: absolute;}
-	.imgdiv{position: relative; top:-2px; left:-30%; z-index: 100}
+
 </style>
 	
  
@@ -13,42 +12,30 @@
 	
 	$(function() {
 		/* 상세페이지 이동 이벤트 */
-		$(".goDetail td:not(:nth-last-child(1), :nth-last-child(2))").click(function() {					 //, :nth-last-child(2))
+		$(".goDetail td:not(:nth-last-child(1))").click(function() {					
 			var p_num = $(this).parents("tr").attr("data-num");				
 			location.href="/admin/product/productDetail.do?p_num="+p_num;		
 		});
-		
-		// 이미지 확인 
-		
-		
-		$(".imgBtn").click(function () {			
-			var thisdiv = $(this).parents("td").find(".addimg");			
-			if(thisdiv.html() == ""){
-				$(".imgBtn").parents("td").find(".addimg").html("");  //다른이미지창 비우기
-				var p = $("<p>");
-				var img = $("<img>");				
-				var imgname=$(this).attr("data-pi_image");				
-				p.html(imgname.replace(/_/g, "<br>"));
-				img.attr({
-					src:"/uploadStorage/product/"+imgname,
-					width:"200px"				
-				});
-				var div = $("<div>");
-				
-				div.append(img).append(p);
-				div.addClass("imgdiv img-thumbnail");
-				thisdiv.append(div);
-			}else{
-				thisdiv.html("");
-			}
-		})
+		var img = $("<img>");
+		$(".imgtd").hover(function () {
+			
+			img.attr({
+				src:"/uploadStorage/product/"+$(this).html(),
+				width:"200px"				
+			});
+			img.addClass("imgViewData img-thumbnail");
+			$(this).append(img);
+		}, function () {
+			img.remove();   /* 마우스 벗어났을때 이미지 지우기 */
+		});
 		
 		
 	 	// 상태 가능 을 불가능으로
 		$(".permit").click(function() {	
 			var p_num = $(this).parents("tr").attr("data-num");
 			var p_state = $(this).attr("data-pstate");
-				
+			console.log("누르자마자 확인 : p_num:"+p_num+"p_state:"+p_state);
+	
 			if($(this).val()=='가능'){
 				var confirmresult=false;	
 				    //confirmresult=usageCheck(p_num,p_state); //사용상태 확인후 상태 표시 토글
@@ -66,7 +53,8 @@
 	})//최상위 마지막
 	
 	//사용상태 확인
-	function usageCheck(p_num,p_state, item) {		
+	function usageCheck(p_num,p_state, item) {
+		console.log("사용량 확인 : p_num:"+p_num+"p_state:"+p_state);
 		$.ajax({
 			url:"/admin/product/productUsageCount.do",  //전송 url
 			type:"post",  // 전송 시 method 방식
@@ -95,6 +83,7 @@
 		});	
 	}
 	function stateToggle(p_num, p_state) {
+		console.log("토글 : p_num:"+p_num+"p_state:"+p_state);
 		$.ajax({
 			url:"/admin/product/stateUpdate.do",  //전송 url
 			type:"post",  // 전송 시 method 방식
@@ -113,18 +102,6 @@
 
 <div class="table-responsive">
 	<table class="table table-bordered table-hover">
-		<!-- <colgroup>
-				<col width="5%">
-				<col width="15%">
-				<col width="15%">
-				<col width="30%">
-				<col width="20%">
-				<col width="30%">
-				<col width="10%">
-				<col width="20%">
-				<col width="20%">
-				<col width="15%">
-		</colgroup> -->
 		<thead>			
 			<tr>
 				<th>No</th>
@@ -146,7 +123,7 @@
 					<c:forEach var="product" items="${productList}" varStatus="status">
 						<c:choose>						
 						    <c:when test='${product.p_state==0}'>	
-								<tr class="goDetail " data-num="${product.p_num}" >
+								<tr class="tac goDetail " data-num="${product.p_num}" >
 									<td>${product.p_num}</td>
 									<td>${product.c1_name}</td>
 									<td>${product.c2_name}</td>
@@ -156,7 +133,7 @@
 									<td>${product.p_division}</td>
 									<td>${product.p_date}</td>
 									<td>${product.p_udate}</td>							
-									<td><input type="button" class="btn btn-default imgBtn" data-pi_image="${product.pi_image}" value="확 인"><div class="addimg"></div></td>
+									<td class="imgtd" >${product.pi_image}</td>
 									<td><input type="button" class="btn btn-default permit" data-pstate="${product.p_state}" value="가능"/></td>
 								</tr>
 							</c:when>
@@ -171,7 +148,7 @@
 									<td>${product.p_division}</td>
 									<td>${product.p_date}</td>
 									<td>${product.p_udate}</td>							
-									<td><input type="button" class="btn btn-default imgBtn" data-pi_image="${product.pi_image}" value="확 인"><div class="addimg"></div></td>
+									<td class="imgtd" >${product.pi_image}</td>
 									<td><input type="button" class="btn btn-default permit" data-pstate="${product.p_state}" value="불가" /></td>
 								</tr>
 							</c:otherwise>

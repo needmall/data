@@ -2,9 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>    
 <ul class="nav nav-sidebar">
-	<li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-	<li><a href="/admin/product/productList.do">상 품 목 록</a></li>
-	<li><a href="/admin/product/productRegist.do">상 품 등 록</a></li>
-	<li><a href="#">판매점 리스트</a></li>
-	<li><a href="#">판매점 등록</a></li>
+	<li class="active"><a href="#">상 품 <span class="sr-only">(current)</span></a></li>
+	<li><a href="/admin/product/productList.do">목 록</a></li>
+	<li><a href="/admin/product/productRegist.do">등 록</a></li>
+	<li><a href="#">등록요청</a></li>
+	<li class="active"><a href="#">매장<span class="sr-only"></span></a></li>
+	<li><a href="#">목록</a></li>
+	<li><a href="#">등록요청</a></li>
 </ul>

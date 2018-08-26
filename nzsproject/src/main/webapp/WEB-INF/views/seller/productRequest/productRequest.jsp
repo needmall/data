@@ -11,10 +11,6 @@
 
 <script type="text/javascript">
 
-if(${registresult == 2} ){
-	alert("등록이 완료 되었습니다.");	
-}
-
 $(function() {		
 	// 구분 직접입력 숨기기
 	$("#p_division").hide();
@@ -104,15 +100,7 @@ $(function() {
 	
 	// 등록 버튼 클릭시
 	$("#registBtn").click(function() {
-		if($("#category1").find("option:selected").val()=="none"){
-			$("#category1").focus();
-			alert("카테고리(대분류)를 선택해 주세요.");				
-			return;
-		}else if($("#category2").find("option:selected").val()=="none"){
-			alert("카테고리(소분류)를 선택해 주세요.");
-			$("#category1").focus();
-			return;				
-		}else if(!chkData("#p_name","상품명을")){				
+		if(!chkData("#p_name","상품명을")){				
 			return;
 		}else if(!chkData("#p_price","가격을")){				
 			return;
@@ -188,10 +176,11 @@ $(function() {
 				<input type="text" class="form-control col-xs-3" id="p_division" name="p_division" placeholder="판매구분을 직접 입력하세요.">				
 			</div>    
 	  	</div>
-		<div class="form-group " > 
-			<div class="btnarea center-block">
+		<div class="form-group" > 
+			<div class="btnarea">
   				<input type="button" class="btn btn-default" id="registBtn" value="등  록"/>
   				<input type="reset" class="btn btn-default" value="취  소"/>
+  				<a href="javascript:history.back(-1)" class="btn btn-default" >되돌아 가기</a>
   			</div>
   		</div>
 	</form>	

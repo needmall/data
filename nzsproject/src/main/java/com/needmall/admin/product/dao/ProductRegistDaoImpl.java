@@ -68,7 +68,7 @@ public class ProductRegistDaoImpl implements ProductRegistDao{
 	}
 
 	@Override
-	public int proimageUpdate(ProductRegistVO prvo) {
+	public int proimageUpdate(ProductRegistVO prvo) {		
 		return session.update("proimageUpdate",prvo);
 	}	
 	
