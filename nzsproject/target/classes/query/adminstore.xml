@@ -4,7 +4,15 @@
 	<select id="storeReqList" resultType="reqstore">
 		select reqst_num, s_num, st_bnum, st_name, st_address, st_email, st_hours, st_cell, st_ceo, st_date, st_num from reqstore
 	</select>
-	<select id="divisionlist" resultType="product">
+	<select id="divisionlist" resultType="storeimage">
 		select distinct(si_division) from storeimage
 	</select>
+	<insert id="storeimageInsert" parameterType="storeimage">
+		insert into storeimage (si_division, si_image)	values(#{si_division}, #{si_image})	
+	</insert>
+		
+	<insert id="storeInsert" parameterType="storeRegist">		
+		insert into store (st_num,s_num,st_bnum,st_name,st_address,st_email,st_hours,st_cell,st_ceo,st_lat,st_lon,st_date,si_division) 
+		values (store_seq.nextval,#{s_num},#{st_bnum},#{st_name},#{st_address},#{st_email},#{st_hours},#{st_cell},#{st_ceo},#{st_lat},#{st_lon},sysdate,#{si_division})
+	</insert>
 </mapper>

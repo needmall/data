@@ -2,6 +2,8 @@ package com.needmall.admin.store.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.needmall.admin.store.service.StoreRegistService;
+import com.needmall.admin.store.vo.StoreRegistVO;
 import com.needmall.common.vo.ReqstoreVO;
 
 @Controller
@@ -56,61 +59,22 @@ public class StoreRegistController {
 		String division = storeRegistService.divisionlist();		
 		return division; // 문자열 반환
 	}
-//	
-//	storeRegist
-//	/**
-//	 * category1dep : 카테고리 1 반환
-//	 * @param mapper
-//	 * @return
-//	 */
-//	@ResponseBody
-//	@RequestMapping(value="/Category1dep.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
-//	public String category1dep( ObjectMapper mapper) {		
-//		String catedep1 = productRegistService.category1dep(mapper);		
-//		return catedep1; // 문자열 반환
-//	}
-//	
-//
-//	/**
-//	 *  category2dep : 카테고리 2 반환
-//	 * @param c1_num
-//	 * @param mapper
-//	 * @return
-//	 */
-//	@ResponseBody
-//	@RequestMapping(value="/Category2dep.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
-//	public String category2dep(@RequestParam("c1_num") int c1_num,  ObjectMapper mapper) {		
-//		String catedep1 = productRegistService.category2dep(c1_num, mapper);		
-//		return catedep1; // 문자열 반환
-//	}
-//	
-//	/**
-//	 * division : 판매점 구분 반환	  
-//	 * @return
-//	 */
-//	@ResponseBody
-//	@RequestMapping(value="/division.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
-//	public String divisionlist() {		
-//		String catedep1 = productRegistService.divisionlist();		
-//		return catedep1; // 문자열 반환
-//	}
-//	
-//	
-//	/**
-//	 * division : 상품 등록	  
-//	 * @param prvo
-//	 * @param request   사진 등록을 위한 위치 확인용
-//	 * @param model
-//	 * @return
-//	 */
-//	@RequestMapping(value="/productInsert.do", method=RequestMethod.POST, produces ="text/plain; charset=UTF-8")
-//	public String productInsert(ProductRegistVO prvo, HttpServletRequest request, Model model) {	
-//		int result =0;	
-//		result = productRegistService.productInsert(prvo, request);
-//		model.addAttribute("registresult",result);
-//		return "admin/product/productRegist"; 
-//	}
-//	
+
+	/**
+	 * storeInsert : 상품 등록	  
+	 * @param prvo
+	 * @param request   사진 등록을 위한 위치 확인용
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/storeInsert.do", method=RequestMethod.POST, produces ="text/plain; charset=UTF-8")
+	public String storeInsert(StoreRegistVO srvo, HttpServletRequest request, Model model) {	
+		int result =0;	
+		result = storeRegistService.storeInsert(srvo, request);
+		model.addAttribute("registresult",result);
+		return "admin/store/storeInsert"; 
+	}
+	
 //
 //	/**
 //	 * productList : 상품 리스트

@@ -1,6 +1,9 @@
 package com.needmall.admin.store.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,8 +11,11 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.store.dao.StoreRegistDao;
+import com.needmall.admin.store.vo.StoreRegistVO;
+import com.needmall.common.file.FileUploadUtil;
 import com.needmall.common.vo.ProductVO;
 import com.needmall.common.vo.ReqstoreVO;
+import com.needmall.common.vo.StoreVO;
 import com.needmall.common.vo.StoreimageVO;
 
 @Service
@@ -41,74 +47,30 @@ public class StoreRegistServiceImpl implements StoreRegistService{
 		return divisionlist;
 	}
 
+
+	/**
+	 * productInsert: 상품등록 하기
+	 */
+	@Override
+	public int storeInsert(StoreRegistVO srvo, HttpServletRequest request) {
+		int result = 0;
+		String fileName="";
+		int result1 =0;
+		if(!srvo.getFile().isEmpty()) {
+			try {
+				fileName = FileUploadUtil.fileUpload(srvo.getFile(), request, "store");
+			} catch (IOException e) {			
+				e.printStackTrace();
+			}		
+			srvo.setSi_image(fileName);
+			result1 = storeRegistDao.storeimageInsert(srvo);
+		}
+		int result2 = storeRegistDao.storeInsert(srvo);		
+		result=result1+result2;
+		return result;
+	}
+
 	
-	
-//	/**
-//	 * category1dep: 카테고리 1부르기
-//	 */
-//	@Override
-//	public String category1dep(ObjectMapper mapper) {
-//		List<Category1depVO> list = productRegistDao.category1dep();
-//		String catedep1="";
-//		try {
-//			catedep1=mapper.writeValueAsString(list);
-//		} catch (JsonProcessingException e) {			
-//			e.printStackTrace();
-//		}		
-//		return catedep1;
-//	}
-//
-//	/**
-//	 * category2dep: 카테고리 2부르기
-//	 */
-//	@Override
-//	public String category2dep(int c1_num, ObjectMapper mapper) {
-//		List<Category2depVO> list = productRegistDao.category2dep(c1_num);
-//		String catedep2="";
-//		try {
-//			catedep2=mapper.writeValueAsString(list);
-//		} catch (JsonProcessingException e) {			
-//			e.printStackTrace();
-//		}		
-//		return catedep2;
-//	}
-//	
-//	
-//	/**
-//	 * divisionlist: 상품구분 부르기
-//	 */
-//	@Override
-//	public String divisionlist() {
-//		ObjectMapper mapper = new ObjectMapper();
-//		List<ProductVO> list = productRegistDao.divisionlist();
-//		String divisionlist="";
-//		try {
-//			divisionlist=mapper.writeValueAsString(list);
-//		} catch (JsonProcessingException e) {			
-//			e.printStackTrace();
-//		}		
-//		return divisionlist;
-//	}
-//	
-//	/**
-//	 * productInsert: 상품등록 하기
-//	 */
-//	@Override
-//	public int productInsert(ProductRegistVO prvo, HttpServletRequest request) {
-//		int result = 0;
-//		String fileName="";
-//		try {
-//			fileName = FileUploadUtil.fileUpload(prvo.getFile(), request, "product");
-//		} catch (IOException e) {			
-//			e.printStackTrace();
-//		}		
-//		prvo.setPi_image(fileName);
-//		int result1 = productRegistDao.proimageInsert(prvo);
-//		int result2 = productRegistDao.productInsert(prvo);		
-//		result=result1+result2;
-//		return result;
-//	}
-//	
 //	/**
 //	 * productList : 상품 리스트 출력
 //	 */

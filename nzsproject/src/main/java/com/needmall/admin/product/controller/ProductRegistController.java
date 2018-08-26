@@ -76,7 +76,7 @@ public class ProductRegistController {
 	
 	
 	/**
-	 * division : 상품 등록	  
+	 * productInsert : 상품 등록	  
 	 * @param prvo
 	 * @param request   사진 등록을 위한 위치 확인용
 	 * @param model

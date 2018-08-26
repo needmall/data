@@ -110,7 +110,7 @@ $(function() {
 			return;
 		}else if($("#category2").find("option:selected").val()=="none"){
 			alert("카테고리(소분류)를 선택해 주세요.");
-			$("#category1").focus();
+			$("#category2").focus();
 			return;				
 		}else if(!chkData("#p_name","상품명을")){				
 			return;
@@ -124,7 +124,7 @@ $(function() {
 			return;
 		}else if($("#division").find("option:selected").val()=="none"){
 			alert("판매점 구분을 선택해 주세요.");
-			$("#category1").focus();
+			$("#division").focus();
 			return;				
 		}else{	
 		/* 첨부파일 보낼때에는 post 방식에서 enctype="multipart/form-data" 속성을 설정하여야 한다. */						

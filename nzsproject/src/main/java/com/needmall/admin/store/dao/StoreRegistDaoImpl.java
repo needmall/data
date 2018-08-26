@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.needmall.admin.store.vo.StoreRegistVO;
 import com.needmall.common.vo.ReqstoreVO;
 import com.needmall.common.vo.StoreimageVO;
 
@@ -25,6 +26,18 @@ public class StoreRegistDaoImpl implements StoreRegistDao{
 	public List<StoreimageVO> divisionlist() {
 		return session.selectList("divisionlist");
 	}
+
+	@Override
+	public int storeimageInsert(StoreRegistVO srvo) {		
+		return session.insert("storeimageInsert", srvo);
+	}
+	
+	@Override
+	public int storeInsert(StoreRegistVO srvo) {		
+		return session.insert("storeInsert", srvo);
+	}
+
+	
 
 	
 //	@Override
