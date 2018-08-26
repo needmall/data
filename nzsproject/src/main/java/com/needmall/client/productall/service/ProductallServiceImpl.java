@@ -43,6 +43,8 @@ public class ProductallServiceImpl implements ProductallService {
 		
 		list = productallDao.productLocList(pvo);
 		 
+		
+		
 		return list;
 	}
 

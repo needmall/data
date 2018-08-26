@@ -9,11 +9,13 @@
 
 <script type="text/javascript">
 	
-	var c_lat = 0.0;
-	var c_lon = 0.0;
+	
 	
 	$(function() {
+		
+		// 검색된 주소의 JSON
 		var obj_json = new Object();
+		
 		// 주소 검색 목록 숨김
 		$(".am-flip-x").hide();
 		
@@ -31,17 +33,13 @@
 					$(".search_address_info").html("");
 					$(".am-flip-x").show();
 					
-					// 검색 주소 리스트 생성
+					// 검색 주소 리스트 생성 및 저장
 					result.forEach(addressAdd);
 					obj_json = result;
 				}
-					
-				
-			
 			});
 		});
 					
-		
 		/* 할인율 계산 */
 		$(".col-sm-6").each(function(index) {
 			var p_price 		= $(".p_price").eq(index).html();
@@ -50,7 +48,6 @@
 			$(".discountRate").eq(index).html(Math.round(discountRate));
 		})
 		
-
 		/* 상세페이지 이동 */
 		$(".restaurants-info").click(function() {
 			var ps_num = $(this).parents("tr").attr("data-num");
@@ -63,15 +60,17 @@
 			$("#detailForm").submit();
 		});
 		
-		
 		/* 검색 주소 리스트 선택 */
 		$(document).on("click", ".search_address_info", function() {
+			// 선택 주서의 index
+			var index = $(".search_address_info").index(this)
+			
 			// 선택 결과 표시
 			$("input[type='search']").val($(this).text());
-			// 선택한주소의 위도, 경도 생성
-			obj_json.forEach(locationSearch);
-		});
 		
+			
+			ajaxAdd(obj_json[index]);
+		});
 		
 		/* 비밀번호 입력 */
 		/* $("#pwdBtn").click(function() {
@@ -124,7 +123,7 @@
 		
 	}); // End Jquery
 	
-	// 주소리스트 동적 생성
+	/* 주소리스트 동적 생성 */
 	function addressAdd(item, index) {
 		var new_li = $("<li>"); 
 		new_li.addClass("ng-scope search_address_info");
@@ -137,18 +136,10 @@
 		$(".am-flip-x").append(new_li);
 	}
 	
-	// 선택한 주소 위도, 경도
-	function locationSearch(item, index) {
-		if(item.address_name == $("input[type='search']").val()) {	
-			c_lat = item.y;
-			c_lon = item.x;
-			return false;
-		}	
-	}
+	/**/
+	function ajaxAdd(obj_json) {
+		var insertUrl = "/productall/productLocList.do";
 	
-	function ajaxAdd() {
-		var insertUrl = "/replies/replyInsert.do";
-		
 		$.ajax({
 			url : insertUrl,
 			type : "post",
@@ -158,29 +149,19 @@
 			},
 			dataType : "text",
 			data : JSON.stringify({
-				b_num : b_num,
-				r_name : $("#r_name").val(),
-				r_content : $("#r_content").val(),
-				r_pwd : $("#r_pwd").val(),
-				
+				c_lat : obj_json.y * 1,
+				c_lon : obj_json.x * 1
 			}),
 			error : function() {
 				alert("시스템 오류입니다. 관리자에게 문의 하세요");
 			},
 			success : function(resultData) {
-				if(resultData == "SUCCESS"){
-					alert("댓글 등록이 완료되었습니다.");
-					dataReset();
-					listAll(b_num);
-				}
+				
+				
 			}
 		}); // END AJAX
 	}
 </script>
-
-
-<input type="hidden" name="c_lat" id="c_lat">
-<input type="hidden" name="c_lon" id="c_lon">
 
 
 <div id="search" class="slim-search clearfix search-show">
