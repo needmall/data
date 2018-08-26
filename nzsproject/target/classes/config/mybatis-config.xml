@@ -19,5 +19,6 @@
       	<typeAlias type="com.needmall.common.vo.Category2depVO" alias="category2dep"/>
       	<typeAlias type="com.needmall.common.vo.ProductVO" alias="product"/>
       	<typeAlias type="com.needmall.admin.product.vo.ProductRegistVO" alias="productRegist"/>
+      	<typeAlias type="com.needmall.common.vo.ReqstoreVO" alias="reqstore"/>
 	</typeAliases>
 </configuration>
