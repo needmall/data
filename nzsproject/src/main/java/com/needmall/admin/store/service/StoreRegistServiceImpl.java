@@ -5,8 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.store.dao.StoreRegistDao;
+import com.needmall.common.vo.ProductVO;
 import com.needmall.common.vo.ReqstoreVO;
+import com.needmall.common.vo.StoreimageVO;
 
 @Service
 public class StoreRegistServiceImpl implements StoreRegistService{
@@ -22,6 +26,19 @@ public class StoreRegistServiceImpl implements StoreRegistService{
 	public List<ReqstoreVO> storeReqList() {
 		List<ReqstoreVO> list = storeRegistDao.storeReqList();
 		return list;
+	}
+
+	@Override
+	public String divisionlist() {
+		ObjectMapper mapper = new ObjectMapper();
+		List<StoreimageVO> list = storeRegistDao.divisionlist();
+		String divisionlist="";
+		try {
+			divisionlist=mapper.writeValueAsString(list);
+		} catch (JsonProcessingException e) {			
+			e.printStackTrace();
+		}		
+		return divisionlist;
 	}
 
 	

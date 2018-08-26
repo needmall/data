@@ -8,5 +8,5 @@
 	<li><a href="#">등록요청</a></li>
 	<li class="active"><a href="#">매장<span class="sr-only"></span></a></li>
 	<li><a href="#">목록</a></li>
-	<li><a href="#">등록요청</a></li>
+	<li><a href="/admin/store/storeReqList.do">요청목록</a></li>
 </ul>

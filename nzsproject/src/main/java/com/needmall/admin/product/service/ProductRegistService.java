@@ -10,7 +10,7 @@ import com.needmall.admin.product.vo.ProductRegistVO;
 public interface ProductRegistService {
 	public String category1dep(ObjectMapper mapper);
 	public String category2dep(int c1_num, ObjectMapper mapper);
-	public String divisionlist();
+	public String divisionlist();  //mapper 서비스단에서 생성
 	public int productInsert(ProductRegistVO prvo, HttpServletRequest request);
 	public List<ProductRegistVO> productList(ProductRegistVO prvo);
 	public ProductRegistVO productDetail(ProductRegistVO prvo);

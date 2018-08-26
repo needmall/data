@@ -1,13 +1,17 @@
 package com.needmall.admin.store.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.needmall.admin.store.service.StoreRegistService;
+import com.needmall.common.vo.ReqstoreVO;
 
 @Controller
 @RequestMapping(value="/admin/store")
@@ -20,16 +24,40 @@ public class StoreRegistController {
 	
 //	
 	/**
-	 * storeReqList: 등록화면 호출용
+	 * storeReqList: 등록 리스트 화면 호출용
 	 * @return
 	 */
 	@RequestMapping(value="/storeReqList.do",method=RequestMethod.GET)
-	public String storeReqList() {
-		logger.info("storeReqList 호출 성공");		
+	public String storeReqList(Model model) {
+		logger.info("storeReqList 호출 성공");
+		List<ReqstoreVO> list = storeRegistService.storeReqList();
+		model.addAttribute("storeReqList", list);
 		return "admin/store/storeReqList";
 	}
+	
+	/**
+	 * storeRegist: 등록 요청 처리 페이지
+	 * @return
+	 */
+	@RequestMapping(value="/storeRegist.do",method=RequestMethod.POST)
+	public String storeRegist(ReqstoreVO rsvo ,Model model) {
+		logger.info("storeRegist 호출 성공");		
+		model.addAttribute("storeReq", rsvo);
+		return "admin/store/storeRegist";
+	}
+	
+	/**
+	 * division : 판매점 구분 반환	  
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/division.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
+	public String divisionlist() {		
+		String division = storeRegistService.divisionlist();		
+		return division; // 문자열 반환
+	}
 //	
-//	
+//	storeRegist
 //	/**
 //	 * category1dep : 카테고리 1 반환
 //	 * @param mapper

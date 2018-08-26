@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.needmall.common.vo.ReqstoreVO;
+import com.needmall.common.vo.StoreimageVO;
 
 
 @Repository
@@ -20,6 +21,12 @@ public class StoreRegistDaoImpl implements StoreRegistDao{
 		return session.selectList("storeReqList");
 	}
 
+	@Override
+	public List<StoreimageVO> divisionlist() {
+		return session.selectList("divisionlist");
+	}
+
+	
 //	@Override
 //	public List<Category2depVO> category2dep(int c1_num) {		
 //		return session.selectList("category2dep", c1_num);

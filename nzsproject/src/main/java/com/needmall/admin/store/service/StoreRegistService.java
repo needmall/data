@@ -6,9 +6,10 @@ import com.needmall.common.vo.ReqstoreVO;
 
 public interface StoreRegistService {
 	public List<ReqstoreVO> storeReqList();
+	public String divisionlist();
 //	public String category1dep(ObjectMapper mapper);
 //	public String category2dep(int c1_num, ObjectMapper mapper);
-//	public String divisionlist();
+	
 //	public int productInsert(ProductRegistVO prvo, HttpServletRequest request);
 //	public List<ProductRegistVO> productList(ProductRegistVO prvo);
 //	public ProductRegistVO productDetail(ProductRegistVO prvo);
