@@ -22,5 +22,6 @@
       	<typeAlias type="com.needmall.common.vo.ReqstoreVO" alias="reqstore"/>
       	<typeAlias type="com.needmall.common.vo.StoreimageVO" alias="storeimage"/>
       	<typeAlias type="com.needmall.admin.store.vo.StoreRegistVO" alias="storeRegist"/>
+      	<typeAlias type="com.needmall.client.mypage.vo.MycartVO" alias="mypage"/>
 	</typeAliases>
 </configuration>

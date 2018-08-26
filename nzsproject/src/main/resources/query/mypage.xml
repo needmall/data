@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.needmall.client.mypage.dao.MypageDao">
+	<select id="mycartList" parameterType="mypage" resultType="mypage">
+		SELECT
+		    cart2dep.cart2_num,
+		    cart2dep.cart1_num,
+		    cart2dep.ps_num,
+		    cart2dep.cart2_count,
+		    cart1dep.cart1_num,
+		    cart1dep.cart1_date,
+		    cart1dep.c_num,
+		
+		    ps_regdate,
+		    ps_expiration,
+		    ps_count,
+		    ps_price,
+		    s_num,
+		    ps_state,
+		    ps_update,
+		
+		    product.p_name,
+		    product.p_price,
+		    product.p_date,
+		    product.p_udate,
+		    product.p_content,
+		    product.p_division,
+		    pi_image
+		
+		FROM
+		    cart2dep inner join cart1dep on cart2dep.cart1_num = cart1dep.cart1_num
+		    inner join productsell on productsell.ps_num = cart2dep.ps_num
+		    inner join product on product.p_num = productsell.p_num 
+		    inner join proimage on proimage.pi_num = product.pi_num
+		WHERE c_num =2
+
+
+
+	</select>
+</mapper>

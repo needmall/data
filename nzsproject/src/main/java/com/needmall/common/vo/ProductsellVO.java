@@ -18,6 +18,15 @@ public class ProductsellVO {
    private int ps_state=0;	// 상태번호
    private Date ps_update;	// 수정 날짜
    private String ps_expirationChange="";
+   private int state=0;
+   
+   
+	public int getState() {
+	return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
 	public int getPs_num() {
 		return ps_num;
 	}
@@ -88,6 +97,15 @@ public class ProductsellVO {
 		 String strDate = sdfDate.format(ps_expiration);
 		 
 		this.ps_expirationChange = strDate;
+	}
+	
+	@Override
+	public String toString() {
+		return "ProductsellVO [ps_num=" + ps_num + ", p_num=" + p_num + ", ps_regdate=" + ps_regdate
+				+ ", ps_expiration=" + ps_expiration + ", ps_count=" + ps_count + ", ps_price=" + ps_price + ", s_num="
+				+ s_num + ", ps_state=" + ps_state + ", ps_update=" + ps_update + ", ps_expirationChange="
+				+ ps_expirationChange + ", state=" + state + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
 	}
 
 	
