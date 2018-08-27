@@ -7,5 +7,9 @@ import com.needmall.client.mypage.vo.MycartVO;
 public interface MypageService {
 
 	List<MycartVO> mycartList(MycartVO mvo);
+
+	String countUpdate(MycartVO mvo);
+
+	String itemdelete(MycartVO mvo);
 	
 }

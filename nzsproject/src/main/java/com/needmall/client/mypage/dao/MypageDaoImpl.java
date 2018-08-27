@@ -23,5 +23,17 @@ public class MypageDaoImpl implements MypageDao {
 		return session.selectList("mycartList",mvo);
 	}
 
+	@Override
+	public int countUpdate(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		return session.update("countUpdate",mvo);
+	}
+
+	@Override
+	public int itemdelete(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		return session.delete("itemdelete",mvo);
+	}
+
 
 }

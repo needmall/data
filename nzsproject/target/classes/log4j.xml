@@ -44,6 +44,11 @@
 		<level value="trace" />
 	</logger>
 	
+	<logger name="com.needmall.client.mypage.dao">
+		<level value="trace" />
+	</logger>
+	
+	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />

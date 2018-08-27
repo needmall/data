@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +34,58 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		$(".update_btn").click(function() {
+			var ps_count = $(this).parents("tr").find(".ps_count").attr("data-num");   //db에 저장된 장바구니 개수
+			var ps_count_max =  $(this).parents("tr").find(".ps_count").attr("max");	// 구매할수있는 최대 	
+			var cart2_num = $(this).parents("tr").attr("data-cart");
+			var now_count = $(this).parents("tr").find(".ps_count").val();
+// 			var url="/mypage/countUpdate.do?cart2_num="+cart2_num+"&ps_count="+now_count;
+				
+			console.log(ps_count);
+			console.log(ps_count_max);
+			console.log(cart2_num);
+			console.log(now_count);
+			
+			if(parseInt(now_count) > parseInt(ps_count_max)){
+				alert("최대 개수는 "+ps_count_max+" 입니다.")
+				$(this).parents("tr").find(".ps_count").val(ps_count_max);
+				alert("최대 개수로 수정 하시려면 한번 더 눌러주세요");
+			}else{
+				if(confirm("수정 하시겠습니까?")){
+					$.ajax({
+						url :"/mypage/countUpdate.do",
+						type:"post",
+						data:"cart2_num="+cart2_num+"&cart2_count="+now_count,
+						dataType: "text",
+						success: function() {
+							console.log("성공");
+							alert("수정 되었습니다.");
+						},
+						error: function() {
+							alert("시스템 오류입니다. 관리자한테 문의하세요.");
+						}
+					})
+				}
+			}
+		});
+		$(".close").click(function() {
+			if(confirm("삭제하시겠습니까?")){
+				$.ajax({
+					url :"/mypage/itemdelete.do",
+					type:"post",
+					data:"cart2_num="+cart2_num,
+					dataType: "text",
+					success: function() {
+						console.log("성공");
+						alert("수정 되었습니다.");
+					},
+					error: function() {
+						alert("시스템 오류입니다. 관리자한테 문의하세요.");
+					}
+				})
+			}
+		})	
+	
 	    //최상단 체크박스 클릭
 	    $("#checkall").click(function(){
 	        //클릭되었으면
@@ -45,6 +98,13 @@
 	            $("input[name=chk]").prop("checked",false);
 	        }
 	    })
+// 	   
+		$(".goDetail td :not(:nth-last-child(1), :nth-last-child(2),:nth-last-child(3),:nth-last-child(4),:nth-last-child(5),:nth-last-child(8))").click(function() {					 //, :nth-last-child(2))
+			var ps_num = $(this).parents("tr").attr("data-num");				
+			location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
+		});
+// 		console.log(${fn:length(cartList)} );
+		
 	})
 	
 </script>
@@ -54,16 +114,19 @@
 </style>
 </head>
 <body>
+
+	<div><input type="button" id="empty" name="empty" value="선택 삭제"></div>
+	
 	<table class="table table-striped table-hover">
 		<colgroup>
-			<col width="5%">
+			<col width="2%">
 			<col width="10%">
 			<col width="50%">
-			<col width="7%">
-			<col width="5%">
+			<col width="15%">
+			<col width="8%">
 			<col width="10%">
 			<col width="4%">
-			<col width="4%">
+			<col width="10%">
 		</colgroup>
 		<tbody>
 			<tr>
@@ -76,23 +139,23 @@
 				<td>구매</td>
 				<td>취소</td>
 			</tr>
-			
-			
-			
-			
-			
 			<c:choose>
+			
 				<c:when test="${not empty cartList}">
 					<c:forEach var="cart" items="${cartList }" varStatus="status">
-						<tr>
+						<tr class="goDetail" data-num="${cart.ps_num}" data-cart="${cart.cart2_num}">
 							<td class="align-middle"><input type="checkbox" name="chk" data-num="${cart.cart2_num }"/></td>
 							<td><img class="img-thumbnail" src="/uploadStorage/product/${cart.pi_image }" width="150px" height="50px;"/></td>
 							<td>${cart.p_name}) <p>${cart.p_content }</p></td>
-							<td>${cart.ps_count }개</td>
-							<td>${cart.ps_price }원</td>
+							<td>
+								<input type="number" value="${cart.cart2_count }" class="ps_count" style="width: 50px" max="${cart.ps_count }" min="1" data-num="${cart.cart2_count }"> 개 
+								<button type="button" name="update_btn" class="btn btn-default update_btn" style="width: 50px; font-size: 10px;">수정</button>
+							</td>
+							<td><span class="p_price">${cart.ps_price }</span>원 </td>
 							<td>${cart.ps_expirationChange }</td>
-							<td>구매</td>
+							<td><button name="buy_btn" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" style="font-size: 10px;">클릭</button></td>
 							<td><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></td>
+							<td><input type="hidden" name="size" value="${status.current}"> </td>
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -104,7 +167,7 @@
 			</c:choose>
 		</tbody>
 	</table>
-
+	
 	<div class="nav_div">
 		<nav>
 		  <ul class="pagination">
@@ -113,11 +176,8 @@
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
-		    <li><a href="#">1</a></li>
-		    <li><a href="#">2</a></li>
-		    <li><a href="#">3</a></li>
-		    <li><a href="#">4</a></li>
-		    <li><a href="#">5</a></li>
+<!-- 		    <li><a href="#">1</a></li> -->
+
 		    <li>
 		      <a href="#" aria-label="Next">
 		        <span aria-hidden="true">&raquo;</span>

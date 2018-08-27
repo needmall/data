@@ -13,6 +13,7 @@ public class MycartVO extends ProductdetailVO {
     private int cart2_count=0;
     private Date cart1_date;
     private int c_num =0 ;
+    
 	public int getCart2_num() {
 		return cart2_num;
 	}

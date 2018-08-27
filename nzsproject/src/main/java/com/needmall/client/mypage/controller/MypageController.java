@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,11 +27,34 @@ public class MypageController {
 	
 	@RequestMapping(value="/mycartList.do")
 	public String mycartList(MycartVO mvo ,Model model) {
-//		mvo.setC_num(2); // 나중에 세션 값 받아서 넘겨야함
+		logger.info("mycartList 호 출");
+		//		mvo.setC_num(2); // 나중에 세션 값 받아서 넘겨야함
 		List<MycartVO> list = mypageService.mycartList(mvo);
 		model.addAttribute("cartList",list);
 		
 		return "mypage/mycart";
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/countUpdate.do")
+	public String countUpdate(MycartVO mvo) {
+		logger.info("countUpdate 호 출");
+		String value="";
+		value = mypageService.countUpdate(mvo);
+		
+		return value;
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/itemdelete.do")
+	public String itemdelete(MycartVO mvo) {
+		logger.info("itemdelete 호 출");
+		String value="";
+		value = mypageService.itemdelete(mvo);
+		
+		return value;
 		
 	}
 }

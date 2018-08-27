@@ -26,6 +26,34 @@ public class MypageServiceImpl implements MypageService {
 		// TODO Auto-generated method stub
 		return mypageDao.mycartList(mvo);
 	}
+
+	@Override
+	public String countUpdate(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		int result =mypageDao.countUpdate(mvo);
+		String value="";
+		if(result ==0) {
+			value = "false";
+		}else {
+			value = "success";
+		}
+		
+		return value;
+	}
+
+	@Override
+	public String itemdelete(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		int result =mypageDao.itemdelete(mvo);
+		String value="";
+		if(result ==0) {
+			value = "false";
+		}else {
+			value = "success";
+		}
+		
+		return value;
+	}
 	
 		
 }

@@ -10,7 +10,6 @@
 		    cart1dep.cart1_num,
 		    cart1dep.cart1_date,
 		    cart1dep.c_num,
-		
 		    ps_regdate,
 		    ps_expiration,
 		    ps_count,
@@ -18,7 +17,6 @@
 		    s_num,
 		    ps_state,
 		    ps_update,
-		
 		    product.p_name,
 		    product.p_price,
 		    product.p_date,
@@ -33,8 +31,13 @@
 		    inner join product on product.p_num = productsell.p_num 
 		    inner join proimage on proimage.pi_num = product.pi_num
 		WHERE c_num =2
-
-
-
 	</select>
+	<update id="countUpdate" parameterType="mypage">
+		UPDATE cart2dep SET cart2_count = #{cart2_count}
+		WHERE cart2_num =#{cart2_num}
+	</update>
+	<delete id="itemdelete" parameterType="mypage">
+		DELETE FROM cart2dep
+		WHERE cart2_num=#{cart2_num}
+	</delete>
 </mapper>

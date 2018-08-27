@@ -34,10 +34,11 @@
 <script src="/resources/include/js/countTime_1.1.js"></script>
 
 <script type="text/javascript">
-	var start =0;
-	var all_count=0;
-	var all_price=0;
+
 			$(function() {
+				var start =0;
+				var all_count=0;
+				var all_price=0;
 // 				buy(p_name,pi_image,p_content,ps_count,ps_expiration,ps_price);
 				$(document).on('click',"#buy_buttun",function(){
 					var count = $("#count").val();
@@ -273,6 +274,7 @@
 					label_all.html("총 가격 : "+all_price +"원")
 				}
 			}
+			
 			
 			
 			

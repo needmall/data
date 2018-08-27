@@ -10,4 +10,8 @@ public interface MypageDao {
 
 	List<MycartVO> mycartList(MycartVO mvo);
 
+	int countUpdate(MycartVO mvo);
+
+	int itemdelete(MycartVO mvo);
+
 }
