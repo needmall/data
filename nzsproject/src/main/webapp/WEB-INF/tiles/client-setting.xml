@@ -22,7 +22,6 @@
 	</definition>
 	<definition name="productdetail/*" extends="content">
 		<put-attribute name="title" value="상품 상세 페이지"/>
-
 		<put-attribute name="body" value="/WEB-INF/views/client/productdetail/{1}.jsp"/>
 	</definition>
 	<definition name="client/productall/*" extends="content">
@@ -36,6 +35,10 @@
 	<definition name="seller/productRequest/*" extends="content">
 		<put-attribute name="title" value="상품 요청" />
 		<put-attribute name="body" value="/WEB-INF/views/seller/productRequest/{1}.jsp" />
+	</definition>
+	<definition name="mypage/*" extends="content">
+		<put-attribute name="title" value="장바구니"/>
+		<put-attribute name="body" value="/WEB-INF/views/client/mypage/{1}.jsp"/>
 	</definition>
 	<!-- 
 	<definition name="replies/*" extends="content">

@@ -24,8 +24,7 @@
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 		 <link rel="stylesheet" type="text/css" href="/resources/include/css/common.css" /> -->
-<link rel="stylesheet" type="text/css"
-	href="/resources/include/css/productdetail.css" />
+<link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
 
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -35,11 +34,23 @@
 <script src="/resources/include/js/countTime_1.1.js"></script>
 
 <script type="text/javascript">
+	var start =0;
+	var all_count=0;
+	var all_price=0;
 			$(function() {
-// 				category();
+// 				buy(p_name,pi_image,p_content,ps_count,ps_expiration,ps_price);
+				$(document).on('click',"#buy_buttun",function(){
+					var count = $("#count").val();
+					all_price= ${detail.ps_price } *$("#count").val();
+					buy('${detail.p_name }','${detail.pi_image}','${detail.p_content }',count,'${detail.ps_expiration }','${detail.ps_price }');
+				})
+				
+				
+				
 				var ps_count = ${detail.ps_count };
 
                 $("#count").keyup(function(event){
+                	
                     if ((event.keyCode >=37 && event.keyCode<=40)) {
                         var inputVal = $(this).val();
                         $(this).val(inputVal.replace(/[^0-9]/gi,''));
@@ -218,6 +229,53 @@
      			})
 			}
 			
+			
+			function buy(p_name,pi_image,p_content,ps_count,ps_expiration,ps_price){
+				$(".container-fluid").html("");
+				var div_row = $("<div class='row'>");
+				var div_head=$("<div class='col-md-4' style='width: 25%'>");
+				var label_tilte=$("<label>"+p_name+"</label>");
+				var img =$("<img src='/uploadStorage/product/"+pi_image+"' width='150px' height='150px;'>");
+				
+				div_head.append(label_tilte);
+				div_head.append(img);
+				div_row.append(div_head);
+				
+				var div_content =$("<div class='col-xs-4 col-sm-6' style='padding-top: 50px; width: 55%'>");
+				var label_content =$("<label style='width: 85%'>"+p_content+"</label>")
+				div_content.append(label_content);
+				div_row.append(div_content);
+				
+				var div_right =$("<div class='col-md-4 .col-md-offset-4' style='padding-top: 50px; width: 20%'>");
+				var label_right =$("<label>가격 : "+ps_price+"원 // 개수: "+ps_count+"개</label>");
+				var p_right =$("<p>유통기한 2018-08-24:00:00:00 </p>");
+				div_right.append(label_right);
+				div_right.append(p_right);
+				div_row.append(div_right);
+				
+				
+				var label_all;
+				
+				if(start == 0){
+					var div_buttun =$("<div class='col-xs-4 col-sm-6' style='text-align: center; width: 100%; padding-bottom: -150px; padding-top: -150px'>")
+					div_buttun.html("<button>2</button>")
+					var br = $("<br/><hr/>");
+					var div_all =$("<div class='row'>");
+					var div_price = $("<div class='.col-xs-8 .col-sm-6 .col-md-offset-4' style='width: 100%; text-align: right;'>");
+					var label_all =$("<label style='text-align: right;' class='bg-info'>총 가격 : "+all_price+"원 </label>");
+				
+					
+					div_all.append(div_price);
+					div_all.append(label_all);
+					
+					$(".container-fluid").append(div_row).append(div_buttun).append(br).append(div_all);
+				}else{
+					label_all.html("총 가격 : "+all_price +"원")
+				}
+			}
+			
+			
+			
 
 		</script>
 <style>
@@ -337,7 +395,7 @@
 				
 				<tr>
 <!-- 				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"> -->
-					<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">바로 구매하기</button></td>
+					<td><button id="buy_buttun" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">바로 구매하기</button></td>
 					<td><input class="btn btn-default" type="button" value="장바구니 담기" id="cart" name="cart"></td>
 				</tr>
 			</table>
