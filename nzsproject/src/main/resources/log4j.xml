@@ -40,6 +40,10 @@
 		<level value="trace" />
 	</logger>
 	
+	<logger name="com.needmall.admin.store.dao">
+		<level value="trace" />
+	</logger>
+	
 	<logger name="com.needmall.client.member.dao">
 		<level value="trace" />
 	</logger>

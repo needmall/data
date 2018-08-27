@@ -55,7 +55,9 @@
 				<th>영업전화</th>
 				<th>대표자</th>
 				<th>등록일</th>
-				<th>판매점 구분</th>				
+				<th>판매점 구분</th>
+				<th>수수료</th>
+				<th>기간만료</th>				
 			</tr>
 		</thead>
 		<tbody id="list">
@@ -74,6 +76,8 @@
 							<td>${store.st_ceo}</td>
 							<td>${store.st_date}</td>
 							<td>${store.si_division}</td>
+							<td><input type="button" class="btn btn-default" value="확인"/></td>
+							<td>${store.expire}</td>
 						</tr>						
 					</c:forEach>		
 				</c:when>
