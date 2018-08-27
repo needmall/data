@@ -71,5 +71,54 @@
 			sreview.s_num =#{s_num}
 	</select>
 
+	<select id="productdetailFavpList" parameterType="favproduct" resultType="favproduct">
+		SELECT
+		    fp_num,
+		    c_num,
+		    p_num,
+		    fp_date
+		FROM
+		    favproduct
+		WHERE
+			c_num = #{c_num}
+	</select>
 	
+	<select id="productdetailFavsList" parameterType="favstore" resultType="favstore">
+		SELECT
+		    fs_num,
+		    c_num,
+		    st_num,
+		    fs_date
+		FROM
+		    favstore;
+		WHERE
+			c_num = #{c_num}
+	</select>
+	<insert id="productdetailFavpInsert" parameterType="favproduct">
+		INSERT INTO favproduct (
+		    fp_num,
+		    c_num,
+		    p_num
+		
+		) VALUES (
+		    FAVSTORE_SEQ.nextval,
+		    #{c_num},
+		    #{p_num}
+		
+		)
+	</insert>
+	
+	<insert id="productdetailFavsInsert" parameterType="favstore">
+			INSERT INTO favstore (
+			    fs_num,
+			    c_num,
+			    st_num
+			    
+			) VALUES (
+			    FAVPRODUCT_SEQ.nextval,
+			    #(c_num),
+			    #(st_num)
+			    
+			)
+	</insert>
 </mapper>

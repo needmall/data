@@ -17,6 +17,8 @@ import com.needmall.client.productdetail.service.ProductdetailService;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.ProductdetailVO;
 import com.needmall.client.productdetail.vo.SreviewVO;
+import com.needmall.common.vo.FavproductVO;
+import com.needmall.common.vo.FavstoreVO;
 import com.needmall.common.vo.StoreVO;
 
 @Controller
@@ -96,6 +98,53 @@ public class ProductdetailController {
 //		logger.info("logger.info(value)" +value);
 		return value;
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/productdetailFavpList.do")
+	public String productdetailFavpList(FavproductVO fvo, ObjectMapper mapper) {
+		logger.info("productdetailFavpList 호출");
+		String value ="";
+		List<FavproductVO> list = productdetailService.productdetailFavpList(fvo);
+		try {
+			value = mapper.writeValueAsString(list);
+		}catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return value;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/productdetailFavsList.do")
+	public String productdetailFavsList(FavstoreVO svo, ObjectMapper mapper) {
+		logger.info("productdetailFavsList 호출");
+		String value ="";
+		List<FavstoreVO> list = productdetailService.productdetailFavsList(svo);
+		try {
+			value = mapper.writeValueAsString(list);
+		}catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return value;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/productdetailFavpInsert.do") 	//    c_num,p_num
+	public String productdetailFavpInsert(FavproductVO fvo) {
+		logger.info("productdetailFavpInsert 호출");
+		String value ="";
+		value = productdetailService.productdetailFavpInsert(fvo);
+		return value;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/productdetailFavsInsert.do")	//    c_num,st_num
+	public String productdetailFavsInsert(FavstoreVO svo) {
+		logger.info("productdetailFavpUpdate 호출");
+		String value ="";
+		value = productdetailService.productdetailFavsInsert(svo);
+		return value;
 	}
 	
 

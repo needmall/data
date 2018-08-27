@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.ProductdetailVO;
 import com.needmall.client.productdetail.vo.SreviewVO;
+import com.needmall.common.vo.FavproductVO;
+import com.needmall.common.vo.FavstoreVO;
 import com.needmall.common.vo.StoreVO;
 
 @Repository
@@ -39,6 +41,30 @@ public class ProductdetailDaoImpl implements ProductdetailDao {
 	public List<SreviewVO> productdetailSreviewlist(ProductdetailVO dvo) {
 		// TODO Auto-generated method stub
 		return session.selectList("productdetailSreviewlist",dvo);
+	}
+
+	@Override
+	public List<FavproductVO> productdetailFavpList(FavproductVO fvo) {
+		// TODO Auto-generated method stub
+		return session.selectList("productdetailFavpList",fvo);
+	}
+
+	@Override
+	public List<FavstoreVO> productdetailFavsList(FavstoreVO svo) {
+		// TODO Auto-generated method stub
+		return session.selectList("productdetailFavsList",svo);
+	}
+
+	@Override
+	public int productdetailFavpInsert(FavproductVO fvo) {
+		// TODO Auto-generated method stub
+		return session.insert("productdetailFavpInsert",fvo);
+	}
+
+	@Override
+	public int productdetailFavsInsert(FavstoreVO svo) {
+		// TODO Auto-generated method stub
+		return session.insert("productdetailFavsInsert",svo);
 	}
 
 

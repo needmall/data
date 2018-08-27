@@ -39,6 +39,7 @@
 			var ps_count_max =  $(this).parents("tr").find(".ps_count").attr("max");	// 구매할수있는 최대 	
 			var cart2_num = $(this).parents("tr").attr("data-cart");
 			var now_count = $(this).parents("tr").find(".ps_count").val();
+			
 // 			var url="/mypage/countUpdate.do?cart2_num="+cart2_num+"&ps_count="+now_count;
 				
 			console.log(ps_count);
@@ -60,6 +61,9 @@
 						success: function() {
 							console.log("성공");
 							alert("수정 되었습니다.");
+							var result = parseInt(now_count) * parseInt($(".p_price").html());
+							
+							$(this).parents("tr").find(".ps_count").val(result);
 						},
 						error: function() {
 							alert("시스템 오류입니다. 관리자한테 문의하세요.");
@@ -69,6 +73,8 @@
 			}
 		});
 		$(".close").click(function() {
+			
+			var cart2_num= $(this).parents("tr").attr("data-cart");
 			if(confirm("삭제하시겠습니까?")){
 				$.ajax({
 					url :"/mypage/itemdelete.do",
@@ -105,7 +111,12 @@
 			location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
 		});
 // 		console.log(${fn:length(cartList)} );
-		
+//		페이징
+// 		for(int i =0; i< ${fn:length(cartList)} i++)
+// 		if((i % 5) ==1){
+// 			li_add = $("<li><a href='#'>1</a></li>")
+// 			li_add.appendTo.$(".pre_li")
+// 		}
 	})
 	
 </script>
@@ -172,11 +183,12 @@
 	<div class="nav_div">
 		<nav>
 		  <ul class="pagination">
-		    <li>
+		    <li class="pre_li">
 		      <a href="#" aria-label="Previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
+
 <!-- 		    <li><a href="#">1</a></li> -->
 
 		    <li>
