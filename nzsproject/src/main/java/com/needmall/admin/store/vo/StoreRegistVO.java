@@ -1,5 +1,7 @@
 package com.needmall.admin.store.vo;
 
+import java.sql.Date;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.needmall.common.vo.StoreVO;
@@ -8,6 +10,8 @@ public class StoreRegistVO extends StoreVO {
 	private MultipartFile file;
 	private String si_division;
 	private String si_image;
+	private Date expire;
+	
 	public MultipartFile getFile() {
 		return file;
 	}
@@ -25,6 +29,14 @@ public class StoreRegistVO extends StoreVO {
 	}
 	public void setSi_image(String si_image) {
 		this.si_image = si_image;
+	}
+	
+	
+	public Date getExpire() {
+		return expire;
+	}
+	public void setExpire(Date expire) {
+		this.expire = expire;
 	}
 	@Override
 	public String toString() {

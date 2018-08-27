@@ -10,7 +10,8 @@
  
 
 <script type="text/javascript">
-if(${registresult >= 1} ){
+var result = '${registresult}';
+if(result == '1' || result == '2' ){
 	alert("등록이 완료 되었습니다.");	
 }
 	
@@ -50,21 +51,18 @@ if(${registresult >= 1} ){
 	 	// 상태 가능 을 불가능으로
 		$(".permit").click(function() {	
 			var p_num = $(this).parents("tr").attr("data-num");
-			var p_state = $(this).attr("data-pstate");
+			var p_state =$(this).attr("data-pstate");
 				
 			if($(this).val()=='가능'){
 				var confirmresult=false;	
 				    //confirmresult=usageCheck(p_num,p_state); //사용상태 확인후 상태 표시 토글
-					if(usageCheck(p_num,p_state,this)){
-					
-					}
-			}else{								
+				usageCheck(p_num,p_state ,this);
+			}else if($(this).val()=='불가'){					
 					stateToggle(p_num, p_state); // 상태 표시 토글
 					$(this).parents("tr").removeClass("danger");
 					$(this).val("가능");
-					$(this).attr("data-p_state",0);
+					$(this).attr("data-pstate",0);
 			}
-			return;
 		});		 
 	})//최상위 마지막
 	
@@ -77,11 +75,11 @@ if(${registresult >= 1} ){
 			dataType:"text",
 			success: function(result){
 				if(result!=0){
-					if(confirm("판매중인 물품이 "+result+"개 입니다. 그래도 등록 불가 상태로 변경하시겠습니까?")){
+					if(confirm("판매중인 물품이 "+result+"개 입니다. 그래도 등록 불가 상태로 변경하시겠습니까?")){						
 						stateToggle(p_num, p_state);
 						$(item).parents("tr").addClass("danger");
 						$(item).val("불가");
-						$(item).attr("data-p_state",1);
+						$(item).attr("data-pstate",1);						
 					}else{
 						return;
 					}
@@ -89,7 +87,7 @@ if(${registresult >= 1} ){
 					stateToggle(p_num, p_state);
 					$(item).parents("tr").addClass("danger");
 					$(item).val("불가");
-					$(item).attr("data-p_state",1);
+					$(item).attr("data-pstate",1);					
 				}
 			},
 			error:function(){  //실행시 오류가 발생하였을 경우

@@ -8,6 +8,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.client.productall.dao.ProductallDao;
 
 import com.needmall.client.productall.vo.ProductallVO;
@@ -38,14 +40,18 @@ public class ProductallServiceImpl implements ProductallService {
 	}
 	
 	@Override
-	public List<ProductallVO> productLocList(ProductallVO pvo) {
+	public String productLocList(ProductallVO pvo, ObjectMapper mapper) {
 		List<ProductallVO> list = null;
+		String productLocList = "";
 		
-		list = productallDao.productLocList(pvo);
-		 
+		try {
+			list = productallDao.productLocList(pvo);
+			productLocList = mapper.writeValueAsString(list);
+		} catch(JsonProcessingException e) {
+			e.printStackTrace();
+		}
 		
-		
-		return list;
+		return productLocList;
 	}
 
 	

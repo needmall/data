@@ -186,7 +186,7 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 		int result =0;
 		if(p_state==0) {
 			result = productRegistDao.p_stateX(p_num);
-		}else {
+		}else if(p_state==1){
 			result = productRegistDao.p_stateO(p_num);
 		}
 		return result;

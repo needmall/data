@@ -10,8 +10,9 @@
 </style>
 
 <script type="text/javascript">
+var result = '${registresult}'; 
 
-if(${registresult == 2} ){
+if(result == '2'){
 	alert("등록이 완료 되었습니다.");	
 }
 
