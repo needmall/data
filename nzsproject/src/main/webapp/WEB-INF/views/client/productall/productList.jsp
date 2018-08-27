@@ -116,18 +116,19 @@ $(function() {
 	/* 주소 검색 주변매장 동적 생성 */
 	function addNewItem(ps_num, si_image, st_name, pi_image, p_name, p_price, ps_expiration, ps_count, ps_price, prv_count, prv_scope, distance) {
 		var new_div_contract = $("<div>");
-		new_div_contract.addClass("col-sm-6 contract contract_periphery");
+		new_div_contract.addClass("col-md-6 contract contract_periphery");
 
 		var new_div_clearfix = $("<div>");
-		new_div_clearfix.addClass("item clearfix");
+		new_div_clearfix.addClass("item clearfix list-group-item");
 
 		var new_table = $("<table>");
 		var new_tbody = $("<tbody>");
 
 		var new_tr = $("<tr>");
 		new_tr.attr("data-ps_num", ps_num);
-
+		
 		var new_td_si = $("<td>");
+		new_td_si.addClass("jb-th-1");
 		var new_div_logo = $("<div>");
 		
 		var new_img_si = $("<img>");
@@ -138,6 +139,7 @@ $(function() {
 		new_p_name.text(st_name);
 
 		var new_td_pi = $("<td>");
+		new_td_pi.addClass("jb-th-1");
 		var new_div_product = $("<div>");
 		new_div_product.addClass("");
 
@@ -178,6 +180,7 @@ $(function() {
 		new_span_count_ps.text(ps_count + "개");
 
 		var new_td_discount = $("<td>");
+		new_td_discount.addClass("jb-th-2");
 		var new_div_discount = $("<div>");
 		var new_ul_txt = $("<ul>");
 		var new_li_txt = $("<li>");
@@ -263,25 +266,25 @@ $(function() {
 	<input type="hidden" id="ps_num" name="ps_num" />
 </form>
 
-<div class="restaurant-list">
+<div class="container restaurant-list\">
 	<div class="main_prodlist main_prodlist_list">
 		<h2 class="glyphicon glyphicon-heart">즐겨찾기 매장 상품</h2>
 		<div class="favorites_list">
 		<c:choose>
 			<c:when test="${not empty productFavList}">
 				<c:forEach var="FavList" items="${productFavList}" varStatus="status">
-					<div class="col-sm-6 contract">
-						<div class="item clearfix">
+					<div class="col-md-6 contract">
+						<div class="item clearfix list-group-item">
 							<table>
 								<tbody>
-									<tr class="tac" data-num="${FavList.ps_num}">
-										<td>
+									<tr class="" data-num="${FavList.ps_num}">
+										<td class="jb-th-1">
 											<div>
 												<img class="fileImage" src="/uploadStorage/store/${FavList.si_image}">
+												<p>${FavList.st_name}</p>
 											</div>
-											<p>${FavList.st_name}</p>
 										</td>
-										<td>
+										<td class="jb-th-1">
 											<div>
 												<img class="fileImage" src="/uploadStorage/product/${FavList.pi_image}">
 											</div>
@@ -305,7 +308,7 @@ $(function() {
 												<span>${FavList.ps_count}개</span>
 											</div>
 										</td>
-										<td>
+										<td class="jb-th-2">
 											<div>
 												<ul>
 													<li class="payment-methods ng-binding yogiseo-payment">
@@ -347,18 +350,18 @@ $(function() {
 		<c:choose>
 			<c:when test="${not empty productAllList}">
 				<c:forEach var="AllList" items="${productAllList}" varStatus="status">
-					<div class="col-sm-6 contract">
-						<div class="item clearfix">
+					<div class="col-md-6 contract">
+						<div class="item clearfix list-group-item">
 							<table>
 								<tbody>
 									<tr data-num="${AllList.ps_num}">
-										<td>
+										<td class="jb-th-1">
 											<div>
 												<img class="fileImage" src="/uploadStorage/store/${AllList.si_image}">
 												<p>${AllList.st_name}</p>
 											</div>
 										</td>
-										<td>
+										<td class="jb-th-1">
 											<div>
 												<img class="fileImage" src="/uploadStorage/product/${AllList.pi_image}">
 											</div>
@@ -382,7 +385,7 @@ $(function() {
 												<span>${AllList.ps_count}개</span>
 											</div>
 										</td>
-										<td>
+										<td class="jb-th-2">
 											<div>
 												<ul>
 													<li class="payment-methods ng-binding yogiseo-payment">
