@@ -50,19 +50,14 @@ public class ProductallController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/productLocList.do", method=RequestMethod.POST, produces = "text/plain; charset=UTF-8") 
-	public String productLocList(@RequestBody ProductallVO pvo, ObjectMapper mapper) {
+	@RequestMapping(value="/productLocList.do", method=RequestMethod.GET, produces = "text/plain; charset=UTF-8") 
+	public String productLocList(ProductallVO pvo, ObjectMapper mapper) {
 		logger.info("productLocList 호출 성공");
 		String listData = "";
 		if(pvo.getC_lat() > 0.0 && pvo.getC_lon() > 0.0) {
 			// 검색 주소의 위도, 경도
-			List<ProductallVO> productLocList = productallService.productLocList(pvo);
-			try {		 
-				listData = mapper.writeValueAsString(productLocList);
-				logger.info(listData);
-			} catch(JsonProcessingException e) {
-				e.printStackTrace();
-			}
+			listData = productallService.productLocList(pvo, mapper);
+			
 		}
 		return listData;
 	}
