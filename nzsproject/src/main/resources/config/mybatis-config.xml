@@ -25,7 +25,7 @@
       	<typeAlias type="com.needmall.client.mypage.vo.MycartVO" alias="mypage"/>
       	<typeAlias type="com.needmall.common.vo.FavproductVO" alias="favproduct"/>
       	<typeAlias type="com.needmall.common.vo.FavstoreVO" alias="favstore"/>
-      	<typeAlias type="com.needmall.common.vo.FeesVO" alias="fee"/>
+      	<typeAlias type="com.needmall.common.vo.FeesVO" alias="fees"/>
       	
 	</typeAliases>
 </configuration>
