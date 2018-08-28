@@ -12,6 +12,7 @@ public class StoreRegistVO extends StoreVO {
 	private String si_image;
 	private Date expire;
 	private int f_num;
+	private int status;
 	
 	public MultipartFile getFile() {
 		return file;
@@ -46,6 +47,13 @@ public class StoreRegistVO extends StoreVO {
 	}
 	public void setF_num(int f_num) {
 		this.f_num = f_num;
+	}
+	
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	@Override
 	public String toString() {

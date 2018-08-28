@@ -15,6 +15,7 @@ public class StoreVO {
 	private Double st_lat=0.0;
 	private Double st_lon=0.0;
 	private Date st_date;
+	private Date st_udate;
 	
 	public int getSt_num() {
 		return st_num;
@@ -90,11 +91,21 @@ public class StoreVO {
 	public void setS_num(int s_num) {
 		this.s_num = s_num;
 	}
+	
+	
+	public Date getSt_udate() {
+		return st_udate;
+	}
+	public void setSt_udate(Date st_udate) {
+		this.st_udate = st_udate;
+	}
 	@Override
 	public String toString() {
-		return "StoreVO [st_num=" + st_num + ", st_bnum=" + st_bnum + ", st_name=" + st_name + ", st_address="
-				+ st_address + ", st_email=" + st_email + ", st_hours=" + st_hours + ", st_cell=" + st_cell
-				+ ", st_ceo=" + st_ceo + ", st_lat=" + st_lat + ", st_lon=" + st_lon + ", st_date=" + st_date + "]";
+		return "StoreVO [st_num=" + st_num + ", s_num=" + s_num + ", st_bnum=" + st_bnum + ", st_name=" + st_name
+				+ ", st_address=" + st_address + ", st_email=" + st_email + ", st_hours=" + st_hours + ", st_cell="
+				+ st_cell + ", st_ceo=" + st_ceo + ", st_lat=" + st_lat + ", st_lon=" + st_lon + ", st_date=" + st_date
+				+ ", st_udate=" + st_udate + "]";
 	}
+	
 	
 }

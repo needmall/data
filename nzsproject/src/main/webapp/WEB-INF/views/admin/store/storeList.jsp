@@ -133,7 +133,26 @@ $(function() {
 			<c:choose>
 				<c:when test="${not empty storeList}">
 					<c:forEach var="store" items="${storeList}" varStatus="status">
-						
+						<c:choose>
+							<c:when test="${store.status}==1">
+								<tr class="danger">
+									<td class="stnum">${store.st_num}</td>
+									<td class="stname">${store.st_name}</td>
+									<td class="snum">${store.s_num}</td>
+									<td>${store.st_bnum}</td>							
+									<td>${store.st_address}</td>
+									<td>${store.st_email}</td>
+									<td>${store.st_hours}</td>
+									<td>${store.st_cell}</td>
+									<td>${store.st_ceo}</td>
+									<td>${store.st_date}</td>
+									<td>${store.st_udate}</td>
+									<td><input type="button" class="btn btn-default imgBtn" data-siimage='${store.si_image}' value='${store.si_division}'/><div class="addimg"></div></td>
+									<td><input type="button" class="btn btn-default fees" data-toggle="modal" data-target=".bs-example-modal-sm" value="확인"/></td>
+									<td class="expireDate" data-fnum='${store.f_num}'>${store.expire}</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
 								<tr>
 									<td class="stnum">${store.st_num}</td>
 									<td class="stname">${store.st_name}</td>
@@ -145,12 +164,13 @@ $(function() {
 									<td>${store.st_cell}</td>
 									<td>${store.st_ceo}</td>
 									<td>${store.st_date}</td>
-									<td>수정일</td>
+									<td>${store.st_udate}</td>
 									<td><input type="button" class="btn btn-default imgBtn" data-siimage='${store.si_image}' value='${store.si_division}'/><div class="addimg"></div></td>
 									<td><input type="button" class="btn btn-default fees" data-toggle="modal" data-target=".bs-example-modal-sm" value="확인"/></td>
 									<td class="expireDate" data-fnum='${store.f_num}'>${store.expire}</td>
 								</tr>
-											
+							</c:otherwise>	
+						</c:choose>					
 					</c:forEach>		
 				</c:when>
 				<c:otherwise>
