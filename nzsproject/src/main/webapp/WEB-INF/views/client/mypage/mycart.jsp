@@ -39,14 +39,17 @@
 			var ps_count_max =  $(this).parents("tr").find(".ps_count").attr("max");	// 구매할수있는 최대 	
 			var cart2_num = $(this).parents("tr").attr("data-cart");
 			var now_count = $(this).parents("tr").find(".ps_count").val();
+			var p_price = $(this).parents("tr").attr("data-price");
+			console.log();
+			$(this).parents("tr").find(".p_price").html(now_count*p_price);
 			
 // 			var url="/mypage/countUpdate.do?cart2_num="+cart2_num+"&ps_count="+now_count;
 				
-			console.log(ps_count);
-			console.log(ps_count_max);
-			console.log(cart2_num);
-			console.log(now_count);
-			
+// 			console.log(ps_count);
+// 			console.log(ps_count_max);
+// 			console.log(cart2_num);
+// 			console.log(now_count);
+// 			console.log("p_price : "+p_price);
 			if(parseInt(now_count) > parseInt(ps_count_max)){
 				alert("최대 개수는 "+ps_count_max+" 입니다.")
 				$(this).parents("tr").find(".ps_count").val(ps_count_max);
@@ -155,7 +158,7 @@
 			
 				<c:when test="${not empty cartList}">
 					<c:forEach var="cart" items="${cartList }" varStatus="status">
-						<tr class="goDetail" data-num="${cart.ps_num}" data-cart="${cart.cart2_num}">
+						<tr class="goDetail" data-num="${cart.ps_num}" data-cart="${cart.cart2_num}" data-price ="${cart.ps_price}">
 							<td class="align-middle"><input type="checkbox" name="chk" data-num="${cart.cart2_num }"/></td>
 							<td><img class="img-thumbnail" src="/uploadStorage/product/${cart.pi_image }" width="150px" height="50px;"/></td>
 							<td>${cart.p_name}) <p>${cart.p_content }</p></td>

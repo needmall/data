@@ -67,6 +67,30 @@ public class ProductdetailDaoImpl implements ProductdetailDao {
 		return session.insert("productdetailFavsInsert",svo);
 	}
 
+	@Override
+	public List<ProductdetailVO> productdetailCartList(ProductdetailVO pvo) {
+		// TODO Auto-generated method stub
+		return session.selectList("productdetailCartList",pvo);
+	}
+
+	@Override
+	public int productdetailCartInsert(ProductdetailVO pvo) {
+		// TODO Auto-generated method stub
+		return session.insert("productdetailCartInsert",pvo);
+	}
+
+	@Override
+	public int productdetailConfirm(ProductdetailVO pvo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("productdetailConfirm",pvo);
+	}
+
+	@Override
+	public int productdetailBigCartInsert(ProductdetailVO pvo) {
+		return session.insert("productdetailBigCartInsert",pvo);
+		
+	}
+
 
 
 

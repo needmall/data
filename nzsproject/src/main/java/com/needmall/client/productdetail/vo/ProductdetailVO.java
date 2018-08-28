@@ -29,13 +29,13 @@ public class ProductdetailVO extends ProductsellVO {
 	//CATEGORY1DEP
 	private int c2_num=0;		//카테고리 소분류 번호
 	private String c2_name="";		//카테고리 소분류 이름
-	
-	public int getSt_num() {
-		return st_num;
-	}
-	public void setSt_num(int st_num) {
-		this.st_num = st_num;
-	}
+	//장바구니
+	private int cart2_num=0;	//카테 2dept 번호
+	private int cart1_num=0;	//카테 1dept 번호
+	private int ps_num=0;		//상품 판매 번호
+	private int cart2_count=0;	//장바구니 개수
+	private Date cart1_date;	//수정낧짜
+	private int c_num=0;		//고객번호
 	public int getPi_num() {
 		return pi_num;
 	}
@@ -96,6 +96,12 @@ public class ProductdetailVO extends ProductsellVO {
 	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
+	public int getSt_num() {
+		return st_num;
+	}
+	public void setSt_num(int st_num) {
+		this.st_num = st_num;
+	}
 	public int getC1_num() {
 		return c1_num;
 	}
@@ -120,21 +126,56 @@ public class ProductdetailVO extends ProductsellVO {
 	public void setC2_name(String c2_name) {
 		this.c2_name = c2_name;
 	}
+	public int getCart2_num() {
+		return cart2_num;
+	}
+	public void setCart2_num(int cart2_num) {
+		this.cart2_num = cart2_num;
+	}
+	public int getCart1_num() {
+		return cart1_num;
+	}
+	public void setCart1_num(int cart1_num) {
+		this.cart1_num = cart1_num;
+	}
+	public int getPs_num() {
+		return ps_num;
+	}
+	public void setPs_num(int ps_num) {
+		this.ps_num = ps_num;
+	}
+	public int getCart2_count() {
+		return cart2_count;
+	}
+	public void setCart2_count(int cart2_count) {
+		this.cart2_count = cart2_count;
+	}
+	public Date getCart1_date() {
+		return cart1_date;
+	}
+	public void setCart1_date(Date cart1_date) {
+		this.cart1_date = cart1_date;
+	}
+	public int getC_num() {
+		return c_num;
+	}
+	public void setC_num(int c_num) {
+		this.c_num = c_num;
+	}
 	@Override
 	public String toString() {
 		return "ProductdetailVO [pi_num=" + pi_num + ", pi_image=" + pi_image + ", p_num=" + p_num + ", p_name="
 				+ p_name + ", p_price=" + p_price + ", p_date=" + p_date + ", p_update=" + p_update + ", p_content="
 				+ p_content + ", p_division=" + p_division + ", discount=" + discount + ", st_num=" + st_num
 				+ ", c1_num=" + c1_num + ", c1_name=" + c1_name + ", c2_num=" + c2_num + ", c2_name=" + c2_name
-				+ ", getPs_num()=" + getPs_num() + ", getPs_regdate()=" + getPs_regdate() + ", getPs_expiration()="
-				+ getPs_expiration() + ", getPs_count()=" + getPs_count() + ", getPs_price()=" + getPs_price()
-				+ ", getS_num()=" + getS_num() + ", getPs_state()=" + getPs_state() + ", getPs_update()="
-				+ getPs_update() + ", getPs_expirationChange()=" + getPs_expirationChange() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", cart2_num=" + cart2_num + ", cart1_num=" + cart1_num + ", ps_num=" + ps_num + ", cart2_count="
+				+ cart2_count + ", cart1_date=" + cart1_date + ", c_num=" + c_num + ", getState()=" + getState()
+				+ ", getPs_regdate()=" + getPs_regdate() + ", getPs_expiration()=" + getPs_expiration()
+				+ ", getPs_count()=" + getPs_count() + ", getPs_price()=" + getPs_price() + ", getS_num()=" + getS_num()
+				+ ", getPs_state()=" + getPs_state() + ", getPs_update()=" + getPs_update()
+				+ ", getPs_expirationChange()=" + getPs_expirationChange() + ", toString()=" + super.toString()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
-
-	
-
 	
 	
 }

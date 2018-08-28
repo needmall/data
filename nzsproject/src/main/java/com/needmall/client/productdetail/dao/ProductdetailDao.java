@@ -27,5 +27,13 @@ public interface ProductdetailDao {
 
 	int productdetailFavsInsert(FavstoreVO svo);
 
+	List<ProductdetailVO> productdetailCartList(ProductdetailVO pvo);
+
+	int productdetailCartInsert(ProductdetailVO pvo);
+
+	int productdetailConfirm(ProductdetailVO pvo);
+
+	int productdetailBigCartInsert(ProductdetailVO pvo);
+
 
 }
