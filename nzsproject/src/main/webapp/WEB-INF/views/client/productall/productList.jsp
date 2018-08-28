@@ -10,6 +10,7 @@
 $(function() {
 	/* 할인율 계산 */
 	addDiscountRate($(".contract"));
+	addStorename($(".store_name"));
 	
 	/* 주소-좌표 변환 객체 생성 */
 	var geocoder = new daum.maps.services.Geocoder();
@@ -52,16 +53,37 @@ $(function() {
 	}); // END #search
 	
 	/* 상세페이지 이동 */
-	$(".restaurants-info").click(function() {
+	$(document).on("click", ".restaurant-name", function() {
 		var ps_num = $(this).parents("tr").attr("data-num");
 		$("#ps_num").val(ps_num);
-
+		$("#review").val("0");
+		console.log("1111");
 		$("#detailForm").attr({
 			"method" : "GET",
 			"action" : "/productdetail/productdetailmain.do"
 		});
 			$("#detailForm").submit();
 	});
+	
+	/* 평점, 리뷰 상세페이지 이동 */
+	$(document).on("click", ".stars", function() {
+		var ps_num = $(this).parents("tr").attr("data-num");
+		$("#ps_num").val(ps_num);
+		$("#review").val("1");
+		console.log("2222");
+		$("#detailForm").attr({
+			"method" : "GET",
+			"action" : "/productdetail/productdetailmain.do"
+		});
+			$("#detailForm").submit();
+	});
+	
+	
+		
+		
+
+	
+		
 }); // End Jquery
 
 	/* 할인율 계산 */
@@ -108,24 +130,31 @@ $(function() {
 			});
 			/* 동적 추가된 상품 할인율 계산 */
 			addDiscountRate($(".contract_periphery"));
+			addStorename($(".add_store_name"));
 		}).fail(function() {
 			alert("매장 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
 		});
 	}
-
+	
+	function addStorename(item) {
+		var new_br = item.html().replace(/\s/, "<br>");
+		item.html(new_br);
+	}
+	
 	/* 주소 검색 주변매장 동적 생성 */
 	function addNewItem(ps_num, si_image, st_name, pi_image, p_name, p_price, ps_expiration, ps_count, ps_price, prv_count, prv_scope, distance) {
 		var new_div_contract = $("<div>");
 		new_div_contract.addClass("col-md-6 contract contract_periphery");
 
 		var new_div_clearfix = $("<div>");
-		new_div_clearfix.addClass("item clearfix list-group-item");
+		new_div_clearfix.addClass("item clearfix");
 
 		var new_table = $("<table>");
 		var new_tbody = $("<tbody>");
+		
 
 		var new_tr = $("<tr>");
-		new_tr.attr("data-ps_num", ps_num);
+		new_tr.attr("data-num", ps_num);
 		
 		var new_td_si = $("<td>");
 		new_td_si.addClass("jb-th-1");
@@ -136,12 +165,12 @@ $(function() {
 		new_img_si.addClass("fileImage");
 
 		var new_p_name = $("<p>");
-		new_p_name.text(st_name);
+		new_p_name.html(st_name);
+		new_p_name.addClass("add_store_name align-center");
 
 		var new_td_pi = $("<td>");
 		new_td_pi.addClass("jb-th-1");
 		var new_div_product = $("<div>");
-		new_div_product.addClass("");
 
 		var new_img_pi = $("<img>");
 		new_img_pi.attr("src", "/uploadStorage/product/" + pi_image);
@@ -153,31 +182,31 @@ $(function() {
 		var new_div_expiration = $("<div>");
 		new_div_expiration.attr("title", p_name);
 		new_div_expiration.addClass("restaurant-name ng-binding");
-		new_div_expiration.text(p_name);
+		new_div_expiration.html(p_name);
 
 		var new_div_scope = $("<div>");
 		new_div_scope.attr("title", ps_expiration);
 		new_div_scope.addClass("restaurant-name ng-binding");
-		new_div_scope.text(ps_expiration);
+		new_div_scope.html(ps_expiration);
 
 		var new_div_stars = $("<div>");
 		new_div_stars.addClass("stars");
 		var new_span_scope = $("<span>");
 		new_span_scope.addClass("ico-star1 ng-binding glyphicon glyphicon-star");
-		new_span_scope.text(prv_scope + " | ");
+		new_span_scope.html(prv_scope);
 		var new_span_count_prv = $("<span>");
 		new_span_count_prv.addClass("review_num ng-binding");
-		new_span_count_prv.text("리뷰 " + prv_count);
+		new_span_count_prv.html("리뷰 " + prv_count);
 
 		var new_td_ps = $("<td>");
 		var new_div_txt = $("<div>");
 		new_div_txt.addClass("restaurants-info align-center");
 		var new_span_txt = $("<span>");
 		new_span_txt.addClass("restaurant-name ng-binding");
-		new_span_txt.text("남은수량");
+		new_span_txt.html("남은수량");
 		var new_div_space = $("<div>");
 		var new_span_count_ps = $("<span>");
-		new_span_count_ps.text(ps_count + "개");
+		new_span_count_ps.html(ps_count + "개");
 
 		var new_td_discount = $("<td>");
 		new_td_discount.addClass("jb-th-2");
@@ -188,25 +217,26 @@ $(function() {
 		var new_span_discount = $("<span>");
 		new_span_discount.addClass("discountRate");
 		var new_span_text = $("<span>");
-		new_span_text.text("%");
+		new_span_text.html("%");
 
 		var new_td_p_ps = $("<td>");
 		var new_div_price = $("<div>");
+		new_div_price.addClass("align-center");
 		var new_ul_price = $("<ul>");
 		var new_li_price = $("<li>");
 		new_li_price.addClass("payment-methods ng-binding yogiseo-payment");
 		var new_span_price = $("<span>");
 		new_span_price.addClass("p_price");
-		new_span_price.text(p_price);
+		new_span_price.html(p_price);
 		var new_li_ps_price = $("<li>");
 		new_li_ps_price.addClass("payment-methods ng-binding yogiseo-payment");
 		var new_span_price_ps = $("<span>");
 		new_span_price_ps.addClass("ps_price");
-		new_span_price_ps.text(ps_price);
+		new_span_price_ps.html(ps_price);
 		var new_li_m = $("<li>");
 		new_li_m.addClass("payment-methods ng-binding yogiseo-payment");
 		var new_span_m = $("<span>");
-		new_span_m.html("거리 " + Math.round(distance) + "m");
+		new_span_m.html(Math.round(distance) + "m");
 
 		new_div_logo.append(new_img_si).append(new_p_name);
 		new_td_si.append(new_div_logo);
@@ -244,7 +274,8 @@ $(function() {
 		new_tr.append(new_td_p_ps);
 
 		new_table.append(new_tbody).append(new_tr);
-		new_div_contract.append(new_div_contract).append(new_table);
+		new_div_clearfix.append(new_table);
+		new_div_contract.append(new_div_clearfix);
 
 		$(".periphery_list").append(new_div_contract);
 
@@ -264,24 +295,25 @@ $(function() {
 </div>
 <form id="detailForm">
 	<input type="hidden" id="ps_num" name="ps_num" />
+	<input type="hidden" id="review" name="review" />
 </form>
 
 <div class="container restaurant-list\">
 	<div class="main_prodlist main_prodlist_list">
-		<h2 class="glyphicon glyphicon-heart">즐겨찾기 매장 상품</h2>
+		<h4 class="glyphicon glyphicon-heart h4color">즐겨찾기 매장 상품</h4>
 		<div class="favorites_list">
 		<c:choose>
 			<c:when test="${not empty productFavList}">
 				<c:forEach var="FavList" items="${productFavList}" varStatus="status">
 					<div class="col-md-6 contract">
-						<div class="item clearfix list-group-item">
+						<div class="item clearfix">
 							<table>
 								<tbody>
-									<tr class="" data-num="${FavList.ps_num}">
+									<tr data-num="${FavList.ps_num}">
 										<td class="jb-th-1">
 											<div>
 												<img class="fileImage" src="/uploadStorage/store/${FavList.si_image}">
-												<p>${FavList.st_name}</p>
+												<p class="store_name align-center">${FavList.st_name}</p>
 											</div>
 										</td>
 										<td class="jb-th-1">
@@ -318,7 +350,7 @@ $(function() {
 											</div>
 										</td>
 										<td>
-											<div>
+											<div class="align-center">
 												<ul>
 													<li class="payment-methods ng-binding yogiseo-payment"><span class="p_price">${FavList.p_price}</span>
 													</li>
@@ -345,20 +377,20 @@ $(function() {
 	</div>
 	
 	<div class="main_prodlist main_prodlist_list periphery">
-		<h2 class="glyphicon glyphicon-flag">주변 매장 상품</h2>
+		<h4 class="glyphicon glyphicon-flag h4color">주변 매장 상품</h4>
 		<div class="periphery_list">
 		<c:choose>
 			<c:when test="${not empty productAllList}">
 				<c:forEach var="AllList" items="${productAllList}" varStatus="status">
 					<div class="col-md-6 contract">
-						<div class="item clearfix list-group-item">
+						<div class="item clearfix">
 							<table>
 								<tbody>
 									<tr data-num="${AllList.ps_num}">
 										<td class="jb-th-1">
 											<div>
 												<img class="fileImage" src="/uploadStorage/store/${AllList.si_image}">
-												<p>${AllList.st_name}</p>
+												<p class="store_name align-center">${AllList.st_name}</p>
 											</div>
 										</td>
 										<td class="jb-th-1">
@@ -395,7 +427,7 @@ $(function() {
 											</div>
 										</td>
 										<td>
-											<div>
+											<div class="align-center">
 												<ul >
 													<li class="payment-methods ng-binding yogiseo-payment"><span class="p_price">${AllList.p_price}</span>
 													</li>

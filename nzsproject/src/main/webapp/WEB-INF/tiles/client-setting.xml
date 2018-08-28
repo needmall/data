@@ -28,6 +28,10 @@
 		<put-attribute name="title" value="전체 상품" />
 		<put-attribute name="body" value="/WEB-INF/views/client/productall/{1}.jsp" />
 	</definition>
+	<definition name="seller/productsell/*" extends="content">
+		<put-attribute name="title" value="판매상품" />
+		<put-attribute name="body" value="/WEB-INF/views/seller/productsell/{1}.jsp" />
+	</definition>
 	<definition name="member/*" extends="content">
 		<put-attribute name="title" value="회원 게시판" />
 		<put-attribute name="body" value="/WEB-INF/views/client/member/{1}.jsp" />
