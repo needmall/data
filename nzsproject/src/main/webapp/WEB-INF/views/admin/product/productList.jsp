@@ -4,7 +4,7 @@
 
 <style type="text/css">
   	.addimg{position: absolute;}
-	.imgdiv{position: relative; top:-2px; left:-30%; z-index: 100}
+	.imgdiv{position: relative; top:-2px; left:-30%; z-index: 100; text-align: center;}
 </style>
 	
  
@@ -113,6 +113,8 @@ if(result == '1' || result == '2' ){
 
 
 <div class="table-responsive">
+	<h2>등록 물품 목록 </h2>
+    	<hr>
 	<table class="table table-bordered table-hover">
 		<!-- <colgroup>
 				<col width="5%">

@@ -16,8 +16,8 @@
 		values (store_seq.nextval,#{s_num},#{st_bnum},#{st_name},#{st_address},#{st_email},#{st_hours},#{st_cell},#{st_ceo},#{st_lat},#{st_lon},sysdate,#{si_division})
 	</insert>
 	<select id="storeList" resultType="storeRegist">
-		select st_num, store.s_num,st_bnum,st_name,st_address,st_email,st_hours,st_cell,st_ceo,st_lat,st_lon,st_date,si_division, add_months(mdate.f_setdate, 1) exfire 
+		select st_num, store.s_num,st_bnum,st_name,st_address,st_email,st_hours,st_cell,st_ceo,st_lat,st_lon,st_date,store.si_division, add_months(mdate.f_setdate, 1) expire, si_image
 		from store  left outer join (select fees.f_num, fees.s_num, fees.f_receiptdate, fees.f_setdate from fees inner join (select s_num, max(f_setdate) maxsetdate from fees group by s_num ) 
-		maxdate on fees.s_num=maxdate.s_num and fees.f_setdate=maxdate.maxsetdate) mdate on store.s_num=mdate.s_num		
+		maxdate on fees.s_num=maxdate.s_num and fees.f_setdate=maxdate.maxsetdate) mdate on store.s_num=mdate.s_num inner join storeimage on store.si_division=storeimage.si_division	
 	</select>
 </mapper>

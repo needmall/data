@@ -42,6 +42,8 @@
 	<input type="hidden" name="st_date" id="st_date"> 	
 </form>
 <div class="table-responsive">
+	<h2>매장등록 요청 목록</h2>
+    	<hr>
 	<table class="table table-bordered table-hover">	
 		<thead>			
 			<tr>
