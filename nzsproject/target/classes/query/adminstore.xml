@@ -20,4 +20,7 @@
 		from store  left outer join (select fees.f_num, fees.s_num, fees.f_receiptdate, fees.f_setdate from fees inner join (select s_num, max(f_setdate) maxsetdate from fees group by s_num ) 
 		maxdate on fees.s_num=maxdate.s_num and fees.f_setdate=maxdate.maxsetdate) mdate on store.s_num=mdate.s_num inner join storeimage on store.si_division=storeimage.si_division	
 	</select>
+	<insert id="storeFeeInsert" parameterType="fees">
+		insert into fees (f_num, s_num, f_receiptdate, f_detdate) values(fees_seq.nextval, #{s_num}, #{f_receiptdate}, #{f_detdate})	
+	</insert>
 </mapper>

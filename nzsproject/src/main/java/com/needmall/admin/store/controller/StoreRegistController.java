@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.needmall.admin.store.service.StoreRegistService;
 import com.needmall.admin.store.vo.StoreRegistVO;
+import com.needmall.common.vo.FeesVO;
 import com.needmall.common.vo.ReqstoreVO;
 
 @Controller
@@ -87,7 +88,19 @@ public class StoreRegistController {
 		return "admin/store/storeList";
 	}
 	
-//
+	/**
+	 * division : 판매점 구분 반환	  
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/storeFeeInsert.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
+	public int storeFeeInsert(FeesVO fvo) {		
+		int result=0;
+		result = storeRegistService.storeFeeInsert(fvo);		
+		return result; // 문자열 반환
+	}
+	
+//storeFeeInsert
 //	/**
 //	 * productList : 상품 리스트   produces ="text/plain; charset=UTF-8"
 //	 * @param prvo

@@ -22,9 +22,7 @@ if(result == '1' || result == '2' ){
 			location.href="/admin/product/productDetail.do?p_num="+p_num;		
 		});
 		
-		// 이미지 확인 
-		
-		
+		// 이미지 확인 	
 		$(".imgBtn").click(function () {			
 			var thisdiv = $(this).parents("td").find(".addimg");			
 			if(thisdiv.html() == ""){

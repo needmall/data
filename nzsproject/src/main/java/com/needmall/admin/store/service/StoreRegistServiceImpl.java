@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.store.dao.StoreRegistDao;
 import com.needmall.admin.store.vo.StoreRegistVO;
 import com.needmall.common.file.FileUploadUtil;
+import com.needmall.common.vo.FeesVO;
 import com.needmall.common.vo.ProductVO;
 import com.needmall.common.vo.ReqstoreVO;
 import com.needmall.common.vo.StoreVO;
@@ -74,6 +75,13 @@ public class StoreRegistServiceImpl implements StoreRegistService{
 	public List<StoreRegistVO> storeList() {
 		List<StoreRegistVO> list = storeRegistDao.storeList();
 		return list;
+	}
+
+	@Override
+	public int storeFeeInsert(FeesVO fvo) {
+		int result = 0;
+		result = storeRegistDao.storeFeeInsert(fvo);	
+		return 0;
 	}
 
 	

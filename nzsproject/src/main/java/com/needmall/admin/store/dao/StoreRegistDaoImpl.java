@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.needmall.admin.store.vo.StoreRegistVO;
+import com.needmall.common.vo.FeesVO;
 import com.needmall.common.vo.ReqstoreVO;
 import com.needmall.common.vo.StoreimageVO;
 
@@ -40,6 +41,11 @@ public class StoreRegistDaoImpl implements StoreRegistDao{
 	@Override
 	public List<StoreRegistVO> storeList() {		
 		return session.selectList("storeList");
+	}
+
+	@Override
+	public int storeFeeInsert(FeesVO fvo) {		
+		return session.insert("storeFeeInsert", fvo);;
 	}
 
 	

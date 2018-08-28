@@ -42,7 +42,7 @@ $(function() {
 	})
 	
 
-
+	//모달 이미지
 	$(".fees").click(function() {
 		//수수료 버튼 눌렀을때 월 정보 표시를 위한 객체
 		var nowDate = new Date();
@@ -65,10 +65,21 @@ $(function() {
 			$("#stratday").val(expireDate.toLocaleDateString());
 			expireDate.setMonth(expireDate.getMonth()+1)
 			$("#endday").val(expireDate.toLocaleDateString()); //만료 일로 부터 한달
+		}		
+	})
+	
+	
+	// 수수료 결제 버튼 클릭
+	$("#feesPay").click(function() {
+		var nowDate = new Date();
+		if(confirm(nowDate.getMonth()+1+"월 결제가 확인되었습니까?")){
+			$("#feesForm").attr({"method":"post","action":"/admin/store/storeFeeInsert.do"});
+			$("#feesForm").submit();
 		}
 		
 	})
-})
+	
+})//최상위 마지막
 
 		
 </script>
@@ -135,7 +146,7 @@ $(function() {
     <div class="modal-content">
     	<h4>수수료 결제 확인 </h4>
     	<hr>
-    	<form class="form-horizontal" >
+    	<form class="form-horizontal" id="feesForm">
     	<div class="form-group">
     		<label for="num" class="col-sm-4 control-label" >매장번호</label>
     		<div class="col-sm-7">
@@ -162,7 +173,7 @@ $(function() {
    		</form>
     	<div class="contentarea" ></div>
     	<hr>
-      	<input type="button" class="btn btn-default check" value="결제확인"/>    
+      	<input type="button" class="btn btn-default check" id="feesPay" value="결제확인"/>    
       	<input type="button" class="btn btn-default force" value="강제만료"/>
       	<button type="button" class="btn btn-default" data-dismiss="modal">취 소</button>
     </div>

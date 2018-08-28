@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.needmall.admin.store.vo.StoreRegistVO;
+import com.needmall.common.vo.FeesVO;
 import com.needmall.common.vo.ReqstoreVO;
 
 public interface StoreRegistService {
@@ -12,7 +13,7 @@ public interface StoreRegistService {
 	public String divisionlist();
 	public int storeInsert(StoreRegistVO srvo, HttpServletRequest request);
 	public List<StoreRegistVO> storeList();
-	
+	public int storeFeeInsert(FeesVO fvo);
 	
 //	public List<ProductRegistVO> productList(ProductRegistVO prvo);
 //	public ProductRegistVO productDetail(ProductRegistVO prvo);
