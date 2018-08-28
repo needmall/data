@@ -44,6 +44,9 @@ $(function() {
 
 	//모달 이미지
 	$(".fees").click(function() {
+		//해당 s_num 입력
+		$("#s_num").val($(this).parents("tr").find(".snum").html());
+		
 		//수수료 버튼 눌렀을때 월 정보 표시를 위한 객체
 		var nowDate = new Date();
 		var nowYear = nowDate.getFullYear();
@@ -58,10 +61,14 @@ $(function() {
 		$("#name").val(name);		
 		
 		if($(this).parents("tr").find(".expireDate").html() =="" || nowDate > expireDate){
+			//해당 f_setdate 입력
+			$("#f_setdate").val(nowDate);
 			$("#stratday").val(nowDate.toLocaleDateString());
 			nowDate.setMonth(nowDate.getMonth()+1)
 			$("#endday").val(nowDate.toLocaleDateString());  //지금으로 부터 한달
 		}else{
+			//해당 f_setdate 입력
+			$("#f_setdate").val(expireDate);
 			$("#stratday").val(expireDate.toLocaleDateString());
 			expireDate.setMonth(expireDate.getMonth()+1)
 			$("#endday").val(expireDate.toLocaleDateString()); //만료 일로 부터 한달
@@ -72,9 +79,9 @@ $(function() {
 	// 수수료 결제 버튼 클릭
 	$("#feesPay").click(function() {
 		var nowDate = new Date();
-		if(confirm(nowDate.getMonth()+1+"월 결제가 확인되었습니까?")){
-			$("#feesForm").attr({"method":"post","action":"/admin/store/storeFeeInsert.do"});
-			$("#feesForm").submit();
+		if(confirm(nowDate.getMonth()+1+"월 결제가 확인되었습니까?")){			
+			$("#feeForm").attr({"method":"post","action":"/admin/store/storeFeeInsert.do"});
+			$("#feeForm").submit();
 		}
 		
 	})
@@ -83,12 +90,6 @@ $(function() {
 
 		
 </script>
-
-<form id="feesForm">		
-	<input type="hidden" name="p_num" id="p_num" />
-	<input type="hidden" name="pi_num" id="pi_num" />
-	<input type="hidden" name="pi_image" id="pi_image" />
-</form>
 
 <div class="table-responsive">
 	<h2>매장 목록 </h2>
@@ -118,7 +119,7 @@ $(function() {
 						<tr>
 							<td class="stnum">${store.st_num}</td>
 							<td class="stname">${store.st_name}</td>
-							<td>${store.s_num}</td>
+							<td class="snum">${store.s_num}</td>
 							<td>${store.st_bnum}</td>							
 							<td>${store.st_address}</td>
 							<td>${store.st_email}</td>
@@ -146,30 +147,31 @@ $(function() {
     <div class="modal-content">
     	<h4>수수료 결제 확인 </h4>
     	<hr>
-    	<form class="form-horizontal" id="feesForm">
-    	<div class="form-group">
-    		<label for="num" class="col-sm-4 control-label" >매장번호</label>
-    		<div class="col-sm-7">
-    			<input type="text" class="form-control" readonly="readonly" id="num" name="num">
-    		</div>
-  		</div>
-  		<div class="form-group">
-    		<label for="st_name" class="col-sm-4 control-label" >매장명</label>
-    		<div class="col-sm-7">
-    			<input type="text" class="form-control " readonly="readonly" id="name" name="name">
-    		</div>
-  		</div>
-  		
-  		<div class="form-group">
-    		<label for="" class="col-sm-4 control-label">적용기간</label>
-    		<div class="col-sm-7">
-	    		<div class="input-group">
-	      			<input type="text" class="form-control col-xs-3 " readonly="readonly" id="stratday" name="f_setdate">
-	      			  	~
-	      			<input type="text" class="form-control col-xs-3 " readonly="readonly" id="endday"  >
+    	<form class="form-horizontal" id="feeForm">
+	    	<div class="form-group">
+	    		<label for="num" class="col-sm-4 control-label" >매장번호</label>
+	    		<div class="col-sm-7">
+	    			<input type="text" class="form-control" readonly="readonly" id="num" name="num">
 	    		</div>
-    		</div>
-   		</div>
+	  		</div>
+	  		<div class="form-group">
+	    		<label for="st_name" class="col-sm-4 control-label" >매장명</label>
+	    		<div class="col-sm-7">
+	    			<input type="text" class="form-control " readonly="readonly" id="name" name="name">
+	    		</div>
+	  		</div>
+	  		
+	  		<div class="form-group">
+	    		<label for="" class="col-sm-4 control-label">적용기간</label>
+	    		<div class="col-sm-7">
+		    		<div class="input-group">
+		      			<input type="text" class="form-control col-xs-3 " readonly="readonly" id="stratday" >~
+		      			<input type="text" class="form-control col-xs-3 " readonly="readonly" id="endday"  >
+		    		</div>
+	    		</div>
+	   		</div>
+	   		<input type="hidden" id="s_num" name="s_num" >   		
+	   		<input type="hidden" id="f_setdate" name="f_setdate" >
    		</form>
     	<div class="contentarea" ></div>
     	<hr>

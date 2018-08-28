@@ -45,7 +45,7 @@ public class StoreRegistDaoImpl implements StoreRegistDao{
 
 	@Override
 	public int storeFeeInsert(FeesVO fvo) {		
-		return session.insert("storeFeeInsert", fvo);;
+		return session.insert("storeFeeInsert", fvo);
 	}
 
 	
