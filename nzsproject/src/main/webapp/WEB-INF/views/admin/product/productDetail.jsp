@@ -193,8 +193,10 @@
 		})
 	})
 </script>
-
+	
 	<form class="form-horizontal" id="productForm">
+		<h2>등록 물품 상세보기 </h2>
+    	<hr>
 		<input type="hidden" name="p_num" id="p_num" value="${productDetail.p_num}"/>
 		<input type="hidden" name="pi_num" id="pi_num" value="${productDetail.pi_num}"/>
 		<input type="hidden" name="pi_image" id="pi_image" value="${productDetail.pi_image}"/>

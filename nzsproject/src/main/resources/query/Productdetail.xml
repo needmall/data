@@ -90,7 +90,7 @@
 		    st_num,
 		    fs_date
 		FROM
-		    favstore;
+		    favstore
 		WHERE
 			c_num = #{c_num}
 	</select>
@@ -120,5 +120,49 @@
 			    #(st_num)
 			    
 			)
+	</insert>
+	<select id="productdetailCartList" parameterType="productdetail" resultType="productdetail">
+		SELECT
+		    cart2_num,
+		    cart1dep.cart1_num,
+		    ps_num,
+		    cart2_count,
+		    cart1_date,
+		    c_num
+		FROM
+		    cart2dep inner join cart1dep on cart2dep.cart1_num = cart1dep.cart1_num
+		where
+		    c_num=#{c_num}
+	</select>
+	
+	<insert id="productdetailCartInsert" parameterType="productdetail">
+		<selectKey keyProperty="cart1_num" resultType="int" order="BEFORE">
+			 SELECT count(cart1_num) FROM cart1dep where c_num=#{c_num}
+		</selectKey>
+		INSERT INTO cart2dep (
+		    cart2_num,
+		    cart1_num,
+		    ps_num,
+		    cart2_count
+		) VALUES (
+		    cart2dep_seq.nextval,
+		    #{cart1_num},
+		    #{ps_num},
+		    #{cart2_count}
+		)
+	</insert>
+	
+	<select id="productdetailConfirm" parameterType="productdetail" resultType="int">
+		select count(*) from CART1DEP where c_num = #{c_num}
+	</select>
+	
+	<insert id="productdetailBigCartInsert" parameterType="productdetail">
+		INSERT INTO cart1dep (
+		    cart1_num,
+		    c_num
+		) VALUES (
+		    cart1dep_seq.nextval,
+		    c_num =#{c_num}
+		)
 	</insert>
 </mapper>

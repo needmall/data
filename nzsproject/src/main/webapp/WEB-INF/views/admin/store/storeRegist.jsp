@@ -151,7 +151,8 @@ function getAddress (result, status) {
 
 </script> 	
 <div class="leftDiv">
-	<h2>스토어 등록 요청</h2>
+	<h2>매장 등록 요청</h2>
+	<hr>
 	<form class="form-horizontal" id="reqForm">		
   		<div class="form-group">
 	    	<label for="reqst_num" class="col-sm-3 control-label">판매 요청 번호</label>
@@ -216,7 +217,9 @@ function getAddress (result, status) {
 	</form>
 </div>
 <div class="rightDiv">
+
 	<h2>스토어 등록 적용</h2>	
+	<hr>
 	<form class="form-horizontal" id="registForm">
 		<input type=hidden name="s_num" readonly="readonly" value="${storeReq.s_num}">	 
 	  	<div class="form-group">

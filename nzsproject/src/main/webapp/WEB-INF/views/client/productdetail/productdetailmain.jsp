@@ -37,6 +37,7 @@
 	var start =0;
 	var all_count=0;
 	var all_price=0;
+	var itemStaus =0;
 			$(function() {
 
 // 				buy(p_name,pi_image,p_content,ps_count,ps_expiration,ps_price);
@@ -44,8 +45,7 @@
 					var count = $("#count").val();
 					all_price= ${detail.ps_price } *$("#count").val();
 					buy('${detail.p_name }','${detail.pi_image}','${detail.p_content }',count,'${detail.ps_expiration }','${detail.ps_price }');
-				})
-				
+				});
 				
 				
 				var ps_count = ${detail.ps_count };
@@ -113,60 +113,130 @@
         		});
 				
 				$(".ul- li:first-child").trigger("click");
-			});
-			////////////////////////////////////////////////////안돼 슈방ㄴㅁㅇㅁㄴㅇㄴㅁㅇㅁㄴㅇㅁㄴㅇㄴㅁㅇㅁㄴ  즐겨찾기임
-			var itemStaus =0;
-			$("#itemsearch").click(function() {
-				p_num = $("#p_num").val();
-				c_num = $("#c_num").val();
-				st_num = $("#st_num").val();
 				
-				console.log(p_num);
-				console.log(c_num);
+				
+				
+				
 			
-				url :"/productdetail/productdetailFavpList.do?c_num="+cum
-				if(confirm("상품을 즐겨 찾기 하시겠습니까?")){
-					$.getJSON(url,function(data){
-						$(data).each(function(){
-							if(p_num ==this.p_num){
-								itemStaus = 1;
-							}
-							
-						})
-					})
+			////////////////////////////////////////////////////상품 즐겨찾기임
+				
+				$("#itemsearch").click(function() {
+					var p_num = $("#p_num").val();
+					var c_num = $("#c_num").val();
+					var st_num = $("#st_num").val();
 					
-					
-					if(itemStaus == 0){//c_num,p_num
+					console.log(p_num);
+					console.log(c_num);
+				
+					if(confirm("상품을 즐겨 찾기 하시겠습니까?")){
 						$.ajax({
-							url :"/productdetail/productdetailFavpInsert.do",
+							url :"/productdetail/productdetailFavpList.do",
 							type:"post",
 							data:"c_num="+c_num+"&p_num="+p_num,
 							dataType: "text",
 							success: function(data) {
-								console.log(data);
-								alert("수정 되었습니다.");
+								if(data == 0){//c_num,p_num
+									$.ajax({
+										url :"/productdetail/productdetailFavpInsert.do",
+										type:"post",
+										data:"c_num="+c_num+"&p_num="+p_num,
+										dataType: "text",
+										success: function(data) {
+											console.log(data);
+											alert("추가 되었습니다.");
+										},
+										error: function() {
+											alert("시스템 오류입니다. 관리자한테 문의하세요.");
+										}
+									})
+								}else if(data==1){
+									alert("이미 등록되어있습니다.")
+								}
 							},
 							error: function() {
 								alert("시스템 오류입니다. 관리자한테 문의하세요.");
 							}
 						})
-					}else if(itemStaus==1){
-						alert("이미 등록되어있습니다.")
 					}
-					
-					////////////////////////////////////////////////////////////////////
-
-				}
-			})
-			$("#sellersearch").click(function() {
-				console.log("시발 안뜸");
-			})
-			
-			////////////////////////////////////////////////////////////위와같음
-			$("#cart").click(function(){
+				})///itemsearch.click end
 				
-			})
-	//////////////////////////////////////////////////////////// 장바구니 로직 -.....ㅅㅂ
+				////////////////////////////////////////////////////판매점 즐겨찾기임
+				$("#sellersearch").click(function() {
+					var p_num = $("#p_num").val();
+					var c_num = $("#c_num").val();
+					var st_num = $("#st_num").val();
+					
+					console.log(p_num);
+					console.log(c_num);
+				
+					if(confirm("상품을 즐겨 찾기 하시겠습니까?")){
+						$.ajax({
+							url :"/productdetail/productdetailFavsList.do",
+							type:"post",
+							data:"c_num="+c_num+"&st_num="+st_num,
+							dataType: "text",
+							success: function(data) {
+								if(data == 0){//c_num,p_num
+									$.ajax({
+										url :"/productdetail/productdetailFavsInsert.do",
+										type:"post",
+										data:"c_num="+c_num+"&p_num="+st_num,
+										dataType: "text",
+										success: function(data) {
+											console.log(data);
+											alert("추가 되었습니다.");
+										},
+										error: function() {
+											alert("시스템 오류입니다. 관리자한테 문의하세요.");
+										}
+									})
+								}else if(data==1){
+									alert("이미 등록되어있습니다.")
+								}
+							},
+							error: function() {
+								alert("시스템 오류입니다. 관리자한테 문의하세요.");
+							}
+						})
+					}
+				})
+				
+				////////////////////////////////////////////////////////////장바구니 로직
+				$("#cart").click(function(){
+					var c_num = $("#c_num").val();
+					var ps_count = $("#ps_count").val();
+					var ps_num =$("#ps_num").val();
+					
+					$.ajax({
+						url :"/productdetail/productdetailCartList.do",
+						type:"post",
+						data:"c_num="+c_num+"&ps_num="+ps_num,
+						dataType: "text",
+						success: function(data) {
+							if(data==0){
+								$.ajax({
+									url :"/productdetail/productdetailCartInsert.do",
+									type:"post",
+									data:"ps_num="+ps_num+"&cart2_count="+ps_count+"&c_num="+c_num,
+									dataType: "text",
+									success: function(data) {
+										console.log(data);
+										alert("추가 되었습니다.");
+									},
+									error: function() {
+										alert("시스템 오류입니다. 관리자한테 문의하세요.");
+									}
+								})
+							}else if(data ==1){
+								alert("이미 등록되어있습니다.");
+							}
+						}
+					})
+				})
+			
+			});////////////////////////////////////////////////////////////풩션 끝
+			
+			
 			
 			function sellerReview(){
 				var label =$("<label>");
@@ -368,6 +438,9 @@
 		<input type="hidden" id="ps_count" name="ps_count" value="${detail.ps_count }">
 		<input type="hidden" id="ps_price" name="ps_price" value="${detail.ps_price }">
 		<input type="hidden" id="st_num" name="st_num" value="${detail.st_num }">
+		<input type="hidden" id="c_num" name="c_num" value="1">
+<!-- 		위에 c_num 세션값으로 갖고와야함 -->
+		
 	</form>
 	
 	<div class="form-group">

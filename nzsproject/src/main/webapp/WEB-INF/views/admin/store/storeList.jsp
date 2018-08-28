@@ -3,52 +3,104 @@
 <%@ include file="/WEB-INF/views/common/common.jspf"%>
 
 <style type="text/css">
-
+  	.addimg{position: absolute;}
+	.imgdiv{position: relative; top:-2px; left:-30%; z-index: 100; text-align: center;}
+	.modal-content{
+		padding: 10px;
+		text-align: center;	
+	}
+	.form-group div input{
+		text-align: center;	
+	}
 </style>
 	
  
 
 <script type="text/javascript">
-// 	$(function () {
-// 		$(".handle").click(function() {			
-// 			$("#reqst_num").val($(this).find("td:eq(0)").html());
-// 			$("#s_num").val($(this).find("td:eq(1)").html());
-// 			$("#st_bnum").val($(this).find("td:eq(2)").html());
-// 			$("#st_name").val($(this).find("td:eq(3)").html());
-// 			$("#st_address").val($(this).find("td:eq(4)").html());
-// 			$("#st_email").val($(this).find("td:eq(5)").html());
-// 			$("#st_hours").val($(this).find("td:eq(6)").html());
-// 			$("#st_cell").val($(this).find("td:eq(7)").html());
-// 			$("#st_ceo").val($(this).find("td:eq(8)").html());
-// 			$("#st_date").val($(this).find("td:eq(9)").html());
+$(function() {
+	// 이미지 확인 
+	$(".imgBtn").click(function () {			
+		var thisdiv = $(this).parents("td").find(".addimg");			
+		if(thisdiv.html() == ""){
+			$(".imgBtn").parents("td").find(".addimg").html("");  //다른이미지창 비우기
+			var p = $("<p>");
+			var img = $("<img>");				
+			var imgname=$(this).attr("data-siimage");				
+			p.html(imgname.replace(/_/g, "<br>"));
+			img.attr({
+				src:"/uploadStorage/store/"+imgname,
+				width:"200px"				
+			});
+			var div = $("<div>");
 			
-// 			$("#handleFrom").attr({"method":"post","action":"/admin/store/storeRegist.do"});
-// 			$("#handleFrom").submit();
-// 		});
-// 	})		
+			div.append(img).append(p);
+			div.addClass("imgdiv img-thumbnail");
+			thisdiv.append(div);
+		}else{
+			thisdiv.html("");
+		}
+	})
+	
+
+	//모달 이미지
+	$(".fees").click(function() {
+		//해당 s_num 입력
+		$("#s_num").val($(this).parents("tr").find(".snum").html());
+		
+		//수수료 버튼 눌렀을때 월 정보 표시를 위한 객체
+		var nowDate = new Date();
+		var nowYear = nowDate.getFullYear();
+		var nowMonth = nowDate.getMonth()+1;
+		var nowDay = nowDate.getDate();
+			
+		$(".contentarea").html("");
+		var expireDate= new Date($(this).parents("tr").find(".expireDate").html());
+		var num = $(this).parents("tr").find(".stnum").html();		
+		var name = $(this).parents("tr").find(".stname").html();		
+		$("#num").val(num);
+		$("#name").val(name);		
+		
+		if($(this).parents("tr").find(".expireDate").html() =="" || nowDate > expireDate){
+			//해당 f_setdate 입력
+			$("#f_setdate").val(nowDate);
+			$("#stratday").val(nowDate.toLocaleDateString());
+			nowDate.setMonth(nowDate.getMonth()+1)
+			$("#endday").val(nowDate.toLocaleDateString());  //지금으로 부터 한달
+		}else{
+			//해당 f_setdate 입력
+			$("#f_setdate").val(expireDate);
+			$("#stratday").val(expireDate.toLocaleDateString());
+			expireDate.setMonth(expireDate.getMonth()+1)
+			$("#endday").val(expireDate.toLocaleDateString()); //만료 일로 부터 한달
+		}		
+	})
+	
+	
+	// 수수료 결제 버튼 클릭
+	$("#feesPay").click(function() {
+		var nowDate = new Date();
+		if(confirm(nowDate.getMonth()+1+"월 결제가 확인되었습니까?")){			
+			$("#feeForm").attr({"method":"post","action":"/admin/store/storeFeeInsert.do"});
+			$("#feeForm").submit();
+		}
+		
+	})
+	
+})//최상위 마지막
+
 		
 </script>
 
-<!-- <form id="handleFrom"> -->
-<!-- 	<input type="hidden" name="reqst_num" id="reqst_num"> -->
-<!-- 	<input type="hidden" name="s_num" id="s_num"> -->
-<!-- 	<input type="hidden" name="st_bnum" id="st_bnum"> -->
-<!-- 	<input type="hidden" name="st_name" id="st_name"> -->
-<!-- 	<input type="hidden" name="st_address" id="st_address"> -->
-<!-- 	<input type="hidden" name="st_email" id="st_email"> -->
-<!-- 	<input type="hidden" name="st_hours" id="st_hours"> -->
-<!-- 	<input type="hidden" name="st_cell" id="st_cell"> -->
-<!-- 	<input type="hidden" name="st_ceo" id="st_ceo"> -->
-<!-- 	<input type="hidden" name="st_date" id="st_date"> 	 -->
-<!-- </form> -->
 <div class="table-responsive">
+	<h2>매장 목록 </h2>
+    	<hr>
 	<table class="table table-bordered table-hover">	
 		<thead>			
 			<tr>
 				<th>매장번호</th>
+				<th>매장명</th>
 				<th>판매자번호</th>
-				<th>사업자번호</th>
-				<th>상호명</th>
+				<th>사업자번호</th>				
 				<th>사업지</th>				
 				<th>이메일</th>
 				<th>영업시간</th>	
@@ -64,20 +116,20 @@
 			<c:choose>
 				<c:when test="${not empty storeList}">
 					<c:forEach var="store" items="${storeList}" varStatus="status">
-						<tr class="handle">
-							<td>${store.st_num}</td>
-							<td>${store.s_num}</td>
-							<td>${store.st_bnum}</td>
-							<td>${store.st_name}</td>
+						<tr>
+							<td class="stnum">${store.st_num}</td>
+							<td class="stname">${store.st_name}</td>
+							<td class="snum">${store.s_num}</td>
+							<td>${store.st_bnum}</td>							
 							<td>${store.st_address}</td>
 							<td>${store.st_email}</td>
 							<td>${store.st_hours}</td>
 							<td>${store.st_cell}</td>
 							<td>${store.st_ceo}</td>
 							<td>${store.st_date}</td>
-							<td>${store.si_division}</td>
-							<td><input type="button" class="btn btn-default" value="확인"/></td>
-							<td>${store.expire}</td>
+							<td><input type="button" class="btn btn-default imgBtn" data-siimage='${store.si_image}' value='${store.si_division}'/><div class="addimg"></div></td>
+							<td><input type="button" class="btn btn-default fees" data-toggle="modal" data-target=".bs-example-modal-sm" value="확인"/></td>
+							<td class="expireDate">${store.expire}</td>
 						</tr>						
 					</c:forEach>		
 				</c:when>
@@ -88,7 +140,46 @@
 		</tbody>	
 	</table>
 </div>
+
 	
-	
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="modalforfees" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+    	<h4>수수료 결제 확인 </h4>
+    	<hr>
+    	<form class="form-horizontal" id="feeForm">
+	    	<div class="form-group">
+	    		<label for="num" class="col-sm-4 control-label" >매장번호</label>
+	    		<div class="col-sm-7">
+	    			<input type="text" class="form-control" readonly="readonly" id="num" name="num">
+	    		</div>
+	  		</div>
+	  		<div class="form-group">
+	    		<label for="st_name" class="col-sm-4 control-label" >매장명</label>
+	    		<div class="col-sm-7">
+	    			<input type="text" class="form-control " readonly="readonly" id="name" name="name">
+	    		</div>
+	  		</div>
+	  		
+	  		<div class="form-group">
+	    		<label for="" class="col-sm-4 control-label">적용기간</label>
+	    		<div class="col-sm-7">
+		    		<div class="input-group">
+		      			<input type="text" class="form-control col-xs-3 " readonly="readonly" id="stratday" >~
+		      			<input type="text" class="form-control col-xs-3 " readonly="readonly" id="endday"  >
+		    		</div>
+	    		</div>
+	   		</div>
+	   		<input type="hidden" id="s_num" name="s_num" >   		
+	   		<input type="hidden" id="f_setdate" name="f_setdate" >
+   		</form>
+    	<div class="contentarea" ></div>
+    	<hr>
+      	<input type="button" class="btn btn-default check" id="feesPay" value="결제확인"/>    
+      	<input type="button" class="btn btn-default force" value="강제만료"/>
+      	<button type="button" class="btn btn-default" data-dismiss="modal">취 소</button>
+    </div>
+  </div>
+</div>	
 
 

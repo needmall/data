@@ -144,6 +144,8 @@ $(function() {
 
 	
 	<form class="form-horizontal" id="productInsertForm">
+		<h2>물품 등록 </h2>
+    	<hr>
   		<div class="form-group">
     		<label for="category1" class="col-sm-3 control-label">카테고리</label>
     		<div class="col-sm-4">    		

@@ -3,6 +3,7 @@ package com.needmall.admin.store.dao;
 import java.util.List;
 
 import com.needmall.admin.store.vo.StoreRegistVO;
+import com.needmall.common.vo.FeesVO;
 import com.needmall.common.vo.ReqstoreVO;
 import com.needmall.common.vo.StoreimageVO;
 
@@ -12,6 +13,8 @@ public interface StoreRegistDao {
 	public int storeInsert(StoreRegistVO srvo);
 	public int storeimageInsert(StoreRegistVO srvo);
 	public List<StoreRegistVO> storeList();
+	public int storeFeeInsert(FeesVO fvo);
+	
 //	public List<ProductRegistVO> productListAll();
 //	public ProductRegistVO productDetail(ProductRegistVO prvo);
 //	public int productUsageCount(int p_num);

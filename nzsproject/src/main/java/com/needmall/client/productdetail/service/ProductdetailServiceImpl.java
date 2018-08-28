@@ -26,7 +26,7 @@ public class ProductdetailServiceImpl implements ProductdetailService {
 		return detail;
 	}
 
-	
+
 	@Override
 	public StoreVO productdetailStore(ProductdetailVO dvo) {
 		// TODO Auto-generated method stub
@@ -46,30 +46,42 @@ public class ProductdetailServiceImpl implements ProductdetailService {
 
 
 	@Override
-	public List<FavproductVO> productdetailFavpList(FavproductVO fvo) {
+	public int productdetailFavpList(FavproductVO fvo) {
 		// TODO Auto-generated method stub
-		return productdetailDao.productdetailFavpList(fvo);
+		List<FavproductVO> list = productdetailDao.productdetailFavpList(fvo);
+		int result=0;
+		for (FavproductVO a : list) {
+			if(a.getP_num() == fvo.getP_num()) {
+				result=1;
+			}
+		}
+		return result;
 	}
 
-
 	@Override
-	public List<FavstoreVO> productdetailFavsList(FavstoreVO svo) {
-		// TODO Auto-generated method stub
-		return productdetailDao.productdetailFavsList(svo);
+	public int productdetailFavsList(FavstoreVO svo) {
+		List<FavstoreVO> list = productdetailDao.productdetailFavsList(svo);;
+		int result=0;
+		for (FavstoreVO a : list) {
+			if(a.getSt_num() == svo.getSt_num()) {
+				result=1;
+			}
+		}
+		return result;
 	}
 
 
 	@Override
 	public String productdetailFavpInsert(FavproductVO fvo) {
 		// TODO Auto-generated method stub
-		
+
 		int a= productdetailDao.productdetailFavpInsert(fvo);
 		String value = "false";
 		if(a==1) {
 			value="success";
 		}
 		return value;
-				
+
 	}
 
 
@@ -77,6 +89,44 @@ public class ProductdetailServiceImpl implements ProductdetailService {
 	public String productdetailFavsInsert(FavstoreVO svo) {
 		// TODO Auto-generated method stub
 		int a= productdetailDao.productdetailFavsInsert(svo);
+		String value = "false";
+		if(a==1) {
+			value="success";
+		}
+		return value;
+	}
+
+
+	@Override
+	public int productdetailCartList(ProductdetailVO pvo) {
+		// TODO Auto-generated method stub
+		int key = productdetailDao.productdetailConfirm(pvo);
+		System.out.println("key 값 :  " +key);
+		int confirm=0;
+		int result =0;
+
+		if(key ==0) {
+			confirm= productdetailDao.productdetailBigCartInsert(pvo);
+		}
+		System.out.println("confirm : "+confirm);
+		List<ProductdetailVO> list = productdetailDao.productdetailCartList(pvo);
+		if(!list.isEmpty()) {
+			for (ProductdetailVO a : list) {
+				if(a.getPs_num() == pvo.getPs_num()) {
+					result=1;
+				}
+			}
+		}else {
+			System.out.println("비어있습니다.");
+		}
+		return result;
+	}
+
+
+	@Override
+	public String productdetailCartInsert(ProductdetailVO pvo) {
+		// TODO Auto-generated method stub
+		int a= productdetailDao.productdetailCartInsert(pvo);
 		String value = "false";
 		if(a==1) {
 			value="success";

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.util.SystemOutLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.needmall.admin.store.service.StoreRegistService;
 import com.needmall.admin.store.vo.StoreRegistVO;
+import com.needmall.common.vo.FeesVO;
 import com.needmall.common.vo.ReqstoreVO;
 
 @Controller
@@ -87,7 +89,21 @@ public class StoreRegistController {
 		return "admin/store/storeList";
 	}
 	
-//
+	/**
+	 * storeFeeInsert : 수수료 결제 확인 
+	 * @return
+	 */
+	
+	@RequestMapping(value="/storeFeeInsert.do", method=RequestMethod.POST)
+	public String storeFeeInsert(FeesVO fvo, Model model) {
+		logger.info(fvo);
+		int result=0;
+		result = storeRegistService.storeFeeInsert(fvo);
+		model.addAttribute("result",result);		
+		return "redirect:/admin/store/storeList"; 
+	}
+	
+//storeFeeInsert
 //	/**
 //	 * productList : 상품 리스트   produces ="text/plain; charset=UTF-8"
 //	 * @param prvo

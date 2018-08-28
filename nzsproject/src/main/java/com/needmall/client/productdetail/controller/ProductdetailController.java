@@ -102,30 +102,18 @@ public class ProductdetailController {
 	
 	@ResponseBody
 	@RequestMapping(value="/productdetailFavpList.do")
-	public String productdetailFavpList(FavproductVO fvo, ObjectMapper mapper) {
+	public int productdetailFavpList(FavproductVO fvo) {
 		logger.info("productdetailFavpList 호출");
-		String value ="";
-		List<FavproductVO> list = productdetailService.productdetailFavpList(fvo);
-		try {
-			value = mapper.writeValueAsString(list);
-		}catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return value;
+		int result = productdetailService.productdetailFavpList(fvo);
+		return result;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/productdetailFavsList.do")
-	public String productdetailFavsList(FavstoreVO svo, ObjectMapper mapper) {
+	public int productdetailFavsList(FavstoreVO svo) {
 		logger.info("productdetailFavsList 호출");
-		String value ="";
-		List<FavstoreVO> list = productdetailService.productdetailFavsList(svo);
-		try {
-			value = mapper.writeValueAsString(list);
-		}catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return value;
+		int result = productdetailService.productdetailFavsList(svo);
+		return result;
 	}
 	
 	
@@ -147,6 +135,24 @@ public class ProductdetailController {
 		return value;
 	}
 	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/productdetailCartList.do")
+	public int productdetailCartList(ProductdetailVO pvo) {
+		logger.info("productdetailCartList 호출");
+		int result = productdetailService.productdetailCartList(pvo);
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/productdetailCartInsert.do")	//    c_num,st_num
+	public String productdetailCartInsert(ProductdetailVO pvo) {
+		logger.info("productdetailCartInsert 호출");
+		String value ="";
+		value = productdetailService.productdetailCartInsert(pvo);
+		return value;
+	}
 
 	
 }

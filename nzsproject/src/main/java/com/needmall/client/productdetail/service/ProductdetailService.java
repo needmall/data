@@ -21,16 +21,22 @@ public interface ProductdetailService {
 	List<SreviewVO> productdetailSreviewlist(ProductdetailVO dvo);
 
 
-	List<FavproductVO> productdetailFavpList(FavproductVO fvo);
+	int productdetailFavpList(FavproductVO fvo);
 
 
-	List<FavstoreVO> productdetailFavsList(FavstoreVO svo);
+	int productdetailFavsList(FavstoreVO svo);
 
 
 	String productdetailFavpInsert(FavproductVO fvo);
 
 
 	String productdetailFavsInsert(FavstoreVO fvo);
+
+
+	int productdetailCartList(ProductdetailVO pvo);
+
+
+	String productdetailCartInsert(ProductdetailVO pvo);
 
 
 }

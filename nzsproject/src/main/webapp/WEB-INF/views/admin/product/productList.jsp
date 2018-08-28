@@ -4,7 +4,7 @@
 
 <style type="text/css">
   	.addimg{position: absolute;}
-	.imgdiv{position: relative; top:-2px; left:-30%; z-index: 100}
+	.imgdiv{position: relative; top:-2px; left:-30%; z-index: 100; text-align: center;}
 </style>
 	
  
@@ -22,9 +22,7 @@ if(result == '1' || result == '2' ){
 			location.href="/admin/product/productDetail.do?p_num="+p_num;		
 		});
 		
-		// 이미지 확인 
-		
-		
+		// 이미지 확인 	
 		$(".imgBtn").click(function () {			
 			var thisdiv = $(this).parents("td").find(".addimg");			
 			if(thisdiv.html() == ""){
@@ -113,6 +111,8 @@ if(result == '1' || result == '2' ){
 
 
 <div class="table-responsive">
+	<h2>등록 물품 목록 </h2>
+    	<hr>
 	<table class="table table-bordered table-hover">
 		<!-- <colgroup>
 				<col width="5%">
