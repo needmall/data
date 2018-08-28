@@ -114,7 +114,37 @@ public class StoreRegistController {
 		return "redirect:/admin/store/storeList.do"; 
 	}
 	
-//storeFeeInsert
+	/**
+	 * storeDetail : 상세 페이지 조회
+	 * @param prvo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/storeDetail.do", method=RequestMethod.GET)
+	public String productDetail(StoreRegistVO srvo, Model model) {
+		logger.info("storeDetail 호출 성공");
+		
+		StoreRegistVO detail= storeRegistService.storeDetail(srvo);		
+		model.addAttribute("storeDetail", detail);
+		
+		return "admin/store/storeDetail";
+	}
+
+	/**
+	 * storeUpdate : 상품 업데이트
+	 * @param prvo
+	 * @param request : 파일업데이트 위한  위치 확인용 
+	 * @return
+	 */
+	@RequestMapping(value="/storeUpdate.do",method=RequestMethod.POST)
+	public String storeUpdate(StoreRegistVO srvo, HttpServletRequest request) {
+		logger.info("storeUpdate 호출 성공");	
+		storeRegistService.storeUpdate(srvo, request);
+		return "redirect:/admin/store/storeDetail.do?st_num="+srvo.getSt_num();
+	}
+
+	
+//
 //	/**
 //	 * productList : 상품 리스트   produces ="text/plain; charset=UTF-8"
 //	 * @param prvo
@@ -129,21 +159,7 @@ public class StoreRegistController {
 //		return "admin/product/productList";
 //	}
 //	
-//	/**
-//	 * productDetail : 상세 페이지 조회
-//	 * @param prvo
-//	 * @param model
-//	 * @return
-//	 */
-//	@RequestMapping(value="/productDetail.do", method=RequestMethod.GET)
-//	public String productDetail(ProductRegistVO prvo, Model model) {
-//		logger.info("productDetail 호출 성공");
-//		
-//		ProductRegistVO detail= productRegistService.productDetail(prvo);		
-//		model.addAttribute("productDetail", detail);
-//		
-//		return "admin/product/productDetail";
-//	}
+//	
 //	
 //	/**
 //	 *  productUsageCount : 상품 사용중 여부

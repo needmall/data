@@ -53,6 +53,16 @@ public class StoreRegistDaoImpl implements StoreRegistDao{
 		return session.delete("storeFeeDelete", fvo);
 	}
 
+	@Override
+	public StoreRegistVO storeDetail(StoreRegistVO srvo) {
+		return session.selectOne("storeDetail", srvo);
+	}
+
+	@Override
+	public int storeUpdate(StoreRegistVO srvo) {
+		return session.update("storeUpdate",srvo);
+	}
+
 	
 
 	

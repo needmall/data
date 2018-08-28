@@ -162,7 +162,7 @@ if(result == '1' || result == '2' ){
 								</tr>
 							</c:when>
 							<c:otherwise>
-								<tr class="tac goDetail danger" data-num="${product.p_num}">
+								<tr class="goDetail danger" data-num="${product.p_num}">
 									<td>${product.p_num}</td>
 									<td>${product.c1_name}</td>
 									<td>${product.c2_name}</td>
@@ -180,7 +180,7 @@ if(result == '1' || result == '2' ){
 					</c:forEach>		
 				</c:when>
 				<c:otherwise>
-					<tr><td colspan="11" class="tac">등록된 물품이 존재하지 않습니다.</td></tr>
+					<tr><td colspan="11">등록된 물품이 존재하지 않습니다.</td></tr>
 				</c:otherwise>
 			</c:choose>
 		</tbody>	

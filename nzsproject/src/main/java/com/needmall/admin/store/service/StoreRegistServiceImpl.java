@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.needmall.admin.product.vo.ProductRegistVO;
 import com.needmall.admin.store.dao.StoreRegistDao;
 import com.needmall.admin.store.vo.StoreRegistVO;
 import com.needmall.common.file.FileUploadUtil;
@@ -91,6 +92,46 @@ public class StoreRegistServiceImpl implements StoreRegistService{
 		return result;
 	}
 
+	/**
+	 * productDetail : 상품 상세보기
+	 */
+	@Override
+	public StoreRegistVO storeDetail(StoreRegistVO srvo) {
+		srvo = storeRegistDao.storeDetail(srvo);			
+		return srvo;
+	}
+
+	@Override
+	public int storeUpdate(StoreRegistVO srvo, HttpServletRequest request) {
+		int result = 0;
+		int result1=0;
+		int result2=0;
+		String preimg= srvo.getSi_image();
+		String fileName="";
+		if(!srvo.getFile().isEmpty()) {  // null 로 하면 경우에 따라서 오류!!!
+			try {
+				fileName = FileUploadUtil.fileUpload(srvo.getFile(), request, "store");
+				srvo.setSi_image(fileName);	
+				
+				result1 = storeRegistDao.storeimageInsert(srvo);
+			} catch (IOException e) {			
+				e.printStackTrace();
+			}		
+		}
+		
+		result2 = storeRegistDao.storeUpdate(srvo);		
+		result=result1+result2;
+		
+		if(result == 2) { //첨부파일의 변화가 없을 경우 이미지 업데이트 안함으로 1이되기때문에 파일 삭제가 안된다.
+			try {
+				FileUploadUtil.fileDelete(preimg, request);
+			} catch (IOException e) {				
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
 	
 //	/**
 //	 * productList : 상품 리스트 출력
@@ -104,14 +145,7 @@ public class StoreRegistServiceImpl implements StoreRegistService{
 //		return list;
 //	}
 //
-//	/**
-//	 * productDetail : 상품 상세보기
-//	 */
-//	@Override
-//	public ProductRegistVO productDetail(ProductRegistVO prvo) {
-//		prvo = productRegistDao.productDetail(prvo);			
-//		return prvo;
-//	}
+
 //	
 //	/**
 //	 * productUsageCount : 상품 사용량 확인

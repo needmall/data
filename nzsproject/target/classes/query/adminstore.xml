@@ -12,8 +12,8 @@
 	</insert>
 		
 	<insert id="storeInsert" parameterType="storeRegist">		
-		insert into store (st_num,s_num,st_bnum,st_name,st_address,st_email,st_hours,st_cell,st_ceo,st_lat,st_lon,st_date,si_division) 
-		values (store_seq.nextval,#{s_num},#{st_bnum},#{st_name},#{st_address},#{st_email},#{st_hours},#{st_cell},#{st_ceo},#{st_lat},#{st_lon},sysdate,#{si_division})
+		insert into store (st_num,s_num,st_bnum,st_name,st_address,st_email,st_hours,st_cell,st_ceo,st_lat,st_lon,st_date,st_udate,si_division) 
+		values (store_seq.nextval,#{s_num},#{st_bnum},#{st_name},#{st_address},#{st_email},#{st_hours},#{st_cell},#{st_ceo},#{st_lat},#{st_lon},sysdate,sysdate,#{si_division})
 	</insert>
 	<select id="storeList" resultType="storeRegist">
 		select st_num, store.s_num,st_bnum,st_name,st_address,st_email,st_hours,st_cell,st_ceo,st_lat,st_lon,st_date,st_udate,store.si_division, add_months(mdate.f_setdate, 1) expire, si_image, f_num, (case when add_months(mdate.f_setdate, 1) > sysdate then 1 else 0 end ) status
@@ -26,4 +26,12 @@
 	<delete id="storeFeeDelete" parameterType="fees">
 		delete from fees where f_num=#{f_num}
 	</delete>
+	<select id="storeDetail" resultType="storeRegist">
+		select st_num, store.s_num,st_bnum,st_name,st_address,st_email,st_hours,st_cell,st_ceo,st_lat,st_lon,st_date,st_udate,store.si_division, add_months(mdate.f_setdate, 1) expire, si_image, f_num, (case when add_months(mdate.f_setdate, 1) > sysdate then 1 else 0 end ) status
+		from store  left outer join (select fees.f_num, fees.s_num, fees.f_receiptdate, fees.f_setdate from fees inner join (select s_num, max(f_setdate) maxsetdate from fees group by s_num ) 
+		maxdate on fees.s_num=maxdate.s_num and fees.f_setdate=maxdate.maxsetdate) mdate on store.s_num=mdate.s_num inner join storeimage on store.si_division=storeimage.si_division where st_num = #{st_num}
+	</select>
+	<update id="storeUpdate" parameterType="storeRegist">
+		update store set st_name=#{st_name},st_address=#{st_address},st_email=#{st_email},st_hours=#{st_hours},st_cell=#{st_cell},st_ceo=#{st_ceo},st_lat=#{st_lat},st_lon=#{st_lon},st_udate=sysdate,si_division=#{si_division} where st_num=#{st_num}
+	</update>
 </mapper>

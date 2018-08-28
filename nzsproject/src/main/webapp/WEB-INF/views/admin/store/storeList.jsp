@@ -18,6 +18,12 @@
 
 <script type="text/javascript">
 $(function() {
+	/* 상세페이지 이동 이벤트 */
+	$(".goDetail td:not(:nth-child(3), :nth-last-child(2), :nth-last-child(3))").click(function() {					 //, :nth-last-child(2))
+		var st_num = $(this).parents("tr").find(".stnum").html();				
+		location.href="/admin/store/storeDetail.do?st_num="+st_num;		
+	});
+	
 	// 이미지 확인 
 	$(".imgBtn").click(function () {			
 		var thisdiv = $(this).parents("td").find(".addimg");			
@@ -135,7 +141,7 @@ $(function() {
 					<c:forEach var="store" items="${storeList}" varStatus="status">
 						<c:choose>
 							<c:when test="${store.status==0}">
-								<tr class="danger">
+								<tr class="goDetail danger">
 									<td class="stnum">${store.st_num}</td>
 									<td class="stname">${store.st_name}</td>
 									<td class="snum">${store.s_num}</td>
@@ -153,7 +159,7 @@ $(function() {
 								</tr>
 							</c:when>
 							<c:otherwise>
-								<tr>
+								<tr class="goDetail">
 									<td class="stnum">${store.st_num}</td>
 									<td class="stname">${store.st_name}</td>
 									<td class="snum">${store.s_num}</td>
@@ -174,7 +180,7 @@ $(function() {
 					</c:forEach>		
 				</c:when>
 				<c:otherwise>
-					<tr><td colspan="11" class="tac">등록된 판매점이 존재하지 않습니다.</td></tr>
+					<tr><td colspan="11" >등록된 판매점이 존재하지 않습니다.</td></tr>
 				</c:otherwise>
 			</c:choose>
 		</tbody>	
