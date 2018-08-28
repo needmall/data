@@ -134,7 +134,7 @@ $(function() {
 				<c:when test="${not empty storeList}">
 					<c:forEach var="store" items="${storeList}" varStatus="status">
 						<c:choose>
-							<c:when test="${store.status}==1">
+							<c:when test="${store.status==0}">
 								<tr class="danger">
 									<td class="stnum">${store.st_num}</td>
 									<td class="stname">${store.st_name}</td>
