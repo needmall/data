@@ -44,9 +44,18 @@ $(function() {
 
 	//모달 이미지
 	$(".fees").click(function() {
-		//해당 s_num 입력
+		//해당 s_num, f_num 입력
 		$("#s_num").val($(this).parents("tr").find(".snum").html());
+		$("#f_num").val($(this).parents("tr").find(".expireDate").attr("data-fnum"));
 		
+		// input:date 입력하기 위한 함수
+		Date.prototype.myformat = function() {
+	        var yyyy = this.getFullYear().toString();
+	        var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+	        var dd  = this.getDate().toString();
+	        return yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]); // padding
+	      };
+	      
 		//수수료 버튼 눌렀을때 월 정보 표시를 위한 객체
 		var nowDate = new Date();
 		var nowYear = nowDate.getFullYear();
@@ -58,20 +67,18 @@ $(function() {
 		var num = $(this).parents("tr").find(".stnum").html();		
 		var name = $(this).parents("tr").find(".stname").html();		
 		$("#num").val(num);
-		$("#name").val(name);		
+		$("#name").val(name);
+		
 		
 		if($(this).parents("tr").find(".expireDate").html() =="" || nowDate > expireDate){
-			//해당 f_setdate 입력
-			$("#f_setdate").val(nowDate);
-			$("#stratday").val(nowDate.toLocaleDateString());
+
+ 			$("#stratday").val(nowDate.myformat());
 			nowDate.setMonth(nowDate.getMonth()+1)
-			$("#endday").val(nowDate.toLocaleDateString());  //지금으로 부터 한달
+			$("#endday").val(nowDate.myformat());  //지금으로 부터 한달
 		}else{
-			//해당 f_setdate 입력
-			$("#f_setdate").val(expireDate);
-			$("#stratday").val(expireDate.toLocaleDateString());
+			$("#stratday").val(expireDate.myformat());
 			expireDate.setMonth(expireDate.getMonth()+1)
-			$("#endday").val(expireDate.toLocaleDateString()); //만료 일로 부터 한달
+			$("#endday").val(expireDate.myformat()); //만료 일로 부터 한달
 		}		
 	})
 	
@@ -79,11 +86,20 @@ $(function() {
 	// 수수료 결제 버튼 클릭
 	$("#feesPay").click(function() {
 		var nowDate = new Date();
-		if(confirm(nowDate.getMonth()+1+"월 결제가 확인되었습니까?")){			
+		if(confirm(nowDate.getMonth()+1+"월 결제가 확인되었습니까?")){	
 			$("#feeForm").attr({"method":"post","action":"/admin/store/storeFeeInsert.do"});
 			$("#feeForm").submit();
 		}
 		
+	})
+	
+	//강제 해지
+	$("#terminate").click(function() {
+		if(confirm("최근 결제 내역을 삭제 합니다.")){	
+			
+			$("#feeForm").attr({"method":"post","action":"/admin/store/storeFeeDelete.do"});
+			$("#feeForm").submit();
+		}
 	})
 	
 })//최상위 마지막
@@ -107,7 +123,8 @@ $(function() {
 				<th>영업전화</th>
 				<th>대표자</th>
 				<th>등록일</th>
-				<th>판매점 구분</th>
+				<th>수정일</th>
+				<th>구분</th>
 				<th>수수료</th>
 				<th>기간만료</th>				
 			</tr>
@@ -116,21 +133,24 @@ $(function() {
 			<c:choose>
 				<c:when test="${not empty storeList}">
 					<c:forEach var="store" items="${storeList}" varStatus="status">
-						<tr>
-							<td class="stnum">${store.st_num}</td>
-							<td class="stname">${store.st_name}</td>
-							<td class="snum">${store.s_num}</td>
-							<td>${store.st_bnum}</td>							
-							<td>${store.st_address}</td>
-							<td>${store.st_email}</td>
-							<td>${store.st_hours}</td>
-							<td>${store.st_cell}</td>
-							<td>${store.st_ceo}</td>
-							<td>${store.st_date}</td>
-							<td><input type="button" class="btn btn-default imgBtn" data-siimage='${store.si_image}' value='${store.si_division}'/><div class="addimg"></div></td>
-							<td><input type="button" class="btn btn-default fees" data-toggle="modal" data-target=".bs-example-modal-sm" value="확인"/></td>
-							<td class="expireDate">${store.expire}</td>
-						</tr>						
+						
+								<tr>
+									<td class="stnum">${store.st_num}</td>
+									<td class="stname">${store.st_name}</td>
+									<td class="snum">${store.s_num}</td>
+									<td>${store.st_bnum}</td>							
+									<td>${store.st_address}</td>
+									<td>${store.st_email}</td>
+									<td>${store.st_hours}</td>
+									<td>${store.st_cell}</td>
+									<td>${store.st_ceo}</td>
+									<td>${store.st_date}</td>
+									<td>수정일</td>
+									<td><input type="button" class="btn btn-default imgBtn" data-siimage='${store.si_image}' value='${store.si_division}'/><div class="addimg"></div></td>
+									<td><input type="button" class="btn btn-default fees" data-toggle="modal" data-target=".bs-example-modal-sm" value="확인"/></td>
+									<td class="expireDate" data-fnum='${store.f_num}'>${store.expire}</td>
+								</tr>
+											
 					</c:forEach>		
 				</c:when>
 				<c:otherwise>
@@ -150,33 +170,34 @@ $(function() {
     	<form class="form-horizontal" id="feeForm">
 	    	<div class="form-group">
 	    		<label for="num" class="col-sm-4 control-label" >매장번호</label>
-	    		<div class="col-sm-7">
-	    			<input type="text" class="form-control" readonly="readonly" id="num" name="num">
+	    		<div class="col-sm-8">
+	    			<input type="text" class="form-control" readonly="readonly" id="num" >
 	    		</div>
 	  		</div>
 	  		<div class="form-group">
 	    		<label for="st_name" class="col-sm-4 control-label" >매장명</label>
-	    		<div class="col-sm-7">
-	    			<input type="text" class="form-control " readonly="readonly" id="name" name="name">
+	    		<div class="col-sm-8">
+	    			<input type="text" class="form-control " readonly="readonly" id="name" >
 	    		</div>
 	  		</div>
 	  		
 	  		<div class="form-group">
 	    		<label for="" class="col-sm-4 control-label">적용기간</label>
-	    		<div class="col-sm-7">
+	    		<div class="col-sm-8">
 		    		<div class="input-group">
-		      			<input type="text" class="form-control col-xs-3 " readonly="readonly" id="stratday" >~
-		      			<input type="text" class="form-control col-xs-3 " readonly="readonly" id="endday"  >
+		      			<input type="text" class="form-control col-xs-3 " readonly="readonly" id="stratday"  name="f_setdate" >~
+		      			<input type="text" class="form-control col-xs-3 " readonly="readonly" id="endday" >
 		    		</div>
 	    		</div>
 	   		</div>
-	   		<input type="hidden" id="s_num" name="s_num" >   		
-	   		<input type="hidden" id="f_setdate" name="f_setdate" >
+	   		<input type="hidden" id="s_num" name="s_num" >
+	   		<input type="hidden" id="f_num" name="f_num" >   	
    		</form>
+ 
     	<div class="contentarea" ></div>
     	<hr>
       	<input type="button" class="btn btn-default check" id="feesPay" value="결제확인"/>    
-      	<input type="button" class="btn btn-default force" value="강제만료"/>
+      	<input type="button" class="btn btn-default force" id="terminate" value="강제만료" />
       	<button type="button" class="btn btn-default" data-dismiss="modal">취 소</button>
     </div>
   </div>

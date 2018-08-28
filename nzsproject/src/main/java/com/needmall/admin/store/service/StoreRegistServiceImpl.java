@@ -81,7 +81,14 @@ public class StoreRegistServiceImpl implements StoreRegistService{
 	public int storeFeeInsert(FeesVO fvo) {
 		int result = 0;
 		result = storeRegistDao.storeFeeInsert(fvo);	
-		return 0;
+		return result;
+	}
+
+	@Override
+	public int storeFeeDelete(FeesVO fvo) {
+		int result = 0;
+		result = storeRegistDao.storeFeeDelete(fvo);	
+		return result;
 	}
 
 	

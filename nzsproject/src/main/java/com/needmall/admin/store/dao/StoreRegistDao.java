@@ -14,6 +14,7 @@ public interface StoreRegistDao {
 	public int storeimageInsert(StoreRegistVO srvo);
 	public List<StoreRegistVO> storeList();
 	public int storeFeeInsert(FeesVO fvo);
+	public int storeFeeDelete(FeesVO fvo);
 	
 //	public List<ProductRegistVO> productListAll();
 //	public ProductRegistVO productDetail(ProductRegistVO prvo);

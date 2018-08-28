@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.util.SystemOutLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -96,11 +95,23 @@ public class StoreRegistController {
 	
 	@RequestMapping(value="/storeFeeInsert.do", method=RequestMethod.POST)
 	public String storeFeeInsert(FeesVO fvo, Model model) {
-		logger.info(fvo);
 		int result=0;
 		result = storeRegistService.storeFeeInsert(fvo);
-		model.addAttribute("result",result);		
-		return "redirect:/admin/store/storeList"; 
+		model.addAttribute("insertresult",result);		
+		return "redirect:/admin/store/storeList.do"; 
+	}
+	
+	/**
+	 * storeFeeDelete : 수수료 결제 삭제 
+	 * @return
+	 */
+	
+	@RequestMapping(value="/storeFeeDelete.do", method=RequestMethod.POST)
+	public String storeFeeDelete(FeesVO fvo, Model model) {
+		int result=0;
+		result = storeRegistService.storeFeeDelete(fvo);
+		model.addAttribute("deleteresult",result);		
+		return "redirect:/admin/store/storeList.do"; 
 	}
 	
 //storeFeeInsert

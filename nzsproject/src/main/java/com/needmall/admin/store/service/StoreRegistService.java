@@ -14,6 +14,7 @@ public interface StoreRegistService {
 	public int storeInsert(StoreRegistVO srvo, HttpServletRequest request);
 	public List<StoreRegistVO> storeList();
 	public int storeFeeInsert(FeesVO fvo);
+	public int storeFeeDelete(FeesVO fvo);
 	
 //	public List<ProductRegistVO> productList(ProductRegistVO prvo);
 //	public ProductRegistVO productDetail(ProductRegistVO prvo);
