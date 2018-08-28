@@ -109,7 +109,7 @@
 	        }
 	    })
 // 	   
-		$(".goDetail td :not(:nth-last-child(1), :nth-last-child(2),:nth-last-child(3),:nth-last-child(4),:nth-last-child(5),:nth-last-child(8))").click(function() {					 //, :nth-last-child(2))
+		$(".goDetail td:not(:nth-last-child(1), :nth-last-child(2),:nth-last-child(3),:nth-last-child(4),:nth-last-child(6),:nth-last-child(7))").click(function() {					 //, :nth-last-child(2))
 			var ps_num = $(this).parents("tr").attr("data-num");				
 			location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
 		});

@@ -46,7 +46,7 @@
       <li class="active"><a href="/">Home</a></li>
       <li><a href="/productall/productList.do">전체 상품</a></li>
       <li><a href="/storeall/storeall.do">전체 스토어</a></li>
-      <li><a href="/mypage/mycartList.do">이벤트</a></li>    
+      <li><a href="/mypage /mypageList.do">이벤트</a></li>
     </ul>
     </nav> 
 </div>

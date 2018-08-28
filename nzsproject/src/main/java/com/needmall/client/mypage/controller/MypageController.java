@@ -25,6 +25,14 @@ public class MypageController {
 	private MypageService mypageService;
 //	/mypage/mycartList.do
 	
+	@RequestMapping("/mypageList.do")
+	public String mypageList() {
+		return "mypage/mypage";
+	}
+	
+	
+	
+	/////////////////////////////////////////////////////////////장바구니 로직
 	@RequestMapping(value="/mycartList.do")
 	public String mycartList(MycartVO mvo ,Model model) {
 		logger.info("mycartList 호 출");
@@ -57,4 +65,5 @@ public class MypageController {
 		return value;
 		
 	}
+	/////////////////////////////////////////////////////////////장바구니 로직끝
 }
