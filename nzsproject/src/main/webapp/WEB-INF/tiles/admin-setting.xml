@@ -14,8 +14,12 @@
 		<put-attribute name="title" value="상품 등록 페이지"/>
 		<put-attribute name="main" value="/WEB-INF/views/admin/product/{1}.jsp"/>
 	</definition>
-		<definition name="admin/store/*" extends="basic">
+	<definition name="admin/store/*" extends="basic">
 		<put-attribute name="title" value="매장 등록 페이지"/>
 		<put-attribute name="main" value="/WEB-INF/views/admin/store/{1}.jsp"/>
+	</definition>
+	<definition name="admin/user/*" extends="basic">
+		<put-attribute name="title" value="매장 등록 페이지"/>
+		<put-attribute name="main" value="/WEB-INF/views/admin/user/{1}.jsp"/>
 	</definition>
 </tiles-definitions>

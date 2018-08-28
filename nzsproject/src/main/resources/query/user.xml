@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.needmall.admin.user.dao.UserDao">
+	<select id="customerList" resultType="customer">
+		SELECT c_num, c_id, c_name, c_gender, c_birthday, c_address, c_mail, c_cell, c_date, c_lat, c_lon, c_update FROM  customer
+	</select>
+	<select id="sellerList" resultType="seller">
+		SELECT s_num,s_id,s_name,s_gender,s_birthday,s_address,s_mail,s_phone,s_cell,s_date FROM seller
+	</select>
+</mapper>
