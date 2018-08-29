@@ -30,6 +30,5 @@
       	<typeAlias type="com.needmall.common.vo.FavstoreVO" alias="favstore"/>
       	<typeAlias type="com.needmall.common.vo.FeesVO" alias="fees"/>
       	
-      	
 	</typeAliases>
 </configuration>
