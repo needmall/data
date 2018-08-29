@@ -75,8 +75,9 @@ function getDateFormat(dateValue){
  *  */
 var pattern = [
 	"((?=.*[a-zA-Z])(?=.*[0-9]).{6,10})",
-	"((?=.*[a-zA-Z])(?=.*[0-9@#$%]).{8,12})",
-	"^\\d{3}-\\d{3,4}-\\d{4}"];
+	"((?=.*[a-zA-Z])(?=.*[0-9!@#$%^&*]).{8,12})",
+	"^\\d{3}-\\d{3,4}-\\d{4}",
+	"^\\d{3}-\\d{2}-\\d{5}"];
 function inputVerify(index, data, printarea){
 	var data_regExp = new RegExp(pattern[index]);
 	var match = data_regExp.exec($(data).val());

@@ -1,5 +1,6 @@
 package com.needmall.client.member.dao;
 
+import com.needmall.client.member.vo.JoinVO;
 import com.needmall.client.member.vo.MemberSecurity;
 import com.needmall.client.member.vo.MemberVO;
 
@@ -12,11 +13,13 @@ public interface MemberDao {
 	public MemberSecurity sellerSecuritySelect(String s_id);
 	
 	
-	public MemberVO customerSelect(String c_id);
-	public MemberVO sellerSelect(String s_id);
+	public int customerSelect(String c_id);
+	public int sellerSelect(String s_id);
+	public JoinVO reqstoreSelect(String st_bnum);
 	
-	public int customerInsert(MemberVO mvo);
-	public int sellerInsert(MemberVO mvo);
+	public int customerInsert(MemberVO mvo);	
+	public int sellerInsert(JoinVO jvo);
+	public int reqstoreInsert(JoinVO jvo);
 	
-	public MemberVO storeSelect(String st_bnum);
+	
 }

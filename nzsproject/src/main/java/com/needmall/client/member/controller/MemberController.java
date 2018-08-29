@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.needmall.client.member.service.MemberService;
+import com.needmall.client.member.vo.JoinVO;
 import com.needmall.client.member.vo.MemberVO;
 
 @Controller
@@ -129,10 +130,11 @@ public class MemberController {
 	 * 회원 가입 처리(seller)	(AOP)
 	 ********************************************************************/
 	@RequestMapping(value="/join_seller.do", method = RequestMethod.POST)
-	public ModelAndView sellerInsert(MemberVO mvo, ModelAndView mav) {	// console창에 sever 구동할때 "{[/member/join.do],methods=[POST]}"
+	public ModelAndView sellerInsert(JoinVO jvo, ModelAndView mav) {	// console창에 sever 구동할때 "{[/member/join.do],methods=[POST]}"
 		logger.info("join_seller.do post 방식에 의한 메서드 호출 성공");
 		
-		memberService.sellerInsert(mvo);
+		jvo.setCs_division(1); 		// cs_division : 1 판매자 확인해보기
+		memberService.sellerInsert(jvo);
 		mav.setViewName("client/member/join_success");
 		return mav;
 	}

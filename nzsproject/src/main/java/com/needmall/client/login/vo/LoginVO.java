@@ -10,10 +10,12 @@ public class LoginVO extends LoginCheck {
 	
 	public LoginVO() {}
 
-	public LoginVO(String s_id, String c_id, String s_name, String c_name) {
+	public LoginVO(String s_id, String s_pwd, String c_id, String c_pwd, String s_name, String c_name) {
 		super();
 		this.s_id = s_id;
+		this.s_pwd = s_pwd;
 		this.c_id = c_id;
+		this.c_pwd = c_pwd;
 		this.s_name = s_name;
 		this.c_name = c_name;
 	}
@@ -64,6 +66,12 @@ public class LoginVO extends LoginCheck {
 
 	public void setC_name(String c_name) {
 		this.c_name = c_name;
+	}
+
+	@Override
+	public String toString() {
+		return "LoginVO [s_id=" + s_id + ", s_pwd=" + s_pwd + ", c_id=" + c_id + ", c_pwd=" + c_pwd + ", s_name="
+				+ s_name + ", c_name=" + c_name + "]";
 	}
 	
 }
