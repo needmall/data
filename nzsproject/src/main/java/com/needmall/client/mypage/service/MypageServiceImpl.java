@@ -5,15 +5,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.needmall.client.member.dao.MemberDao;
-import com.needmall.client.member.vo.MemberSecurity;
-import com.needmall.client.member.vo.MemberVO;
 import com.needmall.client.mypage.dao.MypageDao;
 import com.needmall.client.mypage.vo.MycartVO;
-import com.needmall.common.util.OpenCrypt;
-import com.needmall.common.util.Util;
 
 @Service
 public class MypageServiceImpl implements MypageService {
@@ -23,8 +16,15 @@ public class MypageServiceImpl implements MypageService {
 	
 	@Override
 	public List<MycartVO> mycartList(MycartVO mvo) {
-		// TODO Auto-generated method stub
-		return mypageDao.mycartList(mvo);
+		List<MycartVO> list = mypageDao.mycartList(mvo);
+		for(int i=0; i<list.size(); i++) {
+			int result =list.get(i).getP_price() * list.get(i).getCart2_count();	//원가 * 개수
+			int result2 =list.get(i).getPs_price()* list.get(i).getCart2_count();	//할인가 * 개수
+			list.get(i).setMultiply_count(result);
+			list.get(i).setOriginal_multiply_count(result2);
+		}
+		
+		return list;
 	}
 
 	@Override
@@ -55,10 +55,20 @@ public class MypageServiceImpl implements MypageService {
 		return value;
 	}
 
+	//구매페이지 리스
 	@Override
 	public List<MycartVO> mybuy(MycartVO mbvo) {
-		// TODO Auto-generated method stub
-		return mypageDao.buylist(mbvo);
+		List<MycartVO> list = mypageDao.buylist(mbvo);
+		
+		for(int i=0; i<list.size(); i++) {
+			int result = list.get(i).getPs_price() * list.get(i).getB_count();
+			int result2 =list.get(i).getP_price() * list.get(i).getB_count();	//할인가 * 개수
+			list.get(i).setMultiply_count(result);
+			list.get(i).setOriginal_multiply_count(result2);
+			
+		}
+		
+		return list;
 	}
 	
 		

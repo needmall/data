@@ -1,8 +1,8 @@
 <%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%--<%@ page isElgnored="true"%> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,29 +32,52 @@
 	
 	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<style type="text/css">
-		div{border: 1px solid gray;}
-		.out{text-align: center;}
-		.in{ width: 960px; margin-left: auto; margin-right: auto;}
+/*    		div{border: 1px solid gray;}      */
+		.all{text-align: center; height: 1024px;}
+		.in{ width: 1100px; margin-left: auto; margin-right: auto; padding-top: 50px; }
 		.item_title{font-size: 20px; color: olive; margin-bottom: 30px; margin-top: 30px;}
 		h3{text-align: left;}
-		.item_succes{text-align: left; font-size: 20px;}
+		.item_succes{font-size: 25px; text-align: left!important;}
+		.list_td{padding-top: 30px;}
+		.list_td2{padding-top: 10px;}
+		.list_td3{padding-top: 25px;}
+		#shopping{margin-right: 30px;}
 	</style>
-
+	
+	<script type="text/javascript">
+		$(function(){
+			jQuery('.format-money').text(function() {
+			    jQuery(this).text(
+			        jQuery(this).text().format()
+			    );
+			});
+			$("#shopping").click(function(){
+				location.href="/productall/productList.do"
+			})
+		})
+	</script>
 </head>
 <body>
-	<div class="out">
-		<h3>물품 구매</h3>
-		<hr/>
+	<div class="all">
 		<div class="in">
-			<div >
+			<div>
 				<span class="item_title">물품 구매 성공</span>
 				<br/>
 				<p>물품이 성공적으로 구매 완료 되었습니다.</p>
 				<p>구입하신 물품은 MyPage-내 구매내역에서 확인 및 사용하실 수 있습니다.</p> 
 			</div>
-			<div>
-				<span class="item_succes">구매 성공 내역</span>
+			<div class="display">
+				<div class="item_succes"><span>구매 성공 내역</span></div>
 				<hr/>
 				<table class="table table-striped table-hover">
 					<colgroup>
@@ -73,14 +96,21 @@
 							<td>가격</td>
 						</tr>
 						<c:choose>
-							<c:when test="${not empty cartList}">
+							<c:when test="${not empty buylist}">
 									<c:forEach var="buy" items="${buylist}" varStatus="status">
-										<tr>
-											<td class="align-middle">상품</td>
-											<td><img class="img-thumbnail" src="/uploadStorage/product/${cart.pi_image }" width="150px" height="50px;"/></td>
-											<td></td>
-											<td></td>
-											<td></td>
+										<tr class="tr_list">
+											<td><div class="list_td">${status.count}</div> </td>
+											<td><div class="list_td2"><img class="img-thumbnail" src="/uploadStorage/product/${buy.pi_image }" width="70px" height="50px;"/></div></td>
+											<td><div class="list_td2" style="text-align: left;"><p><label>${buy.p_name}</label></p>${buy.p_content}</div></td>
+											<td ><div class="list_td">${buy.b_count }개</div></td>
+											<td>
+												<div class="list_td3">
+													<span class="span_count format-money" style="text-decoration: line-through;"> ${buy.original_multiply_count}</span>원
+													<span class="span_count format-money"> ${buy.multiply_count}</span>원
+												</div>
+												
+											</td>
+										
 										</tr>
 									</c:forEach>
 							</c:when>
@@ -94,7 +124,8 @@
 				</table>
 			</div>
 		</div>
-		<div><input type="button" value="쇼핑하기"><input type="button" value="장바구니"> </div>
+		<hr/>
+		<div><input id="shopping" type="button" value="쇼핑하기"><input id="cart" type="button" value="MyPage 이동"> </div>
 	</div>
 </body>
 </html>

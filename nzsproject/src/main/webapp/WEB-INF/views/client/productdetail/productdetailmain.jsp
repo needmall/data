@@ -40,7 +40,11 @@
 	var itemStaus =0;
 	
 			$(function() {
-
+				jQuery('.format-money').text(function() {
+				    jQuery(this).text(
+				        jQuery(this).text().format()
+				    );
+				});
 // 				buy(p_name,pi_image,p_content,ps_count,ps_expiration,ps_price);
 				$(document).on('click',"#buy_buttun",function(){
 					var ps_price = ${detail.ps_price };
@@ -49,45 +53,29 @@
 					buy('${detail.p_name }','${detail.pi_image}','${detail.p_content }',count,'${detail.ps_expiration}','${detail.ps_price }');
 				});
 				
-				
-				
 				var ps_count = ${detail.ps_count };
-
                 $("#count").keyup(function(event){
-                	
                     if ((event.keyCode >=37 && event.keyCode<=40)) {
                         var inputVal = $(this).val();
                         $(this).val(inputVal.replace(/[^0-9]/gi,''));
-                        
                     }
                     if($("#count").val().replace(/\s/g,"")==""){
                    		$("#count").val(1);
                    	}
-                    
                     if($("#count").val() > ps_count){
                     	$("#count").val(1);
                     	alert("최대 수량은 "+ps_count  +"입니다.");
 //                     	${detail.ps_count} 수정해야함
                     }
                 }); 
-                
     			$('#myModal').on('shown.bs.modal', function () {
   				  	$('#myInput').focus();
 	  				$('#myModal').modal({
 	  				  backdrop: 'static',
 	  				  keyboard: false
 	  				})
-
   				})
-
   				var psexpiration = $("#ps_expiration").val();
-  				
-  				
-  				console.log("psexpiration : "+ psexpiration);
-  				
-  				
-  				
-  				
   		      // input:date 입력하기 위한 함수
 // 				Date.prototype.myformat = function() {
 // 		           var yyyy = this.getFullYear().toString();
@@ -105,14 +93,10 @@
 //   		       console.log(abc);
                 //쇼킹딜 타임
 //              time:'2018-08-24 00:00:00'//기준시간
-
 	            $('#countTime').countTime({
-	            	
  					cls : $('.expire'),
 					time: psexpiration
-
 				});
-				
         		// 할인율 계산
        			var p_price 		= ${detail.p_price}
        			var ps_price 		= ${detail.ps_price}
@@ -142,13 +126,7 @@
         		});
 				
 				$(".ul- li:first-child").trigger("click");
-				
-				
-				
-				
-			
 			////////////////////////////////////////////////////상품 즐겨찾기임
-				
 				$("#itemsearch").click(function() {
 					var p_num = $("#p_num").val();
 					var c_num = $("#c_num").val();
@@ -262,7 +240,26 @@
 						}
 					})
 				})
-			
+				$("#btn_buy").click(function(){
+					var c_num = $("#c_num").val();
+					var count = $(".span_count").html();
+					console.log("c_num = "+c_num);
+					count = count.substr(0,1);
+					console.log("count = " + count);
+					
+					$.ajax({
+						url:"/mypage/mybuy.do",
+						type:"post",
+						data:"c_num="+c_num+"&b_count="+count,
+						dataType:"text",
+						success: function(data){
+							console.log("성공")
+						},
+						error: function() {
+							alert("시스템 오류입니다. 관리자한테 문의하세요.");
+						}
+					})
+				})
 			});////////////////////////////////////////////////////////////풩션 끝
 			
 			
@@ -400,7 +397,7 @@
 				div_row.append(div_content);
 				
 				var div_right =$("<div class='col-md-4 .col-md-offset-4' style='padding-top: 50px; width: 20%'>");
-				var label_right =$("<label>가격 : "+ps_price+"원 // 개수: "+ps_count+"개</label>");
+				var label_right =$("<label>단가 가격 : <spna class='format-money'>"+ps_price+"</span>원 // 개수: <spna class='format-money span_count'>"+ps_count+"</span>개</label>");
 				var p_right =$("<p>유통기한 2018-08-24:00:00:00 </p>");
 				div_right.append(label_right);
 				div_right.append(p_right);
@@ -410,20 +407,20 @@
 				var label_all;
 				
 				if(start == 0){
-					var div_buttun =$("<div class='col-xs-4 col-sm-6' style='text-align: center; width: 100%; padding-bottom: -150px; padding-top: -150px'>")
-					div_buttun.html("<button>2</button>")
+// 					var div_buttun =$("<div class='col-xs-4 col-sm-6' style='text-align: center; width: 100%; padding-bottom: -150px; padding-top: -150px'>")
+// 					div_buttun.html("<button>2</button>")
 					var br = $("<br/><hr/>");
 					var div_all =$("<div class='row'>");
 					var div_price = $("<div class='.col-xs-8 .col-sm-6 .col-md-offset-4' style='width: 100%; text-align: right;'>");
-					var label_all =$("<label style='text-align: right;' class='bg-info'>총 가격 : "+all_price+"원 </label>");
+					var label_all =$("<label style='text-align: right;' class='bg-info'>총 가격 : <span class='format-money'>"+all_price+"<span>원 </label>");
 				
 					
 					div_all.append(div_price);
 					div_all.append(label_all);
 					
-					$(".container-fluid").append(div_row).append(div_buttun).append(br).append(div_all);
+					$(".container-fluid").append(div_row).append(br).append(div_all);
 				}else{
-					label_all.html("총 가격 : "+all_price +"원")
+					label_all.html("총 가격 : <span class='format-money'>"+all_price +"<span>원")
 				}
 			}
 			
@@ -442,8 +439,7 @@
 		padding-left: 100px;
 	}
 	h4{padding: 15px;}
-	.all{height: 1024px;}
-
+	.all{height: calc( auto + 500px );}
 	.accordion_banner{background-color: silver; color:black; }
 	.ul-{padding-top: 10px; }
 	.h4color{background-color: #F6F6F6; font-size: 20px; font-weight: bold;}
@@ -467,7 +463,7 @@
 		<input type="hidden" id="ps_price" name="ps_price" value="${detail.ps_price }">
 		<input type="hidden" id="st_num" name="st_num" value="${detail.st_num }">
 		<input type="hidden" id="c_num" name="c_num" value="1">
-<!-- 		위에 c_num 세션값으로 갖고와야함 -->
+<!-- 		위에 c_num 세션값으로 갖고와야함 ------------------------------------------------------------------------------>
 		
 	</form>
 	
@@ -500,20 +496,20 @@
 					<td colspan="3">
 						<p><label>상품명 ${detail.p_name }</label> </p>
 						<span style="color: red;">남은시간 (<span id="countTime"></span>)</span>
-						<button type="button" id="itemsearch" class="btn btn-link" style="text-align: right;"><strong><mark>☆</mark></strong> 상품 즐겨찾기(미)</button>
-						<button type="button" id="sellersearch" class="btn btn-link" style="text-align: right;"><strong><mark>☆</mark></strong> 판매점 즐겨찾기(미)</button>
+						<button type="button" id="itemsearch" class="btn btn-link" style="text-align: right;"><strong><mark>☆</mark></strong> 상품 즐겨찾기</button>
+						<button type="button" id="sellersearch" class="btn btn-link" style="text-align: right;"><strong><mark>☆</mark></strong> 판매점 즐겨찾기</button>
 					</td>
 				</tr>
 
 				<tr>
 					<td >소비자 가격</td>
 					<td>:</td>
-					<td >${detail.p_price }원</td>
+					<td><spna class="format-money">${detail.p_price }</spna>원</td>
 				</tr>
 				<tr>
 					<td >판매가격</td>
 					<td >:</td>
-					<td >${detail.ps_price }원</td>
+					<td ><spna class="format-money">${detail.ps_price }</spna>원</td>
 				</tr>
 
 				<tr>
@@ -569,7 +565,27 @@
 	</div>
 	
 <%-- 	<c:import url="productdetallbuy.jsp"></c:import> --%>
-	<%@include file="productdetallbuy.jsp" %>
+<%-- 	<%@include file="productdetallbuy.jsp" %> --%>
+		<div class="modal fade bs-example-modal-lg"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg" style="width: 1500px;" >
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">상품 구매 페이지</h4>
+		      </div>
+		      <div class="modal-body">
+		       	 <div class="container-fluid">
+
+				</div>
+			</div>
+		    <div class="modal-footer">
+		      	<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+		      	<button type="button" id="btn_buy" class="btn btn-primary">결제</button>
+		    </div>
+		    </div>
+		  </div>
+		</div>
+<!-- 		모달 부분 -->
 </div>
 </body>
 </html>

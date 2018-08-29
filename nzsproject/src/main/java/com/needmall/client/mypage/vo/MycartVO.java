@@ -15,12 +15,17 @@ public class MycartVO extends ProductdetailVO {
     private int c_num =0 ;
     private int price_value=0;
     
+    
     //구매 
     private int b1_num =0;
     private Date b1_date;
     private int b2_num=0;
     private int b_count=0;
     private int b_confirm=0;
+    
+    //기타
+    private int multiply_count=0;
+    private int original_multiply_count=0;
 	public int getCart2_num() {
 		return cart2_num;
 	}
@@ -93,9 +98,39 @@ public class MycartVO extends ProductdetailVO {
 	public void setB_confirm(int b_confirm) {
 		this.b_confirm = b_confirm;
 	}
-
+	public int getMultiply_count() {
+		return multiply_count;
+	}
+	public void setMultiply_count(int multiply_count) {
+		this.multiply_count = multiply_count;
+	}
+	public int getOriginal_multiply_count() {
+		return original_multiply_count;
+	}
+	public void setOriginal_multiply_count(int original_multiply_count) {
+		this.original_multiply_count = original_multiply_count;
+	}
+	@Override
+	public String toString() {
+		return "MycartVO [cart2_num=" + cart2_num + ", cart1_num=" + cart1_num + ", ps_num=" + ps_num + ", cart2_count="
+				+ cart2_count + ", cart1_date=" + cart1_date + ", c_num=" + c_num + ", price_value=" + price_value
+				+ ", b1_num=" + b1_num + ", b1_date=" + b1_date + ", b2_num=" + b2_num + ", b_count=" + b_count
+				+ ", b_confirm=" + b_confirm + ", multiply_count=" + multiply_count + ", original_multiply_count="
+				+ original_multiply_count + ", getPi_num()=" + getPi_num() + ", getPi_image()=" + getPi_image()
+				+ ", getP_num()=" + getP_num() + ", getP_name()=" + getP_name() + ", getP_price()=" + getP_price()
+				+ ", getP_date()=" + getP_date() + ", getP_update()=" + getP_update() + ", getP_content()="
+				+ getP_content() + ", getP_division()=" + getP_division() + ", getDiscount()=" + getDiscount()
+				+ ", getSt_num()=" + getSt_num() + ", getC1_num()=" + getC1_num() + ", getC1_name()=" + getC1_name()
+				+ ", getC2_num()=" + getC2_num() + ", getC2_name()=" + getC2_name() + ", getPs_regdate()="
+				+ getPs_regdate() + ", getPs_expiration()=" + getPs_expiration() + ", getPs_count()=" + getPs_count()
+				+ ", getPs_price()=" + getPs_price() + ", getS_num()=" + getS_num() + ", getPs_state()=" + getPs_state()
+				+ ", getPs_udate()=" + getPs_udate() + ", getState()=" + getState() + ", toString()=" + super.toString()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+	}
+    
+    
 	
-
+    
 	
     
 }

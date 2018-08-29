@@ -34,13 +34,20 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		
+		//숫자 3자리 앞에 , 붙이기
+		jQuery('.format-money').text(function() {
+		    jQuery(this).text(
+		        jQuery(this).text().format()
+		    );
+		});
+		
 		$(".update_btn").click(function() {
 			var ps_count = $(this).parents("tr").find(".ps_count").attr("data-num");   //db에 저장된 장바구니 개수
 			var ps_count_max =  $(this).parents("tr").find(".ps_count").attr("max");	// 구매할수있는 최대 	
 			var cart2_num = $(this).parents("tr").attr("data-cart");
 			var now_count = $(this).parents("tr").find(".ps_count").val();
 			var p_price = $(this).parents("tr").attr("data-price");
-			console.log();
 			$(this).parents("tr").find(".p_price").html(now_count*p_price);
 			
 // 			var url="/mypage/countUpdate.do?cart2_num="+cart2_num+"&ps_count="+now_count;
@@ -109,7 +116,7 @@
 	        }
 	    })
 // 	   
-		$(".goDetail td:not(:nth-last-child(1), :nth-last-child(2),:nth-last-child(3),:nth-last-child(4),:nth-last-child(6),:nth-last-child(7))").click(function() {					 //, :nth-last-child(2))
+		$(".goDetail td :not(:nth-last-child(1), :nth-last-child(2),:nth-last-child(3),:nth-last-child(4),:nth-last-child(6),:nth-last-child(7))").click(function() {					 //, :nth-last-child(2))
 			var ps_num = $(this).parents("tr").attr("data-num");				
 			location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
 		});
@@ -125,52 +132,58 @@
 </script>
 <style type="text/css">
 	.nav_div{text-align: center;}
-/* 	tbody > tr > td{text-align: center; vertical-align: middle;} */
+	.td_list{padding-top:30px; }
+	.td_list2{padding-top:20px; }
+	.td_list3{padding-top:25px; }
+	.close{margin-right: 15px;}
 </style>
 </head>
 <body>
-
-	<div><input type="button" id="empty" name="empty" value="선택 삭제"></div>
-	
 	<table class="table table-striped table-hover">
 		<colgroup>
 			<col width="2%">
 			<col width="10%">
 			<col width="50%">
-			<col width="15%">
+			<col width="13%">
+			<col width="6%">
 			<col width="8%">
-			<col width="10%">
+			<col width="2%">
 			<col width="4%">
-			<col width="10%">
 		</colgroup>
 		<tbody>
+		
 			<tr>
 				<td><input type="checkbox" id="checkall" /></td>
-				<td>사진</td>
-				<td>제품명</td>
-				<td>수량</td>
-				<td>가격</td>
-				<td>유통기한</td>
-				<td>구매</td>
-				<td>취소</td>
+				<th><div><input type="button" id="empty" name="empty" value="선택 삭제"></div></th>
+				<th>제품명</th>
+				<th>수량</th>
+				<th>가격</th>
+				<th>유통기한</th>
+				<th>구매</th>
+				<th>취소</th>
 			</tr>
 			<c:choose>
-			
 				<c:when test="${not empty cartList}">
 					<c:forEach var="cart" items="${cartList }" varStatus="status">
 						<tr class="goDetail" data-num="${cart.ps_num}" data-cart="${cart.cart2_num}" data-price ="${cart.ps_price}">
-							<td class="align-middle"><input type="checkbox" name="chk" data-num="${cart.cart2_num }"/></td>
+							<td class="align-middle"><div class="td_list"><input type="checkbox" name="chk" data-num="${cart.cart2_num }"/></div></td>
 							<td><img class="img-thumbnail" src="/uploadStorage/product/${cart.pi_image }" width="150px" height="50px;"/></td>
-							<td>${cart.p_name}) <p>${cart.p_content }</p></td>
+							<td><div class="td_list2">${cart.p_name}) <p>${cart.p_content }</p></div></td>
 							<td>
-								<input type="number" value="${cart.cart2_count }" class="ps_count" style="width: 50px" max="${cart.ps_count }" min="1" data-num="${cart.cart2_count }"> 개 
-								<button type="button" name="update_btn" class="btn btn-default update_btn" style="width: 50px; font-size: 10px;">수정</button>
+								<div class="td_list3">
+									<input type="number" value="${cart.cart2_count }" class="ps_count" style="width: 35px" max="${cart.ps_count }" min="1" data-num="${cart.cart2_count }"> 개 
+									<button type="button" name="update_btn" class="btn btn-default update_btn" style="width: 50px; font-size: 10px;">수정</button>
+								</div>
 							</td>
-							<td><span class="p_price">${cart.ps_price }</span>원 </td>
-							<td>${cart.ps_expirationChange }</td>
-							<td><button name="buy_btn" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" style="font-size: 10px;">클릭</button></td>
-							<td><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></td>
-							<td><input type="hidden" name="size" value="${status.current}"> </td>
+							<td>
+								<div class="td_list2">
+									<span class="p_price2 format-money" style="text-decoration: line-through;">${cart.original_multiply_count }</span>원 
+									<span class="p_price format-money">${cart.multiply_count }</span>원 
+								</div>
+							</td>
+							<td><div class="td_list2">${cart.ps_expiration }</div></td>
+							<td><div class="td_list3"><button name="buy_btn" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" style="font-size: 10px;">클릭</button></div></td>
+							<td><div class="td_list2"><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></td>
 						</tr>
 					</c:forEach>
 				</c:when>
