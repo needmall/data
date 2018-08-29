@@ -50,6 +50,7 @@
 				});
 				
 				
+				
 				var ps_count = ${detail.ps_count };
 
                 $("#count").keyup(function(event){
@@ -80,31 +81,38 @@
   				})
 
   				var psexpiration = $("#ps_expiration").val();
+  				
+  				
   				console.log("psexpiration : "+ psexpiration);
+  				
+  				
+  				
+  				
   		      // input:date 입력하기 위한 함수
-				Date.prototype.myformat = function() {
-		           var yyyy = this.getFullYear().toString();
-		           var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
-		           var dd  = this.getDate().toString();
-		           var hh = this.getHours().toString();
-		           var mi = this.getMinutes().toString();
-		           var ss = this.getSeconds().toString();
+// 				Date.prototype.myformat = function() {
+// 		           var yyyy = this.getFullYear().toString();
+// 		           var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+// 		           var dd  = this.getDate().toString();
+// 		           var hh = this.getHours().toString();
+// 		           var mi = this.getMinutes().toString();
+// 		           var ss = this.getSeconds().toString();
 		           
-		           return yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]) +" " + (hh[1]?hh:"0"+hh[0]) +":" +(mi[1]?mi:"0"+mi[0])+ ":"+ (ss[1]?ss:"0"+ss[0]); // padding
-		         };
-		         var a= new Date(psexpiration);
-  		       var abc = a.myformat();
-  		       console.log(abc);
+// 		           return yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]) +" " + (hh[1]?hh:"0"+hh[0]) +":" +(mi[1]?mi:"0"+mi[0])+ ":"+ (ss[1]?ss:"0"+ss[0]); // padding
+// 		         };
+
+// 		         var a= new Date(psexpiration);
+//   		       var abc = a.myformat();
+//   		       console.log(abc);
                 //쇼킹딜 타임
 //              time:'2018-08-24 00:00:00'//기준시간
 
 	            $('#countTime').countTime({
 	            	
- 					cls : "${'.expire'}",
-					time: a.myformat()
+ 					cls : $('.expire'),
+					time: psexpiration
 
 				});
-                
+				
         		// 할인율 계산
        			var p_price 		= ${detail.p_price}
        			var ps_price 		= ${detail.ps_price}
@@ -423,11 +431,8 @@
 		</script>
 <style>
 
-
-
-
 	#table_left{ padding: 10px;}
-	#simg{width: 350px; height: 350px; float: left; margin-right: 15px; }
+	#simg{width: 350px; height: 350px; float: left; margin-right: 30px;margin-top: 15px; margin-left: 15px;  }
 	
 	table tr td{
 		font-size: 15px;
@@ -441,9 +446,11 @@
 
 	.accordion_banner{background-color: silver; color:black; }
 	.ul-{padding-top: 10px; }
-	.h4color{background-color: #F6F6F6; font-size: 20px; font-weight: bold;}]
+	.h4color{background-color: #F6F6F6; font-size: 20px; font-weight: bold;}
+	.div_buttun{text-align: left; margin: 15px 5px 0px 450px ;}
+	.cart{margin-right: 100px !important;}
+	.div_table{height: 380px; width: 100%}
 </style>
-
 
 </head>
 <body>
@@ -482,24 +489,19 @@
 				height="100%" />
 		</div>
 		
-		
-		
-		<div >
+		<div class="div_table">
 			<table class="table-striped" id="table_left">
 				<colgroup>
+					<col width="30%">
 					<col width="50px">
-					<col width="2px">
 					<col width="400px;">
 				</colgroup>
 				<tr>
 					<td colspan="3">
 						<p><label>상품명 ${detail.p_name }</label> </p>
-						남은시간 (<span id="countTime"></span>)
-						
+						<span style="color: red;">남은시간 (<span id="countTime"></span>)</span>
 						<button type="button" id="itemsearch" class="btn btn-link" style="text-align: right;"><strong><mark>☆</mark></strong> 상품 즐겨찾기(미)</button>
 						<button type="button" id="sellersearch" class="btn btn-link" style="text-align: right;"><strong><mark>☆</mark></strong> 판매점 즐겨찾기(미)</button>
-						
-						<br><hr>
 					</td>
 				</tr>
 
@@ -543,14 +545,14 @@
 					<td></td>
 					<td><span class="trade" style="color: red;">교환 환불 불가</span></td>
 				</tr>
-				
-				<tr>
-					<td><button id="buy_buttun" type="button" class="btn btn-default expire" data-toggle="modal" data-target="#myModal">바로 구매하기</button></td>
-					<td><input class="btn btn-default cart expire" type="button" value="장바구니 담기" id="cart" name="cart"></td>
-				</tr>
 			</table>
 		</div>
+		<div class="div_buttun">
+			<button id="buy_buttun" type="button" class="btn btn-default expire" data-toggle="modal" data-target="#myModal">바로 구매하기</button>
+			<input class="btn btn-default cart expire" type="button" value="장바구니 담기" id="cart" name="cart">
+		</div>
 	</div>
+
 	<form class="form-inline">
  		<div class="form-group">
 		<ul class="ul- list-group" >

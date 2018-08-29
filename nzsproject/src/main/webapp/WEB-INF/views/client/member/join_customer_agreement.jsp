@@ -5,7 +5,7 @@
 	<head>
 	<meta charset="UTF-8">
 	
-		<title>Insert title here</title>
+		<title>customer 약관동의</title>
 		
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
@@ -16,7 +16,7 @@
         <!-- ★★ jQuery 쓰려면 무조건 정의 해줘야함! ↓↓↓ -->
 		<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
         <script type="text/javascript" src="/resources/include/js/common.js"></script>
-        <script type="text/javascript" src="/resources/include/js/join.js"></script>
+        <!-- <script type="text/javascript" src="/resources/include/js/join.js"></script> -->
         
         <script type="text/javascript">
         $(function(){ //전체선택 체크박스 클릭 
@@ -27,12 +27,15 @@
         			$("input[type=checkbox]").prop("checked",true); 
         			// 전체선택 체크박스가 해제된 경우 
         			} else { //해당화면에 모든 checkbox들의 체크를해제시킨다. 
-        				$("input[type=checkbox]").prop("checked",false); } }) })
+        				$("input[type=checkbox]").prop("checked",false); 
+        			} 
+        	}); 
+        });
 
         </script>           
 	</head>
 	<body>
-		<input type="checkbox">
+		<input type="checkbox" name="allCheck" id="allCheck">
 		<span>이용약관, 개인정보 수집 및 이용, 위치정보 이용약관(선택),프로모션 안내 메일 수신(선택)에 모두 동의합니다.</span>
 		<br />
 		

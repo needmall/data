@@ -74,7 +74,7 @@
 						</tr>
 						<c:choose>
 							<c:when test="${not empty cartList}">
-									<c:forEach var="buy" items="${buylist}">
+									<c:forEach var="buy" items="${buylist}" varStatus="status">
 										<tr>
 											<td class="align-middle">상품</td>
 											<td><img class="img-thumbnail" src="/uploadStorage/product/${cart.pi_image }" width="150px" height="50px;"/></td>
@@ -94,7 +94,7 @@
 				</table>
 			</div>
 		</div>
-		<div><input type="button" value="닫기"> </div>
+		<div><input type="button" value="쇼핑하기"><input type="button" value="장바구니"> </div>
 	</div>
 </body>
 </html>
