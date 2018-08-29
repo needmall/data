@@ -6,6 +6,14 @@
 	.btnarea{
 		text-align: center;
 	}
+#leftDiv{
+		width: 600px;
+		float: left !important;
+		text-align: center;
+	}
+h2{
+text-align:left;
+}
 
 </style>
 
@@ -142,13 +150,13 @@ $(function() {
 </script> 
 
 
-	
+<div id="leftDiv" >	
 	<form class="form-horizontal" id="productInsertForm">
 		<h2>물품 등록 </h2>
     	<hr>
   		<div class="form-group">
     		<label for="category1" class="col-sm-3 control-label">카테고리</label>
-    		<div class="col-sm-4">    		
+    		<div class="col-sm-8">    		
 	    		<select name="c1_num" id="category1" class="form-control">
 					<option value='none'>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 선택하세요 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ</option>		
 				</select>			
@@ -159,13 +167,13 @@ $(function() {
   		</div>
   		<div class="form-group">
     		<label for="p_name" class="col-sm-3 control-label">상 품 명</label>
-    		<div class="col-sm-4">
+    		<div class="col-sm-8">
     			<input type="text" class="form-control" id="p_name" name="p_name" >
     		</div>
   		</div>
   		<div class="form-group">
     		<label for="p_price" class="col-sm-3 control-label">가    격</label>
-    		<div class="col-sm-4">
+    		<div class="col-sm-8">
 	    		<div class="input-group">
 	      			<div class="input-group-addon">￦</div>
 	      			<input type="text" class="form-control col-xs-3" id="p_price" name="p_price">
@@ -175,19 +183,19 @@ $(function() {
    		</div>
 		<div class="form-group">
 	    	<label for="p_content" class="col-sm-3 control-label">상품내용</label>
-	    	<div class="col-sm-4">
+	    	<div class="col-sm-8">
 	    		<textarea class="form-control" cols="400" rows="5" id="p_content" name="p_content" placeholder="상품내용을 입력하세요"></textarea>
 	    	</div>	
 	  	</div>  
 	  	<div class="form-group">
 	    	<label for="pi_image" class="col-sm-3 control-label">상품사진</label>
-	    	<div class="col-sm-4">
+	    	<div class="col-sm-8">
 	     		<input type="file" id="file" name="file" >
 	     	</div>
 	  	</div>
 	  	<div class="form-group" >
 	    	<label for="p_division" class="col-sm-3  control-label">판매점구분</label>
-	    	<div class="col-sm-4">
+	    	<div class="col-sm-8">
 		    	<select name="division" id="division" class="form-control col-xs-3">
 					<option value='none'>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 선택하세요 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ</option>								
 				</select>
@@ -201,3 +209,4 @@ $(function() {
   			</div>
   		</div>
 	</form>	
+</div>

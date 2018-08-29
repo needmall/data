@@ -6,7 +6,7 @@ public class FeesVO {
 	private int f_num;
 	private int s_num;
 	private Date f_receiptdate;
-	private String f_setdate;
+	private Date f_setdate;
 	
 	public int getF_num() {
 		return f_num;
@@ -26,10 +26,10 @@ public class FeesVO {
 	public void setF_receiptdate(Date f_receiptdate) {
 		this.f_receiptdate = f_receiptdate;
 	}
-	public String getF_setdate() {
+	public Date getF_setdate() {
 		return f_setdate;
 	}
-	public void setF_setdate(String f_setdate) {
+	public void setF_setdate(Date f_setdate) {
 		this.f_setdate = f_setdate;
 	}
 	

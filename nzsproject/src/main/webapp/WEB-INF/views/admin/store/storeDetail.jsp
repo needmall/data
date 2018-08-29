@@ -13,6 +13,9 @@
 		width: 83% !important;
 		float: left !important;
 	}
+	h2{
+text-align:left;
+}
 
 </style>
 

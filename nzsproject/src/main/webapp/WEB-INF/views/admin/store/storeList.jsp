@@ -17,7 +17,7 @@
  
 
 <script type="text/javascript">
-$(function() {
+$(function() {	
 	/* 상세페이지 이동 이벤트 */
 	$(".goDetail td:not(:nth-child(3), :nth-last-child(2), :nth-last-child(3))").click(function() {					 //, :nth-last-child(2))
 		var st_num = $(this).parents("tr").find(".stnum").html();				
@@ -54,19 +54,30 @@ $(function() {
 		$("#s_num").val($(this).parents("tr").find(".snum").html());
 		$("#f_num").val($(this).parents("tr").find(".expireDate").attr("data-fnum"));
 		
-		// input:date 입력하기 위한 함수
-		Date.prototype.myformat = function() {
-	        var yyyy = this.getFullYear().toString();
-	        var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
-	        var dd  = this.getDate().toString();
-	        return yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]); // padding
-	      };
-	      
+// 		// input:date 입력하기 위한 함수
+// 		Date.prototype.myformat = function() {
+// 	        var yyyy = this.getFullYear().toString();
+// 	        var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+// 	        var dd  = this.getDate().toString();
+// 	        return yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]); // padding
+// 	      };
+
+Date.prototype.myformat = function() {
+                 var yyyy = this.getFullYear().toString();
+                 var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+                 var dd  = this.getDate().toString();
+                 var hh = this.getHours().toString();
+                 var mi = this.getMinutes().toString();
+                 var ss = this.getSeconds().toString();
+                 
+                 return yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]) +" " + (hh[1]?hh:"0"+hh[0]) +":" +(mi[1]?mi:"0"+mi[0])+ ":"+ (ss[1]?ss:"0"+ss[0]);
+};
 		//수수료 버튼 눌렀을때 월 정보 표시를 위한 객체
 		var nowDate = new Date();
 		var nowYear = nowDate.getFullYear();
 		var nowMonth = nowDate.getMonth()+1;
 		var nowDay = nowDate.getDate();
+		
 			
 		$(".contentarea").html("");
 		var expireDate= new Date($(this).parents("tr").find(".expireDate").html());
@@ -85,7 +96,13 @@ $(function() {
 			$("#stratday").val(expireDate.myformat());
 			expireDate.setMonth(expireDate.getMonth()+1)
 			$("#endday").val(expireDate.myformat()); //만료 일로 부터 한달
-		}		
+		}	
+		
+		//연습연습
+		var dae = $(this).parents("tr").find(".expireDate").attr("data-date");
+		
+		console.log("이게 찍혀야 함"+dae);
+		
 	})
 	
 	
@@ -155,7 +172,7 @@ $(function() {
 									<td>${store.st_udate}</td>
 									<td><input type="button" class="btn btn-default imgBtn" data-siimage='${store.si_image}' value='${store.si_division}'/><div class="addimg"></div></td>
 									<td><input type="button" class="btn btn-default fees" data-toggle="modal" data-target=".bs-example-modal-sm" value="확인"/></td>
-									<td class="expireDate" data-fnum='${store.f_num}'>${store.expire}</td>
+									<td class="expireDate" data-fnum='${store.f_num}' >${store.expire}</td>
 								</tr>
 							</c:when>
 							<c:otherwise>
@@ -173,7 +190,7 @@ $(function() {
 									<td>${store.st_udate}</td>
 									<td><input type="button" class="btn btn-default imgBtn" data-siimage='${store.si_image}' value='${store.si_division}'/><div class="addimg"></div></td>
 									<td><input type="button" class="btn btn-default fees" data-toggle="modal" data-target=".bs-example-modal-sm" value="확인"/></td>
-									<td class="expireDate" data-fnum='${store.f_num}'>${store.expire}</td>
+									<td class="expireDate" data-fnum='${store.f_num}' >${store.expire}</td>
 								</tr>
 							</c:otherwise>	
 						</c:choose>					
