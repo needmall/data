@@ -31,7 +31,7 @@
       	<typeAlias type="com.needmall.common.vo.FavproductVO" alias="favproduct"/>
       	<typeAlias type="com.needmall.common.vo.FavstoreVO" alias="favstore"/>
       	<typeAlias type="com.needmall.common.vo.FeesVO" alias="fees"/>
-      	
+      	<typeAlias type="com.needmall.common.vo.ReqproductVO" alias="reqproduct"/>
       	
       	
 	</typeAliases>
