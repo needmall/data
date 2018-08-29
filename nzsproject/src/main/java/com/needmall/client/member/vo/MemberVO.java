@@ -9,7 +9,7 @@ public class MemberVO extends LoginVO {
 	private int c_num;
 	private int cs_division;
 	private String c_gender;
-	private int c_gendernum;
+	private int c_genderNum;
 	private Date c_birthday;
 	private String c_address;
 	private String c_mail;
@@ -21,6 +21,7 @@ public class MemberVO extends LoginVO {
 	
 	private int s_num;
 	private String s_gender;
+	private int s_genderNum;
 	private String s_birthday;
 	private String s_address;
 	private String s_mail;
@@ -28,19 +29,7 @@ public class MemberVO extends LoginVO {
 	private String s_cell;
 	private Timestamp s_date;
 	
-	// store
-	private int st_num;
-	private String st_bnum;
-	private String st_name;
-	private String st_address;
-	private String st_email;
-	private String st_hours;
-	private String st_cell;
-	private String st_ceo;
-	private int st_lat;
-	private int st_lon;
-	private Timestamp st_date;
-	private String si_division;
+	
 	
 	public int getC_num() {
 		return c_num;
@@ -60,11 +49,11 @@ public class MemberVO extends LoginVO {
 	public void setC_gender(String c_gender) {
 		this.c_gender = c_gender;
 	}
-	public int getC_gendernum() {
-		return c_gendernum;
+	public int getC_genderNum() {
+		return c_genderNum;
 	}
-	public void setC_gendernum(int c_gendernum) {
-		this.c_gendernum = c_gendernum;
+	public void setC_genderNum(int c_genderNum) {
+		this.c_genderNum = c_genderNum;
 	}
 	public Date getC_birthday() {
 		return c_birthday;
@@ -126,6 +115,13 @@ public class MemberVO extends LoginVO {
 	public void setS_gender(String s_gender) {
 		this.s_gender = s_gender;
 	}
+	
+	public int getS_genderNum() {
+		return s_genderNum;
+	}
+	public void setS_genderNum(int s_genderNum) {
+		this.s_genderNum = s_genderNum;
+	}
 	public String getS_birthday() {
 		return s_birthday;
 	}
@@ -161,78 +157,6 @@ public class MemberVO extends LoginVO {
 	}
 	public void setS_date(Timestamp s_date) {
 		this.s_date = s_date;
-	}
-	public int getSt_num() {
-		return st_num;
-	}
-	public void setSt_num(int st_num) {
-		this.st_num = st_num;
-	}
-	public String getSt_bnum() {
-		return st_bnum;
-	}
-	public void setSt_bnum(String st_bnum) {
-		this.st_bnum = st_bnum;
-	}
-	public String getSt_name() {
-		return st_name;
-	}
-	public void setSt_name(String st_name) {
-		this.st_name = st_name;
-	}
-	public String getSt_address() {
-		return st_address;
-	}
-	public void setSt_address(String st_address) {
-		this.st_address = st_address;
-	}
-	public String getSt_email() {
-		return st_email;
-	}
-	public void setSt_email(String st_email) {
-		this.st_email = st_email;
-	}
-	public String getSt_hours() {
-		return st_hours;
-	}
-	public void setSt_hours(String st_hours) {
-		this.st_hours = st_hours;
-	}
-	public String getSt_cell() {
-		return st_cell;
-	}
-	public void setSt_cell(String st_cell) {
-		this.st_cell = st_cell;
-	}
-	public String getSt_ceo() {
-		return st_ceo;
-	}
-	public void setSt_ceo(String st_ceo) {
-		this.st_ceo = st_ceo;
-	}
-	public int getSt_lat() {
-		return st_lat;
-	}
-	public void setSt_lat(int st_lat) {
-		this.st_lat = st_lat;
-	}
-	public int getSt_lon() {
-		return st_lon;
-	}
-	public void setSt_lon(int st_lon) {
-		this.st_lon = st_lon;
-	}
-	public Timestamp getSt_date() {
-		return st_date;
-	}
-	public void setSt_date(Timestamp st_date) {
-		this.st_date = st_date;
-	}
-	public String getSi_division() {
-		return si_division;
-	}
-	public void setSi_division(String si_division) {
-		this.si_division = si_division;
 	}
 	
 	 

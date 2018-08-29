@@ -33,18 +33,18 @@
 		<tbody id="list">
 			<c:choose>
 				<c:when test="${not empty sellerList}">
-					<c:forEach var="seller" items="${storeList}" varStatus="status">
+					<c:forEach var="seller" items="${sellerList}" varStatus="status">
 						<tr>
 							<td>${seller.s_num}</td>
 							<td>${seller.s_id}</td>
-							<td>${store.s_name}</td>
-							<td>${store.s_gender}</td>							
-							<td>${store.s_birthday}</td>
-							<td>${store.s_address}</td>
-							<td>${store.s_mail}</td>
-							<td>${store.s_phone}</td>
-							<td>${store.s_cell}</td>
-							<td>${store.s_date}</td>							
+							<td>${seller.s_name}</td>
+							<td>${seller.s_gender}</td>							
+							<td>${seller.s_birthday}</td>
+							<td>${seller.s_address}</td>
+							<td>${seller.s_mail}</td>
+							<td>${seller.s_phone}</td>
+							<td>${seller.s_cell}</td>
+							<td>${seller.s_date}</td>							
 						</tr>
 					
 					</c:forEach>		

@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.needmall.client.member.vo.JoinVO;
 import com.needmall.client.member.vo.MemberSecurity;
 import com.needmall.client.member.vo.MemberVO;
 
@@ -34,13 +35,13 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public MemberVO customerSelect(String c_id) {
-		return (MemberVO)session.selectOne("customerSelect", c_id);
+	public int customerSelect(String c_id) {
+		return session.selectOne("customerSelect", c_id);
 	}
 
 	@Override
-	public MemberVO sellerSelect(String s_id) {
-		return (MemberVO)session.selectOne("sellerSelect", s_id);
+	public int sellerSelect(String s_id) {
+		return session.selectOne("sellerSelect", s_id);
 	}
 
 	@Override
@@ -49,13 +50,18 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public int sellerInsert(MemberVO mvo) {
-		return session.insert("sellerInsert", mvo);
+	public int sellerInsert(JoinVO jvo) {
+		return session.insert("sellerInsert", jvo);
 	}
 
 	@Override
-	public MemberVO storeSelect(String st_bnum) {
-		return (MemberVO)session.selectOne("storeSelect", st_bnum);
+	public JoinVO reqstoreSelect(String st_bnum) {
+		return (JoinVO)session.selectOne("reqstoreSelect", st_bnum);
+	}
+
+	@Override
+	public int reqstoreInsert(JoinVO jvo) {
+		return session.insert("reqstoreInsert", jvo);
 	}
 
 }
