@@ -54,24 +54,15 @@ $(function() {
 		$("#s_num").val($(this).parents("tr").find(".snum").html());
 		$("#f_num").val($(this).parents("tr").find(".expireDate").attr("data-fnum"));
 		
-// 		// input:date 입력하기 위한 함수
-// 		Date.prototype.myformat = function() {
-// 	        var yyyy = this.getFullYear().toString();
-// 	        var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
-// 	        var dd  = this.getDate().toString();
-// 	        return yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]); // padding
-// 	      };
+		// input:date 입력하기 위한 함수
+		Date.prototype.myformat = function() {
+	        var yyyy = this.getFullYear().toString();
+	        var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+	        var dd  = this.getDate().toString();
+	        return yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]); // padding
+	      };
 
-Date.prototype.myformat = function() {
-                 var yyyy = this.getFullYear().toString();
-                 var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
-                 var dd  = this.getDate().toString();
-                 var hh = this.getHours().toString();
-                 var mi = this.getMinutes().toString();
-                 var ss = this.getSeconds().toString();
-                 
-                 return yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]) +" " + (hh[1]?hh:"0"+hh[0]) +":" +(mi[1]?mi:"0"+mi[0])+ ":"+ (ss[1]?ss:"0"+ss[0]);
-};
+
 		//수수료 버튼 눌렀을때 월 정보 표시를 위한 객체
 		var nowDate = new Date();
 		var nowYear = nowDate.getFullYear();
