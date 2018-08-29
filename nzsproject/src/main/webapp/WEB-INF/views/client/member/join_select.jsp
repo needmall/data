@@ -21,7 +21,7 @@
           <script type="text/javascript">
           	$(function(){
           		$("#customer").click(function(){
-          			location.href="/member/join_customer.do"
+          			location.href="/member/join_customer_agreement.do"
           		});
           		$("#seller").click(function(){
           			location.href="/member/join_seller.do"

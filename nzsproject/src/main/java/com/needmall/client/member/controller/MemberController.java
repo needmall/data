@@ -50,6 +50,15 @@ public class MemberController {
 	}
 	
 	/********************************************************************
+	 * customer 약관 동의 폼(join_customer_agreement)
+	 ********************************************************************/
+	@RequestMapping(value="/join_customer_agreement.do", method = RequestMethod.GET)	// console창에 sever 구동할때 "{[/member/join.do],methods=[GET]}"
+	public String joinCustomerAgreement(Model model) {
+		logger.info("join_customer_agreement.do get 방식에 의한 메서드 호출 성공");
+		return "member/join_customer_agreement";
+	}
+	
+	/********************************************************************
 	 * 사용자 아이디(c_id) 중복 체크 메서드
 	 ********************************************************************/
 	// ↓ browser가 바로 응답해줄 수 있게 @ResponseBody	// console창에 sever 구동할때 "{[/member/userIdConfirm.do],methods=[POST]}" 뜸
