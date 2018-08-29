@@ -38,6 +38,7 @@
          <div class="contentContainer">
 	<div class="well">
 		<form id="memberForm" class="form-horizontal">
+			<input type="hidden" name="s_mail" id="s_mail" />
 			<input type="hidden" name="st_email" id="st_email" />
 			
 			<div class="form-group form-group-sm">
@@ -71,36 +72,26 @@
 				</div>
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="s_cell" class="col-sm-2 control-label">유선 전화</label>
+				<label for="s_name" class="col-sm-2 control-label">회원이름</label>
 				<div class="col-sm-3">
-					<input type="text" id="s_phone" name="s_phone" maxlength="15" class="form-control" placeholder="s_cell Number">	
+					<input type="text" id="s_name" name="s_name" maxlength="10" class="form-control" placeholder="NAME" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
-				</div>
-			</div>	
-			<div class="form-group form-group-sm">
-				<label for="s_cell" class="col-sm-2 control-label">핸드폰 번호</label>
-				<div class="col-sm-3">
-					<input type="text" id="s_cell" name="s_cell" maxlength="15" class="form-control" placeholder="s_cell Number">	
-				</div>
-				<div class="col-sm-5">
-					<p class="form-control-static error"></p>
-				</div>
-			</div>	
+				</div>						
+			</div>
 			<div class="form-group form-group-sm">
 				<label for="s_birthday" class="col-sm-2 control-label">생년월일</label>
 				<div class="col-sm-3">
-					<input type="text" id="s_birthday" name="s_birthday" maxlength="6" class="form-control" placeholder="주민등록번호 6자리">	
+					<input type="date" id="s_birthday" name="s_birthday" class="form-control">	
 				</div>
 				<div class="col-sm-2">
-					<input type="text" id="s_gender" name="s_gender" maxlength="1" class="form-control" placeholder="주민등록번호 7번째 1자리">	
+					<input type="text" id="s_genderNum" name="s_genderNum" maxlength="1" class="form-control" placeholder="주민등록번호 7번째 1자리">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
 				</div>
 			</div>
-			
 			<!-- 주소 -->
 			<div class="form-group form-group-sm">
 				<label for="s_address" class="col-sm-2 control-label">주소</label>
@@ -110,16 +101,6 @@
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
 				</div>
-			</div>	
-													
-			<div class="form-group form-group-sm">
-				<label for="s_name" class="col-sm-2 control-label">회원이름</label>
-				<div class="col-sm-3">
-					<input type="text" id="s_name" name="s_name" maxlength="10" class="form-control" placeholder="NAME" >
-				</div>
-				<div class="col-sm-5">
-					<p class="form-control-static error"></p>
-				</div>						
 			</div>
 			<div class="form-group form-group-sm">
 				<label for="s_mailName" class="col-sm-2 control-label">회원 이메일</label>
@@ -137,7 +118,25 @@
 					<p class="form-control-static error"></p>
 				</div>
 			</div>
-			
+			<div class="form-group form-group-sm">
+				<label for="s_cell" class="col-sm-2 control-label">핸드폰 번호</label>
+				<div class="col-sm-3">
+					<input type="text" id="s_cell" name="s_cell" maxlength="15" class="form-control" placeholder="s_cell Number">	
+				</div>
+				<div class="col-sm-5">
+					<p class="form-control-static error"></p>
+				</div>
+			</div>
+			<div class="form-group form-group-sm">
+				<label for="s_phone" class="col-sm-2 control-label">유선 전화</label>
+				<div class="col-sm-3">
+					<input type="text" id="s_phone" name="s_phone" maxlength="15" class="form-control" placeholder="s_phone Number">	
+				</div>
+				<div class="col-sm-5">
+					<p class="form-control-static error"></p>
+				</div>
+			</div>	
+		
 			<hr>
 			<!-- store 정보 -->
 			<div class="form-group form-group-sm">
@@ -219,7 +218,7 @@
 			
 			<div class="form-group">	
 				<div class="col-sm-offset-2 col-sm-6">
-					<input type="button" value="확인" id="joinInsert" class="btn btn-default" /> 
+					<input type="button" value="확인" id="sellerJoinInsert" class="btn btn-default" /> 
 					<input type="button" value="재작성" id="joinReset" class="btn btn-default" />
 					<input type="button" value="취소" id="joinCancel" class="btn btn-default" />						
 				</div>	

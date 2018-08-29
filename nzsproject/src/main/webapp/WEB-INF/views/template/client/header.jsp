@@ -23,7 +23,7 @@
         </div>
         <div id="navbarup" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">로그인</a></li>
+            <li><a href="/member/login.do">로그인</a></li>
             <li><a href="/member/join_select.do">회원가입</a></li>
             <li><a href="#">고객센터</a></li>            
             <li class="dropdown">
