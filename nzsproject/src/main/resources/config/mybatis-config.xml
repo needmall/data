@@ -18,6 +18,8 @@
 		<typeAlias type="com.needmall.common.vo.StoreVO" alias="store"/>
 		<typeAlias type="com.needmall.client.member.vo.MemberVO" alias="member"/>
       	<typeAlias type="com.needmall.client.member.vo.MemberSecurity" alias="security"/>
+      	<typeAlias type="com.needmall.client.member.vo.JoinVO" alias="join"/>
+      	<typeAlias type="com.needmall.client.login.vo.LoginVO" alias="login"/>
       	<typeAlias type="com.needmall.common.vo.Category1depVO" alias="category1dep"/>
       	<typeAlias type="com.needmall.common.vo.Category2depVO" alias="category2dep"/>
       	<typeAlias type="com.needmall.common.vo.ProductVO" alias="product"/>
@@ -29,6 +31,8 @@
       	<typeAlias type="com.needmall.common.vo.FavproductVO" alias="favproduct"/>
       	<typeAlias type="com.needmall.common.vo.FavstoreVO" alias="favstore"/>
       	<typeAlias type="com.needmall.common.vo.FeesVO" alias="fees"/>
+      	
+      	
       	
 	</typeAliases>
 </configuration>
