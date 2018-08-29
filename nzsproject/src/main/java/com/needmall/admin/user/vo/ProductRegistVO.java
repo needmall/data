@@ -1,4 +1,4 @@
-package com.needmall.admin.product.vo;
+package com.needmall.admin.user.vo;
 
 import org.springframework.web.multipart.MultipartFile;
 
