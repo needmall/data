@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.needmall.client.productall.dao.ProductallDao">
+	<!-- 정책 검토
+		1. 유통기한 초과(트리거 예정) 
+	-->
 	
-	<!-- 즐겨찾기 매장 -->
+	<!-- 즐겨찾기 매장 목록-->
 	<select id="productFavList" parameterType="String" resultType="productall">
 		SELECT ps_num, si_image, st_name, pi_image, p_name, p_price, TO_CHAR(ps_expiration ,'yyyy/mm/dd hh24:mi') AS ps_expiration, ps_count, ps_price, (SELECT COUNT(*) FROM preview prv WHERE prv.p_num = ps.p_num) AS prv_count, NVL((SELECT trunc(AVG(prv_scope),1) FROM preview prv WHERE prv.p_num = ps.p_num),0) AS prv_scope 
 		FROM customer c INNER JOIN favstore fs ON c.c_num = fs.c_num INNER JOIN store st ON fs.st_num = st.st_num INNER JOIN productsell ps ON st.s_num = ps.s_num INNER JOIN product p ON ps.p_num = p.p_num INNER JOIN proimage pi ON p.pi_num = pi.pi_num INNER JOIN storeimage si ON st.si_division = si.si_division
-		WHERE c_id = #{c_id} AND ps_state = 0
+		WHERE c_id = #{c_id} AND ps_state = 0 AND ps_count > 0
 		ORDER BY st_name
 	</select>
 	
-	<!-- 상품 전체 목록 -->
+	<!-- 판매상품매장 전체 목록 -->
 	<select id="productAllList" resultType="productall">
 		SELECT ps_num, si_image, st_name, pi_image, p_name, p_price, TO_CHAR(ps_expiration ,'yyyy/mm/dd hh24:mi') AS ps_expiration, ps_count, ps_price, (SELECT COUNT(*) FROM preview prv WHERE prv.p_num = ps.p_num) AS prv_count, NVL((SELECT trunc(AVG(prv_scope),1) FROM preview prv WHERE prv.p_num = ps.p_num),0) AS prv_scope 
 		FROM store st INNER JOIN storeimage si ON st.si_division = si.si_division INNER JOIN productsell ps ON ps.s_num = st.s_num INNER JOIN product p ON p.p_num = ps.p_num INNER JOIN proimage pi ON pi.pi_num = p.pi_num
-		WHERE ps_state = 0 ORDER BY st_name
+		WHERE ps_state = 0 AND ps_count > 0
+		ORDER BY st_name
 	</select>
 	
-	<!-- 주소 검색 위도, 경도 -->
+	<!-- 위도, 경도의 주변 매장 목록 -->
 	<select id="productLocList" parameterType="productall" resultType="productall">
 		SELECT ps_num, si_image, st_name, pi_image, p_name, p_price, TO_CHAR(ps_expiration ,'yyyy/mm/dd hh24:mi') AS ps_expiration, ps_count, ps_price, (SELECT COUNT(*) FROM preview prv WHERE prv.p_num = ps.p_num) AS prv_count, NVL((SELECT trunc(AVG(prv_scope),1) FROM preview prv WHERE prv.p_num = ps.p_num),0) AS prv_scope, calc_distance(#{c_lat}, #{c_lon}, st_lat, st_lon) AS distance
 		FROM storeimage si, store st, productsell ps, product p, proimage pi 
-		WHERE ps_state = 0 AND st.si_division = si.si_division AND st.s_num = ps.s_num AND ps.p_num = p.p_num AND p.pi_num = pi.pi_num
+		WHERE ps_state = 0 AND ps_count > 0 AND st.si_division = si.si_division AND st.s_num = ps.s_num AND ps.p_num = p.p_num AND p.pi_num = pi.pi_num
 		ORDER BY distance
 	</select>
 

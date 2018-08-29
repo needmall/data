@@ -162,7 +162,7 @@ $(function() {
 		
 		var new_img_si = $("<img>");
 		new_img_si.attr("src", "/uploadStorage/store/" + si_image);
-		new_img_si.addClass("fileImage");
+		new_img_si.addClass("fileImageLogo");
 
 		var new_p_name = $("<p>");
 		new_p_name.html(st_name);
@@ -174,7 +174,7 @@ $(function() {
 
 		var new_img_pi = $("<img>");
 		new_img_pi.attr("src", "/uploadStorage/product/" + pi_image);
-		new_img_pi.addClass("fileImage");
+		new_img_pi.addClass("fileImageProduct");
 
 		var new_td_p = $("<td>");
 		var new_div_name = $("<div>");
@@ -312,13 +312,13 @@ $(function() {
 									<tr data-num="${FavList.ps_num}">
 										<td class="jb-th-1">
 											<div>
-												<img class="fileImage" src="/uploadStorage/store/${FavList.si_image}">
+												<img class="fileImageLogo" src="/uploadStorage/store/${FavList.si_image}">
 												<p class="store_name align-center">${FavList.st_name}</p>
 											</div>
 										</td>
 										<td class="jb-th-1">
 											<div>
-												<img class="fileImage" src="/uploadStorage/product/${FavList.pi_image}">
+												<img class="fileImageProduct" src="/uploadStorage/product/${FavList.pi_image}">
 											</div>
 										</td>
 										<td>
@@ -389,13 +389,13 @@ $(function() {
 									<tr data-num="${AllList.ps_num}">
 										<td class="jb-th-1">
 											<div>
-												<img class="fileImage" src="/uploadStorage/store/${AllList.si_image}">
+												<img class="fileImageLogo" src="/uploadStorage/store/${AllList.si_image}">
 												<p class="store_name align-center">${AllList.st_name}</p>
 											</div>
 										</td>
 										<td class="jb-th-1">
 											<div>
-												<img class="fileImage" src="/uploadStorage/product/${AllList.pi_image}">
+												<img class="fileImageProduct" src="/uploadStorage/product/${AllList.pi_image}">
 											</div>
 										</td>
 										<td>
