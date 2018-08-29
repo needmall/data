@@ -63,13 +63,13 @@
 		<beans:property name="maxUploadSize" value="16777216"></beans:property>		
 	</beans:bean>
 	
-	<!-- 자동으로 AspectJ 라이브러리를 이용해서 Proxy 객체를 생성해 내는 용도로 사용. 
-   <aop:aspectj-autoproxy /> -->
+	<!-- 자동으로 AspectJ 라이브러리를 이용해서 Proxy 객체를 생성해 내는 용도로 사용. -->
+   <aop:aspectj-autoproxy /> 
    
    <context:component-scan base-package="com.needmall.**.**.**" />
    
    <!-- 오류처리 LoggerAdvice-->
-  <!--   <tx:advice id="txAdvice" transaction-manager="transactionManager">
+  	<tx:advice id="txAdvice" transaction-manager="transactionManager">
     	<tx:attributes>
     		<tx:method name="*Insert"/>
     		<tx:method name="*Update"/>
@@ -85,8 +85,8 @@
     	<aop:pointcut expression="execution(* com.needmall..*Impl.*(..))" id="allPointcut" />
     	<aop:advisor advice-ref="txAdvice" pointcut-ref="allPointcut"/>
     </aop:config>
-	 
-	<beans:bean class="com.needmall.common.exception.SpringExceptionMessage">
+	
+	<!--   <beans:bean class="com.needmall.common.exception.SpringExceptionMessage">
     	<beans:property name="exceptionMappings">
     		<beans:props>
     			<beans:prop key="java.lang.Exception">

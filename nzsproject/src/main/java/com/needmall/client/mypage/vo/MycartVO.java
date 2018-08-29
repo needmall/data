@@ -93,25 +93,8 @@ public class MycartVO extends ProductdetailVO {
 	public void setB_confirm(int b_confirm) {
 		this.b_confirm = b_confirm;
 	}
-	@Override
-	public String toString() {
-		return "MycartVO [cart2_num=" + cart2_num + ", cart1_num=" + cart1_num + ", ps_num=" + ps_num + ", cart2_count="
-				+ cart2_count + ", cart1_date=" + cart1_date + ", c_num=" + c_num + ", price_value=" + price_value
-				+ ", b1_num=" + b1_num + ", b1_date=" + b1_date + ", b2_num=" + b2_num + ", b_count=" + b_count
-				+ ", b_confirm=" + b_confirm + ", getPi_num()=" + getPi_num() + ", getPi_image()=" + getPi_image()
-				+ ", getP_num()=" + getP_num() + ", getP_name()=" + getP_name() + ", getP_price()=" + getP_price()
-				+ ", getP_date()=" + getP_date() + ", getP_update()=" + getP_update() + ", getP_content()="
-				+ getP_content() + ", getP_division()=" + getP_division() + ", getDiscount()=" + getDiscount()
-				+ ", getSt_num()=" + getSt_num() + ", getC1_num()=" + getC1_num() + ", getC1_name()=" + getC1_name()
-				+ ", getC2_num()=" + getC2_num() + ", getC2_name()=" + getC2_name() + ", toString()=" + super.toString()
-				+ ", getState()=" + getState() + ", getPs_regdate()=" + getPs_regdate() + ", getPs_expiration()="
-				+ getPs_expiration() + ", getPs_count()=" + getPs_count() + ", getPs_price()=" + getPs_price()
-				+ ", getS_num()=" + getS_num() + ", getPs_state()=" + getPs_state() + ", getPs_update()="
-				+ getPs_update() + ", getPs_expirationChange()=" + getPs_expirationChange() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + "]";
-	}
-    
-    
+
+	
 
 	
     

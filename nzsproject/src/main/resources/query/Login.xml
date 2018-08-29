@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.needmall.client.login.dao.LoginDao">
+
+	<select id="customerIdSelect" parameterType="String" resultType="login">
+		select c_id, c_pwd, c_name
+		from customer
+		where c_id = #{c_id}
+	</select>
+
+	<select id="customerLoginSelect" parameterType="login" resultType="login">
+		/* customer 로그인 처리 쿼리 */
+		select c_id, c_pwd, c_name
+		from customer
+		where c_id = #{c_id} and c_pwd = #{c_pwd}
+	</select>
+	
+	<select id="sellerIdSelect" parameterType="String" resultType="login">
+		select s_id, s_pwd, s_name
+		from seller
+		where s_id = #{s_id}
+	</select>
+	
+	<select id="sellerLoginSelect" parameterType="login" resultType="login">
+		/* seller 로그인 처리 쿼리 */
+		select s_id, s_pwd, s_name
+		from seller
+		where s_id = #{s_id} and s_pwd = #{s_pwd}
+	</select>
+
+	<insert id="loginHistoryInsert" parameterType="login">
+		insert into login_history(idx, userId, retry, lastFailedLogin,
+		lastSuccessedLogin, clientIP)
+		values(
+		login_history_seq.nextval, #{userId}, #{retry,jdbcType=INTEGER},
+		#{lastFailedLogin,jdbcType=INTEGER},
+		#{lastSuccessedLogin,jdbcType=INTEGER},
+		#{clientIP,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="loginHistoryUpdate" parameterType="login">
+		update login_history
+		set retry = #{retry},
+		lastFailedLogin = #{lastFailedLogin},
+		lastSuccessedLogin = #{lastSuccessedLogin},
+		clientIP = #{clientIP,jdbcType=VARCHAR}
+		where idx = #{idx} and userId = #{userId}
+	</update>
+
+	<select id="loginHistorySelect" parameterType="String" resultType="login">
+		select idx, userId, retry, lastFailedLogin, lastSuccessedLogin,	clientIP
+		from login_history
+		where userId = #{userId}
+	</select>
+</mapper>

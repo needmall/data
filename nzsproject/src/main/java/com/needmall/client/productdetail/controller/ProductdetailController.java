@@ -32,12 +32,9 @@ public class ProductdetailController {
 	@RequestMapping(value="/productdetailmain.do",method=RequestMethod.GET)
 
 	public String productdetailmain(ProductdetailVO dvo,Model model) {
-//		logger.info("테스트용 ps_num"+dvo.getPs_num());
 		logger.info("productdetailmain 호출");
 		ProductdetailVO detail = new ProductdetailVO();
 		detail =productdetailService.productdetailmain(dvo);
-//		Map<String, String> category = productdetailService.productdetailSub(dvo);
-//		logger.info("나와라 디테일"+detail.toString());
 		model.addAttribute("detail",detail);
 	
 		return "productdetail/productdetailmain";
@@ -51,14 +48,12 @@ public class ProductdetailController {
 		String value="";
 		StoreVO store = new StoreVO();
 		store =productdetailService.productdetailStore(dvo);
-//		logger.info("logger.info(store)" +store);
 		try {
 			value = mapper.writeValueAsString(store);
 		}catch (JsonProcessingException e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-//		logger.info("logger.info(value)" +value);
 		return value;
 		
 	}

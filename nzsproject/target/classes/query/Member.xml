@@ -3,15 +3,14 @@
 <mapper namespace="com.needmall.client.member.dao.MemberDao">
 	<select id="customerSecuritySelect" parameterType="String" resultType="security">
 		select c_id, salt from membersecurity 
-		where c_id=#{c_id};
+		where c_id = #{c_id}
 	</select>
-	
+	<!-- ORA-00911: 문자가 부적합합니다 =>> ; 찍혀있었음 ↑ -->
 	<select id="sellerSecuritySelect" parameterType="String" resultType="security">
 		select s_id, salt from membersecurity
-		where s_id=#{s_id}
-	</select>
+		where s_id = #{s_id}
+	</select>	
 	
-	<!-- select inner join 으로 조회해온 거 그대로 넣어주면 됨! -->
 	<insert id="customerSecurityInsert" parameterType="security">
 		/* customerSecurity - "customerSecurityInsert" */
 		<selectKey keyProperty="mc_num" resultType="int" order="BEFORE">
@@ -22,18 +21,22 @@
 	</insert>
 	
 	<insert id="sellerSecurityInsert" parameterType="security">
-		insert into membersecurity(s_id, salt)
-		values(#{s_id}, #{salt})
+		/* sellerSecurity - "sellerSecurityInsert" */
+		<selectKey keyProperty="mc_num" resultType="int" order="BEFORE">
+			select membersecurity_seq.nextval from dual
+		</selectKey>
+		insert into membersecurity(mc_num, s_id, salt)
+		values(#{mc_num}, #{s_id}, #{salt})
 	</insert>
 	
-	<select id="customerSelect" parameterType="String" resultType="member">
-		select c_num, cs_division, c_id, c_pwd, c_name, c_gender, c_birthday, c_address, c_mail, c_cell
+	<select id="customerSelect" parameterType="String" resultType="int">
+		select count(c_num)
 		from customer
 		where c_id = #{c_id}
 	</select>
 	
-	<select id="sellerSelect" parameterType="String" resultType="member">
-		select s_num, cs_division, s_id, s_pwd, s_name, s_gender, s_birthday, s_address, s_mail, s_phone, s_cell
+	<select id="sellerSelect" parameterType="String" resultType="int">
+		select count(s_num)
 		from seller
 		where s_id = #{s_id}
 	</select>
@@ -45,21 +48,32 @@
 		</selectKey>
 		insert into customer(c_num, cs_division, c_id, c_pwd, c_name, c_gender, c_birthday, c_address, c_mail, c_cell)
 		values(#{c_num}, #{cs_division}, #{c_id}, #{c_pwd}, #{c_name}, #{c_gender}, #{c_birthday}, #{c_address}, #{c_mail}, #{c_cell})
-	</insert>
+	</insert>	
 	
-	<insert id="sellerInsert" parameterType="member">
+	<select id="reqstoreSelect" parameterType="String" resultType="join">
+		select reqst_num, s_num, st_bnum, st_name, st_address, st_email, st_hours, st_cell, st_ceo
+		from reqstore
+		where st_bnum = #{st_bnum}
+	</select>
+	<!-- reqstore 에 없는 st_num 넣었더니 '부적합한 식별자' 뜸 -->
+	
+	<insert id="sellerInsert" parameterType="join">
 		/* seller - "sellerInsert" */
 		<selectKey keyProperty="s_num" resultType="int" order="BEFORE">
 			select seller_seq.nextval from dual
 		</selectKey>
-		insert into customer(s_num, cs_division, s_id, s_pwd, s_name, s_gender, s_birthday, s_address, s_mail, s_phone, s_cell)
+		insert into seller(s_num, cs_division, s_id, s_pwd, s_name, s_gender, s_birthday, s_address, s_mail, s_phone, s_cell)
 		values(#{s_num}, #{cs_division}, #{s_id}, #{s_pwd}, #{s_name}, #{s_gender}, #{s_birthday}, #{s_address}, #{s_mail}, #{s_phone}, #{s_cell})
 	</insert>
 	
-	<select id="storeSelect" parameterType="String" resultType="member">
-		select st_num, s_num, st_bnum, st_name, st_address, st_email, st_hours, st_cell, st_ceo
-		from store
-		where st_bnum = #{st_bnum}
-	</select>
+	<insert id="reqstoreInsert" parameterType="join">
+		/* store - "reqstoreInsert" */
+		<selectKey keyProperty="s_num" resultType="int" order="BEFORE">
+			select s_num from seller
+			where s_id = #{s_id}
+		</selectKey>
+		insert into reqstore(reqst_num, s_num, st_bnum, st_name, st_address, st_email, st_hours, st_cell, st_ceo, st_date)
+		values(reqstore_seq.nextval, #{s_num}, #{st_bnum}, #{st_name}, #{st_address}, #{st_email}, #{st_hours}, #{st_cell}, #{st_ceo}, sysdate)
+	</insert>
 	
 </mapper>

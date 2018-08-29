@@ -1,11 +1,6 @@
 package com.needmall.common.vo;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 
 public class ProductsellVO {
    private int ps_num=0;	//번호
@@ -16,8 +11,7 @@ public class ProductsellVO {
    private int ps_price=0;	//판매가격
    private int s_num=0;		// 판매자 번호
    private int ps_state=0;	// 상태번호
-   private Date ps_update;	// 수정 날짜
-   private String ps_expirationChange="";
+   private Date ps_udate;	// 수정 날짜
    private int state=0;
    
    
@@ -49,8 +43,8 @@ public class ProductsellVO {
 		return ps_expiration;
 	}
 	public void setPs_expiration(Date ps_expiration) {
-	//	setPs_expirationChange();
 		this.ps_expiration = ps_expiration;
+		
 	}
 	public int getPs_count() {
 		return ps_count;
@@ -76,39 +70,13 @@ public class ProductsellVO {
 	public void setPs_state(int ps_state) {
 		this.ps_state = ps_state;
 	}
-	public Date getPs_update() {
-		return ps_update;
+	public Date getPs_udate() {
+		return ps_udate;
 	}
-	public void setPs_update(Date ps_update) {
-		this.ps_update = ps_update;
-	}
-	public String getPs_expirationChange() {
-		long longValue2 = ps_expiration.getTime();
-	
-	    LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(longValue2), ZoneId.systemDefault());
-	    String formattedString = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-	
-	//    System.out.println(formattedString);     // 2018-03-06 15:59:30.278
-		return formattedString;
-	}
-	public void setPs_expirationChange() {
-		
-		 SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
-		 String strDate = sdfDate.format(ps_expiration);
-		 
-		this.ps_expirationChange = strDate;
-	}
-	
-	@Override
-	public String toString() {
-		return "ProductsellVO [ps_num=" + ps_num + ", p_num=" + p_num + ", ps_regdate=" + ps_regdate
-				+ ", ps_expiration=" + ps_expiration + ", ps_count=" + ps_count + ", ps_price=" + ps_price + ", s_num="
-				+ s_num + ", ps_state=" + ps_state + ", ps_update=" + ps_update + ", ps_expirationChange="
-				+ ps_expirationChange + ", state=" + state + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+	public void setPs_udate(Date ps_udate) {
+		this.ps_udate = ps_udate;
 	}
 
-	
 
    
    

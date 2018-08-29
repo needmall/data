@@ -53,10 +53,11 @@ function sellerIdPwdCheck(){
 }
 
 var idConfirm = 1;
+var stBnum = 1;
 $(function(){
 	errCodeCheck();
 	// 사용자에게 요구사항에 대한 문자열로 배열 초기화.
-	var message = ["영문, 숫자만 가능. 6~12자로 입력해주세요", "영문,숫자,특수문자만 가능. 8~15자 입력해 주세요.", "비밀번호와 비밀번호 확인란은 값이 일치해야 합니다.","","","","", "- 포함 입력해주세요. 예시) 010-0000-0000"];
+	var message = ["영문, 숫자만 가능. 6~12자로 입력해주세요", "영문,숫자,특수문자만 가능. 8~15자 입력해 주세요.", "비밀번호와 비밀번호 확인란은 값이 일치해야 합니다.","","","","", "- 포함 입력해주세요. 예시) 010-0000-0000","-포함 입력해주세요.","-포함 입력해주세요. 예시)123-12-12345"];
 	
 	$('.error').each(function(index){
 		$('.error').eq(index).html(message[index]);
@@ -70,8 +71,8 @@ $(function(){
 	});
 	
 	// seller
-	$('#s_id, #s_pwd, #s_pwdCheck, #s_cell').bind("focus",function(){	// 이벤트는 focus
-		var idx = $("#s_id, #s_pwd, #s_pwdCheck, #s_cell").index(this);
+	$('#s_id, #s_pwd, #s_pwdCheck, #s_cell, #st_bnum').bind("focus",function(){	// 이벤트는 focus
+		var idx = $("#s_id, #s_pwd, #s_pwdCheck, #s_cell, #st_bnum").index(this);
 		console.log("대상 : " + idx);
 		$(this).parents(".form-group").find(".error").html(message[idx]);
 	});
@@ -92,7 +93,7 @@ $(function(){
 					console.log("resultData : " + resultData);
 					if(resultData=="1"){
 						$("#c_id").parents(".form-group").find(".error").html("현재 사용 중인 아이디 입니다.");
-					}else if(resultData=="2"){
+					}else if(resultData=="0"){
 						$("#c_id").parents(".form-group").find(".error").html("사용 가능한 아이디입니다.");
 						idConfirm = 2;
 					}
@@ -117,9 +118,34 @@ $(function(){
 					console.log("resultData : " + resultData);
 					if(resultData=="1"){
 						$("#s_id").parents(".form-group").find(".error").html("현재 사용 중인 아이디 입니다.");
-					}else if(resultData=="2"){
+					}else if(resultData=="0"){
 						$("#s_id").parents(".form-group").find(".error").html("사용 가능한 아이디입니다.");
 						idConfirm = 2;
+					}
+				}
+			});
+		}
+	});
+	
+	// st_bnum(사업자번호) 중복 확인
+	$("#stBnumConfirmBtn").click(function(){
+		if (!formCheck($('#st_bnum'), $('.error:eq(9)'), "사업자 번호를")) return;
+		else if (!inputVerify(3,'#st_bnum','.error:eq(9)')) return;
+		else{
+			$.ajax({
+				url : "/member/stBnumConfirm.do",
+				type : "post",
+				data : "st_bnum="+$("#st_bnum").val(),
+				error : function(){
+					alert('사이트 접속에 문제로 정상 작동하지 못하였습니다. 잠시 후 다시 시도하세요.')
+				},
+				success : function(resultData){
+					console.log("resultData : " + resultData);
+					if(resultData=="1"){
+						$("#st_bnum").parents(".form-group").find(".error").html("현재 사용 중인 사업자번호 입니다.");
+					}else if(resultData=="2"){
+						$("#st_bnum").parents(".form-group").find(".error").html("사용 가능한 사업자번호 입니다.");
+						stBnum = 2;	
 					}
 				}
 			});
@@ -141,7 +167,7 @@ $(function(){
 		
 		else if (!formCheck($('#c_birthday'), $('.error:eq(4)'), "생년월일을")) return;
 		//else if (!inputVerify(2,'#c_birthday','.error:eq(3)')) return;	
-		else if (!formCheck($('#c_gendernum'), $('.error:eq(4)'), "주민번호 뒷자리를")) return;
+		else if (!formCheck($('#c_genderNum'), $('.error:eq(4)'), "주민번호 뒷자리를")) return;
 		//else if (!inputVerify(2,'#c_gendernum','.error:eq(3)')) return;	
 		
 		// ★4번 생년월일 채우기
@@ -159,6 +185,57 @@ $(function(){
 			$("#memberForm").attr({
 				"method":"post",	// 주소가 같아서 method가 다르기 때문에 ㄱㅊ
 				"action":"/member/join_customer.do"
+			});
+			$("#memberForm").submit();
+		}		
+	});
+	
+	/* seller 확인 버튼 클릭 시 처리 이벤트 */
+	$("#sellerJoinInsert").click(function(){
+		// 입력값 체크
+		if (!formCheck($('#s_id'), $('.error:eq(0)'), "아이디를")) return;
+		else if (!inputVerify(0,'#s_id','.error:eq(0)')) return;
+		else if (!formCheck($('#s_pwd'), $('.error:eq(1)'), "비밀번호를")) return;
+		else if (!inputVerify(1,'#s_pwd','.error:eq(1)')) return;
+		else if (!sellerIdPwdCheck()) return;
+		else if (!formCheck($('#s_pwdCheck'), $('.error:eq(2)'), "비밀번호 확인을")) return;
+		else if (!inputVerify(1,'#s_pwdCheck','.error:eq(2)')) return;
+		else if (!sellerPasswordCheck()) return;
+		else if (!formCheck($('#s_name'), $('.error:eq(3)'), "이름을")) return;
+		
+		else if (!formCheck($('#s_birthday'), $('.error:eq(4)'), "생년월일을")) return;
+		//else if (!inputVerify(2,'#c_birthday','.error:eq(3)')) return;	
+		else if (!formCheck($('#s_genderNum'), $('.error:eq(4)'), "주민번호 뒷자리를")) return;
+		//else if (!inputVerify(2,'#c_gendernum','.error:eq(3)')) return;	
+		
+		// ★4번 생년월일 채우기
+		else if (!formCheck($('#s_address'), $('.error:eq(5)'), "주소를")) return;
+		
+		
+		else if (!formCheck($('#s_mailName'), $('.error:eq(6)'), "이메일 주소를")) return;
+		else if (!formCheck($('#s_cell'), $('.error:eq(7)'), "핸드폰번호를")) return;
+		else if (!inputVerify(2,'#s_cell','.error:eq(7)')) return;
+		else if (!formCheck($('#s_phone'), $('.error:eq(8)'), "유선전화번호를")) return;
+		else if (!formCheck($('#st_bnum'), $('.error:eq(9)'), "사업자번호를")) return;
+		else if (!inputVerify(3,'#st_bnum','.error:eq(9)')) return;
+		else if (!formCheck($('#st_name'), $('.error:eq(10)'), "상호명을")) return;
+		else if (!formCheck($('#st_address'), $('.error:eq(11)'), "사업지 주소를")) return;
+		else if (!formCheck($('#st_hours'), $('.error:eq(12)'), "영업시간을")) return;
+		else if (!formCheck($('#st_cell'), $('.error:eq(13)'), "매장 전화번호를")) return;
+		else if (!formCheck($('#st_ceo'), $('.error:eq(14)'), "대표자를")) return;
+		else if (!formCheck($('#st_emailName'), $('.error:eq(15)'), "이메일 주소를")) return;
+		
+		else if (idConfirm!=2){ alert("아이디 중복 체크 진행해 주세요."); return;}
+		else if (stBnum!=2){ alert("사업자번호 중복 체크 진행해 주세요."); return;}
+		
+		else {
+			$("#s_mail").val($("#s_mailName").val()+"@"+$("#s_mailDomain").val());
+			//$("#pinno").val($("#birth").val()+"-"+$("#gender").val());
+			$("#s_gender").val();
+			$("#st_email").val($("#st_emailName").val()+"@"+$("#st_emailDomain").val());
+			$("#memberForm").attr({
+				"method":"post",	// 주소가 같아서 method가 다르기 때문에 ㄱㅊ
+				"action":"/member/join_seller.do"
 			});
 			$("#memberForm").submit();
 		}		

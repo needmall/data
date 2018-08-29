@@ -52,6 +52,10 @@
 		<level value="trace" />
 	</logger>
 	
+	<logger name="com.needmall.client.login.dao">
+		<level value="trace" />
+	</logger>
+	
 	<logger name="com.needmall.client.mypage.dao">
 		<level value="trace" />
 	</logger>

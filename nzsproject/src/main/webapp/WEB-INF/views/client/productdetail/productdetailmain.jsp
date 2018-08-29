@@ -38,13 +38,15 @@
 	var all_count=0;
 	var all_price=0;
 	var itemStaus =0;
+	
 			$(function() {
 
 // 				buy(p_name,pi_image,p_content,ps_count,ps_expiration,ps_price);
 				$(document).on('click',"#buy_buttun",function(){
+					var ps_price = ${detail.ps_price };
 					var count = $("#count").val();
-					all_price= ${detail.ps_price } *$("#count").val();
-					buy('${detail.p_name }','${detail.pi_image}','${detail.p_content }',count,'${detail.ps_expiration }','${detail.ps_price }');
+					all_price= ps_price * $("#count").val();
+					buy('${detail.p_name }','${detail.pi_image}','${detail.p_content }',count,'${detail.ps_expiration}','${detail.ps_price }');
 				});
 				
 				
@@ -77,11 +79,30 @@
 
   				})
 
+  				var psexpiration = $("#ps_expiration").val();
+  				console.log("psexpiration : "+ psexpiration);
+  		      // input:date 입력하기 위한 함수
+				Date.prototype.myformat = function() {
+		           var yyyy = this.getFullYear().toString();
+		           var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+		           var dd  = this.getDate().toString();
+		           var hh = this.getHours().toString();
+		           var mi = this.getMinutes().toString();
+		           var ss = this.getSeconds().toString();
+		           
+		           return yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]) +" " + (hh[1]?hh:"0"+hh[0]) +":" +(mi[1]?mi:"0"+mi[0])+ ":"+ (ss[1]?ss:"0"+ss[0]); // padding
+		         };
+		         var a= new Date(psexpiration);
+  		       var abc = a.myformat();
+  		       console.log(abc);
                 //쇼킹딜 타임
 //              time:'2018-08-24 00:00:00'//기준시간
+
 	            $('#countTime').countTime({
- 					
-					time:'${detail.ps_expirationChange}'
+	            	
+ 					cls : "${'.expire'}",
+					time: a.myformat()
+
 				});
                 
         		// 할인율 계산
@@ -354,7 +375,7 @@
 			}
 			
 			
-			function buy(p_name,pi_image,p_content,ps_count,ps_expiration,ps_price){
+			function buy(p_name,pi_image,p_content,ps_count,expirationChange,ps_price){
 				$(".container-fluid").html("");
 				var div_row = $("<div class='row'>");
 				var div_head=$("<div class='col-md-4' style='width: 25%'>");
@@ -434,7 +455,7 @@
 		<input type="hidden" id="s_num" name="s_num" value="${detail.s_num }">
 		<input type="hidden" id="prv_image" name="prv_image" value="${detail.pi_image }">
 		<input type="hidden" id="p_content" name="p_content" value="${detail.p_content }">
-		<input type="hidden" id="ps_expiration" name="ps_expiration" value="${detail.ps_expirationChange }">
+		<input type="hidden" id="ps_expiration" name="ps_expiration" value="${detail.ps_expiration }">
 		<input type="hidden" id="ps_count" name="ps_count" value="${detail.ps_count }">
 		<input type="hidden" id="ps_price" name="ps_price" value="${detail.ps_price }">
 		<input type="hidden" id="st_num" name="st_num" value="${detail.st_num }">
@@ -501,7 +522,7 @@
 				<tr>
 					<td >유통기한</td>
 					<td >:</td>
-					<td >${detail.ps_expiration } 까지 !!</td>
+					<td>${detail.ps_expiration} 까지 !!</td>
 				</tr>
 				<tr>
 					<td>남은 재고</td>
@@ -524,8 +545,8 @@
 				</tr>
 				
 				<tr>
-					<td><button id="buy_buttun" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">바로 구매하기</button></td>
-					<td><input class="btn btn-default cart" type="button" value="장바구니 담기" id="cart" name="cart"></td>
+					<td><button id="buy_buttun" type="button" class="btn btn-default expire" data-toggle="modal" data-target="#myModal">바로 구매하기</button></td>
+					<td><input class="btn btn-default cart expire" type="button" value="장바구니 담기" id="cart" name="cart"></td>
 				</tr>
 			</table>
 		</div>

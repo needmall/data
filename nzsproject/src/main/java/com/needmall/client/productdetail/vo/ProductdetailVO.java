@@ -162,20 +162,6 @@ public class ProductdetailVO extends ProductsellVO {
 	public void setC_num(int c_num) {
 		this.c_num = c_num;
 	}
-	@Override
-	public String toString() {
-		return "ProductdetailVO [pi_num=" + pi_num + ", pi_image=" + pi_image + ", p_num=" + p_num + ", p_name="
-				+ p_name + ", p_price=" + p_price + ", p_date=" + p_date + ", p_update=" + p_update + ", p_content="
-				+ p_content + ", p_division=" + p_division + ", discount=" + discount + ", st_num=" + st_num
-				+ ", c1_num=" + c1_num + ", c1_name=" + c1_name + ", c2_num=" + c2_num + ", c2_name=" + c2_name
-				+ ", cart2_num=" + cart2_num + ", cart1_num=" + cart1_num + ", ps_num=" + ps_num + ", cart2_count="
-				+ cart2_count + ", cart1_date=" + cart1_date + ", c_num=" + c_num + ", getState()=" + getState()
-				+ ", getPs_regdate()=" + getPs_regdate() + ", getPs_expiration()=" + getPs_expiration()
-				+ ", getPs_count()=" + getPs_count() + ", getPs_price()=" + getPs_price() + ", getS_num()=" + getS_num()
-				+ ", getPs_state()=" + getPs_state() + ", getPs_update()=" + getPs_update()
-				+ ", getPs_expirationChange()=" + getPs_expirationChange() + ", toString()=" + super.toString()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
-	}
-	
+
 	
 }

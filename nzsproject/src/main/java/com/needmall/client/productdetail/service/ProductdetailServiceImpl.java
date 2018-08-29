@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.needmall.client.productdetail.dao.ProductdetailDao;
 import com.needmall.client.productdetail.vo.PreviewVO;
@@ -97,6 +98,7 @@ public class ProductdetailServiceImpl implements ProductdetailService {
 	}
 
 
+	@Transactional
 	@Override
 	public int productdetailCartList(ProductdetailVO pvo) {
 		// TODO Auto-generated method stub

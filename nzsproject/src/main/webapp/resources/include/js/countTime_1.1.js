@@ -3,7 +3,8 @@ name : countTime.js
 */
 (function($){
 	var opt,ele,top;
-
+	var cls;
+	
 	$.fn.countTime = function(option){
 		ele = $(this);
 		opt = option;
@@ -64,8 +65,11 @@ name : countTime.js
 
 		function timePrint(){
 			now = sec(new Date());
-			result = date-now;
-			
+			result = date - now;
+//			0==이면 해당 클라스 하이드 -> 구매 , 장바구니
+			if(result==0){
+				opt.cls.hide();
+			} 
 			ele.empty();
 			ele.append(timeToStr(result));
 		}
