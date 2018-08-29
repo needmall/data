@@ -16,7 +16,7 @@ public class CustomerVO {
 	private Date c_date;
 	private Double c_lat=0.0;
 	private Double c_lon=0.0;
-	private Date c_update;
+	private Date c_udate;
 	public int getC_num() {
 		return c_num;
 	}
@@ -96,17 +96,17 @@ public class CustomerVO {
 		this.c_lon = c_lon;
 	}
 	public Date getC_update() {
-		return c_update;
+		return c_udate;
 	}
 	public void setC_update(Date c_update) {
-		this.c_update = c_update;
+		this.c_udate = c_update;
 	}
 	@Override
 	public String toString() {
 		return "CustomerVO [c_num=" + c_num + ", cs_division=" + cs_division + ", c_id=" + c_id + ", c_pwd=" + c_pwd
 				+ ", c_name=" + c_name + ", c_gender=" + c_gender + ", c_birthday=" + c_birthday + ", c_address="
 				+ c_address + ", c_mail=" + c_mail + ", c_cell=" + c_cell + ", c_date=" + c_date + ", c_lat=" + c_lat
-				+ ", c_lon=" + c_lon + ", c_update=" + c_update + "]";
+				+ ", c_lon=" + c_lon + ", c_udate=" + c_udate + "]";
 	}
 	
 	

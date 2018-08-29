@@ -6,10 +6,23 @@
 	.btnarea{
 		text-align: center;
 	}
+#leftDiv{
+		width: 600px;
+		float: left !important;
+		text-align: center;
+	}
+h2{
+text-align:left;
+}
 
 </style>
 
 <script type="text/javascript">
+var result = '${registresult}'; 
+
+if(result == '2'){
+	alert("등록이 완료 되었습니다.");	
+}
 
 $(function() {		
 	// 구분 직접입력 숨기기
@@ -100,7 +113,15 @@ $(function() {
 	
 	// 등록 버튼 클릭시
 	$("#registBtn").click(function() {
-		if(!chkData("#p_name","상품명을")){				
+		if($("#category1").find("option:selected").val()=="none"){
+			$("#category1").focus();
+			alert("카테고리(대분류)를 선택해 주세요.");				
+			return;
+		}else if($("#category2").find("option:selected").val()=="none"){
+			alert("카테고리(소분류)를 선택해 주세요.");
+			$("#category2").focus();
+			return;				
+		}else if(!chkData("#p_name","상품명을")){				
 			return;
 		}else if(!chkData("#p_price","가격을")){				
 			return;
@@ -112,8 +133,11 @@ $(function() {
 			return;
 		}else if($("#division").find("option:selected").val()=="none"){
 			alert("판매점 구분을 선택해 주세요.");
-			$("#category1").focus();
-			return;				
+			$("#division").focus();
+			return;
+		}else if(!chkData("#p_division","판매점 구분을")){
+			$("#p_division").focus();
+			return;			
 		}else{	
 		/* 첨부파일 보낼때에는 post 방식에서 enctype="multipart/form-data" 속성을 설정하여야 한다. */						
 		$("#productInsertForm").attr({"method":"post","action":"/admin/product/productInsert.do","enctype":"multipart/form-data"});
@@ -126,11 +150,13 @@ $(function() {
 </script> 
 
 
-	
+<div id="leftDiv" >	
 	<form class="form-horizontal" id="productInsertForm">
+		<h2>물품 등록 </h2>
+    	<hr>
   		<div class="form-group">
     		<label for="category1" class="col-sm-3 control-label">카테고리</label>
-    		<div class="col-sm-4">    		
+    		<div class="col-sm-8">    		
 	    		<select name="c1_num" id="category1" class="form-control">
 					<option value='none'>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 선택하세요 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ</option>		
 				</select>			
@@ -141,13 +167,13 @@ $(function() {
   		</div>
   		<div class="form-group">
     		<label for="p_name" class="col-sm-3 control-label">상 품 명</label>
-    		<div class="col-sm-4">
+    		<div class="col-sm-8">
     			<input type="text" class="form-control" id="p_name" name="p_name" >
     		</div>
   		</div>
   		<div class="form-group">
     		<label for="p_price" class="col-sm-3 control-label">가    격</label>
-    		<div class="col-sm-4">
+    		<div class="col-sm-8">
 	    		<div class="input-group">
 	      			<div class="input-group-addon">￦</div>
 	      			<input type="text" class="form-control col-xs-3" id="p_price" name="p_price">
@@ -157,30 +183,30 @@ $(function() {
    		</div>
 		<div class="form-group">
 	    	<label for="p_content" class="col-sm-3 control-label">상품내용</label>
-	    	<div class="col-sm-4">
+	    	<div class="col-sm-8">
 	    		<textarea class="form-control" cols="400" rows="5" id="p_content" name="p_content" placeholder="상품내용을 입력하세요"></textarea>
 	    	</div>	
 	  	</div>  
 	  	<div class="form-group">
 	    	<label for="pi_image" class="col-sm-3 control-label">상품사진</label>
-	    	<div class="col-sm-4">
+	    	<div class="col-sm-8">
 	     		<input type="file" id="file" name="file" >
 	     	</div>
 	  	</div>
 	  	<div class="form-group" >
 	    	<label for="p_division" class="col-sm-3  control-label">판매점구분</label>
-	    	<div class="col-sm-4">
+	    	<div class="col-sm-8">
 		    	<select name="division" id="division" class="form-control col-xs-3">
 					<option value='none'>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 선택하세요 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ</option>								
 				</select>
 				<input type="text" class="form-control col-xs-3" id="p_division" name="p_division" placeholder="판매구분을 직접 입력하세요.">				
 			</div>    
 	  	</div>
-		<div class="form-group" > 
-			<div class="btnarea">
+		<div class="form-group " > 
+			<div class="btnarea center-block">
   				<input type="button" class="btn btn-default" id="registBtn" value="등  록"/>
   				<input type="reset" class="btn btn-default" value="취  소"/>
-  				<a href="javascript:history.back(-1)" class="btn btn-default" >되돌아 가기</a>
   			</div>
   		</div>
 	</form>	
+</div>
