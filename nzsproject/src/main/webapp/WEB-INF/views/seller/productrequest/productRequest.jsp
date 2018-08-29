@@ -112,7 +112,7 @@ $(function() {
 	});
 	
 	// 등록 버튼 클릭시
-	$("#registBtn").click(function() {
+	$("#requestBtn").click(function() {
 		if($("#category1").find("option:selected").val()=="none"){
 			$("#category1").focus();
 			alert("카테고리(대분류)를 선택해 주세요.");				
@@ -151,7 +151,7 @@ $(function() {
 
 
 <div id="leftDiv" >	
-	<form class="form-horizontal" id="productInsertForm">
+	<form class="form-horizontal" id="productRequestForm">
 		<h2>물품 등록 </h2>
     	<hr>
   		<div class="form-group">
@@ -186,25 +186,10 @@ $(function() {
 	    	<div class="col-sm-8">
 	    		<textarea class="form-control" cols="400" rows="5" id="p_content" name="p_content" placeholder="상품내용을 입력하세요"></textarea>
 	    	</div>	
-	  	</div>  
-	  	<div class="form-group">
-	    	<label for="pi_image" class="col-sm-3 control-label">상품사진</label>
-	    	<div class="col-sm-8">
-	     		<input type="file" id="file" name="file" >
-	     	</div>
-	  	</div>
-	  	<div class="form-group" >
-	    	<label for="p_division" class="col-sm-3  control-label">판매점구분</label>
-	    	<div class="col-sm-8">
-		    	<select name="division" id="division" class="form-control col-xs-3">
-					<option value='none'>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 선택하세요 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ</option>								
-				</select>
-				<input type="text" class="form-control col-xs-3" id="p_division" name="p_division" placeholder="판매구분을 직접 입력하세요.">				
-			</div>    
-	  	</div>
+	  	</div> 
 		<div class="form-group " > 
 			<div class="btnarea center-block">
-  				<input type="button" class="btn btn-default" id="registBtn" value="등  록"/>
+  				<input type="button" class="btn btn-default" id="requestBtn" value="요 청"/>
   				<input type="reset" class="btn btn-default" value="취  소"/>
   			</div>
   		</div>

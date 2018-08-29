@@ -27,7 +27,7 @@ public class ProductRequestController {
 	@RequestMapping(value="/productRequest.do",method=RequestMethod.GET)
 	public String productRequest() {
 		logger.info("productRequest 호출 성공");		
-		return "seller/productRequest/productRequest";
+		return "seller/productrequest/productRequest";
 	}
 	
 	/**

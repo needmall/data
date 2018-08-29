@@ -36,9 +36,9 @@
 		<put-attribute name="title" value="회원 게시판" />
 		<put-attribute name="body" value="/WEB-INF/views/client/member/{1}.jsp" />
 	</definition>    
-	<definition name="seller/productRequest/*" extends="content">
+	<definition name="seller/productrequest/*" extends="content">
 		<put-attribute name="title" value="상품 요청" />
-		<put-attribute name="body" value="/WEB-INF/views/seller/productRequest/{1}.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/seller/productrequest/{1}.jsp" />
 	</definition>
 	<definition name="mypage/*" extends="content">
 		<put-attribute name="title" value="마이 페이지"/>
