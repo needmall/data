@@ -54,6 +54,12 @@ public class MypageServiceImpl implements MypageService {
 		
 		return value;
 	}
+
+	@Override
+	public List<MycartVO> mybuy(MycartVO mbvo) {
+		// TODO Auto-generated method stub
+		return mypageDao.buylist(mbvo);
+	}
 	
 		
 }

@@ -35,5 +35,11 @@ public class MypageDaoImpl implements MypageDao {
 		return session.delete("itemdelete",mvo);
 	}
 
+	@Override
+	public List<MycartVO> buylist(MycartVO mbvo) {
+		// TODO Auto-generated method stub
+		return session.selectList("buylist",mbvo);
+	}
+
 
 }

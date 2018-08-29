@@ -14,4 +14,6 @@ public interface MypageDao {
 
 	int itemdelete(MycartVO mvo);
 
+	List<MycartVO> buylist(MycartVO mbvo);
+
 }

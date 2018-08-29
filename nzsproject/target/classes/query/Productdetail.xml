@@ -3,7 +3,7 @@
 <mapper namespace="com.needmall.client.productdetail.dao.ProductdetailDao">
 	<select id="productdetailmain" resultType="productdetail" parameterType="productdetail">
 		select pi_image,p_name,p_price,p_content,ps_regdate,ps_expiration
-		,ps_count,ps_price,ps_state,ps_update,c1_name,c2_name,p_division,seller.s_num,store.st_num,product.p_num,ps_num
+		,ps_count,ps_price,ps_state,ps_udate,c1_name,c2_name,p_division,seller.s_num,store.st_num,product.p_num,ps_num
 		
 		
 		from proimage 

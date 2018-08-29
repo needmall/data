@@ -11,5 +11,7 @@ public interface MypageService {
 	String countUpdate(MycartVO mvo);
 
 	String itemdelete(MycartVO mvo);
+
+	List<MycartVO> mybuy(MycartVO mbvo);
 	
 }

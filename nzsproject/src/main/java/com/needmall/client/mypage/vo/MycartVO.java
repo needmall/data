@@ -14,6 +14,13 @@ public class MycartVO extends ProductdetailVO {
     private Date cart1_date;
     private int c_num =0 ;
     private int price_value=0;
+    
+    //구매 
+    private int b1_num =0;
+    private Date b1_date;
+    private int b2_num=0;
+    private int b_count=0;
+    private int b_confirm=0;
 	public int getCart2_num() {
 		return cart2_num;
 	}
@@ -56,23 +63,56 @@ public class MycartVO extends ProductdetailVO {
 	public void setPrice_value(int price_value) {
 		this.price_value = price_value;
 	}
+	public int getB1_num() {
+		return b1_num;
+	}
+	public void setB1_num(int b1_num) {
+		this.b1_num = b1_num;
+	}
+	public Date getB1_date() {
+		return b1_date;
+	}
+	public void setB1_date(Date b1_date) {
+		this.b1_date = b1_date;
+	}
+	public int getB2_num() {
+		return b2_num;
+	}
+	public void setB2_num(int b2_num) {
+		this.b2_num = b2_num;
+	}
+	public int getB_count() {
+		return b_count;
+	}
+	public void setB_count(int b_count) {
+		this.b_count = b_count;
+	}
+	public int getB_confirm() {
+		return b_confirm;
+	}
+	public void setB_confirm(int b_confirm) {
+		this.b_confirm = b_confirm;
+	}
 	@Override
 	public String toString() {
 		return "MycartVO [cart2_num=" + cart2_num + ", cart1_num=" + cart1_num + ", ps_num=" + ps_num + ", cart2_count="
 				+ cart2_count + ", cart1_date=" + cart1_date + ", c_num=" + c_num + ", price_value=" + price_value
-				+ ", getPi_num()=" + getPi_num() + ", getPi_image()=" + getPi_image() + ", getP_num()=" + getP_num()
-				+ ", getP_name()=" + getP_name() + ", getP_price()=" + getP_price() + ", getP_date()=" + getP_date()
-				+ ", getP_update()=" + getP_update() + ", getP_content()=" + getP_content() + ", getP_division()="
-				+ getP_division() + ", getDiscount()=" + getDiscount() + ", getSt_num()=" + getSt_num()
-				+ ", getC1_num()=" + getC1_num() + ", getC1_name()=" + getC1_name() + ", getC2_num()=" + getC2_num()
-				+ ", getC2_name()=" + getC2_name() + ", toString()=" + super.toString() + ", getState()=" + getState()
-				+ ", getPs_regdate()=" + getPs_regdate() + ", getPs_expiration()=" + getPs_expiration()
-				+ ", getPs_count()=" + getPs_count() + ", getPs_price()=" + getPs_price() + ", getS_num()=" + getS_num()
-				+ ", getPs_state()=" + getPs_state() + ", getPs_update()=" + getPs_update()
-				+ ", getPs_expirationChange()=" + getPs_expirationChange() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + "]";
+				+ ", b1_num=" + b1_num + ", b1_date=" + b1_date + ", b2_num=" + b2_num + ", b_count=" + b_count
+				+ ", b_confirm=" + b_confirm + ", getPi_num()=" + getPi_num() + ", getPi_image()=" + getPi_image()
+				+ ", getP_num()=" + getP_num() + ", getP_name()=" + getP_name() + ", getP_price()=" + getP_price()
+				+ ", getP_date()=" + getP_date() + ", getP_update()=" + getP_update() + ", getP_content()="
+				+ getP_content() + ", getP_division()=" + getP_division() + ", getDiscount()=" + getDiscount()
+				+ ", getSt_num()=" + getSt_num() + ", getC1_num()=" + getC1_num() + ", getC1_name()=" + getC1_name()
+				+ ", getC2_num()=" + getC2_num() + ", getC2_name()=" + getC2_name() + ", toString()=" + super.toString()
+				+ ", getState()=" + getState() + ", getPs_regdate()=" + getPs_regdate() + ", getPs_expiration()="
+				+ getPs_expiration() + ", getPs_count()=" + getPs_count() + ", getPs_price()=" + getPs_price()
+				+ ", getS_num()=" + getS_num() + ", getPs_state()=" + getPs_state() + ", getPs_update()="
+				+ getPs_update() + ", getPs_expirationChange()=" + getPs_expirationChange() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + "]";
 	}
     
+    
+
 	
     
 }

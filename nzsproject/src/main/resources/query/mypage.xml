@@ -16,7 +16,7 @@
 		    ps_price,
 		    s_num,
 		    ps_state,
-		    ps_update,
+		    ps_udate,
 		    product.p_name,
 		    product.p_price,
 		    product.p_date,
@@ -40,4 +40,49 @@
 		DELETE FROM cart2dep
 		WHERE cart2_num=#{cart2_num}
 	</delete>
+	
+	<select id="buylist" parameterType="mypage" resultType="mypage">
+	       SELECT
+			    buy1dep.b1_num,
+			    b1_date,
+			    cart1dep.c_num,
+			    b2_num,
+			    BUY2DEP.ps_num,
+			    b_count,
+			    b_confirm,
+			    product.p_num,
+			    ps_regdate,
+			    ps_expiration,
+			    ps_count,
+			    ps_price,
+			    s_num,
+			    ps_state,
+			    ps_udate,    
+			    c2_num,
+			    p_name,
+			    p_price,
+			    p_date,
+			    p_udate,
+			    p_content,
+			    p_division,
+			    pi_num,
+			    p_state,
+			    cart1dep.cart1_num,
+			    cart1_date,
+			    cart2_num,
+			    cart1dep.cart1_num,
+			    ps_num,
+			    cart2_count
+			
+			FROM
+			    buy2dep inner join buy1dep on buy2dep.b1_num = buy1dep.b1_num
+			    inner join PRODUCTSELL on PRODUCTSELL.ps_num = BUY2DEP.ps_num
+			    inner join PRODUCT on PRODUCT.p_num= PRODUCTSELL.p_num
+			    inner join cart1dep on cart1dep.c_num = buy1dep.c_num
+			    inner join cart2dep on cart1dep.cart1_num = cart2dep.cart1_num
+			    
+			WHERE
+			    buy1dep.b1_num=1 and buy1dep.c_num = 1
+    
+	</select>
 </mapper>

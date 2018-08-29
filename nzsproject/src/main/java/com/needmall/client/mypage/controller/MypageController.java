@@ -66,4 +66,13 @@ public class MypageController {
 		
 	}
 	/////////////////////////////////////////////////////////////장바구니 로직끝
+	
+	@RequestMapping(value="/mybuy.do")
+	public String mybuy(MycartVO mbvo, Model model ) {
+		logger.info("mybuy 호 출");
+		List<MycartVO> buylist = mypageService.mybuy(mbvo);
+		model.addAttribute("buylist",buylist);
+		return "mypage/mybuy";
+		
+	}
 }
