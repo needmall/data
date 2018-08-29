@@ -2,8 +2,6 @@ package com.needmall.client.productdetail.vo;
 
 import java.sql.Date;
 
-import com.needmall.common.vo.ProductsellVO;
-
 public class ProductdetailVO extends ProductsellVO {
 
 	//PROIMAGE

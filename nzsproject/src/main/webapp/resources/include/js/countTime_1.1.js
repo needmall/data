@@ -67,11 +67,15 @@ name : countTime.js
 			now = sec(new Date());
 			result = date - now;
 //			0==이면 해당 클라스 하이드 -> 구매 , 장바구니
-			if(result==0){
+			if(result<0){
 				opt.cls.hide();
+				ele.empty();
+				var a = $("<span>시간이 지났습니다</sapn>");
+				ele.append(a);
+			}else{
+				ele.empty();
+				ele.append(timeToStr(result));
 			} 
-			ele.empty();
-			ele.append(timeToStr(result));
 		}
 		
 	}
