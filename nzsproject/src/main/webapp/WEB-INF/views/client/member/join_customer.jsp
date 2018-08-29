@@ -87,10 +87,10 @@
 			<div class="form-group form-group-sm">
 				<label for="c_birthday" class="col-sm-2 control-label">생년월일</label>
 				<div class="col-sm-3">
-					<input type="date" id="c_birthday" name="c_birthday" class="form-control" placeholder="주민등록번호 6자리">	
+					<input type="date" id="c_birthday" name="c_birthday" class="form-control">	
 				</div>
 				<div class="col-sm-2">
-					<input type="text" id="c_gendernum" name="c_gendernum" maxlength="1" class="form-control" placeholder="주민등록번호 7번째 1자리">	
+					<input type="text" id="c_genderNum" name="c_genderNum" maxlength="1" class="form-control" placeholder="주민등록번호 7번째 1자리">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
