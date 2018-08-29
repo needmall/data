@@ -171,17 +171,19 @@ $(function(){
 		//else if (!inputVerify(2,'#c_gendernum','.error:eq(3)')) return;	
 		
 		// ★4번 생년월일 채우기
-		else if (!formCheck($('#c_address'), $('.error:eq(5)'), "주소를")) return;
+		else if (!formCheck($('#sample6_postcode'), $('.error:eq(5)'), "우편번호를")) return;
+		else if (!formCheck($('#sample6_address2'), $('.error:eq(6)'), "상세주소를")) return;
 		
 		
-		else if (!formCheck($('#c_mailName'), $('.error:eq(6)'), "이메일 주소를")) return;
-		else if (!formCheck($('#c_cell'), $('.error:eq(7)'), "핸드폰번호를")) return;
-		else if (!inputVerify(2,'#c_cell','.error:eq(7)')) return;	
+		else if (!formCheck($('#c_mailName'), $('.error:eq(7)'), "이메일 주소를")) return;
+		else if (!formCheck($('#c_cell'), $('.error:eq(8)'), "핸드폰번호를")) return;
+		else if (!inputVerify(2,'#c_cell','.error:eq(8)')) return;	
 		else if (idConfirm!=2){ alert("아이디 중복 체크 진행해 주세요."); return;}
 		else {
 			$("#c_mail").val($("#c_mailName").val()+"@"+$("#c_mailDomain").val());
 			//$("#pinno").val($("#birth").val()+"-"+$("#gender").val());
 			$("#c_gender").val();
+			$("#c_address").val($("#sample6_address").val()+" "+$("#sample6_address2").val());
 			$("#memberForm").attr({
 				"method":"post",	// 주소가 같아서 method가 다르기 때문에 ㄱㅊ
 				"action":"/member/join_customer.do"
@@ -209,29 +211,34 @@ $(function(){
 		//else if (!inputVerify(2,'#c_gendernum','.error:eq(3)')) return;	
 		
 		// ★4번 생년월일 채우기
-		else if (!formCheck($('#s_address'), $('.error:eq(5)'), "주소를")) return;
+		else if (!formCheck($('#sample6_postcode'), $('.error:eq(5)'), "우편번호를")) return;
+		else if (!formCheck($('#sample6_address2'), $('.error:eq(6)'), "상세주소를")) return;
 		
 		
-		else if (!formCheck($('#s_mailName'), $('.error:eq(6)'), "이메일 주소를")) return;
-		else if (!formCheck($('#s_cell'), $('.error:eq(7)'), "핸드폰번호를")) return;
-		else if (!inputVerify(2,'#s_cell','.error:eq(7)')) return;
-		else if (!formCheck($('#s_phone'), $('.error:eq(8)'), "유선전화번호를")) return;
-		else if (!formCheck($('#st_bnum'), $('.error:eq(9)'), "사업자번호를")) return;
-		else if (!inputVerify(3,'#st_bnum','.error:eq(9)')) return;
-		else if (!formCheck($('#st_name'), $('.error:eq(10)'), "상호명을")) return;
-		else if (!formCheck($('#st_address'), $('.error:eq(11)'), "사업지 주소를")) return;
-		else if (!formCheck($('#st_hours'), $('.error:eq(12)'), "영업시간을")) return;
-		else if (!formCheck($('#st_cell'), $('.error:eq(13)'), "매장 전화번호를")) return;
-		else if (!formCheck($('#st_ceo'), $('.error:eq(14)'), "대표자를")) return;
-		else if (!formCheck($('#st_emailName'), $('.error:eq(15)'), "이메일 주소를")) return;
+		else if (!formCheck($('#s_mailName'), $('.error:eq(7)'), "이메일 주소를")) return;
+		else if (!formCheck($('#s_cell'), $('.error:eq(8)'), "핸드폰번호를")) return;
+		else if (!inputVerify(2,'#s_cell','.error:eq(8)')) return;
+		else if (!formCheck($('#s_phone'), $('.error:eq(9)'), "유선전화번호를")) return;
+		else if (!formCheck($('#st_bnum'), $('.error:eq(10)'), "사업자번호를")) return;
+		else if (!inputVerify(3,'#st_bnum','.error:eq(10)')) return;
+		else if (!formCheck($('#st_name'), $('.error:eq(11)'), "상호명을")) return;
+		else if (!formCheck($('#sample6_postcode2'), $('.error:eq(12)'), "매장 우편번호를")) return;
+		else if (!formCheck($('#sample6_address22'), $('.error:eq(13)'), "매장 주소를")) return;
+		
+		else if (!formCheck($('#st_hours'), $('.error:eq(14)'), "영업시간을")) return;
+		else if (!formCheck($('#st_cell'), $('.error:eq(15)'), "매장 전화번호를")) return;
+		else if (!formCheck($('#st_ceo'), $('.error:eq(16)'), "대표자를")) return;
+		else if (!formCheck($('#st_emailName'), $('.error:eq(17)'), "이메일 주소를")) return;
 		
 		else if (idConfirm!=2){ alert("아이디 중복 체크 진행해 주세요."); return;}
 		else if (stBnum!=2){ alert("사업자번호 중복 체크 진행해 주세요."); return;}
 		
 		else {
+			$("#s_address").val($("#sample6_address").val()+" "+$("#sample6_address2").val());
 			$("#s_mail").val($("#s_mailName").val()+"@"+$("#s_mailDomain").val());
 			//$("#pinno").val($("#birth").val()+"-"+$("#gender").val());
 			$("#s_gender").val();
+			$("#st_address").val($("#sample6_address1").val()+" "+$("#sample6_address22").val());
 			$("#st_email").val($("#st_emailName").val()+"@"+$("#st_emailDomain").val());
 			$("#memberForm").attr({
 				"method":"post",	// 주소가 같아서 method가 다르기 때문에 ㄱㅊ
