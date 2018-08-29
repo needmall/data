@@ -85,7 +85,7 @@
     	<aop:pointcut expression="execution(* com.needmall..*Impl.*(..))" id="allPointcut" />
     	<aop:advisor advice-ref="txAdvice" pointcut-ref="allPointcut"/>
     </aop:config>
-	 
+	
 	<!--   <beans:bean class="com.needmall.common.exception.SpringExceptionMessage">
     	<beans:property name="exceptionMappings">
     		<beans:props>
