@@ -1,7 +1,7 @@
 package com.needmall.seller.productRequest.service;
 
-import com.needmall.common.vo.ReqproductVO;
+import com.needmall.admin.product.vo.ReqproductRegistVO;
 
 public interface ProductRequestService {
-	public int ProductRequestUpdate(ReqproductVO rvo);
+	public int ProductRequestUpdate(ReqproductRegistVO rrvo);
 }

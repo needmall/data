@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.needmall.admin.product.vo.ReqproductRegistVO;
 import com.needmall.common.vo.ReqproductVO;
 
 @Repository
@@ -13,8 +14,8 @@ public class ProductRequestDaoImpl implements ProductRequestDao{
 	private SqlSession session;
 	
 	@Override
-	public int ProductRequestUpdate(ReqproductVO rvo) {
-		return session.update("ProductRequestUpdate", rvo);
+	public int ProductRequestUpdate(ReqproductRegistVO rrvo) {
+		return session.update("ProductRequestUpdate", rrvo);
 	}
 	
 }

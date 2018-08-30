@@ -47,7 +47,7 @@
 	<table class="table table-bordered table-hover">	
 		<thead>			
 			<tr>
-				<th>매장요청번호</th>
+				<th>ReqNo</th>
 				<th>판매자번호</th>
 				<th>사업자번호</th>
 				<th>상호명</th>

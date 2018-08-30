@@ -17,6 +17,8 @@ public class ReqproductVO {
 	public void setReqp_num(int reqp_num) {
 		this.reqp_num = reqp_num;
 	}
+	
+
 	public int getC2_num() {
 		return c2_num;
 	}
@@ -61,11 +63,9 @@ public class ReqproductVO {
 	}
 	@Override
 	public String toString() {
-		return "ReqproductVO [reqp_num=" + reqp_num + ", c2_num=" + c2_num + ", p_name=" + p_name + ", p_price="
-				+ p_price + ", p_date=" + p_date + ", p_content=" + p_content + ", p_num=" + p_num + ", s_num=" + s_num
-				+ "]";
+		return "ReqproductVO [reqp_num=" + reqp_num + ", c2_num=" + c2_num + ", p_name=" + p_name
+				+ ", p_price=" + p_price + ", p_date=" + p_date + ", p_content=" + p_content + ", p_num=" + p_num
+				+ ", s_num=" + s_num + "]";
 	}
-    
-    
-
+	
 }

@@ -10,6 +10,7 @@ import com.needmall.admin.product.vo.ProductRegistVO;
 import com.needmall.common.vo.Category1depVO;
 import com.needmall.common.vo.Category2depVO;
 import com.needmall.common.vo.ProductVO;
+import com.needmall.common.vo.ReqstoreVO;
 
 @Repository
 public class ProductRegistDaoImpl implements ProductRegistDao{
@@ -85,6 +86,11 @@ public class ProductRegistDaoImpl implements ProductRegistDao{
 	@Override
 	public int p_stateO(int p_num) {		
 		return session.update("p_stateO",p_num);
+	}
+
+	@Override
+	public List<ReqstoreVO> productReqList() {		
+		return session.selectList("productReqList");
 	}
 
 	

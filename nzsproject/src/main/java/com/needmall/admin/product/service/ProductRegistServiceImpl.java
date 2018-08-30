@@ -16,6 +16,7 @@ import com.needmall.common.file.FileUploadUtil;
 import com.needmall.common.vo.Category1depVO;
 import com.needmall.common.vo.Category2depVO;
 import com.needmall.common.vo.ProductVO;
+import com.needmall.common.vo.ReqstoreVO;
 
 @Service
 public class ProductRegistServiceImpl implements ProductRegistService{
@@ -192,5 +193,12 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 		return result;
 	}
 
+	@Override
+	public List<ReqstoreVO> productReqList() {
+		List<ReqstoreVO> list = productRegistDao.productReqList();
+		return list;
+	}
+
+	
 		
 }

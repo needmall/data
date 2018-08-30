@@ -123,25 +123,12 @@ $(function() {
 			return;				
 		}else if(!chkData("#p_name","상품명을")){				
 			return;
-		}else if(!chkData("#p_price","가격을")){				
-			return;
 		}else if(!chkData("#p_content","상품내용을")){
 			return;
-		}else if(!chkData("#file","사진을")){
-			return;
-		}else if(!chkFile($("#file"))){
-			return;
-		}else if($("#division").find("option:selected").val()=="none"){
-			alert("판매점 구분을 선택해 주세요.");
-			$("#division").focus();
-			return;
-		}else if(!chkData("#p_division","판매점 구분을")){
-			$("#p_division").focus();
-			return;			
 		}else{	
 		/* 첨부파일 보낼때에는 post 방식에서 enctype="multipart/form-data" 속성을 설정하여야 한다. */						
-		$("#productInsertForm").attr({"method":"post","action":"/admin/product/productInsert.do","enctype":"multipart/form-data"});
-		$("#productInsertForm").submit();
+		$("#productRequestForm").attr({"method":"post","action":"/seller/productrequest/productRequstUpdate.do"});
+		$("#productRequestForm").submit();
 		}
 	})
 })//최상위 마지막
@@ -152,8 +139,6 @@ $(function() {
 
 <div id="leftDiv" >	
 	<form class="form-horizontal" id="productRequestForm">
-		<h2>물품 등록 </h2>
-    	<hr>
   		<div class="form-group">
     		<label for="category1" class="col-sm-3 control-label">카테고리</label>
     		<div class="col-sm-8">    		

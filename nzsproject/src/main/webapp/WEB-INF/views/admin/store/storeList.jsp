@@ -127,7 +127,7 @@ $(function() {
 	<table class="table table-bordered table-hover">	
 		<thead>			
 			<tr>
-				<th>매장번호</th>
+				<th>No</th>
 				<th>매장명</th>
 				<th>판매자번호</th>
 				<th>사업자번호</th>				

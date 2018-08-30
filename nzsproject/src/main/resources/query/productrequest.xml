@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.needmall.seller.productrequest.dao.productrequestDao">
-	<insert id="ProductRequestUpdate" parameterType="reqproduct">
-		INSERT INTO reqproduct ( reqp_num, c2_num, p_name, p_price, p_date, p_content, p_num, s_num) VALUES (reqproduct_seq.nextval, #{c2_num}, #{p_name}, #{p_price}, #{p_date}, #{p_content}, #{p_num}, #{s_num})
+<mapper namespace="com.needmall.seller.productRequest.dao.ProductRequestDao">
+	<insert id="ProductRequestUpdate" parameterType="reqproductRegistVO">
+		INSERT INTO reqproduct ( reqp_num, c2_num, p_name, p_price, p_date, p_content, p_num, s_num) VALUES (reqproduct_seq.nextval, #{c2_num}, #{p_name}, #{p_price}, sysdate, #{p_content}, #{p_num}, #{s_num})
 	</insert>
 </mapper>

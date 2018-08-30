@@ -6,7 +6,7 @@
 	.btnarea{
 		text-align: center;
 	}
-#leftDiv{
+#rightDiv{
 		width: 600px;
 		float: left !important;
 		text-align: center;
@@ -150,11 +150,12 @@ $(function() {
 </script> 
 
 
-<div id="leftDiv" >	
+<div id="rightDiv" >	
 	<form class="form-horizontal" id="productInsertForm">
 		<h2>물품 등록 </h2>
     	<hr>
   		<div class="form-group">
+  			<input type="hidden" id="s_num" name="s_num" >  <!-- 셀러 번호 확인해서 넣기!! -->
     		<label for="category1" class="col-sm-3 control-label">카테고리</label>
     		<div class="col-sm-8">    		
 	    		<select name="c1_num" id="category1" class="form-control">

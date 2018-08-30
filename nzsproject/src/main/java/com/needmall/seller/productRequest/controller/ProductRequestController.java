@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.needmall.admin.product.vo.ReqproductRegistVO;
 import com.needmall.common.vo.ReqproductVO;
 import com.needmall.seller.productRequest.service.ProductRequestService;
 
@@ -37,11 +38,11 @@ public class ProductRequestController {
 	 * @return
 	 */
 	@RequestMapping(value="/productRequstUpdate.do",method=RequestMethod.POST)
-	public String productRequstUpdate(ReqproductVO rvo, Model model) {
+	public String productRequstUpdate(ReqproductRegistVO rrvo, Model model) {
 		logger.info("productRequstUpdate  호출 성공");
 		int result=0;
-		result=productRequestService.ProductRequestUpdate(rvo);
+		result=productRequestService.ProductRequestUpdate(rrvo);
 		model.addAttribute("result", result);
-		return "seller/productrequest/reqproductUpdate";
+		return "redirect:seller/productrequest/productRequest.do";
 	}
 }
