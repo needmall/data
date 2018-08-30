@@ -54,9 +54,9 @@
 	<update id="p_stateO" parameterType="int">
 		update product set p_state=0 where p_num=#{p_num}
 	</update>
-	<select id="productReqList" resultType="reqproduct">
+	<select id="productReqList" resultType="reqproductRegist">
 		SELECT reqp_num, category2dep.c1_num, c1_name, reqproduct.c2_num, c2_name, p_name, p_price, p_date, p_content, p_num, s_num FROM reqproduct 
-inner join category2dep on reqproduct.c2_num=category2dep.c2_num inner join category1dep on category1dep.c1_num=category2dep.c1_num
+		inner join category2dep on reqproduct.c2_num=category2dep.c2_num inner join category1dep on category1dep.c1_num=category2dep.c1_num
 	</select>
 	
 <!-- 	<update id="updateBoard" parameterType="board"> -->
