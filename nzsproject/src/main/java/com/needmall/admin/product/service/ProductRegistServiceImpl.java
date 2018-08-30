@@ -12,6 +12,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.product.dao.ProductRegistDao;
 import com.needmall.admin.product.vo.ProductRegistVO;
+import com.needmall.admin.product.vo.ReqproductRegistVO;
 import com.needmall.common.file.FileUploadUtil;
 import com.needmall.common.vo.Category1depVO;
 import com.needmall.common.vo.Category2depVO;
@@ -194,8 +195,8 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 	}
 
 	@Override
-	public List<ReqstoreVO> productReqList() {
-		List<ReqstoreVO> list = productRegistDao.productReqList();
+	public List<ReqproductRegistVO> productReqList() {
+		List<ReqproductRegistVO> list = productRegistDao.productReqList();
 		return list;
 	}
 

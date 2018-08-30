@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.product.service.ProductRegistService;
 import com.needmall.admin.product.vo.ProductRegistVO;
+import com.needmall.admin.product.vo.ReqproductRegistVO;
+import com.needmall.common.vo.ReqproductVO;
 import com.needmall.common.vo.ReqstoreVO;
 
 @Controller
@@ -185,11 +187,23 @@ public class ProductRegistController {
 	 * @return
 	 */
 	@RequestMapping(value="/productReqList.do",method=RequestMethod.GET)
-	public String productReqList(ReqstoreVO rsvo, Model model) {
+	public String productReqList(ReqproductRegistVO rrvo, Model model) {
 		logger.info("productReqList 호출 성공");	
-		List<ReqstoreVO> list = productRegistService.productReqList();
+		List<ReqproductRegistVO> list = productRegistService.productReqList();
 		model.addAttribute("productReqList", list);
 		return "admin/product/productReqList";
 	}
 	
+	/**
+	 * reqproductRegist : 요청 상품 정보
+	 * @param prvo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/reqproductRegist.do",method=RequestMethod.POST)
+	public String reqproductRegist(ReqproductRegistVO rrvo, Model model) {
+		logger.info("reqproductRegist 호출 성공");	
+		model.addAttribute("reqproductVO", rrvo);
+		return "admin/product/reqproductRegist";
+	}
 }

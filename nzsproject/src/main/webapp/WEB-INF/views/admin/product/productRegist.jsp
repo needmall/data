@@ -28,6 +28,7 @@ $(function() {
 	// 구분 직접입력 숨기기
 	$("#p_division").hide();
 	
+		
 	//카테고리dep1 호출
 	var url = "/admin/product/Category1dep.do";
 	$.getJSON(url, function(data) {
@@ -39,7 +40,10 @@ $(function() {
 			var option = $("<option>");
 			var span = $("<span>");
 			option.attr("value",c1_num);
-			span.html(c1_name);			
+			span.html(c1_name);	
+			if('${reqproductVO}' != '' && '${reqproductVO.c1_name }' ==c1_name){
+				option.prop("selected",true);
+			}
 			option.append(span);
 			
 			$("#category1").append(option);
@@ -48,6 +52,30 @@ $(function() {
 		}).fail(function() {
 			alert("카테고리1 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.	");
 	});
+	
+	if('${reqproductVO}' != ''){  //요청 vo가 있으면
+		// 선택된 카테고리 dep2 호출		
+		var url = "/admin/product/Category2dep.do?c1_num="+'${reqproductVO.c1_num }';
+		$.getJSON(url, function(data) {					
+		//불러온 데이터 처리
+			$(data).each(function() {
+				var c2_name = this.c2_name;
+				var c2_num = this.c2_num;
+				
+				var option = $("<option>");
+				var span = $("<span>");
+				option.attr("value",c2_num);
+				span.html(c2_name);
+				if('${reqproductVO.c2_name }' == c2_name){
+					option.prop("selected",true);
+				}
+				option.append(span);				
+				$("#category2").append(option);
+			});
+		}).fail(function() {
+			alert("카테고리2 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
+		});
+	}
 	
 	// 구분 목록 반환
 	var url_d = "/admin/product/division.do";
@@ -59,7 +87,7 @@ $(function() {
 			var option = $("<option>");
 			var span = $("<span>");
 			option.attr("value",p_division);
-			span.html(p_division);
+			span.html(p_division);			
 			option.append(span);				
 			$("#division").append(option);				
 		});
@@ -167,9 +195,9 @@ $(function() {
 			</div>
   		</div>
   		<div class="form-group">
-    		<label for="p_name" class="col-sm-3 control-label">상 품 명</label>
+    		<label for="p_name" class="col-sm-3 control-label">물품명</label>
     		<div class="col-sm-8">
-    			<input type="text" class="form-control" id="p_name" name="p_name" >
+    			<input type="text" class="form-control" id="p_name" name="p_name" value="${reqproductVO.p_name}" >
     		</div>
   		</div>
   		<div class="form-group">
@@ -177,7 +205,7 @@ $(function() {
     		<div class="col-sm-8">
 	    		<div class="input-group">
 	      			<div class="input-group-addon">￦</div>
-	      			<input type="text" class="form-control col-xs-3" id="p_price" name="p_price">
+	      			<input type="text" class="form-control col-xs-3" id="p_price" name="p_price" value="${reqproductVO.p_price}">
 	      			<div class="input-group-addon">WON</div>
 	    		</div>
     		</div>
@@ -185,7 +213,7 @@ $(function() {
 		<div class="form-group">
 	    	<label for="p_content" class="col-sm-3 control-label">상품내용</label>
 	    	<div class="col-sm-8">
-	    		<textarea class="form-control" cols="400" rows="5" id="p_content" name="p_content" placeholder="상품내용을 입력하세요"></textarea>
+	    		<textarea class="form-control" cols="400" rows="5" id="p_content" name="p_content" placeholder="상품내용을 입력하세요">${reqproductVO.p_content}</textarea>
 	    	</div>	
 	  	</div>  
 	  	<div class="form-group">

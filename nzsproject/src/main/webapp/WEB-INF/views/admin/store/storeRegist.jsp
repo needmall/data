@@ -4,12 +4,12 @@
 
 	
 <style type="text/css">
-	.leftDiv{
+	#leftDiv{
 		width: 600px;
 		float: left !important;
 		text-align: center;
 	}
-	.rightDiv{
+	#rightDiv{
 		width: 600px;
 		float: left !important;
 		text-align: center;
@@ -153,7 +153,7 @@ function getAddress (result, status) {
 } 	
 
 </script> 	
-<div class="leftDiv">
+<div id="leftDiv">
 	<h2>매장 등록 요청</h2>
 	<hr>
 	<form class="form-horizontal" id="reqForm">		
@@ -219,7 +219,7 @@ function getAddress (result, status) {
 	  	</div>  		
 	</form>
 </div>
-<div class="rightDiv">
+<div id="rightDiv">
 
 	<h2>스토어 등록 적용</h2>	
 	<hr>

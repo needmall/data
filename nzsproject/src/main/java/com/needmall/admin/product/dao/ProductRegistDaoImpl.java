@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.needmall.admin.product.vo.ProductRegistVO;
+import com.needmall.admin.product.vo.ReqproductRegistVO;
 import com.needmall.common.vo.Category1depVO;
 import com.needmall.common.vo.Category2depVO;
 import com.needmall.common.vo.ProductVO;
@@ -89,7 +90,7 @@ public class ProductRegistDaoImpl implements ProductRegistDao{
 	}
 
 	@Override
-	public List<ReqstoreVO> productReqList() {		
+	public List<ReqproductRegistVO> productReqList() {		
 		return session.selectList("productReqList");
 	}
 

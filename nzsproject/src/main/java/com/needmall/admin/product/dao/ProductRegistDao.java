@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import com.needmall.admin.product.vo.ProductRegistVO;
+import com.needmall.admin.product.vo.ReqproductRegistVO;
 import com.needmall.common.vo.Category1depVO;
 import com.needmall.common.vo.Category2depVO;
 import com.needmall.common.vo.ProductVO;
@@ -24,5 +25,5 @@ public interface ProductRegistDao {
 	public int productUpdate(ProductRegistVO prvo);
 	public int p_stateX(int p_num);
 	public int p_stateO(int p_num);	
-	public List<ReqstoreVO> productReqList();
+	public List<ReqproductRegistVO> productReqList();
 }

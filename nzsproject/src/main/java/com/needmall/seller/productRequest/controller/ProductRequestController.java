@@ -43,6 +43,6 @@ public class ProductRequestController {
 		int result=0;
 		result=productRequestService.ProductRequestUpdate(rrvo);
 		model.addAttribute("result", result);
-		return "redirect:seller/productrequest/productRequest.do";
+		return "redirect:/seller/productrequest/productRequest.do";
 	}
 }

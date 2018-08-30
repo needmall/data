@@ -3,6 +3,15 @@
 <%@ include file="/WEB-INF/views/common/common.jspf"%>
 
 <style type="text/css">
+	#leftDiv{
+		width: 600px;
+		float: left !important;
+		text-align: center;
+	}
+	
+	h2{
+text-align:left;
+}
 	.btnarea{
 		text-align: center;
 	}
@@ -193,7 +202,7 @@
 		})
 	})
 </script>
-	
+	<div id="leftDiv">
 	<form class="form-horizontal" id="productForm">
 		<h2>등록 물품 상세보기 </h2>
     	<hr>
@@ -202,7 +211,7 @@
 		<input type="hidden" name="pi_image" id="pi_image" value="${productDetail.pi_image}"/>
   		<div class="form-group">
     		<label for="category1" class="col-sm-3 control-label">카테고리</label>
-    		<div class="col-sm-4" id="selectarea">    		
+    		<div class="col-sm-8" id="selectarea">    		
 	    		<input type="text" class="form-control detailItem" readonly="readonly" id="pdc1" value="${productDetail.c1_name}">
 	    		<input type="text" class="form-control detailItem" readonly="readonly" id="pdc2" value="${productDetail.c2_name}">    		
 	    		<select name="c1_num" id="category1" class="form-control updateItem">
@@ -215,13 +224,13 @@
   		</div>
   		<div class="form-group">
     		<label for="p_name" class="col-sm-3 control-label" >상 품 명</label>
-    		<div class="col-sm-4">
+    		<div class="col-sm-8">
     			<input type="text" class="form-control change" readonly="readonly" name="p_name" value="${productDetail.p_name}">
     		</div>
   		</div>
   		<div class="form-group">
     		<label for="p_price" class="col-sm-3 control-label">가    격</label>
-    		<div class="col-sm-4">
+    		<div class="col-sm-8">
 	    		<div class="input-group">
 	      			<div class="input-group-addon">￦</div>
 	      			<input type="text" class="form-control col-xs-3 change" readonly="readonly" name="p_price"  value="${productDetail.p_price}">
@@ -231,20 +240,20 @@
    		</div>
 		<div class="form-group">
 	    	<label for="p_content" class="col-sm-3 control-label">상품내용</label>
-	    	<div class="col-sm-4">
+	    	<div class="col-sm-8">
 	    		<textarea class="form-control change" cols="400" rows="5" placeholder="상품내용을 입력하세요" readonly="readonly" name="p_content" >${productDetail.p_content}</textarea>
 	    	</div>	
 	  	</div>  
 	  	<div class="form-group">
 	    	<label for="pi_image" class="col-sm-3 control-label">상품사진</label>
-	    	<div class="col-sm-4" id="filearea">
+	    	<div class="col-sm-8" id="filearea">
 	     		<img id="imgarea"class="img-thumbnail" src="/uploadStorage/product/${productDetail.pi_image}"/>	     	
 	     		<input type="file" id="file" name="file"  class="updateItem">
 	     	</div>
 	  	</div>
 	  	<div class="form-group" >
 	    	<label for="p_division" class="col-sm-3  control-label">판매점구분</label>
-	    	<div class="col-sm-4">
+	    	<div class="col-sm-8">
 		    	<input type="text" class="form-control detailItem" readonly="readonly" id="pdpd" value="${productDetail.p_division}" >																		
 		    	<select name="division" id="division" class="form-control col-xs-3 updateItem">
 					<option value='none'>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 선택하세요 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ</option>								
@@ -262,3 +271,4 @@
   			</div>
   		</div>
 	</form>	
+</div>
