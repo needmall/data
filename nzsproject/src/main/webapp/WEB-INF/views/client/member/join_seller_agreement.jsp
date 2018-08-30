@@ -5,7 +5,7 @@
 	<head>
 	<meta charset="UTF-8">
 	
-		<title>customer 약관동의</title>
+		<title>seller 약관동의</title>
 		
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
@@ -34,28 +34,28 @@
         		location.href="/"
         	});
         	$("#agree").click(function(){
-        		if(!$('#cin_prov1').is(':checked')){
+        		if(!$('#sin_prov1').is(':checked')){
         			alert("NeedMall 이용약관에 동의해주시기 바랍니다.");
-        			$("#cin_prov1").focus();
+        			$("#sin_prov1").focus();
         			return false;
-        		} else if(!$('#cin_prov2').is(':checked')){
+        		} else if(!$('#sin_prov2').is(':checked')){
         			alert("개인정보 수집 및 이용에 대한 안내에 동의해주시기 바랍니다.");
-        			$("#cin_prov2").focus();
+        			$("#sin_prov2").focus();
         			return false;
-        		} else if(!$('#cin_prov3').is(':checked')){
+        		} else if(!$('#sin_prov3').is(':checked')){
         			alert("위치정보 이용약관에 동의해주시기 바랍니다.");
-        			$("#cin_prov3").focus();
+        			$("#sin_prov3").focus();
         			return false;
-        		} else if(!$('#cin_prov4').is(':checked')){
+        		} else if(!$('#sin_prov4').is(':checked')){
         			alert("SMS 수신에 동의해주시기 바랍니다.");
-        			$("#cin_prov4").focus();
+        			$("#sin_prov4").focus();
         			return false;
-        		} else if(!$('#cin_prov5').is(':checked')){
+        		} else if(!$('#sin_prov5').is(':checked')){
         			alert("email 수신에 동의해주시기 바랍니다.");
-        			$("#cin_prov5").focus();
+        			$("#sin_prov5").focus();
         			return false;
         		} else{
-        			location.href="/member/join_customer.do"
+        			location.href="/member/join_seller.do"
         		}
         	});
         });
@@ -68,8 +68,8 @@
 		<label for="allCheck"><span>이용약관, 개인정보 수집 및 이용, 위치정보 이용약관(선택),프로모션 안내 메일 수신(선택)에 모두 동의합니다.</span></label>
 		<br /><br />
 		
-		<input type="checkbox" id="cin_prov1" name="cin_prov1">
-		<label for="cin_prov1"><span>NeedMall 이용약관 동의(필수)</span></label><br />
+		<input type="checkbox" id="sin_prov1" name="sin_prov1">
+		<label for="sin_prov1"><span>NeedMall 이용약관 동의(필수)</span></label><br />
 		<textarea rows="20" cols="150">여러분을 환영합니다.
 			NeedMall 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 NeedMall 서비스의 이용과 관련하여 NeedMall 서비스를 제공하는 NeedMall 주식회사(이하 ‘NeedMall’)와 이를 이용하는 NeedMall 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 NeedMall 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
 			
@@ -190,8 +190,8 @@
 			NeedMall 서비스와 관련하여 궁금하신 사항이 있으시면 고객센터(대표메일: NZS@gmail.com/ 평일 09:00~18:00)로 문의 주시기 바랍니다.
 		</textarea><br /><br />
 		
-		<input type="checkbox" id="cin_prov2" name="cin_prov2">
-		<label for="cin_prov2"><span>개인정보 수집 및 이용에 대한 안내(필수)</span></label>
+		<input type="checkbox" id="sin_prov2" name="sin_prov2">
+		<label for="sin_prov2"><span>개인정보 수집 및 이용에 대한 안내(필수)</span></label>
 		<br />
 		<textarea rows="20" cols="150">
 			정보통신망법 규정에 따라 NeedMall에 회원가입 신청하시는 분께 수집하는 개인정보의 항목, 개인정보의 수집 및 이용목적, 개인정보의 보유 및 이용기간을 안내 드리오니 자세히 읽은 후 동의하여 주시기 바랍니다.
@@ -240,8 +240,8 @@
 			로그인 기록: 3개월
 		</textarea><br /><br />
 		
-		<input type="checkbox" id="cin_prov3" name="cin_prov3">
-		<label for="cin_prov3"><span>위치정보 이용약관 동의</span></label><br />
+		<input type="checkbox" id="sin_prov3" name="sin_prov3">
+		<label for="sin_prov3"><span>위치정보 이용약관 동의</span></label><br />
 		<textarea rows="20" cols="150">
 			위치정보 이용약관에 동의하시면, 위치를 활용한 광고 정보 수신 등을 포함하는 NeedMall 위치기반 서비스를 이용할 수 있습니다.
 
@@ -320,11 +320,11 @@
 		</textarea><br /><br />
 		
 		
-		<input type="checkbox" id="cin_prov4" name="cin_prov4">
+		<input type="checkbox" id="sin_prov4" name="sin_prov4">
 		<label for="agree4"><span>SMS 수신 동의 (필수)</span></label><br /><br />
 		
 		
-		<input type="checkbox" id="cin_prov5" name="cin_prov5">
+		<input type="checkbox" id="sin_prov5" name="sin_prov5">
 		<label for="agree5"><span>email 수신 동의 (필수)</span></label><br />
 		
 		<br />

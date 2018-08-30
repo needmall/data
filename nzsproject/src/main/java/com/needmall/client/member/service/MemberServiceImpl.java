@@ -7,9 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.needmall.client.login.vo.LoginVO;
 import com.needmall.client.member.dao.MemberDao;
+import com.needmall.client.member.vo.CinfoVO;
 import com.needmall.client.member.vo.JoinVO;
 import com.needmall.client.member.vo.MemberSecurity;
 import com.needmall.client.member.vo.MemberVO;
+import com.needmall.client.member.vo.SinfoVO;
 import com.needmall.common.util.OpenCrypt;
 import com.needmall.common.util.Util;
 
@@ -118,6 +120,10 @@ public class MemberServiceImpl implements MemberService {
 			sec.setSalt(Util.getRandomString());
 			memberDao.customerSecurityInsert(sec);
 			
+			CinfoVO civo = new CinfoVO();	// 될가 안되네
+			civo.setC_id(mvo.getC_id());	// sec.으로 했더니 security에 id 여러개 들어가서 로그인이 안됨
+			
+			
 			if(mvo.getC_genderNum()==1 || mvo.getC_genderNum()==3) {
 				mvo.setC_gender("남자");
 			}else{
@@ -127,10 +133,15 @@ public class MemberServiceImpl implements MemberService {
 			mvo.setC_pwd(new String(OpenCrypt.getSHA256(mvo.getC_pwd(), sec.getSalt())));
 			
 			int result = memberDao.customerInsert(mvo);
+			memberDao.customerAgreeInsert(mvo);	//?????? ORA-02291: 무결성 제약조건(NZS.R_34)이 위배되었습니다- 부모 키가 없습니다
+			// agree 부모가 customer 니까 customer insert 된 후에 agreeInsert
+			
 			return result;
 				
 		}
 	}
+	
+	
 
 	@Override
 	public int sellerInsert(JoinVO jvo) {
@@ -171,6 +182,9 @@ public class MemberServiceImpl implements MemberService {
 			sec.setSalt(Util.getRandomString());
 			memberDao.sellerSecurityInsert(sec);
 			
+			SinfoVO sivo = new SinfoVO();
+			sivo.setS_id(jvo.getS_id());
+			
 			if(jvo.getS_genderNum()==1 || jvo.getS_genderNum()==3) {
 				jvo.setS_gender("남자");
 			}else{
@@ -183,12 +197,20 @@ public class MemberServiceImpl implements MemberService {
 			//jvo.setS_num(jvo.getS_num());
 				
 			int result = memberDao.sellerInsert(jvo);
-			
 			memberDao.reqstoreInsert(jvo);
+			memberDao.sellerAgreeInsert(jvo);
+			
 			return result;
 				
 		}
 	}
 
-	
+	@Transactional
+	@Override
+	public int customerDelete(String c_id) {
+		int result = memberDao.customerDelete(c_id);
+		//result = memberDao.customerSecurityDelete(c_id);
+		return result;
+	}
+
 }

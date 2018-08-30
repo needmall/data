@@ -39,6 +39,17 @@
 			}
 		}
 	}
+	
+	$(function(){
+		$("#logout").click(function(){
+			var message = confirm("로그아웃 하시겠습니까?");
+			if(message==true){
+				location.href="/member/logout.do"
+			} else{
+				return false;
+			}
+		});
+	})
 </script>
 </head>
 <body>
@@ -52,9 +63,9 @@
 						<strong>[ ${login.c_name} ]님 반갑습니다</strong>
 					</legend>
 					<span id="memberMenu" class="tac"> 
-						<a href="/member/logout.do">로그아웃</a>&nbsp;&nbsp;&nbsp; 
+						<a href="#" id="logout" name="logout">로그아웃</a>&nbsp;&nbsp;&nbsp; 
 						<a href="/member/modify.do">정보수정(비밀번호변경)</a>&nbsp;&nbsp;&nbsp; 
-						<a href="/member/delete.do">회원탈퇴</a>
+						<a href="/member/customerDelete.do">회원탈퇴</a>
 					</span>
 				</fieldset>
 			</c:when>
@@ -67,7 +78,7 @@
 					<span id="memberMenu" class="tac"> 
 						<a href="/member/logout.do">로그아웃</a>&nbsp;&nbsp;&nbsp; 
 						<a href="/member/modify.do">정보수정(비밀번호변경)</a>&nbsp;&nbsp;&nbsp; 
-						<a href="/member/delete.do">회원탈퇴</a>
+						<a href="/member/sellerDelete.do">회원탈퇴</a>
 					</span>
 				</fieldset>		
 			</c:when>

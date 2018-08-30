@@ -21,5 +21,10 @@ public interface MemberDao {
 	public int sellerInsert(JoinVO jvo);
 	public int reqstoreInsert(JoinVO jvo);
 	
+	public int customerAgreeInsert(MemberVO mvo);
+	public int sellerAgreeInsert(JoinVO jvo);
+	
+	public int customerDelete(String c_id);
+	//public int customerSecurityDelete(String c_id) ;
 	
 }

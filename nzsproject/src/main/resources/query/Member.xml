@@ -76,4 +76,21 @@
 		values(reqstore_seq.nextval, #{s_num}, #{st_bnum}, #{st_name}, #{st_address}, #{st_email}, #{st_hours}, #{st_cell}, #{st_ceo}, sysdate)
 	</insert>
 	
+	<insert id="customerAgreeInsert" parameterType="member">
+		/* customer - "customerAgreeInsert" */
+		insert into cinfo(cin_num, c_num, cin_sms, cin_email, cin_prov1, cin_prov2, cin_prov3, cin_prov4, cin_prov5, procin_num)
+		values(cinfo_seq.nextval, #{c_num}, 1, 1, 1, 1, 1, 1, 1, 1)
+	</insert>
+	
+	<insert id="sellerAgreeInsert" parameterType="join">
+		/* seller - "sellerAgreeInsert" */
+		insert into sinfo(sin_num, s_num, sin_sms, sin_email, sin_prov1, sin_prov2, sin_prov3, sin_prov4, sin_prov5, prosin_num)
+		values(sinfo_seq.nextval, #{s_num}, 1, 1, 1, 1, 1, 1, 1, 1)
+	</insert>
+	
+	<update id="customerDelete" parameterType="member">
+		update customer set cs_division = 2, c_pwd=0, c_name=0, c_gender=0, c_address=0, c_cell=0, c_lat=0, c_lon=0
+        where c_id=#{c_id}
+	</update> 
+	
 </mapper>

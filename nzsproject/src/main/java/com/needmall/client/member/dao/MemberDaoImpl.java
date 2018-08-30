@@ -64,4 +64,25 @@ public class MemberDaoImpl implements MemberDao {
 		return session.insert("reqstoreInsert", jvo);
 	}
 
+	@Override
+	public int customerAgreeInsert(MemberVO mvo) {
+		return session.insert("customerAgreeInsert", mvo);
+	}
+
+	@Override
+	public int sellerAgreeInsert(JoinVO jvo) {
+		return session.insert("sellerAgreeInsert", jvo);
+	}
+
+	@Override
+	public int customerDelete(String c_id) {
+		return session.delete("customerDelete", c_id);
+	}
+
+	/*
+	@Override
+	public int customerSecurityDelete(String c_id) {
+		return session.delete("customerSecurityDelete", c_id);
+	}//security 굳이 지워야하나
+	*/
 }

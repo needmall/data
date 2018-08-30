@@ -1,5 +1,7 @@
 package com.needmall.client.member.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.needmall.client.login.vo.LoginVO;
 import com.needmall.client.member.service.MemberService;
 import com.needmall.client.member.vo.JoinVO;
 import com.needmall.client.member.vo.MemberVO;
@@ -52,10 +55,19 @@ public class MemberController {
 	/********************************************************************
 	 * customer 약관 동의 폼(join_customer_agreement)
 	 ********************************************************************/
-	@RequestMapping(value="/join_customer_agreement.do", method = RequestMethod.GET)	// console창에 sever 구동할때 "{[/member/join.do],methods=[GET]}"
+	@RequestMapping(value="/join_customer_agreement.do", method = RequestMethod.GET)	// console창에 sever 구동할때 "{[/member/join_customer_agreement.do],methods=[GET]}"
 	public String joinCustomerAgreement(Model model) {
 		logger.info("join_customer_agreement.do get 방식에 의한 메서드 호출 성공");
 		return "member/join_customer_agreement";
+	}
+	
+	/********************************************************************
+	 * seller 약관 동의 폼(join_seller_agreement)
+	 ********************************************************************/
+	@RequestMapping(value="/join_seller_agreement.do", method = RequestMethod.GET)	// console창에 sever 구동할때 "{[/member/join_customer_agreement.do],methods=[GET]}"
+	public String joinSellerAgreement(Model model) {
+		logger.info("join_seller_agreement.do get 방식에 의한 메서드 호출 성공");
+		return "member/join_seller_agreement";
 	}
 	
 	/********************************************************************
@@ -146,6 +158,27 @@ public class MemberController {
 		memberService.sellerInsert(jvo);
 		mav.setViewName("client/member/join_success");
 		return mav;
+	}
+	
+
+	 /**************************************************************
+	  * customer 회원 탈퇴 처리
+	  **************************************************************/
+	 @RequestMapping("/customerDelete.do") 
+	 public ModelAndView memberDelete(HttpSession session){
+	 logger.info("customerDelete.do get방식에 의한 메서드 호출 성공");
+	  
+	 ModelAndView mav=new ModelAndView();
+	 LoginVO login =(LoginVO)session.getAttribute("login");
+	  
+	 if(login==null){
+	 mav.setViewName("member/login"); 
+	 return mav;
+	 }
+	  
+	 memberService.customerDelete(login.getC_id());
+	 mav.setViewName("redirect:/member/logout.do");	//logout 으로 굳이 넘길 필요가 있나..?
+	 return mav; 									//넘겨야지..탈퇴하면 로그아웃 돼야지
 	}
 	
 }

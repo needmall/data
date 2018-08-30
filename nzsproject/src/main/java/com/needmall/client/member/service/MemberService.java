@@ -14,4 +14,5 @@ public interface MemberService {
 	
 	public int csCount(LoginVO lvo);
 	
+	public int customerDelete(String c_id);
 }
