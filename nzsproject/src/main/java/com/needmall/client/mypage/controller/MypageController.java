@@ -84,9 +84,11 @@ public class MypageController {
 	/////////////////////////////////////////////////////////////장바구니 로직끝
 	
 	@RequestMapping(value="/mybuy.do")
-	public String mybuy(MycartVO mbvo, Model model ) {
+	public String mybuy(MycartVO mvo, Model model ) {
 		logger.info("mybuy 호 출");
-		List<MycartVO> buylist = mypageService.buyList(mbvo);
+		
+		model.addAttribute("form",mvo);
+		List<MycartVO> buylist = mypageService.buyList(mvo);
 		model.addAttribute("buylist",buylist);
 		return "mypage/mybuy";
 		

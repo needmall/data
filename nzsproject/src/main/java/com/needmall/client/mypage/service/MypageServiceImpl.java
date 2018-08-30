@@ -70,7 +70,6 @@ public class MypageServiceImpl implements MypageService {
 		
 		return list;
 	}
-
 	@Override
 	public String mycartBuy(MycartVO mvo) {
 		// TODO Auto-generated method stub
@@ -79,6 +78,7 @@ public class MypageServiceImpl implements MypageService {
 		int last_confirm=0;
 		int delete_confirm =0;
 		int update_count = 0; 
+		int update_ps_count=0;
 		String value = "";
 		if(key==0) {
 			confirm = mypageDao.mycartBuy1deptInsert(mvo);
@@ -91,10 +91,10 @@ public class MypageServiceImpl implements MypageService {
 			System.out.println("delete_confirm = " +delete_confirm);
 		}
 		if(delete_confirm !=0) {
-			
 			value = "성공";
+//			update_count =  mypageDao.pscountUpdate(mvo);
+//			update_ps_count = mypageDao.countUpdate(mvo)
 		}
-		
 		
 		return value;
 	}

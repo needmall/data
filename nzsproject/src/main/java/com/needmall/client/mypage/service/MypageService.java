@@ -12,7 +12,7 @@ public interface MypageService {
 
 	String itemDelete(MycartVO mvo);
 
-	List<MycartVO> buyList(MycartVO mbvo);
+	List<MycartVO> buyList(MycartVO mvo);
 
 	String mycartBuy(MycartVO mvo);
 	

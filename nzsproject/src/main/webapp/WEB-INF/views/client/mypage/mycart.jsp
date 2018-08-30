@@ -139,7 +139,7 @@ var hidden;
 			var p_name = $(this).parents("tr").find(".p_name").val();
 			var pi_image =$(this).parents("tr").find(".pi_image").val();
 			var p_content =$(this).parents("tr").find(".p_content").val();
-			var ps_count =$(this).parents("tr").find(".ps_count").val();
+			var ps_count =$(this).parents("tr").find(".ps_count").attr("max");
 			var expirationChange =$(this).parents("tr").find(".expirationChange").val();
 			var ps_price =$(this).parents("tr").find(".ps_price").val();
 			var ps_num =$(this).parents("tr").find(".ps_num").val();
@@ -156,6 +156,8 @@ var hidden;
 // 				console.log("ps_num = " +ps_num)
 // 				console.log("cart2_count = " +cart2_count)
 // 				console.log("cart2_num = "+ cart2_num);
+				console.log("ps_count = "+ ps_count);
+
 				$.ajax({
 					url :"/mypage/mycartBuy.do",
 					type:"post",
