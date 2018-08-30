@@ -12,6 +12,6 @@
 	<select id="searchList" parameterType="usercommon" resultType="productinfo">
 		SELECT p_num, pi_image, p_name, p_price, p_content
 		FROM product p INNER JOIN proimage pi ON pi.pi_num = p.pi_num
-		WHERE p_state = 0 AND p_name LIKE '%' || #{keyword} || '%' AND (p_division = (SELECT si_division FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id}) OR p_division = '공통') ;
+		WHERE p_state = 0 AND p_name LIKE '%' || #{keyword} || '%' AND (p_division = (SELECT si_division FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id}) OR p_division = '공통')
 	</select>
 </mapper>

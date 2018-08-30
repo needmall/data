@@ -77,6 +77,14 @@ $(function() {
 		});
 			$("#detailForm").submit();
 	});
+	
+	/* 가격 (,) 생성 */
+	jQuery('.format-money').text(function() {
+	    jQuery(this).text(
+	        jQuery(this).text().format()
+	    );
+	});
+	
 }); // End Jquery
 
 	/* 할인율 계산 */
@@ -219,12 +227,12 @@ $(function() {
 		var new_li_price = $("<li>");
 		new_li_price.addClass("payment-methods ng-binding yogiseo-payment");
 		var new_span_price = $("<span>");
-		new_span_price.addClass("p_price");
+		new_span_price.addClass("p_price format-money");
 		new_span_price.html(p_price);
 		var new_li_ps_price = $("<li>");
 		new_li_ps_price.addClass("payment-methods ng-binding yogiseo-payment");
 		var new_span_price_ps = $("<span>");
-		new_span_price_ps.addClass("ps_price");
+		new_span_price_ps.addClass("ps_price format-money");
 		new_span_price_ps.html(ps_price);
 		var new_li_m = $("<li>");
 		new_li_m.addClass("payment-methods ng-binding yogiseo-payment");
@@ -345,10 +353,10 @@ $(function() {
 										<td>
 											<div class="align-center">
 												<ul>
-													<li class="payment-methods ng-binding yogiseo-payment"><span class="p_price">${FavList.p_price}</span>
+													<li class="payment-methods ng-binding yogiseo-payment"><span class="p_price format-money">${FavList.p_price}</span>
 													</li>
 													<li class="payment-methods ng-binding yogiseo-payment">
-														<span class="ps_price">${FavList.ps_price}</span>
+														<span class="ps_price format-money">${FavList.ps_price}</span>
 													</li>
 												</ul>
 											</div>
@@ -422,10 +430,10 @@ $(function() {
 										<td>
 											<div class="align-center">
 												<ul >
-													<li class="payment-methods ng-binding yogiseo-payment"><span class="p_price">${AllList.p_price}</span>
+													<li class="payment-methods ng-binding yogiseo-payment"><span class="p_price format-money">${AllList.p_price}</span>
 													</li>
 													<li class="payment-methods ng-binding yogiseo-payment">
-														<span class="ps_price">${AllList.ps_price}</span>
+														<span class="ps_price format-money">${AllList.ps_price}</span>
 													</li>
 												</ul>
 											</div>

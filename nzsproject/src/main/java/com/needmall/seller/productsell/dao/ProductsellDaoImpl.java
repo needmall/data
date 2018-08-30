@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.needmall.common.vo.ProductsellVO;
+import com.needmall.common.vo.UserCommonVO;
 import com.needmall.seller.productsell.vo.ProductInfoVO;
 
 @Repository
@@ -29,8 +30,8 @@ public class ProductsellDaoImpl implements ProductsellDao {
 
 
 	@Override
-	public List<ProductInfoVO> searchList(ProductInfoVO ivo) {
-		return session.selectList("searchList", ivo);
+	public List<ProductInfoVO> searchList(UserCommonVO ucvo) {
+		return session.selectList("searchList", ucvo);
 	}
 	
 	

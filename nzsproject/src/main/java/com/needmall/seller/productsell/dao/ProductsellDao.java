@@ -3,6 +3,7 @@ package com.needmall.seller.productsell.dao;
 import java.util.List;
 
 import com.needmall.common.vo.ProductsellVO;
+import com.needmall.common.vo.UserCommonVO;
 import com.needmall.seller.productsell.vo.ProductInfoVO;
 
 public interface ProductsellDao {
@@ -12,7 +13,7 @@ public interface ProductsellDao {
 
 	public int productInsert(ProductInfoVO ivo);
 
-	public List<ProductInfoVO> searchList(ProductInfoVO ivo);
+	public List<ProductInfoVO> searchList(UserCommonVO ucvo);
 
 	
 

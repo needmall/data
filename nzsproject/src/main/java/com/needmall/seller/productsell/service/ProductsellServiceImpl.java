@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.common.vo.ProductsellVO;
+import com.needmall.common.vo.UserCommonVO;
 import com.needmall.seller.productsell.dao.ProductsellDao;
 import com.needmall.seller.productsell.vo.ProductInfoVO;
 
@@ -37,11 +38,11 @@ public class ProductsellServiceImpl implements ProductsellService {
 	}
 
 	@Override
-	public String searchList(ProductInfoVO ivo) {
+	public String searchList(UserCommonVO ucvo) {
 		ObjectMapper mapper = new ObjectMapper();
 		String listData = "";
 		
-		List<ProductInfoVO> searchList = productsellDao.searchList(ivo);
+		List<ProductInfoVO> searchList = productsellDao.searchList(ucvo);
 		
 		try {
 			listData = mapper.writeValueAsString(searchList);

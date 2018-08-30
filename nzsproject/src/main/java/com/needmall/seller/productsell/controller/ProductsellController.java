@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.needmall.common.vo.ProductsellVO;
+import com.needmall.common.vo.UserCommonVO;
 import com.needmall.seller.productsell.service.ProductsellService;
 import com.needmall.seller.productsell.vo.ProductInfoVO;
 
@@ -21,7 +23,7 @@ import com.needmall.seller.productsell.vo.ProductInfoVO;
 @RequestMapping(value="/productsell")
 public class ProductsellController {
 	Logger logger = Logger.getLogger(ProductsellController.class);
-	
+	 
 	@Autowired
 	private ProductsellService productsellService;
 	String s_id = "seller_user1";
@@ -46,17 +48,18 @@ public class ProductsellController {
 	public String writeForm() {
 		logger.info("writeForm 호출 성공");
 				
-		return "seller/productsell/writeForm";
+		return "seller/productsell/productSellInsert";
 	}
 	
 	/* 판매 상품 검색 */
+	@ResponseBody
 	@RequestMapping(value="/search", method = RequestMethod.GET)
-	public String searchList(ProductInfoVO ivo) {
+	public String searchList(UserCommonVO ucvo) {
 		String listData = "";
-		
+		  
 		if(!s_id.isEmpty()) {
-			ivo.setS_id(s_id);
-			listData = productsellService.searchList(ivo);
+			ucvo.setS_id(s_id);
+			listData = productsellService.searchList(ucvo);
 		} else {
 			return "redirect:/";
 		}

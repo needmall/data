@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import com.needmall.common.vo.ProductsellVO;
+import com.needmall.common.vo.UserCommonVO;
 import com.needmall.seller.productsell.vo.ProductInfoVO;
 
 public interface ProductsellService {
@@ -12,7 +13,7 @@ public interface ProductsellService {
 
 	public int productInsert(ProductInfoVO ivo);
 
-	public String searchList(ProductInfoVO ivo);
+	public String searchList(UserCommonVO ivo);
 
 	
 	

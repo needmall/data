@@ -1,39 +1,25 @@
 @charset "UTF-8";
 
-#addMarginCenter {
-	margin: 0 321px;
+td div label {
+	width: 80px;
+	margin: 10px 25px;
+	text-align: center;
 }
 
-#p_name {
-	width: 400px;
-	height: 40px;
-}
-#searchBtn {
-	width: 50px;
-	height: 40px;
-}
-
-.addDisplayInline {
+.addInline-block{
 	display: inline-block;
 }
 
-#addTableSizeA {
-	height: 200px;
-}
-
-#addTableSizeB {
-	width: 513px;
-}
 .addTextRight {
 	text-align: right;
 }
 
-.addTextCenter th, .addTextCenter td{
+.addTextCenter th, .addTextCenter td, #addCenterSubmit{
 	text-align: center;
 }
 
-.addTdCemter {
-	display: inline-block;	
+.addSizeSubmit {
+	width: 100px;
 }
 
 #addTableSizeB tr:first-child {
@@ -42,4 +28,64 @@
 
 #addTableSizeB tr:last-child {
 	height: 150px;
+}
+
+
+#addMarginCenter {
+	margin: 0 405px;
+}
+
+#searchBtn {
+	width: 50px;
+	height: 40px;
+}
+
+#addTableSizeA {
+	height: 200px;
+}
+
+#addTableSizeB {
+	width: 513px;
+	margin: 10px;
+}
+
+#addTableSizeC {
+	width: 400px;
+	height: 565px;
+	margin: 10px;
+}
+
+#searchBtn {
+	width: 76px;
+}
+ 
+#addMarginDiscount {
+	margin: 0 5px;
+}
+
+#addTableSizeC table {
+ border-collapse: separate;
+  border-spacing: 30px 0px;
+}
+
+#keyword {
+	width: 250px;
+	height: 40px;
+}
+
+.test {
+	display: block;
+}
+
+/* important */
+td .form-control {
+	width: 250px !important;
+}
+ 
+#ps_price {
+	width:  100px !important;
+}
+ 
+#discount, #inputDiscount {
+	width: 100px !important;
 }
