@@ -14,7 +14,7 @@ td div label {
 	text-align: right;
 }
 
-.addTextCenter th, .addTextCenter td, #addCenterSubmit{
+table, .addTextCenter th, .addTextCenter td, #addCenterSubmit{
 	text-align: center;
 }
 
@@ -41,7 +41,7 @@ td div label {
 }
 
 #addTableSizeA {
-	height: 200px;
+	
 }
 
 #addTableSizeB {
@@ -73,9 +73,16 @@ td div label {
 	height: 40px;
 }
 
-.test {
-	display: block;
+#addTableSizeB td:first-child {
+	width: 171px;
+	margin: 0px;
+	padding: 7%;
 }
+#addTableSizeB td:last-child {
+	margin: 0px;
+	padding: 7%;	
+}
+
 
 /* important */
 td .form-control {

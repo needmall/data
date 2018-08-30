@@ -55,40 +55,76 @@
 			$("#p_num").val(p_num);
 		});
 		
-		$("#discount").change(function() {
-			
-			if($("#discount").val() == "input") {
+		/* 할인율 선택, 직접입력 토글 */
+		$("#changeBtn").click(function() {
+			if($("#changeBtn").attr("name") == "0") {
+				$("#inputDiscount").val("");
 				$("#inputDiscount").show();
 				$("#discount").hide();
+				
+				$("#changeBtn").attr("name", "1");
+				$("#changeBtn").html("선택");
 			} else {
-				$("#inputDiscount").hide();
+				$("#discount").find("option:first");
 				$("#discount").show();
-			}
-			
+				$("#inputDiscount").hide();
+
+				$("#changeBtn").attr("name", "0");
+				$("#changeBtn").html("직접입력");
+			}	
 		});
 		
+		/* 할인율 선택 판매가격 계산 */
+		$("#discount").change(function() {
+			addDiscountValue($("#discount"));
+		});
+
+		/* 할인율 입력 판매가가격 계산 */
+		$("#inputDiscount").change(function() {
+			addDiscountValue($("#inputDiscount"));
+		});
+		
+		/* 판매가 입력 할인율 계산*/
+		$("#ps_price").change(function() {
+			$("#inputDiscount").val("");
+			$("#inputDiscount").show();
+			$("#discount").hide();
+			
+			$("#changeBtn").attr("name", "1");
+			$("#changeBtn").html("선택");
+			addDiscountValue($("#ps_price"));
+		})
 		
 	}); // End Jquery
 	
+	/* 할인율 option 동적 */
 	function addDiscount() {
 		var discount = 0;
 		var new_default = $("<option>");
-		var new_input = $("<option>");
-		
 		new_default.html("선택");
+		
 		$("#discount").append(new_default);
 		
-		for(var i = 0; i < 8 ; i++) {
+		for(var i = 0; i < 10 ; i++) {
 			discount += 5;
 			var new_option = $("<option>")
 			new_option.attr("value", discount);
 			new_option.html(discount + "%");
 			$("#discount").append(new_option);
+		}	
+	}
+	
+	/* 할인율 판매가격 계산 */
+	function addDiscountValue(discount) {
+		var p_price = $(".selectItemData:eq(1)").html().replace("원", "") * 1;
+		var name = discount.attr("name");
+		if(name == 0) {
+			var ps_price = p_price - (p_price * (discount.val() * 0.01));
+			$("#ps_price").val(ps_price);
+		} else if(name == "ps_price") {
+			var ps_price = 100 - ((discount.val() * 100) / p_price) ;
+			$("#inputDiscount").val(ps_price);
 		}
-		
-		new_input.html("직접 입력");
-		new_input.attr("value", "input");
-		$("#discount").append(new_input);		
 	}
 	
 	
@@ -244,8 +280,9 @@
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<span id="ps_priceStatus" class="sr-only"></span>
 									<label id="addMarginDiscount" class="control-label" for="discount">할인율</label>
-									<select id="discount" class="form-control" aria-describedby="discountStatus"></select>
-									<input type="text" id="inputDiscount" class="form-control"/>
+									<select id="discount" class="form-control" name="0" aria-describedby="discountStatus"></select>
+									<input type="text" id="inputDiscount" name="0" class="form-control"/>
+									<button type="button" id="changeBtn" name=0>직접입력</button>
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<span id="discountStatus" class="sr-only"></span>
 								</div>
