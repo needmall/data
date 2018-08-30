@@ -42,9 +42,9 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public String itemdelete(MycartVO mvo) {
+	public String itemDelete(MycartVO mvo) {
 		// TODO Auto-generated method stub
-		int result =mypageDao.itemdelete(mvo);
+		int result =mypageDao.itemDelete(mvo);
 		String value="";
 		if(result ==0) {
 			value = "false";
@@ -57,8 +57,8 @@ public class MypageServiceImpl implements MypageService {
 
 	//구매페이지 리스
 	@Override
-	public List<MycartVO> mybuy(MycartVO mbvo) {
-		List<MycartVO> list = mypageDao.buylist(mbvo);
+	public List<MycartVO> buyList(MycartVO mbvo) {
+		List<MycartVO> list = mypageDao.buyList(mbvo);
 		
 		for(int i=0; i<list.size(); i++) {
 			int result = list.get(i).getPs_price() * list.get(i).getB_count();
@@ -69,6 +69,34 @@ public class MypageServiceImpl implements MypageService {
 		}
 		
 		return list;
+	}
+
+	@Override
+	public String mycartBuy(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		int key = mypageDao.mycartConfirm(mvo);
+		int confirm = 0 ;
+		int last_confirm=0;
+		int delete_confirm =0;
+		int update_count = 0; 
+		String value = "";
+		if(key==0) {
+			confirm = mypageDao.mycartBuy1deptInsert(mvo);
+			System.out.println("confirm"+confirm);
+		}
+		last_confirm = mypageDao.mycartBuy2deptInsert(mvo);
+		System.out.println("last_confirm = " +last_confirm);
+		if(last_confirm !=0) {
+			delete_confirm = mypageDao.itemDelete(mvo);
+			System.out.println("delete_confirm = " +delete_confirm);
+		}
+		if(delete_confirm !=0) {
+			
+			value = "성공";
+		}
+		
+		
+		return value;
 	}
 	
 		

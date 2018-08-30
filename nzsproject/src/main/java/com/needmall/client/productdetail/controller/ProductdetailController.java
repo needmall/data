@@ -136,6 +136,8 @@ public class ProductdetailController {
 	@RequestMapping(value="/productdetailCartList.do")
 	public int productdetailCartList(ProductdetailVO pvo) {
 		logger.info("productdetailCartList 호출");
+		logger.info("pvo : " +pvo.getCart2_count());
+		
 		int result = productdetailService.productdetailCartList(pvo);
 		return result;
 	}

@@ -12,8 +12,15 @@ public interface MypageDao {
 
 	int countUpdate(MycartVO mvo);
 
-	int itemdelete(MycartVO mvo);
+	int itemDelete(MycartVO mvo);
 
-	List<MycartVO> buylist(MycartVO mbvo);
+	List<MycartVO> buyList(MycartVO mbvo);
+
+	int mycartConfirm(MycartVO mvo);
+
+	int mycartBuy1deptInsert(MycartVO mvo);
+
+	int mycartBuy2deptInsert(MycartVO mvo);
+
 
 }

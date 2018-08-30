@@ -10,8 +10,10 @@ public interface MypageService {
 
 	String countUpdate(MycartVO mvo);
 
-	String itemdelete(MycartVO mvo);
+	String itemDelete(MycartVO mvo);
 
-	List<MycartVO> mybuy(MycartVO mbvo);
+	List<MycartVO> buyList(MycartVO mbvo);
+
+	String mycartBuy(MycartVO mvo);
 	
 }

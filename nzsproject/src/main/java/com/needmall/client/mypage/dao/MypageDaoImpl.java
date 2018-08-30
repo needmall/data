@@ -30,15 +30,33 @@ public class MypageDaoImpl implements MypageDao {
 	}
 
 	@Override
-	public int itemdelete(MycartVO mvo) {
+	public int itemDelete(MycartVO mvo) {
 		// TODO Auto-generated method stub
-		return session.delete("itemdelete",mvo);
+		return session.delete("itemDelete",mvo);
 	}
 
 	@Override
-	public List<MycartVO> buylist(MycartVO mbvo) {
+	public List<MycartVO> buyList(MycartVO mvo) {
 		// TODO Auto-generated method stub
-		return session.selectList("buylist",mbvo);
+		return session.selectList("buyList",mvo);
+	}
+
+	@Override
+	public int mycartConfirm(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("mycartConfirm",mvo);
+	}
+
+	@Override
+	public int mycartBuy1deptInsert(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		return session.insert("mycartBuy1deptInsert",mvo);
+	}
+
+	@Override
+	public int mycartBuy2deptInsert(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		return session.insert("mycartBuy2deptInsert",mvo);
 	}
 
 

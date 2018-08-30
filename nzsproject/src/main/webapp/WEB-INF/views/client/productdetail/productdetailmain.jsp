@@ -211,9 +211,9 @@
 				////////////////////////////////////////////////////////////장바구니 로직
 				$("#cart").click(function(){
 					var c_num = $("#c_num").val();
-					var ps_count = $("#ps_count").val();
+					var cart2_count = $("#count").val();
 					var ps_num =$("#ps_num").val();
-					
+					var status =0;
 					$.ajax({
 						url :"/productdetail/productdetailCartList.do",
 						type:"post",
@@ -224,11 +224,11 @@
 								$.ajax({
 									url :"/productdetail/productdetailCartInsert.do",
 									type:"post",
-									data:"ps_num="+ps_num+"&cart2_count="+ps_count+"&c_num="+c_num,
+									data:"ps_num="+ps_num+"&cart2_count="+cart2_count+"&c_num="+c_num,
 									dataType: "text",
 									success: function(data) {
-										console.log(data);
 										alert("추가 되었습니다.");
+										status =1;
 									},
 									error: function() {
 										alert("시스템 오류입니다. 관리자한테 문의하세요.");
@@ -236,10 +236,23 @@
 								})
 							}else if(data ==1){
 								alert("이미 등록되어있습니다.");
+								status=1;
+							}
+							if(status==1){
+								if(confirm("장바구니로 이동하시겠습니까?")){
+									$("#hidden").attr({
+										"method":"post",
+										"action":"/mypage/mycartList.do"
+									});
+									$("#hidden").submit();
+								}
 							}
 						}
 					})
+
 				})
+
+				
 				$("#btn_buy").click(function(){
 					var c_num = $("#c_num").val();
 					var count = $(".span_count").html();
@@ -446,12 +459,13 @@
 	.div_buttun{text-align: left; margin: 15px 5px 0px 450px ;}
 	.cart{margin-right: 100px !important;}
 	.div_table{height: 380px; width: 100%}
+	.div_last{height: 100px;}
 </style>
 
 </head>
 <body>
 <div class="all">
-	<form>
+	<form id="hidden">
 		<input type="hidden" id="datasize" name="datasize" value="">
 		<input type="hidden" id="p_num" name="p_num" value="${detail.p_num }">
 		<input type="hidden" id="ps_num" name="ps_num" value="${detail.ps_num }">
@@ -587,5 +601,6 @@
 		</div>
 <!-- 		모달 부분 -->
 </div>
+<div class="div_last"></div>
 </body>
 </html>
