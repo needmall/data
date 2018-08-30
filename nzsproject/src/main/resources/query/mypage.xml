@@ -36,14 +36,14 @@
 		UPDATE cart2dep SET cart2_count = #{cart2_count}
 		WHERE cart2_num =#{cart2_num}
 	</update>
-	<delete id="itemdelete" parameterType="mypage">
+	<delete id="itemDelete" parameterType="mypage">
 		DELETE FROM cart2dep
 		WHERE cart2_num=#{cart2_num}
 	</delete>
 	
-	<select id="buylist" parameterType="mypage" resultType="mypage">
-
-		SELECT
+	<select id="buyList" parameterType="mypage" resultType="mypage">
+		
+        SELECT
 		    buy1dep.b1_num,
 		    b1_date,
 		    c_num,
@@ -76,7 +76,27 @@
 		    inner join product on product.p_num = productsell.p_num
 		    inner join proimage on proimage.pi_num =product.pi_num
 		WHERE
-		     buy1dep.b1_num=1 and buy1dep.c_num = 1
+		     buy1dep.b1_num=1 and buy1dep.c_num = #{c_num}
+		     
     
 	</select>
+	<select id="mycartConfirm" parameterType="mypage" resultType="int">
+		select count(*) from BUY1DEP where c_num = #{c_num} and to_char(b1_date,'yyyy-mm') = to_char(sysdate,'yyyy-mm')
+	</select>
+		
+	<insert id="mycartBuy1deptInsert" parameterType="mypage">
+		INSERT INTO buy1dep (b1_num,c_num) VALUES (buy1dep_seq.nextval,#{c_num})
+	</insert>
+	      
+	<insert id="mycartBuy2deptInsert" parameterType="mypage">
+		  <selectKey keyProperty="b1_num" resultType ="int" order="BEFORE">
+			SELECT distinct buy1dep.b1_num
+			FROM buy2dep inner join buy1dep on buy2dep.b1_num = buy1dep.b1_num 
+			WHERE c_num = 1 and to_char(b1_date,'yyyy-mm') = to_char(sysdate,'yyyy-mm')
+		  </selectKey>
+		  
+		  INSERT INTO buy2dep (b2_num,b1_num,ps_num,b_count,b_confirm)
+	      VALUES (BUY2DEP_SEQ.NEXTVAL,#{b1_num},#{ps_num},#{ps_num},0)
+	</insert>
+	
 </mapper>

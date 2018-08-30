@@ -33,6 +33,10 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+var start =0;
+var all_count=0;
+var all_price=0;
+var hidden;
 	$(function(){
 		
 		//숫자 3자리 앞에 , 붙이기
@@ -41,6 +45,14 @@
 		        jQuery(this).text().format()
 		    );
 		});
+
+		$('#myModal').on('shown.bs.modal', function () {
+		  	$('#myInput').focus();
+			$('#myModal').modal({
+			  backdrop: 'static',
+			  keyboard: false
+			})
+		})
 		
 		$(".update_btn").click(function() {
 			var ps_count = $(this).parents("tr").find(".ps_count").attr("data-num");   //db에 저장된 장바구니 개수
@@ -120,6 +132,49 @@
 			var ps_num = $(this).parents("tr").attr("data-num");				
 			location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
 		});
+	
+		$(".btn_cart").click(function() {
+			
+// 			p_name,pi_image,p_content,ps_count,expirationChange,ps_price
+			var p_name = $(this).parents("tr").find(".p_name").val();
+			var pi_image =$(this).parents("tr").find(".pi_image").val();
+			var p_content =$(this).parents("tr").find(".p_content").val();
+			var ps_count =$(this).parents("tr").find(".ps_count").val();
+			var expirationChange =$(this).parents("tr").find(".expirationChange").val();
+			var ps_price =$(this).parents("tr").find(".ps_price").val();
+			var ps_num =$(this).parents("tr").find(".ps_num").val();
+			var c_num =$(this).parents("tr").find(".c_num").val();
+			var cart2_count =$(this).parents("tr").find(".cart2_count").val();
+			var cart2_num =$(this).parents("tr").find(".cart2_num").val();
+			
+			all_price= ps_price * ps_count;
+			buy(p_name,pi_image,p_content,ps_count,expirationChange,ps_price);
+
+			
+			$("#btn_buy").click(function() {
+// 				console.log("c_num = "+c_num)
+// 				console.log("ps_num = " +ps_num)
+// 				console.log("cart2_count = " +cart2_count)
+// 				console.log("cart2_num = "+ cart2_num);
+				$.ajax({
+					url :"/mypage/mycartBuy.do",
+					type:"post",
+					data: "c_num="+c_num+"&ps_num="+ps_num+"&cart2_count="+cart2_count+"&cart2_num="+cart2_num,
+					dataType: "text",
+					success: function() {
+						console.log("성공");
+						$(".hidden").attr({
+							"method":"post",
+							"action":"/mypage/mybuy.do"
+						});
+						$(".hidden").submit();
+					},
+					error: function() {
+						alert("시스템 오류입니다. 관리자한테 문의하세요.");
+					}
+				})
+	  		});
+		})
 // 		console.log(${fn:length(cartList)} );
 //		페이징
 // 		for(int i =0; i< ${fn:length(cartList)} i++)
@@ -127,7 +182,61 @@
 // 			li_add = $("<li><a href='#'>1</a></li>")
 // 			li_add.appendTo.$(".pre_li")
 // 		}
-	})
+
+				
+// 			$("#btn_cart").click(function() {
+// 				$("#hidden").attr({
+// 					"method":"post",
+// 					"action":"/mypage/mycartBuy.do"
+// 				});
+// 			$("#hidden").submit();
+		
+	})//풩션 끝--------------------------------------------------------------------------------
+	function buy(p_name,pi_image,p_content,ps_count,expirationChange,ps_price){
+				$(".container-fluid").html("");
+				var div_row = $("<div class='row'>");
+				var div_head=$("<div class='col-md-4' style='width: 25%'>");
+				var label_tilte=$("<label>"+p_name+"</label>");
+				var img =$("<img src='/uploadStorage/product/"+pi_image+"' width='150px' height='150px;'>");
+				
+				div_head.append(label_tilte);
+				div_head.append(img);
+				div_row.append(div_head);
+				
+				var div_content =$("<div class='col-xs-4 col-sm-6' style='padding-top: 50px; width: 55%'>");
+				var label_content =$("<label style='width: 85%'>"+p_content+"</label>")
+				div_content.append(label_content);
+				div_row.append(div_content);
+				
+				var div_right =$("<div class='col-md-4 .col-md-offset-4' style='padding-top: 50px; width: 20%'>");
+				var label_right =$("<label>단가 가격 : <spna class='format-money'>"+ps_price+"</span>원 // 개수: <spna class='format-money span_count'>"+ps_count+"</span>개</label>");
+				var p_right =$("<p>유통기한 2018-08-24:00:00:00 </p>");
+				div_right.append(label_right);
+				div_right.append(p_right);
+				div_row.append(div_right);
+				
+				
+				var label_all;
+				
+				if(start == 0){
+// 					var div_buttun =$("<div class='col-xs-4 col-sm-6' style='text-align: center; width: 100%; padding-bottom: -150px; padding-top: -150px'>")
+// 					div_buttun.html("<button>2</button>")
+					var br = $("<br/><hr/>");
+					var div_all =$("<div class='row'>");
+					var div_price = $("<div class='.col-xs-8 .col-sm-6 .col-md-offset-4' style='width: 100%; text-align: right;'>");
+					
+					var div_label=$("<div style='text-align: right; padding-right: 30px;'></div>");
+					var label_all =$("<label class='bg-info'>총 가격 : <span class='format-money'>"+all_price+"<span>원 </label>");
+					div_label.append(label_all);
+					
+					div_all.append(div_price);
+					div_all.append(div_label);
+					
+					$(".container-fluid").append(div_row).append(br).append(div_all);
+				}else{
+					label_all.html("총 가격 : <span class='format-money'>"+all_price +"<span>원")
+				}
+			}
 	
 </script>
 <style type="text/css">
@@ -136,85 +245,128 @@
 	.td_list2{padding-top:20px; }
 	.td_list3{padding-top:25px; }
 	.close{margin-right: 15px;}
+	.div_date{text-align: right;}
 </style>
 </head>
 <body>
-	<table class="table table-striped table-hover">
-		<colgroup>
-			<col width="2%">
-			<col width="10%">
-			<col width="50%">
-			<col width="13%">
-			<col width="6%">
-			<col width="8%">
-			<col width="2%">
-			<col width="4%">
-		</colgroup>
-		<tbody>
-		
-			<tr>
-				<td><input type="checkbox" id="checkall" /></td>
-				<th><div><input type="button" id="empty" name="empty" value="선택 삭제"></div></th>
-				<th>제품명</th>
-				<th>수량</th>
-				<th>가격</th>
-				<th>유통기한</th>
-				<th>구매</th>
-				<th>취소</th>
-			</tr>
-			<c:choose>
-				<c:when test="${not empty cartList}">
-					<c:forEach var="cart" items="${cartList }" varStatus="status">
-						<tr class="goDetail" data-num="${cart.ps_num}" data-cart="${cart.cart2_num}" data-price ="${cart.ps_price}">
-							<td class="align-middle"><div class="td_list"><input type="checkbox" name="chk" data-num="${cart.cart2_num }"/></div></td>
-							<td><img class="img-thumbnail" src="/uploadStorage/product/${cart.pi_image }" width="150px" height="50px;"/></td>
-							<td><div class="td_list2">${cart.p_name}) <p>${cart.p_content }</p></div></td>
-							<td>
-								<div class="td_list3">
-									<input type="number" value="${cart.cart2_count }" class="ps_count" style="width: 35px" max="${cart.ps_count }" min="1" data-num="${cart.cart2_count }"> 개 
-									<button type="button" name="update_btn" class="btn btn-default update_btn" style="width: 50px; font-size: 10px;">수정</button>
-								</div>
-							</td>
-							<td>
-								<div class="td_list2">
-									<span class="p_price2 format-money" style="text-decoration: line-through;">${cart.original_multiply_count }</span>원 
-									<span class="p_price format-money">${cart.multiply_count }</span>원 
-								</div>
-							</td>
-							<td><div class="td_list2">${cart.ps_expiration }</div></td>
-							<td><div class="td_list3"><button name="buy_btn" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" style="font-size: 10px;">클릭</button></div></td>
-							<td><div class="td_list2"><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></td>
+
+	<div>
+		<div class="div_date">
+			<label>수정일 : <span>${date}</span></label>
+		</div>
+		<table class="table table-striped table-hover">
+			<colgroup>
+				<col width="2%">
+				<col width="10%">
+				<col width="50%">
+				<col width="13%">
+				<col width="6%">
+				<col width="8%">
+				<col width="2%">
+				<col width="4%">
+			</colgroup>
+			<tbody>
+			
+				<tr>
+					<td><input type="checkbox" id="checkall" /></td>
+					<td><div><input type="button" id="empty" name="empty" value="선택 삭제"></div></td>
+					<td>제품명</td>
+					<td>수량</td>
+					<td>가격</td>
+					<td>유통기한</td>
+					<td>구매</td>
+					<td>취소</td>
+				</tr>
+				<c:choose>
+					<c:when test="${not empty cartList}">
+						<c:forEach var="cart" items="${cartList }" varStatus="status">
+							<tr class="goDetail" data-num="${cart.ps_num}" data-cart="${cart.cart2_num}" data-price ="${cart.ps_price}">
+								<td class="align-middle"><div class="td_list"><input type="checkbox" name="chk" data-num="${cart.cart2_num }"/></div></td>
+								<td><img class="img-thumbnail" src="/uploadStorage/product/${cart.pi_image }" width="150px" height="50px;"/></td>
+								<td><div class="td_list2"><label>${cart.p_name}</label><p>${cart.p_content }</p></div></td>
+								<td>
+									<div class="td_list3">
+										<input type="number" value="${cart.cart2_count }" class="ps_count" style="width: 35px;" height="15px;" max="${cart.ps_count }" min="1" data-num="${cart.cart2_count }"> 개 
+										<button type="button" name="update_btn" class="btn btn-default update_btn" style="width: 50px; font-size: 10px;">수정</button>
+									</div>
+								</td>
+								<td>
+									<div class="td_list2">
+										<span class="p_price2 format-money" style="text-decoration: line-through;">${cart.multiply_count }</span>원 
+										<span class="p_price format-money">${cart.original_multiply_count }</span>원 
+									</div>
+								</td>
+								<td><div class="td_list2">${cart.ps_expiration }</div></td>
+								<td><div class="td_list3"><button name="buy_btn" type="button" class="btn btn-default btn_cart" data-toggle="modal" data-target="#myModal" style='font-size:10px;'>클릭</button></div></td>
+								<td><div class="td_list2"><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></td>
+								<td>
+<!-- 									p_name,pi_image,p_content,ps_count,expirationChange,ps_price -->
+									<form class="hidden">
+										<input type="hidden" class="p_name" name="p_name" value="${cart.p_name}">
+										<input type="hidden" class="pi_image" name="pi_image" value="${cart.pi_image}">
+										<input type="hidden" class="p_content" name="p_content" value="${cart.p_content}">
+										<input type="hidden" class="ps_count" name="ps_count" value="${cart.ps_count}">
+										<input type="hidden" class="expirationChange" name="ps_expiration" value="${cart.ps_expiration}">
+										<input type="hidden" class="ps_price" name="ps_price" value="${cart.ps_price}">
+										<input type="hidden" class="c_num" name="c_num" value="${cart.c_num}">
+										<input type="hidden" class="ps_num" name="ps_num" value="${cart.ps_num}">
+										<input type="hidden" class="cart2_count" name="cart2_count" value="${cart.cart2_count}">
+										<input type="hidden" class="cart2_num" name="cart2_num" value="${cart.cart2_num}">
+										
+									</form>
+								</td>
+							</tr>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<tr>
+							<td colspan="8" class="tac">등록된 게시물이 존재하지않습니다.
 						</tr>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<tr>
-						<td colspan="8" class="tac">등록된 게시물이 존재하지않습니다.
-					</tr>
-				</c:otherwise>
-			</c:choose>
-		</tbody>
-	</table>
+					</c:otherwise>
+				</c:choose>
+			</tbody>
+		</table>
+		
+		<div class="nav_div">
+			<nav>
+			  <ul class="pagination">
+			    <li class="pre_li">
+			      <a href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
 	
-	<div class="nav_div">
-		<nav>
-		  <ul class="pagination">
-		    <li class="pre_li">
-		      <a href="#" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
+	<!-- 		    <li><a href="#">1</a></li> -->
+	
+			    <li>
+			      <a href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+		</div>
+		<!-- 		모달부분 -->
+		<div class="modal fade bs-example-modal-lg"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg" style="width: 1500px;" >
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">상품 구매 페이지</h4>
+		      </div>
+		      <div class="modal-body">
+		       	 <div class="container-fluid">
 
-<!-- 		    <li><a href="#">1</a></li> -->
-
-		    <li>
-		      <a href="#" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
-		  </ul>
-		</nav>
+				</div>
+			</div>
+		    <div class="modal-footer">
+		      	<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+		      	<button type="button" id="btn_buy" class="btn btn-primary">결제</button>
+		    </div>
+		    </div>
+		  </div>
+		</div>
+	<!-- 모달 끝 -->
 	</div>
-<%-- 	<%@include file="productdetallbuy.jsp" %> --%>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.needmall.client.mypage.controller;
 
 
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -38,11 +39,15 @@ public class MypageController {
 		logger.info("mycartList 호 출");
 		//		mvo.setC_num(2); // 나중에 세션 값 받아서 넘겨야함
 		List<MycartVO> list = mypageService.mycartList(mvo);
+		Date date =list.get(1).getCart1_date();
 		model.addAttribute("cartList",list);
+		model.addAttribute("date",date);
 		
 		return "mypage/mycart";
 		
 	}
+	
+
 	
 	@ResponseBody
 	@RequestMapping(value="/countUpdate.do")
@@ -57,11 +62,22 @@ public class MypageController {
 	
 	@ResponseBody
 	@RequestMapping(value="/itemdelete.do")
-	public String itemdelete(MycartVO mvo) {
+	public String itemDelete(MycartVO mvo) {
 		logger.info("itemdelete 호 출");
 		String value="";
-		value = mypageService.itemdelete(mvo);
+		value = mypageService.itemDelete(mvo);
 		
+		return value;
+		
+	}
+	
+	//장바구니에서 구매------------------------------------------>aop 걸어야함
+	@ResponseBody
+	@RequestMapping(value="/mycartBuy.do")
+	public String mycartBuy(MycartVO mvo) {
+		logger.info("mycartBuy 호 출");
+		String value="";
+		value = mypageService.mycartBuy(mvo);
 		return value;
 		
 	}
@@ -70,7 +86,7 @@ public class MypageController {
 	@RequestMapping(value="/mybuy.do")
 	public String mybuy(MycartVO mbvo, Model model ) {
 		logger.info("mybuy 호 출");
-		List<MycartVO> buylist = mypageService.mybuy(mbvo);
+		List<MycartVO> buylist = mypageService.buyList(mbvo);
 		model.addAttribute("buylist",buylist);
 		return "mypage/mybuy";
 		
