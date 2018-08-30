@@ -1,6 +1,8 @@
 package com.needmall.seller.productsell.vo;
 
-public class ProductInfoVO{
+import com.needmall.common.vo.UserCommonVO;
+
+public class ProductInfoVO extends UserCommonVO{
 	
 	private int 	p_num 		= 0;	// 상품 번호
 	private String 	pi_image 	= "";	// 상품 이미지

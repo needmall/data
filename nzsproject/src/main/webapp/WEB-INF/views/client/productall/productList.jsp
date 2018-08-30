@@ -57,7 +57,7 @@ $(function() {
 		var ps_num = $(this).parents("tr").attr("data-num");
 		$("#ps_num").val(ps_num);
 		$("#review").val("0");
-		console.log("1111");
+		
 		$("#detailForm").attr({
 			"method" : "GET",
 			"action" : "/productdetail/productdetailmain.do"
@@ -70,20 +70,13 @@ $(function() {
 		var ps_num = $(this).parents("tr").attr("data-num");
 		$("#ps_num").val(ps_num);
 		$("#review").val("1");
-		console.log("2222");
+	
 		$("#detailForm").attr({
 			"method" : "GET",
 			"action" : "/productdetail/productdetailmain.do"
 		});
 			$("#detailForm").submit();
 	});
-	
-	
-		
-		
-
-	
-		
 }); // End Jquery
 
 	/* 할인율 계산 */
@@ -96,7 +89,6 @@ $(function() {
 		})
 	}
 
-
 	// 맵의 가운데 위도 경도를 행정주소로 반환
 	function getAddress(result, status) {
 		if (status === daum.maps.services.Status.OK) {
@@ -104,7 +96,8 @@ $(function() {
 			$("#yourlocation").val(nowlocation);
 		}
 	}
-
+	
+	// 위도, 경도 매장 검색
 	function addSearch(lat, lon) {
 		var url = "/productall/productLocList.do?c_lat=" + lat + "&c_lon=" + lon;
 		$.getJSON(url, function(data) {

@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+#addMarginCenter {
+	margin: 0 321px;
+}
+
+#p_name {
+	width: 400px;
+	height: 40px;
+}
+#searchBtn {
+	width: 50px;
+	height: 40px;
+}
+
+.addDisplayInline {
+	display: inline-block;
+}
+
+#addTableSizeA {
+	height: 200px;
+}
+
+#addTableSizeB {
+	width: 513px;
+}
+.addTextRight {
+	text-align: right;
+}
+
+.addTextCenter th, .addTextCenter td{
+	text-align: center;
+}
+
+.addTdCemter {
+	display: inline-block;	
+}
+
+#addTableSizeB tr:first-child {
+	height: 300px;
+}
+
+#addTableSizeB tr:last-child {
+	height: 150px;
+}

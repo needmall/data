@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.needmall.seller.productsell.dao.ProductsellDao">
-
+<!--  
 	<select id="productsellList" parameterType="String" >
 		SELECT ps_num, pi_image, p_name, p_price, p_content, ps_expiration, ps_price, ps_count, ps_update
 		FROM seller s INNER JOIN store st ON s.s_num = st.s_num INNER JOIN productsell ps ON ps.s_num = s.s_num INNER JOIN product p ON p.p_num = ps.p_num INNER JOIN proimage pi ON pi.pi_num = p.pi_num
 		WHERE s_id = 'seller_user1' AND ps_state = 0 ORDER BY p_name
 	</select>
-
+-->	
+	<!-- 상품 검색 -->
+	<select id="searchList" parameterType="usercommon" resultType="productinfo">
+		SELECT p_num, pi_image, p_name, p_price, p_content
+		FROM product p INNER JOIN proimage pi ON pi.pi_num = p.pi_num
+		WHERE p_state = 0 AND p_name LIKE '%' || #{keyword} || '%' AND (p_division = (SELECT si_division FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id}) OR p_division = '공통') ;
+	</select>
 </mapper>
