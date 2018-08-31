@@ -9,7 +9,6 @@ import com.needmall.seller.productsell.vo.ProductInsertVO;
 
 public interface ProductsellDao {
 
-
 	public List<ProductsellVO> productList(String s_id);
 	public List<ProductInfoVO> searchList(UserCommonVO ucvo);
 	public int productInsert(ProductInsertVO ivo);

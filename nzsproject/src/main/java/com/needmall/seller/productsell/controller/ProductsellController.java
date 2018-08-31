@@ -29,7 +29,7 @@ public class ProductsellController {
 	private ProductsellService productsellService;
 	String s_id = "seller_user1";
 	
-	/* 판매 상품 목록 (임시)*/
+	/* 판매 상품 목록 */
 	@RequestMapping(value="/list.do", method = RequestMethod.GET)
 	public String productList(Model model) {
 		
@@ -41,7 +41,7 @@ public class ProductsellController {
 			return "redirect:/";  
 		}
 		
-		return "seller/productsell/productlist";
+		return "seller/productsell/productSellList";
 	}
 	
 	/* 판매 상품 등록 페이지 이동 */
@@ -54,7 +54,7 @@ public class ProductsellController {
 	
 	/* 판매 상품 검색 */
 	@ResponseBody
-	@RequestMapping(value="/search", method = RequestMethod.GET)
+	@RequestMapping(value="/search.do", method = RequestMethod.GET)
 	public String searchList(UserCommonVO ucvo) {
 		String listData = "";
 		  
@@ -68,7 +68,7 @@ public class ProductsellController {
 	} 
 	
 	/* 판매 상품 등록 */
-	@RequestMapping(value="/productinsert", method = RequestMethod.POST)
+	@RequestMapping(value="/productinsert.do", method = RequestMethod.POST)
 	public String productInsert(ProductInsertVO ivo, Model model) {
 		String url = "";
 		int result = 0;
