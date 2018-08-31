@@ -42,6 +42,16 @@ public class NewsController {
 		return "client/news/newsList";
 	}	
 	
+	@RequestMapping(value="/newsDetail.do", method=RequestMethod.GET)
+	public String newsDetail(Model model) {   //@ModelAttribute("data") 받아온 BoardVO의 이름을 지정해줄 경우, 아래 model.addAttribute("boardList", boardList) 와 같은 역할
+		logger.info("newsList 호출 성공");
+		
+		List<NewsVO> detailVO = newsService.newsDetail();
+		model.addAttribute("newsDetail", detailVO);     
+		
+		return "client/news/newsDetail";
+	}	
+	
 	
 	
 //	/* 메소드에 받는 인자가 param 값일 경우에는  @RequestParam("변수명") 을 사용한다.

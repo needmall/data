@@ -19,6 +19,11 @@ public class NewsDaoImpl implements NewsDao {
 	public List<NewsVO> newsList() {		
 		return session.selectList("newsList");
 	}
+
+	@Override
+	public List<NewsVO> newsDetail() {		
+		return session.selectOne("newsDetail");
+	}
 	
 	
 	

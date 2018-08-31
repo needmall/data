@@ -12,12 +12,18 @@
       <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b262aa5fd1eb6fa9c51a3235fa41046a&libraries=services,clusterer"></script> -->
 
 <style type="text/css">
-
+	
 </style>
 
 
 <script type="text/javascript">
-	
+	$(function() {
+		$(".goDetail").click(function() {
+			location.href="/news/newsDetail.do?n_num="+$(this).attr("data-num");
+		});
+		
+		
+	})//최상위
 </script>
 
 <div class="table-responsive">
