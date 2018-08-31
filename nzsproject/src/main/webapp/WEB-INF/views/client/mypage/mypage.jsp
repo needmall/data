@@ -32,6 +32,7 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
+/* 	div{border: 1px solid black;} */
 	.all{padding-bottom: 100px;}
 	.item_succes{font-size: 25px; text-align: left!important;}
 	.list_td{padding-top: 20px;}
@@ -81,7 +82,7 @@
 				 <div>
 					<div class="item_succes"><span>구매 성공 내역</span></div>
 					<hr/>
-					<input type="date">
+					<div style="text-align: right ;"><input type="date"></div>
 					<table class="table table-striped table-hover">
 						<colgroup>
 							<col width="5%">
@@ -134,6 +135,12 @@
 			</div>
 			<div class="tab-pane" id="tab3">
 				<p>menu2 부분입니다.</p>
+<%-- 					<c:import url="mycart.jsp"></c:import> --%>
+<%-- 	<%@include file="productdetallbuy.jsp" %> --%>
+
+
+
+
 			</div>
 		</div>
 	</div>

@@ -50,6 +50,11 @@
 					//////////////////////////////////////////////////
 					var c_num = $("#c_num").val();
 					var ps_num =$("#ps_num").val();
+					var ps_price = ${detail.ps_price };
+					var count = $("#count").val();
+					all_price= ps_price * $("#count").val();
+					buy('${detail.p_name }','${detail.pi_image}','${detail.p_content }',count,'${detail.ps_expiration}','${detail.ps_price }');
+				
 					$.ajax({
 						
 						url :"/mypage/cartConfirmList.do",
@@ -65,11 +70,6 @@
 										"action":"/mypage/mycartList.do"
 									});
 									$("#hidden").submit();
-								}else{
-									var ps_price = ${detail.ps_price };
-									var count = $("#count").val();
-									all_price= ps_price * $("#count").val();
-									buy('${detail.p_name }','${detail.pi_image}','${detail.p_content }',count,'${detail.ps_expiration}','${detail.ps_price }');
 								}
 							}
 						}

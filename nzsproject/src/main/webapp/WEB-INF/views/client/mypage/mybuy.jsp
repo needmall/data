@@ -88,16 +88,13 @@
 			$("#btn_shopping").click(function(){
 				location.href="/productall/productList.do"
 			})
-			$("#btn_buypage").click(function)(){
+			$("#btn_buypage").click(function(){
 				$(".hidden").attr({
 					"method":"post",
 					"action":"/mypage/mycartBuy.do"
 				});
  				$(".hidden").submit();
-			}
-			
-						  
-
+			})
 		})
 	</script>
 </head>
