@@ -81,7 +81,7 @@
 					</legend>
 					<span id="memberMenu" class="tac"> 
 						<a href="#" id="logout">로그아웃</a>&nbsp;&nbsp;&nbsp; 
-						<a href="/member/modify.do">정보수정(비밀번호변경)</a>&nbsp;&nbsp;&nbsp; 
+						<a href="/member/join_customer_modify.do">정보수정(비밀번호변경)</a>&nbsp;&nbsp;&nbsp; 
 						<a href="#" id="customerDelete">회원탈퇴</a>
 					</span>
 				</fieldset>

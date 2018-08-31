@@ -29,7 +29,7 @@
 		values(#{mc_num}, #{s_id}, #{salt})
 	</insert>
 	
-	<select id="customerSelect" parameterType="String" resultType="int">
+	<select id="customerIdSelect" parameterType="String" resultType="int">
 		select count(c_num)
 		from customer
 		where c_id = #{c_id}
@@ -108,4 +108,20 @@
         where s_num=#{s_num}
 	</update>
 	
+	<update id="customerUpdate" parameterType="member">
+		update customer set
+			<if test="c_pwd != null and c_pwd != ''">
+				c_pwd=#{c_pwd},
+			</if>
+		c_address=#{c_address},
+		c_mail=#{c_mail},
+		c_cell=#{c_cell}
+		where c_id=#{c_id}
+	</update>
+	
+	<select id="customerSelect" parameterType="String" resultType="member">
+		select c_num, cs_division, c_id, c_pwd, c_name, c_gender, c_address, c_mail, c_cell
+		from customer
+		where c_id = #{c_id}
+	</select>
 </mapper>

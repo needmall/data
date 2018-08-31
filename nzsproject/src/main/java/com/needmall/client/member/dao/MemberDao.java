@@ -13,7 +13,7 @@ public interface MemberDao {
 	public MemberSecurity sellerSecuritySelect(String s_id);
 	
 	
-	public int customerSelect(String c_id);
+	public int customerIdSelect(String c_id);
 	public int sellerSelect(String s_id);
 	public JoinVO reqstoreSelect(String st_bnum);
 	
@@ -31,4 +31,8 @@ public interface MemberDao {
 	//public int customerSecurityDelete(String c_id) ;
 	
 	public int reqStoreDelete(int s_num);
+	
+	public int customerUpdate(MemberVO mvo);
+	
+	public MemberVO customerSelect(String c_id);
 }

@@ -28,7 +28,7 @@ public class MemberServiceImpl implements MemberService {
 		int result1=0;
 		int result2=0;
 		//★★★ Cheeeeeeeeeeck!
-		result1 = memberDao.customerSelect(c_id);
+		result1 = memberDao.customerIdSelect(c_id);
 		result2 = memberDao.sellerSelect(c_id);
 		result = result1 + result2;
 		return result;
@@ -40,7 +40,7 @@ public class MemberServiceImpl implements MemberService {
 		int result1=0;
 		int result2=0;
 		
-		result1 = memberDao.customerSelect(s_id);
+		result1 = memberDao.customerIdSelect(s_id);
 		result2 = memberDao.sellerSelect(s_id);
 		result = result1 + result2;
 		return result;
@@ -63,7 +63,7 @@ public class MemberServiceImpl implements MemberService {
 		int result1=0;
 		int result2=0;
 		
-		result1 = memberDao.customerSelect(lvo.getC_id());
+		result1 = memberDao.customerIdSelect(lvo.getC_id());
 		result2 = memberDao.sellerSelect(lvo.getS_id());
 		
 		if(result1==1) {
@@ -80,7 +80,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int customerInsert(MemberVO mvo) {
 		//int sCode = 2;
-		if (memberDao.customerSelect(mvo.getC_id()) != 0) {
+		if (memberDao.customerIdSelect(mvo.getC_id()) != 0) {
 			//return 1;
 			throw new RuntimeException();
 		} else {
@@ -142,7 +142,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	
-
+	@Transactional
 	@Override
 	public int sellerInsert(JoinVO jvo) {
 		//int sCode = 2;
@@ -213,6 +213,7 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Transactional
 	@Override
 	public int sellerDelete(String s_id) {
 		//logger.info("sellerDelete에 들어갈 mvo : "+mvo);
@@ -224,10 +225,35 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Transactional
 	@Override
 	public int reqStoreDelete(int s_num) {
 		int result = memberDao.reqStoreDelete(s_num);
 		return result;
+	}
+	
+	@Transactional
+	@Override
+	public int customerUpdate(MemberVO mvo){
+		if(!mvo.getC_pwd().isEmpty()){
+			MemberSecurity sec = memberDao.customerSecuritySelect(mvo.getC_id());
+			mvo.setC_pwd(new String(OpenCrypt.getSHA256(mvo.getC_pwd(),sec.getSalt())));
+		}
+		int result = memberDao.customerUpdate(mvo);
+
+		return result;     
+	}
+
+	@Override
+	public MemberVO customerSelect(String c_id) {
+		MemberVO vo = memberDao.customerSelect(c_id);
+		return vo;
+	}
+
+	@Override
+	public int sellerSelect(String s_id) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

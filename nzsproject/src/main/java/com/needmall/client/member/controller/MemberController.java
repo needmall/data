@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.needmall.client.login.service.LoginService;
 import com.needmall.client.login.vo.LoginVO;
 import com.needmall.client.member.service.MemberService;
 import com.needmall.client.member.vo.JoinVO;
@@ -24,6 +25,10 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private LoginService loginService;
+	
 	
 	/********************************************************************
 	 * 회원 가입 폼(join_select)
@@ -203,5 +208,57 @@ public class MemberController {
 	 mav.setViewName("redirect:/member/logout.do");	//logout 으로 굳이 넘길 필요가 있나..?
 	 return mav; 									//넘겨야지..탈퇴하면 로그아웃 돼야지
 	}
+
+	 /**************************************************************
+	  * customer 수정 폼
+	  **************************************************************/
+	 @RequestMapping(value="/join_customer_modify.do", method = RequestMethod.GET) 
+	 public ModelAndView memberModify(HttpSession session){
+		 logger.info("join_customer_modify.do(수정폼) get 방식에 의한 메서드 호출 성공");
+		 ModelAndView mav=new ModelAndView();
+		 // session 객체에서 로그인 정보 얻기 
+		 LoginVO login =(LoginVO)session.getAttribute("login");
+
+		 // 추후 아래 부분에 대한 제어는 한곳에서 설정되도록 변경해 주면 된다 
+		 // 혹 로그인되어 있지 않으면 로그인 화면으로 이동.
+		 if(login==null){
+			 mav.setViewName("member/login"); 
+			 return mav;
+		 }
+		 // 세션에서 로그인 정보 중 아이디만 가지고 해당 아이디에 대한 상세내역  DB에서 조회
+		 MemberVO vo = memberService.customerSelect(login.getC_id());
+		 mav.addObject("member", vo);
+		 mav.setViewName("member/join_customer_modify"); 
+		 return mav;
+	 } 
+	 
+	 /**************************************************************
+	  * customer 수정 처리(AOP 예외 처리 후)
+	  **************************************************************/
+	 @RequestMapping(value="/join_customer_modify.do", method = RequestMethod.POST) 
+	 public ModelAndView memberModifyProcess(MemberVO mvo, HttpSession session, ModelAndView mav){
+		 logger.info("join_customer_modify.do post 방식에 의한 메서드 호출 성공");
+
+		 LoginVO login =(LoginVO)session.getAttribute("login");
+
+		 if(login==null){
+			 mav.setViewName("member/login"); 
+			 return mav;
+		 }
+		 // 세션으로 얻은 로그인 정보를 가지고 다시 회원테이블에 존재하는 확인
+		 mvo.setC_id(login.getC_id());
+		 MemberVO vo = memberService.customerSelect(mvo.getC_id());
+		 // 기존 비빌번호로 회원정보를 확인하여 일치하면 수정 가능하도록 확인 작업
+		 if (loginService.customerLoginSelect(mvo.getC_id(), mvo.getC_opwd()) == null ) {
+			 mav.addObject("status", 1);
+			 mav.addObject("member",vo);
+			 mav.setViewName("member/join_customer_modify");
+			 return mav;
+		 } 
+
+		 memberService.customerUpdate(mvo);
+		 mav.setViewName("redirect:/member/logout.do");
+		 return mav;  
+	 }
 	
 }

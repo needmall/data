@@ -170,7 +170,6 @@ $(function(){
 		else if (!formCheck($('#c_genderNum'), $('.error:eq(4)'), "주민번호 뒷자리를")) return;
 		//else if (!inputVerify(2,'#c_gendernum','.error:eq(3)')) return;	
 		
-		// ★4번 생년월일 채우기
 		else if (!formCheck($('#sample6_postcode'), $('.error:eq(5)'), "우편번호를")) return;
 		else if (!formCheck($('#sample6_address2'), $('.error:eq(6)'), "상세주소를")) return;
 		

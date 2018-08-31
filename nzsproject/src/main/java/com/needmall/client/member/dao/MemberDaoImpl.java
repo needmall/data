@@ -35,8 +35,8 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public int customerSelect(String c_id) {
-		return session.selectOne("customerSelect", c_id);
+	public int customerIdSelect(String c_id) {
+		return session.selectOne("customerIdSelect", c_id);
 	}
 
 	@Override
@@ -88,6 +88,18 @@ public class MemberDaoImpl implements MemberDao {
 	public int reqStoreDelete(int s_num) {
 		return session.delete("reqStoreDelete", s_num);
 	}
+	
+	@Override
+	public int customerUpdate(MemberVO mvo) {
+		return session.update("customerUpdate", mvo);
+	}
+
+	@Override
+	public MemberVO customerSelect(String c_id) {
+		return session.selectOne("customerSelect", c_id);
+	}
+	
+	
 
 	/*
 	@Override

@@ -17,4 +17,9 @@ public interface MemberService {
 	public int customerDelete(String c_id);
 	public int sellerDelete(String s_id);
 	public int reqStoreDelete(int s_num);
+
+	public int customerUpdate(MemberVO mvo);
+	
+	public MemberVO customerSelect(String c_id);
+	public int sellerSelect(String s_id);
 }
