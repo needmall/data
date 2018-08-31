@@ -55,7 +55,7 @@
 			$("#p_num").val(p_num);
 		});
 		
-		/* 할인율 선택, 직접입력 토글 */
+		/* 할인율 선택, 입력 토글 */
 		$("#changeBtn").click(function() {
 			if($("#changeBtn").attr("name") == "0") {
 				$("#inputDiscount").val("");
@@ -70,15 +70,55 @@
 				$("#inputDiscount").hide();
 
 				$("#changeBtn").attr("name", "0");
-				$("#changeBtn").html("직접입력");
+				$("#changeBtn").html("입력");
 			}	
+		});
+		
+		/* 판매 상품 등록 */
+		$("#submitBtn").click(function() {
+			$("#submitForm").attr({
+				"method" : "POST",
+				"action" : "/productsell/productinsert.do"
+			});
+			$("#submitForm").submit();
+		});
+		
+		/* 판매상품 취소 */
+		$("#cancelBtn").click(function() {
+			location.href = "/productsell/list.do";
+		});
+		
+		/* 유통기한 형식 변경 */
+		$("#date").change(function() {
+			var date = new Date($("#date").val());
+			
+			var year = date.getFullYear();
+			var month = date.getMonth();
+			var day = date.getDate();
+			var hours = date.getHours()
+			var minutes = date.getMinutes();
+			
+			// 10시 이전 형식 변경
+			if(hours < 10) {
+				 hours = "0" + hours;
+			}
+			
+			// 오전 12시, 오후 24시 형식 변경
+			if(hours == 0) {
+				hours = "12";
+			} else if(hours == 12) {
+				hours = "00";
+			}
+			
+			$("#ps_expiration").val(year + "/" + month + "/" + day + " " + hours + ":" + minutes);
+			
 		});
 		
 		/* 할인율 선택 판매가격 계산 */
 		$("#discount").change(function() {
 			addDiscountValue($("#discount"));
 		});
-
+		
 		/* 할인율 입력 판매가가격 계산 */
 		$("#inputDiscount").change(function() {
 			addDiscountValue($("#inputDiscount"));
@@ -95,6 +135,7 @@
 			addDiscountValue($("#ps_price"));
 		})
 		
+		
 	}); // End Jquery
 	
 	/* 할인율 option 동적 */
@@ -109,7 +150,7 @@
 			discount += 5;
 			var new_option = $("<option>")
 			new_option.attr("value", discount);
-			new_option.html(discount + "%");
+			new_option.html(discount);
 			$("#discount").append(new_option);
 		}	
 	}
@@ -123,7 +164,7 @@
 			$("#ps_price").val(ps_price);
 		} else if(name == "ps_price") {
 			var ps_price = 100 - ((discount.val() * 100) / p_price) ;
-			$("#inputDiscount").val(ps_price);
+			$("#inputDiscount").val(ps_price.toFixed(1));
 		}
 	}
 	
@@ -161,7 +202,7 @@
 	}
 	
 	function setting() {
-		// 할인율 생성, 직접입력 숨김
+		// 할인율 생성, 입력 숨김
 		addDiscount();
 		$("#inputDiscount").hide();
 	}
@@ -202,7 +243,7 @@
 		</div>
 	</div>
 	<%-- 상품 선택정보 --%>
-	<div class="test">
+	<div>
 		<div id="addTableSizeB" class="addInline-block addTextCenter">
 			<table class="table table-bordered">
 				<tbody>
@@ -253,43 +294,52 @@
 				</tbody>
 			</table>
 		</div>
-
 		<div id="addTableSizeC" class="addInline-block">
 			<div class="">
 				<%-- 판매 상품 정보 --%>
-				<form action="" class="form-inline">
+				<form action="" id="submitForm" class="form-inline">
 					<table>
 						<tr>
-							<td colspan="4"><input type="hidden" id="p_num" name="p_num" /></td>
+							<td colspan="2">
+								<input type="hidden" id="p_num" name="p_num" />
+								<input type="hidden" id="ps_expiration" name="ps_expiration" />
+							</td>
 						</tr>
 						<tr>
-							<td colspan="4">
+							<td colspan="2">
 								<div class="form-group">
-									<label class="control-label" for="ps_expiration">유통기한</label>
-									<input type="datetime-local" id="ps_expiration" class="form-control" name="ps_expiration" min="" max="" aria-describedby="ps_expirationStatus" />
+									<label class="control-label" for="date">유통기한</label>
+									<input type="datetime-local" id="date" class="form-control" min="" max="" aria-describedby="dateStatus" />
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-									<span id="ps_expirationStatus" class="sr-only"></span>
+									<span id="dateStatus" class="sr-only"></span>
 								</div>
 							</td>
 						</tr>
 						<tr>
-							<td colspan="4">
+							<td>
 								<div class="form-group">
 									<label class="control-label" for="ps_price">판매 가격</label>
-									<input type="text" id="ps_price" class="form-control" name="ps_price" aria-describedby="ps_priceStatus"/>
+									<input type="text" id="ps_price" class="form-control addSizeInput75" name="ps_price" aria-describedby="ps_priceStatus"/>
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<span id="ps_priceStatus" class="sr-only"></span>
+								</div>
+							</td>	
+							<td>
+								<div class="form-group">
 									<label id="addMarginDiscount" class="control-label" for="discount">할인율</label>
-									<select id="discount" class="form-control" name="0" aria-describedby="discountStatus"></select>
-									<input type="text" id="inputDiscount" name="0" class="form-control"/>
-									<button type="button" id="changeBtn" name=0>직접입력</button>
+									<div class="form-group">
+										<select id="discount" class="form-control addSizeInput75" name="1" aria-describedby="discountStatus"></select>
+										<input type="text" id="inputDiscount" class="form-control addSizeInput75" name="0" />
+										<div class="input-group-addon">%</div>
+									</div>
+									<button type="button" id="changeBtn" class="btn btn-info" name=0>입력</button>
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<span id="discountStatus" class="sr-only"></span>
 								</div>
 							</td>
 						</tr>
 						<tr>
-							<td colspan="4">
+							<td colspan="2">
 								<div class="form-group">
 									<label class="control-label" for="ps_count">판매 수량</label>
 									<input type="text" id="ps_count" class="form-control" name="ps_count" aria-describedby="ps_countStatus"/>
@@ -302,10 +352,9 @@
 				</form>
 			</div>
 			<div id="addCenterSubmit">
-				<button type="button" id="submitBtn" class="btn btn-primary btn-lg addSizeSubmit">등록</button>
-				<button type="button" id="cancelBtn" class="btn btn-default btn-lg addSizeSubmit">취소</button>
+					<button type="button" id="submitBtn" class="btn btn-primary btn-lg addSizeSubmit">등록</button>
+					<button type="button" id="cancelBtn" class="btn btn-default btn-lg addSizeSubmit">취소</button>
 			</div>
-			
 		</div>
 	</div>
 </div>

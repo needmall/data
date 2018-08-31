@@ -2,7 +2,6 @@
 
 td div label {
 	width: 80px;
-	margin: 10px 25px;
 	text-align: center;
 }
 
@@ -14,7 +13,7 @@ td div label {
 	text-align: right;
 }
 
-table, .addTextCenter th, .addTextCenter td, #addCenterSubmit{
+table, .addTextCenter th, .addTextCenter td, #addCenterSubmit, #submitForm tr{
 	text-align: center;
 }
 
@@ -40,32 +39,22 @@ table, .addTextCenter th, .addTextCenter td, #addCenterSubmit{
 	height: 40px;
 }
 
-#addTableSizeA {
-	
-}
-
 #addTableSizeB {
 	width: 513px;
+	height: 673px;
 	margin: 10px;
+	background-color: black;
 }
 
 #addTableSizeC {
-	width: 400px;
-	height: 565px;
+	width: 513px;
+	height: 673px;
 	margin: 10px;
+	background-color: green;
 }
 
 #searchBtn {
 	width: 76px;
-}
- 
-#addMarginDiscount {
-	margin: 0 5px;
-}
-
-#addTableSizeC table {
- border-collapse: separate;
-  border-spacing: 30px 0px;
 }
 
 #keyword {
@@ -83,16 +72,15 @@ table, .addTextCenter th, .addTextCenter td, #addCenterSubmit{
 	padding: 7%;	
 }
 
+#addTableSizeC tbody tr td div{
+	margin: 20px 0px;
+}
 
-/* important */
-td .form-control {
-	width: 250px !important;
+.addSizeInput75 {
+	width:  75px !important;
 }
- 
-#ps_price {
-	width:  100px !important;
+
+.input-group-addon {
+    display:  inline;
 }
- 
-#discount, #inputDiscount {
-	width: 100px !important;
-}
+

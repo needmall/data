@@ -11,6 +11,7 @@ import com.needmall.common.vo.ProductsellVO;
 import com.needmall.common.vo.UserCommonVO;
 import com.needmall.seller.productsell.dao.ProductsellDao;
 import com.needmall.seller.productsell.vo.ProductInfoVO;
+import com.needmall.seller.productsell.vo.ProductInsertVO;
 
 @Service
 public class ProductsellServiceImpl implements ProductsellService {
@@ -29,15 +30,6 @@ public class ProductsellServiceImpl implements ProductsellService {
 	}
 
 	@Override
-	public int productInsert(ProductInfoVO ivo) {
-		int result = 0;
-		
-		result = productsellDao.productInsert(ivo);
-		
-		return result;
-	}
-
-	@Override
 	public String searchList(UserCommonVO ucvo) {
 		ObjectMapper mapper = new ObjectMapper();
 		String listData = "";
@@ -52,6 +44,14 @@ public class ProductsellServiceImpl implements ProductsellService {
 		
 		return listData;
 	}
-
+	
+	@Override
+	public int productInsert(ProductInsertVO ivo) {
+		int result = 0;
+		
+		result = productsellDao.productInsert(ivo);
+		
+		return result;
+	}
 
 }

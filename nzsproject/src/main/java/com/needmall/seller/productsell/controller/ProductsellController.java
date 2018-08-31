@@ -18,6 +18,7 @@ import com.needmall.common.vo.ProductsellVO;
 import com.needmall.common.vo.UserCommonVO;
 import com.needmall.seller.productsell.service.ProductsellService;
 import com.needmall.seller.productsell.vo.ProductInfoVO;
+import com.needmall.seller.productsell.vo.ProductInsertVO;
 
 @Controller
 @RequestMapping(value="/productsell")
@@ -29,7 +30,7 @@ public class ProductsellController {
 	String s_id = "seller_user1";
 	
 	/* 판매 상품 목록 (임시)*/
-	@RequestMapping(value="/list", method = RequestMethod.GET)
+	@RequestMapping(value="/list.do", method = RequestMethod.GET)
 	public String productList(Model model) {
 		
 		if(!s_id.isEmpty()) {
@@ -62,17 +63,31 @@ public class ProductsellController {
 			listData = productsellService.searchList(ucvo);
 		} else {
 			return "redirect:/";
-		}
+		} 
 		return listData;
-	}
+	} 
 	
 	/* 판매 상품 등록 */
 	@RequestMapping(value="/productinsert", method = RequestMethod.POST)
-	public String productInsert(ProductInfoVO ivo, Model model) {
+	public String productInsert(ProductInsertVO ivo, Model model) {
+		String url = "";
 		int result = 0;
+		System.out.println(ivo.getPs_expiration());
+		if(!s_id.isEmpty()) {
+			ivo.setS_id(s_id);
+			result = productsellService.productInsert(ivo);
+			
+			if(result == 1) {
+				url = "/productsell/writeform.do";
+			} else {
+				url = "/productsell/writeform.do";
+				model.addAttribute("error", "상품 등록 실패, 관리자에 문의 하십시요.");
+			}
+			
+		} else {
+			return "redirect:/";
+		}
 		
-		result = productsellService.productInsert(ivo);
-		
-		return null;
+		return "redirect:" + url;
 	}
 }

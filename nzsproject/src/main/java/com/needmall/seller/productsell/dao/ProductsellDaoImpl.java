@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.needmall.common.vo.ProductsellVO;
 import com.needmall.common.vo.UserCommonVO;
 import com.needmall.seller.productsell.vo.ProductInfoVO;
+import com.needmall.seller.productsell.vo.ProductInsertVO;
 
 @Repository
 public class ProductsellDaoImpl implements ProductsellDao {
@@ -21,18 +22,15 @@ public class ProductsellDaoImpl implements ProductsellDao {
 		return session.selectList("productsellList", s_id);
 	}
 
-
-	@Override
-	public int productInsert(ProductInfoVO ivo) {
-		//return session.insert("productInsert", ivo);
-		return 0;
-	}
-
-
 	@Override
 	public List<ProductInfoVO> searchList(UserCommonVO ucvo) {
 		return session.selectList("searchList", ucvo);
 	}
 	
+	@Override
+	public int productInsert(ProductInsertVO ivo) {
+		return session.insert("productInsert", ivo);
+	}
+
 	
 }

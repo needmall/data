@@ -14,4 +14,14 @@
 		FROM product p INNER JOIN proimage pi ON pi.pi_num = p.pi_num
 		WHERE p_state = 0 AND p_name LIKE '%' || #{keyword} || '%' AND (p_division = (SELECT si_division FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id}) OR p_division = '공통')
 	</select>
+	
+	<!-- 상품 등록 -->
+	<insert id="productInsert" parameterType="productinsert">
+		<selectKey keyProperty="ps_num" resultType="int" order="BEFORE">
+			SELECT productsell_seq.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO productsell (ps_num, p_num, ps_expiration, ps_count, ps_price, s_num, ps_state )
+		VALUES (#{ps_num}, #{p_num}, TO_DATE(#{ps_expiration},'yyyy/mm/dd hh24:mi'), #{ps_count}, #{ps_price}, (SELECT s.s_num FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id}), 0)
+	</insert>
+	
 </mapper>
