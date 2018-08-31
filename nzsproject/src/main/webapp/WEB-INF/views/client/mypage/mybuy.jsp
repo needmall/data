@@ -33,99 +33,94 @@
 	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	<style type="text/css">
 /*    		div{border: 1px solid gray;}      */
-		.all{text-align: center; height: 1024px;}
-		.in{ width: 1100px; margin-left: auto; margin-right: auto; padding-top: 50px; }
+		.all{text-align: center; height: auto;}
+		.in{ width: 1100px; margin-left: auto; margin-right: auto; padding-top: 30px; }
 		.item_title{font-size: 20px; color: olive; margin-bottom: 30px; margin-top: 30px;}
-		h3{text-align: left;}
-		.item_succes{font-size: 25px; text-align: left!important;}
-		.list_td{padding-top: 30px;}
-		.list_td2{padding-top: 10px;}
-		.list_td3{padding-top: 25px;}
+		.display{padding-bottom: 20px; margin: 5px;}
+		.display div{margin-bottom: 15px;}
 		#shopping{margin-right: 30px;}
 	</style>
 	
 	<script type="text/javascript">
+// 	페이징 계산 ㅡㅡ 
+// 	int page = 22;
+// 	int countList = 10;
+// 	int countPage = 10;
+// 	int totalCount = 255;
+// 	int totalPage = totalCount / countList;
+	
+// 	if (totalCount % countList > 0) {
+// 	    totalPage++;
+// 	}
+// 	if (totalPage < page) {
+// 	    page = totalPage;
+// 	}
+	
+// 	int startPage = ((page - 1) / 10) * 10 + 1;
+// 	int endPage = startPage + countPage - 1;
+	
+// 	if (endPage > totalPage) {
+// 	    endPage = totalPage;
+// 	}
+// 	if (startPage > 1) {
+// 	    System.out.print("<a href=\"?page=1\">처음</a>");
+// 	}
+// 	if (page > 1) {
+// 	    System.out.println("<a href=\"?page=" + (page - 1)  + "\">이전</a>");
+// 	}
+// 	for (int iCount = startPage; iCount <= endPage; iCount++) {
+// 	    if (iCount == page) {
+// 	        System.out.print(" <b>" + iCount + "</b>");
+// 	    } else {
+// 	        System.out.print(" " + iCount + " ");
+// 	    }
+// 	}
+// 	if (page < totalPage) {
+// 	    System.out.println("<a href=\"?page=" + (page + 1)  + "\">다음</a>");
+// 	}
+// 	if (endPage < totalPage) {
+// 	    System.out.print("<a href=\"?page=" + totalPage + "\">끝</a>");
+// 	}
+	 var cnt =0;
 		$(function(){
-			jQuery('.format-money').text(function() {
-			    jQuery(this).text(
-			        jQuery(this).text().format()
-			    );
-			});
-			$("#shopping").click(function(){
+			$("#btn_shopping").click(function(){
 				location.href="/productall/productList.do"
 			})
+			$("#btn_buypage").click(function)(){
+				$(".hidden").attr({
+					"method":"post",
+					"action":"/mypage/mycartBuy.do"
+				});
+ 				$(".hidden").submit();
+			}
+			
+						  
+
 		})
 	</script>
 </head>
 <body>
 	<div class="all">
+	<form class="hidden">
+		<input type="hidden" id="c_num" name="c_num" value="1"> <!-- 아이디 세션값 들어오면 지워야함 -->
+	</form>
+	
 		<div class="in">
-			<div>
-				<span class="item_title">물품 구매 성공</span>
+			<div class="display">
+				<div><span class="item_title">물품 구매 성공</span></div>
 				<br/>
 				<p>물품이 성공적으로 구매 완료 되었습니다.</p>
 				<p>구입하신 물품은 MyPage-내 구매내역에서 확인 및 사용하실 수 있습니다.</p> 
 			</div>
-			<div class="display">
-				<div class="item_succes"><span>구매 성공 내역</span></div>
-				<hr/>
-				<table class="table table-striped table-hover">
-					<colgroup>
-						<col width="10%">
-						<col width="20%">
-						<col width="50%">
-						<col width="10%">
-						<col width="20%">
-					</colgroup>
-					<tbody>
-						<tr>
-							<td>번호</td>
-							<td>물품명</td>
-							<td>물품설명</td>
-							<td>수량</td>
-							<td>가격</td>
-						</tr>
-						<c:choose>
-							<c:when test="${not empty buylist}">
-									<c:forEach var="buy" items="${buylist}" varStatus="status">
-										<tr class="tr_list">
-											<td><div class="list_td">${status.count}</div> </td>
-											<td><div class="list_td2"><img class="img-thumbnail" src="/uploadStorage/product/${buy.pi_image }" width="70px" height="50px;"/></div></td>
-											<td><div class="list_td2" style="text-align: left;"><p><label>${buy.p_name}</label></p>${buy.p_content}</div></td>
-											<td ><div class="list_td">${buy.b_count }개</div></td>
-											<td>
-												<div class="list_td3">
-													<span class="span_count format-money" style="text-decoration: line-through;"> ${buy.original_multiply_count}</span>원
-													<span class="span_count format-money"> ${buy.multiply_count}</span>원
-												</div>
-												
-											</td>
-										
-										</tr>
-									</c:forEach>
-							</c:when>
-							<c:otherwise>
-								<tr>
-									<td colspan="8" class="tac">등록된 게시물이 존재하지않습니다.
-								</tr>
-							</c:otherwise>
-						</c:choose>
-					</tbody>
-				</table>
-			</div>
+			<div><label class="location_content">잠시후에  MyPage 로 넘어갑니다.</label> </div>
 		</div>
 		<hr/>
-		<div><input id="shopping" type="button" value="쇼핑하기"><input id="cart" type="button" value="MyPage 이동"> </div>
+		<div>
+			<input id="btn_shopping" type="button" value="쇼핑하기" class="btn btn-default">
+			<input id="btn_buypage" type="button" value="MyPage 이동" class="btn btn-default"> 
+		</div>
 	</div>
 </body>
 </html>

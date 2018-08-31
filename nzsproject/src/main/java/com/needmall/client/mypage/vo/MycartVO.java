@@ -27,6 +27,8 @@ public class MycartVO extends ProductdetailVO {
     private int multiply_count=0;
     private int original_multiply_count=0;
     private int update_count=0;
+    
+    
 	public int getCart2_num() {
 		return cart2_num;
 	}

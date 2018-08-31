@@ -15,5 +15,11 @@ public interface MypageService {
 	List<MycartVO> buyList(MycartVO mvo);
 
 	String mycartBuy(MycartVO mvo);
+
+	void dateCountUpdate(MycartVO mvo);
+
+	String productBuy(MycartVO mvo);
+
+	int cartConfirmList(MycartVO mvo);
 	
 }

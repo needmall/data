@@ -47,10 +47,34 @@
 				});
 // 				buy(p_name,pi_image,p_content,ps_count,ps_expiration,ps_price);
 				$(document).on('click',"#buy_buttun",function(){
-					var ps_price = ${detail.ps_price };
-					var count = $("#count").val();
-					all_price= ps_price * $("#count").val();
-					buy('${detail.p_name }','${detail.pi_image}','${detail.p_content }',count,'${detail.ps_expiration}','${detail.ps_price }');
+					//////////////////////////////////////////////////
+					var c_num = $("#c_num").val();
+					var ps_num =$("#ps_num").val();
+					$.ajax({
+						
+						url :"/mypage/cartConfirmList.do",
+						type:"post",
+						data:"c_num="+c_num+"&ps_num="+ps_num,
+						dataType: "text",
+						success: function(data) {
+							console.log(data);
+							if(data ==1){
+								if(confirm("이미 장바구니에  등록되어있습니다. 장바구니로 이동하시겠습니까?")){
+									$("#hidden").attr({
+										"method":"post",
+										"action":"/mypage/mycartList.do"
+									});
+									$("#hidden").submit();
+								}else{
+									var ps_price = ${detail.ps_price };
+									var count = $("#count").val();
+									all_price= ps_price * $("#count").val();
+									buy('${detail.p_name }','${detail.pi_image}','${detail.p_content }',count,'${detail.ps_expiration}','${detail.ps_price }');
+								}
+							}
+						}
+					})
+
 				});
 				
 				var ps_count = ${detail.ps_count };
@@ -228,6 +252,12 @@
 									dataType: "text",
 									success: function(data) {
 										alert("추가 되었습니다.");
+										$.ajax({
+											url :"/mypage/dateCountUpdate.do",
+											type:"post",
+											data:"c_num="+c_num,
+											dataType: "text",
+										})
 										status =1;
 									},
 									error: function() {
@@ -253,25 +283,16 @@
 				})
 
 				
-				$("#btn_buy").click(function(){
-					var c_num = $("#c_num").val();
-					var count = $(".span_count").html();
-					console.log("c_num = "+c_num);
-					count = count.substr(0,1);
-					console.log("count = " + count);
+				$("#btn_cart_buy").click(function(){
+					var value = ($("#ps_count").val() -$("#count").val());
+// 					console.log("value= "+ value);
+					$("#changeCount").val(value);
 					
-					$.ajax({
-						url:"/mypage/mybuy.do",
-						type:"post",
-						data:"c_num="+c_num+"&b_count="+count,
-						dataType:"text",
-						success: function(data){
-							console.log("성공")
-						},
-						error: function() {
-							alert("시스템 오류입니다. 관리자한테 문의하세요.");
-						}
-					})
+					$("#hidden").attr({
+						"method":"post",
+						"action":"/mypage/productBuy.do"
+					});
+					$("#hidden").submit();
 				})
 			});////////////////////////////////////////////////////////////풩션 끝
 			
@@ -396,22 +417,23 @@
 			function buy(p_name,pi_image,p_content,ps_count,expirationChange,ps_price){
 				$(".container-fluid").html("");
 				var div_row = $("<div class='row'>");
-				var div_head=$("<div class='col-md-4' style='width: 25%'>");
-				var label_tilte=$("<label>"+p_name+"</label>");
-				var img =$("<img src='/uploadStorage/product/"+pi_image+"' width='150px' height='150px;'>");
+				var div_head=$("<div class='col-md-4' style='width: 30%; padding-left: 50px; '>");
 				
-				div_head.append(label_tilte);
+				var img =$("<img src='/uploadStorage/product/"+pi_image+"' width='200px' height='200px;'>");
+				
 				div_head.append(img);
 				div_row.append(div_head);
 				
-				var div_content =$("<div class='col-xs-4 col-sm-6' style='padding-top: 50px; width: 55%'>");
+				var div_content =$("<div class='col-xs-4 col-sm-6' style='padding-top: 70px; width: 48%'>");
+				var label_tilte=$("<p><label>"+p_name+"</label></p");
 				var label_content =$("<label style='width: 85%'>"+p_content+"</label>")
+				div_content.append(label_tilte);
 				div_content.append(label_content);
 				div_row.append(div_content);
 				
-				var div_right =$("<div class='col-md-4 .col-md-offset-4' style='padding-top: 50px; width: 20%'>");
+				var div_right =$("<div class='col-md-4 .col-md-offset-4' style='padding-top: 80px; width: 20%'>");
 				var label_right =$("<label>단가 가격 : <spna class='format-money'>"+ps_price+"</span>원 // 개수: <spna class='format-money span_count'>"+ps_count+"</span>개</label>");
-				var p_right =$("<p>유통기한 2018-08-24:00:00:00 </p>");
+				var p_right =$("<p>유통기한 "+expirationChange+"</p>");
 				div_right.append(label_right);
 				div_right.append(p_right);
 				div_row.append(div_right);
@@ -422,14 +444,15 @@
 				if(start == 0){
 // 					var div_buttun =$("<div class='col-xs-4 col-sm-6' style='text-align: center; width: 100%; padding-bottom: -150px; padding-top: -150px'>")
 // 					div_buttun.html("<button>2</button>")
-					var br = $("<br/><hr/>");
+					var br = $("<hr/>");
 					var div_all =$("<div class='row'>");
 					var div_price = $("<div class='.col-xs-8 .col-sm-6 .col-md-offset-4' style='width: 100%; text-align: right;'>");
+					var div_label=$("<div style='text-align: right; padding-right: 30px;'></div>");
 					var label_all =$("<label style='text-align: right;' class='bg-info'>총 가격 : <span class='format-money'>"+all_price+"<span>원 </label>");
-				
+					div_label.append(label_all)
 					
 					div_all.append(div_price);
-					div_all.append(label_all);
+					div_all.append(div_label);
 					
 					$(".container-fluid").append(div_row).append(br).append(div_all);
 				}else{
@@ -465,6 +488,7 @@
 </head>
 <body>
 <div class="all">
+
 	<form id="hidden">
 		<input type="hidden" id="datasize" name="datasize" value="">
 		<input type="hidden" id="p_num" name="p_num" value="${detail.p_num }">
@@ -476,6 +500,8 @@
 		<input type="hidden" id="ps_count" name="ps_count" value="${detail.ps_count }">
 		<input type="hidden" id="ps_price" name="ps_price" value="${detail.ps_price }">
 		<input type="hidden" id="st_num" name="st_num" value="${detail.st_num }">
+		<input type="hidden" id="changeCount" name="changeCount" value="0">
+		
 		<input type="hidden" id="c_num" name="c_num" value="1">
 <!-- 		위에 c_num 세션값으로 갖고와야함 ------------------------------------------------------------------------------>
 		
@@ -518,12 +544,12 @@
 				<tr>
 					<td >소비자 가격</td>
 					<td>:</td>
-					<td><spna class="format-money">${detail.p_price }</spna>원</td>
+					<td><span class="format-money">${detail.p_price }</span>원</td>
 				</tr>
 				<tr>
 					<td >판매가격</td>
 					<td >:</td>
-					<td ><spna class="format-money">${detail.ps_price }</spna>원</td>
+					<td ><span class="format-money">${detail.ps_price }</span>원</td>
 				</tr>
 
 				<tr>
@@ -578,10 +604,14 @@
 		<div class="contentTB" id="contentTB"></div>
 	</div>
 	
+	
+	
+	
+	
 <%-- 	<c:import url="productdetallbuy.jsp"></c:import> --%>
 <%-- 	<%@include file="productdetallbuy.jsp" %> --%>
 		<div class="modal fade bs-example-modal-lg"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-lg" style="width: 1500px;" >
+		  <div class="modal-dialog modal-lg" style="width: 1200px;" >
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -594,7 +624,7 @@
 			</div>
 		    <div class="modal-footer">
 		      	<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-		      	<button type="button" id="btn_buy" class="btn btn-primary">결제</button>
+		      	<button type="button" id="btn_cart_buy" class="btn btn-primary">결제</button>
 		    </div>
 		    </div>
 		  </div>

@@ -59,5 +59,23 @@ public class MypageDaoImpl implements MypageDao {
 		return session.insert("mycartBuy2deptInsert",mvo);
 	}
 
+	@Override
+	public int dateCountUpdate(MycartVO mvo) {   		//장바구니 날짜 수정 쿼리
+		// TODO Auto-generated method stub
+		return session.update("dateCountUpdate",mvo);
+	}
+
+	@Override
+	public int psCountUpdate(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		return session.update("psCountUpdate",mvo);
+	}
+
+	@Override
+	public int cartConfirmList(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("cartConfirmList",mvo);
+	}
+
 
 }

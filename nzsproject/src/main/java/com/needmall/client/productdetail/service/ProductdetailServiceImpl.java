@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.needmall.client.mypage.dao.MypageDao;
 import com.needmall.client.productdetail.dao.ProductdetailDao;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.ProductdetailVO;
@@ -19,6 +20,8 @@ public class ProductdetailServiceImpl implements ProductdetailService {
 
 	@Autowired
 	private ProductdetailDao productdetailDao;
+	private MypageDao mypageDao;
+	
 	@Override
 	public ProductdetailVO productdetailmain(ProductdetailVO dvo) {
 		// TODO Auto-generated method stub

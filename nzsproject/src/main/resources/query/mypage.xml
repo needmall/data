@@ -77,12 +77,12 @@
 		    inner join proimage on proimage.pi_num =product.pi_num
 
 		WHERE
-		     buy1dep.c_num = #{c_num}
+		     buy1dep.c_num = 1
 		     
     
 	</select>
 	<select id="mycartConfirm" parameterType="mypage" resultType="int">
-		select count(*) from BUY1DEP where c_num = #{c_num} and to_char(b1_date,'yyyy-mm') = to_char(sysdate,'yyyy-mm')
+		select count(*) from BUY1DEP where c_num = #{c_num} and to_char(b1_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd')
 	</select>
 		
 	<insert id="mycartBuy1deptInsert" parameterType="mypage">
@@ -91,13 +91,33 @@
 	      
 	<insert id="mycartBuy2deptInsert" parameterType="mypage">
 		  <selectKey keyProperty="b1_num" resultType ="int" order="BEFORE">
-			SELECT distinct buy1dep.b1_num
-			FROM buy2dep inner join buy1dep on buy2dep.b1_num = buy1dep.b1_num 
-			WHERE c_num = 1 and to_char(b1_date,'yyyy-mm') = to_char(sysdate,'yyyy-mm')
+			SELECT b1_num FROM buy1dep where c_num = #{c_num} and to_char(b1_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd')
 		  </selectKey>
 		  
 		  INSERT INTO buy2dep (b2_num,b1_num,ps_num,b_count,b_confirm)
 	      VALUES (BUY2DEP_SEQ.NEXTVAL,#{b1_num},#{ps_num},#{ps_num},0)
 	</insert>
 	
+	<update id="dateCountUpdate" parameterType="mypage">
+	    UPDATE cart1dep
+		SET
+		    cart1_date = sysdate
+		WHERE
+		    c_num = #{c_num}
+	</update>
+	
+	<update id="psCountUpdate">
+
+		UPDATE productsell
+		SET
+		    ps_count = #{changeCount}
+		WHERE
+		    ps_num = #{ps_num}
+	</update>
+	<select id="cartConfirmList" parameterType="mypage" resultType="int">
+	 	SELECT COUNT(*) FROM
+	   	 	cart2dep inner join 
+	    	cart1dep on cart2dep.cart1_num = cart1dep.cart1_num
+	    where c_num = #{c_num} and ps_num = #{ps_num}
+	</select>
 </mapper>

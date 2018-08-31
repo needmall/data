@@ -105,7 +105,7 @@ var hidden;
 					dataType: "text",
 					success: function() {
 						console.log("성공");
-						alert("수정 되었습니다.");
+						alert("삭제 되었습니다.");
 					},
 					error: function() {
 						alert("시스템 오류입니다. 관리자한테 문의하세요.");
@@ -146,35 +146,49 @@ var hidden;
 			var c_num =$(this).parents("tr").find(".c_num").val();
 			var cart2_count =$(this).parents("tr").find(".cart2_count").val();
 			var cart2_num =$(this).parents("tr").find(".cart2_num").val();
+			var result = ps_count-cart2_count;
+			$(this).parents("tr").find(".changeCount").val((ps_count-cart2_count));
+			var changeCount = $(this).parents("tr").find(".changeCount").val();
 			
-			all_price= ps_price * ps_count;
-			buy(p_name,pi_image,p_content,ps_count,expirationChange,ps_price);
+			all_price= ps_price * cart2_count;
+			buy(p_name,pi_image,p_content,cart2_count,expirationChange,ps_price);
 
 			
 			$("#btn_buy").click(function() {
-// 				console.log("c_num = "+c_num)
-// 				console.log("ps_num = " +ps_num)
-// 				console.log("cart2_count = " +cart2_count)
-// 				console.log("cart2_num = "+ cart2_num);
-				console.log("ps_count = "+ ps_count);
 
-				$.ajax({
-					url :"/mypage/mycartBuy.do",
-					type:"post",
-					data: "c_num="+c_num+"&ps_num="+ps_num+"&cart2_count="+cart2_count+"&cart2_num="+cart2_num,
-					dataType: "text",
-					success: function() {
-						console.log("성공");
-						$(".hidden").attr({
-							"method":"post",
-							"action":"/mypage/mybuy.do"
-						});
-						$(".hidden").submit();
-					},
-					error: function() {
-						alert("시스템 오류입니다. 관리자한테 문의하세요.");
-					}
-				})
+// 				console.log("p_name = "+p_name)
+// 				console.log("pi_image = " +pi_image)
+// 				console.log("p_content = " +p_content)
+// 				console.log("expirationChange = "+ expirationChange);
+// 				console.log("ps_price = "+ ps_price);
+// 				console.log("ps_num = "+ ps_num);
+// 				console.log("c_num = "+ c_num);
+// 				console.log("cart2_count = "+ cart2_count);
+// 				console.log("cart2_num = "+ cart2_num);
+// 				console.log("changeCount = "+ changeCount);
+// 				console.log("result = "+ result);
+				if(ps_count==0){
+					$.ajax({
+						url :"/mypage/itemdelete.do",
+						type:"post",
+						data:"cart2_num="+cart2_num,
+						dataType: "text",
+						success: function() {
+							console.log("성공");
+							alert("재고가 없어서 장바구니에서 제외 되었습니다."); ///////////////////-> 카트 화면 새로고침이 안됨;
+						},
+						error: function() {
+							alert("시스템 오류입니다. 관리자한테 문의하세요.");
+						}
+						
+					})
+				}else{
+					$(".hidden").attr({
+						"method":"post",
+						"action":"/mypage/mycartBuy.do"
+					});
+	 				$(".hidden").submit();
+				}
 	  		});
 		})
 // 		console.log(${fn:length(cartList)} );
@@ -197,38 +211,38 @@ var hidden;
 	function buy(p_name,pi_image,p_content,ps_count,expirationChange,ps_price){
 				$(".container-fluid").html("");
 				var div_row = $("<div class='row'>");
-				var div_head=$("<div class='col-md-4' style='width: 25%'>");
-				var label_tilte=$("<label>"+p_name+"</label>");
-				var img =$("<img src='/uploadStorage/product/"+pi_image+"' width='150px' height='150px;'>");
+				var div_head=$("<div class='col-md-4' style='width: 30%; padding-left: 50px; '>");
+				var img =$("<img src='/uploadStorage/product/"+pi_image+"' width='200px' height='200px;'>");
 				
-				div_head.append(label_tilte);
+
 				div_head.append(img);
 				div_row.append(div_head);
 				
-				var div_content =$("<div class='col-xs-4 col-sm-6' style='padding-top: 50px; width: 55%'>");
+				var div_content =$("<div class='col-xs-4 col-sm-6' style='padding-top: 70px; width: 48%'>");
+				var label_tilte=$("<p><label>"+p_name+"</label></p>");
 				var label_content =$("<label style='width: 85%'>"+p_content+"</label>")
+				div_content.append(label_tilte);
 				div_content.append(label_content);
 				div_row.append(div_content);
 				
-				var div_right =$("<div class='col-md-4 .col-md-offset-4' style='padding-top: 50px; width: 20%'>");
+				var div_right =$("<div class='col-md-4 .col-md-offset-4' style='padding-top: 80px; width: 20%'>");
 				var label_right =$("<label>단가 가격 : <spna class='format-money'>"+ps_price+"</span>원 // 개수: <spna class='format-money span_count'>"+ps_count+"</span>개</label>");
-				var p_right =$("<p>유통기한 2018-08-24:00:00:00 </p>");
+				var p_right =$("<p>유통기한 "+expirationChange+"</p>");
 				div_right.append(label_right);
 				div_right.append(p_right);
 				div_row.append(div_right);
 				
 				
-				var label_all;
+				label_all = ps_price * ps_count;
 				
 				if(start == 0){
 // 					var div_buttun =$("<div class='col-xs-4 col-sm-6' style='text-align: center; width: 100%; padding-bottom: -150px; padding-top: -150px'>")
 // 					div_buttun.html("<button>2</button>")
-					var br = $("<br/><hr/>");
+					var br = $("<hr/>");
 					var div_all =$("<div class='row'>");
 					var div_price = $("<div class='.col-xs-8 .col-sm-6 .col-md-offset-4' style='width: 100%; text-align: right;'>");
-					
 					var div_label=$("<div style='text-align: right; padding-right: 30px;'></div>");
-					var label_all =$("<label class='bg-info'>총 가격 : <span class='format-money'>"+all_price+"<span>원 </label>");
+					var label_all =$("<label style='text-align: right;' class='bg-info'>총 가격 : <span class='format-money'>"+all_price+"<span>원 </label>");
 					div_label.append(label_all);
 					
 					div_all.append(div_price);
@@ -246,8 +260,10 @@ var hidden;
 	.td_list{padding-top:30px; }
 	.td_list2{padding-top:20px; }
 	.td_list3{padding-top:25px; }
+	.td_list4{padding-top:25px; padding-left: 7px; }
 	.close{margin-right: 15px;}
 	.div_date{text-align: right;}
+	.div_last{height: 100px;}
 </style>
 </head>
 <body>
@@ -277,7 +293,7 @@ var hidden;
 					<td>가격</td>
 					<td>유통기한</td>
 					<td>구매</td>
-					<td>취소</td>
+					<td colspan="2">취소</td>
 				</tr>
 				<c:choose>
 					<c:when test="${not empty cartList}">
@@ -300,7 +316,7 @@ var hidden;
 								</td>
 								<td><div class="td_list2">${cart.ps_expiration }</div></td>
 								<td><div class="td_list3"><button name="buy_btn" type="button" class="btn btn-default btn_cart" data-toggle="modal" data-target="#myModal" style='font-size:10px;'>클릭</button></div></td>
-								<td><div class="td_list2"><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></td>
+								<td><div class="td_list4"><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></td>
 								<td>
 <!-- 									p_name,pi_image,p_content,ps_count,expirationChange,ps_price -->
 									<form class="hidden">
@@ -314,7 +330,7 @@ var hidden;
 										<input type="hidden" class="ps_num" name="ps_num" value="${cart.ps_num}">
 										<input type="hidden" class="cart2_count" name="cart2_count" value="${cart.cart2_count}">
 										<input type="hidden" class="cart2_num" name="cart2_num" value="${cart.cart2_num}">
-										
+										<input type="hidden" class="changeCount" id="changeCount" name="changeCount" value="0">
 									</form>
 								</td>
 							</tr>
@@ -350,7 +366,7 @@ var hidden;
 		</div>
 		<!-- 		모달부분 -->
 		<div class="modal fade bs-example-modal-lg"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-lg" style="width: 1500px;" >
+		  <div class="modal-dialog modal-lg" style="width: 1200px;" >
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -370,5 +386,6 @@ var hidden;
 		</div>
 	<!-- 모달 끝 -->
 	</div>
+<div class="div_last"></div>
 </body>
 </html>

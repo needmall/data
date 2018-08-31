@@ -27,7 +27,9 @@ public class MypageController {
 //	/mypage/mycartList.do
 	
 	@RequestMapping("/mypageList.do")
-	public String mypageList() {
+	public String mypageList(MycartVO mvo,Model model) {
+		List<MycartVO> buylist = mypageService.buyList(mvo);
+		model.addAttribute("buylist",buylist);
 		return "mypage/mypage";
 	}
 	
@@ -72,25 +74,45 @@ public class MypageController {
 	}
 	
 	//장바구니에서 구매------------------------------------------>aop 걸어야함
-	@ResponseBody
+
 	@RequestMapping(value="/mycartBuy.do")
 	public String mycartBuy(MycartVO mvo) {
 		logger.info("mycartBuy 호 출");
-		String value="";
-		value = mypageService.mycartBuy(mvo);
-		return value;
+		mypageService.mycartBuy(mvo);
+		return "mypage/mybuy";
 		
 	}
+	
+	@ResponseBody //장바구니 수정일 바꾸기
+	@RequestMapping(value="/dateCountUpdate.do")
+	public void dateCountUpdate(MycartVO mvo) {
+		logger.info("mycartBuy 호 출");
+		mypageService.dateCountUpdate(mvo);
+	}
 	/////////////////////////////////////////////////////////////장바구니 로직끝
+	
+	@RequestMapping(value="/productBuy")
+	public String productBuy(MycartVO mvo, Model model) {
+		logger.info("productBuy 호 출");
+		String result = mypageService.productBuy(mvo);
+		logger.info("productBuy = "+result );
+		return "mypage/mybuy";
+		
+	}
+	
 	
 	@RequestMapping(value="/mybuy.do")
 	public String mybuy(MycartVO mvo, Model model ) {
 		logger.info("mybuy 호 출");
-		
-		model.addAttribute("form",mvo);
-		List<MycartVO> buylist = mypageService.buyList(mvo);
-		model.addAttribute("buylist",buylist);
 		return "mypage/mybuy";
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/cartConfirmList.do")
+	public int cartConfirmList(MycartVO mvo) {
+		int result =mypageService.cartConfirmList(mvo);
+		return result;
 		
 	}
 }

@@ -22,5 +22,11 @@ public interface MypageDao {
 
 	int mycartBuy2deptInsert(MycartVO mvo);
 
+	int dateCountUpdate(MycartVO mvo);
+
+	int psCountUpdate(MycartVO mvo);
+
+	int cartConfirmList(MycartVO mvo);
+
 
 }

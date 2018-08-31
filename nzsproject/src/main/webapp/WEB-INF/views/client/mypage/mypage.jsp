@@ -31,74 +31,112 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style type="text/css">
+	.all{padding-bottom: 100px;}
+	.item_succes{font-size: 25px; text-align: left!important;}
+	.list_td{padding-top: 20px;}
+	.list_td2{padding-top: 5px;}
+	.list_td3{padding-top: 10px;}
+	#shopping{margin-right: 30px;}
+	#nav li{width: 20%}
+	.tab-pane{padding-top: 50px;}
+	.div_last{height: 100px;}
+</style>
+	<script type="text/javascript">
+	$(function(){
+		$('.dropdown-toggle').dropdown();
+		jQuery('.format-money').text(function() {
+		    jQuery(this).text(
+		        jQuery(this).text().format()
+		    );
+		});
+		
+		});
+	</script>
 </head>
 <body>
-
-  <div class="py-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-2">
-          <ul class="nav nav-pills flex-column">
-            <i class="fa fa-home fa-home text-dark fa-2x p-2">MyPage</i>
-            <a class="btn btn-info" href="#">회원정보</a>
-            <li class="nav-item text-dark">
-              <a class="nav-link text-dark" href="#">수정</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link text-dark">탈퇴</a>
-            </li>
-            <a class="btn btn-info" href="#">구매목록</a>
-            <li class="nav-item text-dark">
-              <a class="nav-link text-dark" href="#">구매 상황</a>
-            </li>
-            <li class="nav-item text-dark">
-              <a class="nav-link text-dark" href="#">월 별</a>
-            </li>
-            <a class="btn btn-info" href="#">장바구니</a>
-            <li class="nav-item">
-              <a class="nav-link text-dark" href="#">My 장바구니</a>
-            </li>
-            <a class="btn btn-info" href="#">리뷰</a>
-            <li class="nav-item">
-              <a class="nav-link text-dark" href="#">My 리뷰
-                <br>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-10">
-          <div class="blockquote">
-			<table class="table-striped table-hover">
-					<colgroup>
-						<col width="20%">
-						<col width="20%">
-						<col width="20%">
-						<col width="20%">
-						
-					</colgroup>
-					<tr>
-						<td>번호</td>
-						<td>상품</td>
-						<td>설명</td>
-						<td>상태</td>
-					</tr>
-					<tr>
-						<td>번호</td>
-						<td>상품</td>
-						<td>설명</td>
-						<td>상태</td>
-					</tr>
-					<tr>
-						<td>번호</td>
-						<td>상품</td>
-						<td>설명</td>
-						<td>상태</td>
-					</tr>
-			</table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="all">
+		<div role="tabpanel">
+			<ul id="nav" class="nav nav-tabs clearfix right" role="tablist"  >	
+			  	<li role="presentation" class="dropdown">
+				  	<a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">회원관리</a>
+			    	<ul class="dropdown-menu" role="menu">
+			      		<li role="presentation"><a role="menuitem" data-toggle="tab" tabindex="-1" href="#tab1-1">회원정보 수정</a></li>
+	   					<li role="presentation"><a role="menuitem" data-toggle="tab" tabindex="-1" href="#tab1-2">회원 탈퇴</a></li>
+			    	</ul>
+			  	</li>
+				<li><a href="#tab2" data-toggle="tab">구매목록</a></li>
+				<li><a href="#tab3" data-toggle="tab">장바구니</a></li>
+				<li><a href="#tab3" data-toggle="tab">리뷰</a></li>
+			</ul>
+		</div>
+		<div class="tab-content"> 
+			<div class="tab-pane" id= "tab1-1">
+				<p>test</p>
+			</div>
+			<div class="tab-pane" id= "tab1-2">
+				<p>test2</p>
+			</div>
+			<div class="tab-pane" id="tab2">
+				 <div>
+					<div class="item_succes"><span>구매 성공 내역</span></div>
+					<hr/>
+					<input type="date">
+					<table class="table table-striped table-hover">
+						<colgroup>
+							<col width="5%">
+							<col width="10%">
+							<col width="50%">
+							<col width="7%">
+							<col width="8%">
+							<col width="10%">
+							<col width="7%">
+							
+						</colgroup>
+						<tbody>
+							<tr>
+								<td>번호</td>
+								<td>물품명</td>
+								<td>물품설명</td>
+								<td>수량</td>
+								<td>가격</td>
+								<td>구입일</td>
+								<td>수령확인</td>
+							</tr>
+							<c:choose>
+								<c:when test="${not empty buylist}">
+										<c:forEach var="buy" items="${buylist}" varStatus="status">
+											<tr class="tr_list">
+												<td><div class="list_td">${status.count}</div> </td>
+												<td><div ><img class="img-thumbnail" src="/uploadStorage/product/${buy.pi_image }" width="70px" height="50px;"/></div></td>
+												<td><div class="list_td2" style="text-align: left;"><p><label>${buy.p_name}</label></p>${buy.p_content}</div></td>
+												<td ><div class="list_td">${buy.b_count }개</div></td>
+												<td>
+													<div class="list_td3">
+														<span class="span_count format-money" style="text-decoration: line-through;"> ${buy.original_multiply_count}</span>원<br/>
+														<span class="span_count format-money"> ${buy.multiply_count}</span>원
+													</div>
+												</td>
+												<td><div class="list_td">${buy.b1_date} </div>
+												<td><div class="list_td">${buy.b_confirm} </div>
+											</tr>
+										</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<tr>
+										<th colspan="5" class="tac">구매하신 물품이 존재하지않습니다.</th>
+									</tr>
+								</c:otherwise>
+							</c:choose>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="tab-pane" id="tab3">
+				<p>menu2 부분입니다.</p>
+			</div>
+		</div>
+	</div>
+	<div class="div_last"></div>
 </body>
 </html>

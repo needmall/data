@@ -1,5 +1,7 @@
 package com.needmall.client.mypage.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -73,31 +75,75 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public String mycartBuy(MycartVO mvo) {
 		// TODO Auto-generated method stub
-		int key = mypageDao.mycartConfirm(mvo);
+		int count_change = (mvo.getPs_count() - mvo.getCart2_count());
+		System.out.println("count_change = "+count_change);
+
 		int confirm = 0 ;
 		int last_confirm=0;
 		int delete_confirm =0;
-		int update_count = 0; 
 		int update_ps_count=0;
-		String value = "";
+		String value ="실패";
+		
+		int key = mypageDao.mycartConfirm(mvo);
+
+		if(key==0) {
+			confirm = mypageDao.mycartBuy1deptInsert(mvo);
+//			System.out.println("confirm"+confirm);
+		}
+		last_confirm = mypageDao.mycartBuy2deptInsert(mvo);
+		if(last_confirm ==1) {
+			delete_confirm = mypageDao.itemDelete(mvo);					//장바구니 2뎁 물품 삭제
+//			System.out.println("delete_confirm = " +delete_confirm);
+		}
+		if(delete_confirm !=0) {
+			update_ps_count = mypageDao.psCountUpdate(mvo);
+		}
+		if(update_ps_count ==1) {
+			value ="성공";
+		}
+		System.out.println("value = " +value);
+		return value;
+	}
+
+	@Override
+	public void dateCountUpdate(MycartVO mvo) {
+		int a =mypageDao.dateCountUpdate(mvo);
+//		System.out.println("dateCountUpdate "+ a);
+	}
+
+	@Override
+	public String productBuy(MycartVO mvo) {
+		System.out.println("getChangeCount= " +mvo.getChangeCount());
+		int confirm =0;
+		int insertConfirm=0;
+		int updateConfirm =0;
+		String value ="";
+		int key = mypageDao.mycartConfirm(mvo);
+
 		if(key==0) {
 			confirm = mypageDao.mycartBuy1deptInsert(mvo);
 			System.out.println("confirm"+confirm);
 		}
-		last_confirm = mypageDao.mycartBuy2deptInsert(mvo);
-		System.out.println("last_confirm = " +last_confirm);
-		if(last_confirm !=0) {
-			delete_confirm = mypageDao.itemDelete(mvo);
-			System.out.println("delete_confirm = " +delete_confirm);
+		insertConfirm=mypageDao.mycartBuy2deptInsert(mvo);
+		if(insertConfirm==1) {
+			updateConfirm=mypageDao.psCountUpdate(mvo);
 		}
-		if(delete_confirm !=0) {
-			value = "성공";
-//			update_count =  mypageDao.pscountUpdate(mvo);
-//			update_ps_count = mypageDao.countUpdate(mvo)
+		if(updateConfirm==1) {
+			
 		}
-		
 		return value;
 	}
+
+	
+	//바로 구매하기 눌렀을때 카트에 담겨져있는지 확인하는 곳
+	@Override
+	public int cartConfirmList(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		
+		return mypageDao.cartConfirmList(mvo);
+	}
+
+
 	
 		
 }
