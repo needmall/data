@@ -52,18 +52,18 @@ $(function() {
 		});
 	}); // END #search
 	
-	/* 상세페이지 이동 */
-	$(document).on("click", ".restaurant-name", function() {
-		var ps_num = $(this).parents("tr").attr("data-num");
-		$("#ps_num").val(ps_num);
-		$("#review").val("0");
+// 	/* 상세페이지 이동 */
+// 	$(document).on("click", ".restaurant-name", function() {
+// 		var ps_num = $(this).parents("tr").attr("data-num");
+// 		$("#ps_num").val(ps_num);
+// 		$("#review").val("0");
 		
-		$("#detailForm").attr({
-			"method" : "GET",
-			"action" : "/productdetail/productdetailmain.do"
-		});
-			$("#detailForm").submit();
-	});
+// 		$("#detailForm").attr({
+// 			"method" : "GET",
+// 			"action" : "/productdetail/productdetailmain.do"
+// 		});
+// 			$("#detailForm").submit();
+// 	});
 	
 	/* 평점, 리뷰 상세페이지 이동 */
 	$(document).on("click", ".stars", function() {
@@ -145,10 +145,12 @@ $(function() {
 	/* 주소 검색 주변매장 동적 생성 */
 	function addNewItem(ps_num, si_image, st_name, pi_image, p_name, p_price, ps_expiration, ps_count, ps_price, prv_count, prv_scope, distance) {
 		var new_div_contract = $("<div>");
-		new_div_contract.addClass("col-md-6 contract contract_periphery");
+		new_div_contract.addClass("col-md-6 contract contract_periphery list-group-item");
 
-		var new_div_clearfix = $("<div>");
-		new_div_clearfix.addClass("item clearfix");
+		var new_a_clearfix = $("<a>");
+		new_a_clearfix.attr("href","/productdetail/productdetailmain.do?ps_num="+ps_num);
+		new_a_clearfix.addClass("list-group-item");
+		new_a_clearfix.addClass("item clearfix");
 
 		var new_table = $("<table>");
 		var new_tbody = $("<tbody>");
@@ -275,8 +277,8 @@ $(function() {
 		new_tr.append(new_td_p_ps);
 
 		new_table.append(new_tbody).append(new_tr);
-		new_div_clearfix.append(new_table);
-		new_div_contract.append(new_div_clearfix);
+		new_a_clearfix.append(new_table);
+		new_div_contract.append(new_a_clearfix);
 
 		$(".periphery_list").append(new_div_contract);
 
@@ -301,13 +303,13 @@ $(function() {
 
 <div class="container restaurant-list\">
 	<div class="main_prodlist main_prodlist_list">
-		<h4 class="glyphicon glyphicon-heart h4color">즐겨찾기 매장 상품</h4>
+		<h4 > 즐겨찾기 매장 상품</h4>
 		<div class="favorites_list">
 		<c:choose>
 			<c:when test="${not empty productFavList}">
 				<c:forEach var="FavList" items="${productFavList}" varStatus="status">
-					<div class="col-md-6 contract">
-						<div class="item clearfix">
+					<div class="col-md-6 contract list-group-item">
+						<a class="item clearfix list-group-item" href="/productdetail/productdetailmain.do?ps_num=${FavList.ps_num}">
 							<table>
 								<tbody>
 									<tr data-num="${FavList.ps_num}">
@@ -364,7 +366,7 @@ $(function() {
 									</tr>
 								</tbody>
 							</table>
-						</div>
+						</a>
 					</div>
 				</c:forEach>
 			</c:when>
@@ -378,13 +380,13 @@ $(function() {
 	</div>
 	
 	<div class="main_prodlist main_prodlist_list periphery">
-		<h4 class="glyphicon glyphicon-flag h4color">주변 매장 상품</h4>
+		<h4 > 주변 매장 상품</h4>
 		<div class="periphery_list">
 		<c:choose>
 			<c:when test="${not empty productAllList}">
 				<c:forEach var="AllList" items="${productAllList}" varStatus="status">
-					<div class="col-md-6 contract">
-						<div class="item clearfix">
+					<div class="col-md-6 contract list-group-item">
+						<a class="item clearfix list-group-item" href="/productdetail/productdetailmain.do?ps_num=${FavList.ps_num}">
 							<table>
 								<tbody>
 									<tr data-num="${AllList.ps_num}">
@@ -441,7 +443,7 @@ $(function() {
 									</tr>
 								</tbody>
 							</table>
-						</div>
+						</a>
 					</div>
 				</c:forEach>
 			</c:when>

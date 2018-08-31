@@ -11,4 +11,9 @@
 	      on store.SI_DIVISION=storeimage.SI_DIVISION order by distance
 	]]>	     
 	</select>	
+	<select id="storeProducts" parameterType="int" resultType="productall">
+		SELECT ps_num, si_image, st_name, pi_image, p_name, p_price, TO_CHAR(ps_expiration ,'yyyy/mm/dd hh24:mi') AS ps_expiration, ps_count, ps_price, (SELECT COUNT(*) FROM preview prv WHERE prv.p_num = ps.p_num) AS prv_count, NVL((SELECT trunc(AVG(prv_scope),1) FROM preview prv WHERE prv.p_num = ps.p_num),0) AS prv_scope 
+		FROM store st INNER JOIN storeimage si ON st.si_division = si.si_division INNER JOIN productsell ps ON ps.s_num = st.s_num INNER JOIN product p ON p.p_num = ps.p_num INNER JOIN proimage pi ON pi.pi_num = p.pi_num
+		WHERE ps_state = 0 AND ps_count > 0 and st_num =#{st_num}
+	</select>
 </mapper>

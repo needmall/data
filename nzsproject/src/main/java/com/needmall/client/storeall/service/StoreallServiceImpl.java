@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.needmall.client.productall.vo.ProductallVO;
 import com.needmall.client.storeall.dao.StoreallDao;
 import com.needmall.client.storeall.vo.StoreallVO;
 import com.needmall.common.vo.CustomerVO;
@@ -30,5 +31,18 @@ public class StoreallServiceImpl implements StoreallService{
 		return storeList;
 	}
 	
-	
+	/**
+	 * storeProducts : 선택된 스토어 상품보기
+	 */
+	@Override
+	public String storeProducts(int st_num, ObjectMapper mapper) {
+		String list="";
+		List<ProductallVO> prductslist = storeallDao.storeProducts(st_num);
+		try {
+			list=mapper.writeValueAsString(prductslist);
+		} catch (JsonProcessingException e) {		
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

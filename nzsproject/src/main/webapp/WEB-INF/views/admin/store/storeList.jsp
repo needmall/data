@@ -92,7 +92,6 @@ $(function() {
 		//연습연습
 		var dae = $(this).parents("tr").find(".expireDate").attr("data-date");
 		
-		console.log("이게 찍혀야 함"+dae);
 		
 	})
 	
