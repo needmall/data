@@ -89,8 +89,23 @@
 	</insert>
 	
 	<update id="customerDelete" parameterType="member">
+		/* customer - "customerDelete" */
 		update customer set cs_division = 2, c_pwd=0, c_name=0, c_gender=0, c_address=0, c_cell=0, c_lat=0, c_lon=0
         where c_id=#{c_id}
 	</update> 
+	
+	<update id="sellerDelete" parameterType="member">
+		/* seller - "sellerDelete" */
+		update seller
+		set cs_division = 2, s_pwd=0, s_name=0, s_gender=0, s_address=0, s_cell=0, s_phone=0, s_mail=0
+        where s_id=#{s_id}
+	</update>
+	
+	<update id="reqStoreDelete" parameterType="join">
+		/* seller - "reqStoreDelete" */
+		update reqstore
+		set st_address = 0, st_email=0, st_hours=0, st_cell=0, st_ceo=0
+        where s_num=#{s_num}
+	</update>
 	
 </mapper>

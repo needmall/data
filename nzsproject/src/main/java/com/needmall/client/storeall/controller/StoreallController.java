@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.needmall.client.productall.vo.ProductallVO;
 import com.needmall.client.storeall.service.StoreallService;
 import com.needmall.common.vo.CustomerVO;
 
@@ -44,6 +46,15 @@ public class StoreallController {
 		String listData = storeallService.storeList(cvo, mapper);	
 		return listData; // 문자열 반환
 	}
+	@ResponseBody
+	@RequestMapping(value="/storeProducts.do", method=RequestMethod.GET, produces = "text/plain; charset=UTF-8") 
+	public String storeProducts(@RequestParam("st_num") int st_num, ObjectMapper mapper) {
+		logger.info("storeProducts 호출 성공");
+		String list = "";
+		list = storeallService.storeProducts(st_num, mapper);
+		return list;
+	}
+	
 	/*
 	@ResponseBody
 	@RequestMapping(value="/storelist.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")

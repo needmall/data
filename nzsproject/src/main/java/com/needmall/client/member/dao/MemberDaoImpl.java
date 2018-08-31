@@ -79,10 +79,22 @@ public class MemberDaoImpl implements MemberDao {
 		return session.delete("customerDelete", c_id);
 	}
 
+	@Override
+	public int sellerDelete(String s_id) {
+		return session.delete("sellerDelete", s_id);
+	}
+
+	@Override
+	public int reqStoreDelete(int s_num) {
+		return session.delete("reqStoreDelete", s_num);
+	}
+
 	/*
 	@Override
 	public int customerSecurityDelete(String c_id) {
 		return session.delete("customerSecurityDelete", c_id);
 	}//security 굳이 지워야하나
 	*/
+	
+	
 }

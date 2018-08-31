@@ -101,6 +101,13 @@ public class JoinVO extends MemberVO {
 	public void setReqst_num(int reqst_num) {
 		this.reqst_num = reqst_num;
 	}
+	@Override
+	public String toString() {
+		return "JoinVO [st_num=" + st_num + ", s_num=" + s_num + ", st_bnum=" + st_bnum + ", st_name=" + st_name
+				+ ", st_address=" + st_address + ", st_email=" + st_email + ", st_hours=" + st_hours + ", st_cell="
+				+ st_cell + ", st_ceo=" + st_ceo + ", st_lat=" + st_lat + ", st_lon=" + st_lon + ", st_date=" + st_date
+				+ ", si_division=" + si_division + ", reqst_num=" + reqst_num + "]";
+	}
 	
 	
 	

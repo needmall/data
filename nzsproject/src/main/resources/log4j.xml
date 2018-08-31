@@ -67,7 +67,9 @@
 	<logger name="com.needmall.seller.productsell.dao.">
 		<level value="trace" />
 	</logger>
-		
+	<logger name="com.needmall.client.news.dao.">
+		<level value="trace" />
+	</logger>	
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">

@@ -64,6 +64,68 @@
 		height: 665px;
 	}
 	
+	/* 여기부터 제품 목록에 대한 css */
+	
+	#productsList{
+		width:1100px;		
+		margin-left: auto; 
+		margin-right: auto;	
+	}
+	.align-center {
+		text-align : center; 
+	}
+
+	.jb-th-1 {
+		width : 70px;
+		padding : 10px 0px;
+	}
+	.jb-th-2 {
+		width : 30px;
+		bo
+	}
+
+	.fileImageLogo {
+		width: 70px;
+		height: 40px;
+	}
+	
+	.fileImageProduct {
+		width: 70px;
+		height: 70px;
+	}
+	.review_num:before {
+	  content: "|";
+	  color: #d9d9d9;
+	}
+	.p_price {
+		text-decoration : line-through;
+	}
+	ul {
+		list-style-type : none;
+	}
+	tr {
+		width: 520px;
+		
+	}
+	td {	
+		padding-left	: 7px;
+		padding-right	: 7px; 
+	}
+	
+	ul {
+		padding	: 0px;
+		margin	: 0px;
+	}
+	.col-md-6 {
+		width: 530px;
+		padding: 5px;
+	}
+	.contract{ 	
+		margin: 10px;
+	}
+	h4{
+		padding-top: 20px;
+	}
 </style>
 
 
@@ -93,6 +155,10 @@
 </div>	
 <input type="hidden" name="c_lat" id="c_lat">
 <input type="hidden" name="c_lon" id="c_lon"> 
+
+<!-- 상품 영역 -->
+<div id="productsList"></div>
+
 
 <script type="text/javascript">
 		// 맵 변수
@@ -186,7 +252,7 @@
 							var si_image = this.si_image;
 							var st_name = this.st_name;
 							var st_address = this.st_address;
-							var distance = this.distance;
+							var distance = this.distance+"m";
 													
 							//목록 생성
 							addNewItem(st_num, st_lat, st_lon,si_image, st_name, st_address, distance, map);
@@ -265,7 +331,7 @@
 								var si_image = this.si_image;
 								var st_name = this.st_name;
 								var st_address = this.st_address;
-								var distance = this.distance + "m";
+								var distance = this.distance+"m";
 														
 								//목록 생성
 								addNewItem(st_num, st_lat, st_lon,si_image, st_name, st_address, distance, map);
@@ -296,6 +362,9 @@
 				});		
 				
 			});	//검색해서 해당 위치로 이동, 목록 , 마커 생성 마지막		
+			
+			
+			
 					
 		}); // 최상위 마지막
 		
@@ -320,7 +389,7 @@
 			
 			// 클릭하기 위한 a태그
 			var new_a = $("<a>");
-			new_a.attr("href","javascript:selectList("+st_lat+","+st_lon+",'"+st_name+"')");
+			new_a.attr("href","javascript:selectList("+st_lat+","+st_lon+","+st_num+",'"+st_name+"')");
 			new_a.addClass("list-group-item");
 			
 			// 전체 div
@@ -350,7 +419,7 @@
 			
 			// 거리 <p>
 			var m = $("<p>");
-			m.html("거리 :"+ distance);
+			m.html("거리 :"+distance.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
 				
 			//조립하기
 			condiv.append(name).append(address).append(m);
@@ -363,7 +432,7 @@
 		}
 		
 		// 목록 선택이 이동, 선택된 마커 오버레이
-		function selectList(st_lat, st_lon, st_name) {					
+		function selectList(st_lat, st_lon,st_num, st_name) {					
 			// 선택된 마커를 담을 변수 삭제하기
 			if(selectedmarker!=null)selectedmarker.setMap(null);
 				
@@ -385,7 +454,180 @@
 			// 지도 중심을 부드럽게 이동시킵니다
 			// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
 			map.panTo(moveLatLon);
+			
+			//목록 선택되면 실행
+			var url = "/storeall/storeProducts.do?st_num="+st_num;
+			
+			/* 주변매장 상품 초기화 */
+			$("#productsList").html("");
+			$("#productsList").append("<h4 class='h4color selectedstname'>판매 제품 목록: "+st_name+"</h4>");
+			
+			
+			$.getJSON(url, function(data) {
+				
+				if(data == ""){
+					$("#productsList").html("<h4>해당 매장에서 판매중인 상품이 없습니다.</h4>");
+				}else{
+					$(data).each(function() {					
+						var ps_num = this.ps_num;
+						var si_image = this.si_image;
+						var st_name = this.st_name.replace(/\s/, "<br>");
+						var pi_image = this.pi_image;
+						var p_name = this.p_name;
+						var p_price = this.p_price;
+						var ps_expiration = this.ps_expiration;
+						var ps_count = this.ps_count;
+						var ps_price = this.ps_price;
+						var prv_count = this.prv_count;
+						var prv_scope = this.prv_scope;
+						var distance = this.distance;					
+						
+						/* 목록 생성 */
+						addProducts(ps_num, si_image, st_name, pi_image, p_name, p_price, ps_expiration, ps_count, ps_price, prv_count, prv_scope);
+						
+					});
+				}
+			}).fail(function() {
+				alert("매장 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
+			});
 		}	
+	
+		
+		//목록이 선택되면 매장 뿌려주기
+		/* 주소 검색 주변매장 동적 생성 */
+	function addProducts(ps_num, si_image, st_name, pi_image, p_name, p_price, ps_expiration, ps_count, ps_price, prv_count, prv_scope, distance) {
+		/* 상품 할인율 계산 */					
+		var disRate = Math.round((p_price - ps_price) / p_price * 100);			
+		var new_div_contract = $("<div>");
+		new_div_contract.addClass("col-md-6 list-group-item contract discount");
+
+		var new_a_clearfix = $("<a>");
+		new_a_clearfix.attr("href","/productdetail/productdetailmain.do?ps_num="+ps_num);
+		new_a_clearfix.addClass("list-group-item");
+
+		var new_table = $("<table>");
+		var new_tbody = $("<tbody>");
+		
+
+		var new_tr = $("<tr>");
+		new_tr.attr("data-num", ps_num);
+		
+		var new_td_si = $("<td>");
+		new_td_si.addClass("jb-th-1");
+		var new_div_logo = $("<div>");
+		
+		var new_img_si = $("<img>");
+		new_img_si.attr("src", "/uploadStorage/store/" + si_image);
+		new_img_si.addClass("fileImageLogo");
+
+		var new_p_name = $("<p>");
+		new_p_name.html(st_name);
+		new_p_name.addClass("stname align-center");
+
+		var new_td_pi = $("<td>");
+		new_td_pi.addClass("jb-th-1");
+		var new_div_product = $("<div>");
+
+		var new_img_pi = $("<img>");
+		new_img_pi.attr("src", "/uploadStorage/product/" + pi_image);
+		new_img_pi.addClass("fileImageProduct");
+
+		var new_td_p = $("<td>");
+		var new_div_name = $("<div>");
+		new_div_name.addClass("restaurants-info");
+		var new_div_expiration = $("<div>");
+		new_div_expiration.attr("title", p_name);
+		new_div_expiration.html(p_name);
+
+		var new_div_scope = $("<div>");
+		new_div_scope.attr("title", ps_expiration);
+		new_div_scope.html(ps_expiration);
+
+		var new_div_stars = $("<div>");
+		new_div_stars.addClass("stars");
+		var new_span_scope = $("<span>");
+		new_span_scope.addClass("ico-star1 ng-binding glyphicon glyphicon-star");
+		new_span_scope.html(prv_scope);
+		var new_span_count_prv = $("<span>");
+		new_span_count_prv.addClass("review_num");
+		new_span_count_prv.html("리뷰 " + prv_count);
+
+		var new_td_ps = $("<td>");
+		var new_div_txt = $("<div>");
+		new_div_txt.addClass("align-center");
+		var new_span_txt = $("<span>");		
+		new_span_txt.html("남은수량");
+		var new_div_space = $("<div>");
+		var new_span_count_ps = $("<span>");
+		new_span_count_ps.html(ps_count + "개");
+
+		var new_td_discount = $("<td>");
+		new_td_discount.addClass("jb-th-2");
+		var new_div_discount = $("<div>");
+		var new_ul_txt = $("<ul>");
+		var new_li_txt = $("<li>");		
+		var new_span_discount = $("<span>");
+		new_span_discount.html(disRate);
+		var new_span_text = $("<span>");
+		new_span_text.html("%");
+
+		var new_td_p_ps = $("<td>");
+		var new_div_price = $("<div>");
+		new_div_price.addClass("align-center");
+		var new_ul_price = $("<ul>");
+		var new_li_price = $("<li>");		
+		var new_span_price = $("<span>");
+		new_span_price.addClass("p_price");
+		new_span_price.html(p_price+"원");
+		var new_li_ps_price = $("<li>");	
+		var new_span_price_ps = $("<span>");
+		new_span_price_ps.addClass("ps_price");
+		new_span_price_ps.html(ps_price+"원");
+		
+
+		new_div_logo.append(new_img_si).append(new_p_name);
+		new_td_si.append(new_div_logo);
+		new_tr.append(new_td_si);
+
+		new_div_product.append(new_img_pi);
+		new_td_pi.append(new_div_product)
+		new_tr.append(new_td_pi);
+
+		new_div_stars.append(new_span_scope).append(new_span_count_prv);
+		new_div_scope.append(new_div_stars);
+		new_div_expiration.append(new_div_scope);
+		new_div_name.append(new_div_expiration);
+		new_td_p.append(new_div_name);
+		new_tr.append(new_td_p);
+
+		new_div_txt.append(new_span_txt).append(new_div_space).append(new_span_count_ps);
+		new_td_ps.append(new_div_txt);
+		new_tr.append(new_td_ps);
+
+		new_li_txt.append(new_span_discount).append(new_span_text);
+		new_ul_txt.append(new_li_txt);
+		new_div_discount.append(new_ul_txt)
+		new_td_discount.append(new_div_discount);
+		new_tr.append(new_td_discount);
+		
+		new_li_price.append(new_span_price);
+		new_ul_price.append(new_li_price);
+		new_li_ps_price.append(new_span_price_ps);
+		new_ul_price.append(new_li_ps_price);
+		
+		new_div_price.append(new_ul_price);
+		new_td_p_ps.append(new_div_price)
+		new_tr.append(new_td_p_ps);
+
+		new_table.append(new_tbody).append(new_tr);
+		new_a_clearfix.append(new_table);
+		new_div_contract.append(new_a_clearfix);
+
+		$("#productsList").append(new_div_contract);
+
+		return new_div_contract;
+	}
+		
 		
 		// 맵의 가운데 위도 경도를 행정주소로 반환
 		function getAddress (result, status) {  
@@ -397,9 +639,9 @@
 		
 		function getlist(){
 			var url = "/storeall/storelist.do?c_lat=37.562307&c_lon=127.035154"; //회사위치 기준
-			$.getJSON(url, function(data) {
-				$("#storeList").html("");  // 목록 초기화
-									
+			$("#storeList").html("");  // 목록 초기화
+			$.getJSON(url, function(data) {			
+				
 				//불러온 데이터 처리
 				$(data).each(function() {
 					var st_num = this.st_num;

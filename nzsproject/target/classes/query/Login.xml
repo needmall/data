@@ -23,7 +23,7 @@
 	
 	<select id="sellerLoginSelect" parameterType="login" resultType="login">
 		/* seller 로그인 처리 쿼리 */
-		select s_id, s_pwd, s_name
+		select s_id, s_pwd, s_name, s_num
 		from seller
 		where s_id = #{s_id} and s_pwd = #{s_pwd}
 	</select>

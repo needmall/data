@@ -82,3 +82,12 @@ ul {
   content: "|";
   color: #d9d9d9;
 }
+
+.contract{ 	
+		margin: 7px;
+}
+h4{
+	padding-top:20px;
+	clear: both;
+	font: bold;
+}

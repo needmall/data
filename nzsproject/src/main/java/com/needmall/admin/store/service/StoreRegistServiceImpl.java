@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.product.vo.ProductRegistVO;
 import com.needmall.admin.store.dao.StoreRegistDao;
 import com.needmall.admin.store.vo.StoreRegistVO;
+import com.needmall.client.productall.vo.ProductallVO;
 import com.needmall.common.file.FileUploadUtil;
 import com.needmall.common.vo.FeesVO;
 import com.needmall.common.vo.ProductVO;
@@ -131,6 +132,8 @@ public class StoreRegistServiceImpl implements StoreRegistService{
 		}
 		return result;
 	}
+
+	
 	
 	
 //	/**
