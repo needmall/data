@@ -15,7 +15,7 @@ $(function() {
 	/* 주소-좌표 변환 객체 생성 */
 	var geocoder = new daum.maps.services.Geocoder();
 
-	;(function($) {
+	
 		// geolocation 확인
 		if (navigator.geolocation) {
 		
@@ -30,7 +30,7 @@ $(function() {
 				addSearch(lat, lon);
 			});
 		}
-	})(jQuery);
+	
 	
 	/* 주소 검색 버튼 */
 	$("#search").click(function() {
@@ -307,154 +307,154 @@ $(function() {
 	<div class="main_prodlist main_prodlist_list">
 		<h4 > 즐겨찾기 매장 상품</h4>
 		<div class="favorites_list">
-		<c:choose>
-			<c:when test="${not empty productFavList}">
-				<c:forEach var="FavList" items="${productFavList}" varStatus="status">
-					<div class="col-md-6 contract list-group-item">
-						<a class="item clearfix list-group-item" href="/productdetail/productdetailmain.do?ps_num=${FavList.ps_num}">
-							<table>
-								<tbody>
-									<tr data-num="${FavList.ps_num}">
-										<td class="jb-th-1">
-											<div>
-												<img class="fileImageLogo" src="/uploadStorage/store/${FavList.si_image}">
-												<p class="store_name align-center">${FavList.st_name}</p>
-											</div>
-										</td>
-										<td class="jb-th-1">
-											<div>
-												<img class="fileImageProduct" src="/uploadStorage/product/${FavList.pi_image}">
-											</div>
-										</td>
-										<td>
-											<div class="restaurants-info">
-												<div class="restaurant-name ng-binding"
-													title="${FavList.p_name}">${FavList.p_name}</div>
-												<div class="restaurant-name ng-binding"
-													title="${FavList.ps_expiration}">${FavList.ps_expiration}</div>
-												<div class="stars">
-													<span class="ico-star1 ng-binding glyphicon glyphicon-star">${FavList.prv_scope}</span>
-													<span class="review_num ng-binding">리뷰 ${FavList.prv_count}</span>
+			<c:choose>
+				<c:when test="${not empty productFavList}">
+					<c:forEach var="FavList" items="${productFavList}" varStatus="status">
+						<div class="col-md-6 contract list-group-item">
+							<a class="item clearfix list-group-item" href="/productdetail/productdetailmain.do?ps_num=${FavList.ps_num}">
+								<table>
+									<tbody>
+										<tr data-num="${FavList.ps_num}">
+											<td class="jb-th-1">
+												<div>
+													<img class="fileImageLogo" src="/uploadStorage/store/${FavList.si_image}">
+													<p class="store_name align-center">${FavList.st_name}</p>
 												</div>
-											</div>
-										</td>
-										<td>
-											<div class="restaurants-info align-center">
-												<span class="restaurant-name ng-binding">남은수량</span>
-												<div></div>
-												<span>${FavList.ps_count}개</span>
-											</div>
-										</td>
-										<td class="jb-th-2">
-											<div>
-												<ul>
-													<li class="payment-methods ng-binding yogiseo-payment">
-														<span class="discountRate"></span><span>%</span>
-													</li>
-												</ul>
-											</div>
-										</td>
-										<td>
-											<div class="align-center">
-												<ul>
-													<li class="payment-methods ng-binding yogiseo-payment"><span class="p_price format-money">${FavList.p_price}</span>
-													</li>
-													<li class="payment-methods ng-binding yogiseo-payment">
-														<span class="ps_price format-money">${FavList.ps_price}</span>
-													</li>
-												</ul>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</a>
-					</div>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
-				<tr>
-					<td colspan="6" class="tac">등록된 상품이 존재하지 않습니다.</td>
-				</tr>
-			</c:otherwise>
-		</c:choose>
+											</td>
+											<td class="jb-th-1">
+												<div>
+													<img class="fileImageProduct" src="/uploadStorage/product/${FavList.pi_image}">
+												</div>
+											</td>
+											<td>
+												<div class="restaurants-info">
+													<div class="restaurant-name ng-binding"
+														title="${FavList.p_name}">${FavList.p_name}</div>
+													<div class="restaurant-name ng-binding"
+														title="${FavList.ps_expiration}">${FavList.ps_expiration}</div>
+													<div class="stars">
+														<span class="ico-star1 ng-binding glyphicon glyphicon-star">${FavList.prv_scope}</span>
+														<span class="review_num ng-binding">리뷰 ${FavList.prv_count}</span>
+													</div>
+												</div>
+											</td>
+											<td>
+												<div class="restaurants-info align-center">
+													<span class="restaurant-name ng-binding">남은수량</span>
+													<div></div>
+													<span>${FavList.ps_count}개</span>
+												</div>
+											</td>
+											<td class="jb-th-2">
+												<div>
+													<ul>
+														<li class="payment-methods ng-binding yogiseo-payment">
+															<span class="discountRate"></span><span>%</span>
+														</li>
+													</ul>
+												</div>
+											</td>
+											<td>
+												<div class="align-center">
+													<ul>
+														<li class="payment-methods ng-binding yogiseo-payment"><span class="p_price format-money">${FavList.p_price}</span>
+														</li>
+														<li class="payment-methods ng-binding yogiseo-payment">
+															<span class="ps_price format-money">${FavList.ps_price}</span>
+														</li>
+													</ul>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</a>
+						</div>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td colspan="6" class="tac">등록된 상품이 존재하지 않습니다.</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	
 	<div class="main_prodlist main_prodlist_list periphery">
-		<h4 > 주변 매장 상품</h4>
+		<h4> 주변 매장 상품</h4>
 		<div class="periphery_list">
-		<c:choose>
-			<c:when test="${not empty productAllList}">
-				<c:forEach var="AllList" items="${productAllList}" varStatus="status">
-					<div class="col-md-6 contract list-group-item">
-						<a class="item clearfix list-group-item" href="/productdetail/productdetailmain.do?ps_num=${FavList.ps_num}">
-							<table>
-								<tbody>
-									<tr data-num="${AllList.ps_num}">
-										<td class="jb-th-1">
-											<div>
-												<img class="fileImageLogo" src="/uploadStorage/store/${AllList.si_image}">
-												<p class="store_name align-center">${AllList.st_name}</p>
-											</div>
-										</td>
-										<td class="jb-th-1">
-											<div>
-												<img class="fileImageProduct" src="/uploadStorage/product/${AllList.pi_image}">
-											</div>
-										</td>
-										<td>
-											<div class="restaurants-info">
-												<div class="restaurant-name ng-binding" title="${AllList.p_name}">${AllList.p_name}
+			<c:choose>
+				<c:when test="${not empty productAllList}">
+					<c:forEach var="AllList" items="${productAllList}" varStatus="status">
+						<div class="col-md-6 contract list-group-item">
+							<a class="item clearfix list-group-item" href="/productdetail/productdetailmain.do?ps_num=${AllList.ps_num}">
+								<table>
+									<tbody>
+										<tr data-num="${AllList.ps_num}">
+											<td class="jb-th-1">
+												<div>
+													<img class="fileImageLogo" src="/uploadStorage/store/${AllList.si_image}">
+													<p class="store_name align-center">${AllList.st_name}</p>
 												</div>
-												<div class="restaurant-name ng-binding" title="${AllList.ps_expiration}">${AllList.ps_expiration}
+											</td>
+											<td class="jb-th-1">
+												<div>
+													<img class="fileImageProduct" src="/uploadStorage/product/${AllList.pi_image}">
 												</div>
-												<div class="stars">
-													<span class="ico-star1 ng-binding glyphicon glyphicon-star">${AllList.prv_scope}</span>
-													<span class="review_num ng-binding">리뷰 ${AllList.prv_count}</span>
+											</td>
+											<td>
+												<div class="restaurants-info">
+													<div class="restaurant-name ng-binding" title="${AllList.p_name}">${AllList.p_name}
+													</div>
+													<div class="restaurant-name ng-binding" title="${AllList.ps_expiration}">${AllList.ps_expiration}
+													</div>
+													<div class="stars">
+														<span class="ico-star1 ng-binding glyphicon glyphicon-star">${AllList.prv_scope}</span>
+														<span class="review_num ng-binding">리뷰 ${AllList.prv_count}</span>
+													</div>
 												</div>
-											</div>
-										</td>
-										<td>
-											<div class="restaurants-info align-center">
-												<span class="restaurant-name ng-binding">남은수량</span>
-												<div></div>
-												<span>${AllList.ps_count}개</span>
-											</div>
-										</td>
-										<td class="jb-th-2">
-											<div>
-												<ul>
-													<li class="payment-methods ng-binding yogiseo-payment">
-														<span class="discountRate"></span><span>%</span>
-													</li>
-												</ul>
-											</div>
-										</td>
-										<td>
-											<div class="align-center">
-												<ul >
-													<li class="payment-methods ng-binding yogiseo-payment"><span class="p_price format-money">${AllList.p_price}</span>
-													</li>
-													<li class="payment-methods ng-binding yogiseo-payment">
-														<span class="ps_price format-money">${AllList.ps_price}</span>
-													</li>
-												</ul>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</a>
-					</div>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
-				<tr>
-					<td colspan="6" class="tac">등록된 상품이 존재하지 않습니다.</td>
-				</tr>
-			</c:otherwise>
-		</c:choose>
+											</td>
+											<td>
+												<div class="restaurants-info align-center">
+													<span class="restaurant-name ng-binding">남은수량</span>
+													<div></div>
+													<span>${AllList.ps_count}개</span>
+												</div>
+											</td>
+											<td class="jb-th-2">
+												<div>
+													<ul>
+														<li class="payment-methods ng-binding yogiseo-payment">
+															<span class="discountRate"></span><span>%</span>
+														</li>
+													</ul>
+												</div>
+											</td>
+											<td>
+												<div class="align-center">
+													<ul >
+														<li class="payment-methods ng-binding yogiseo-payment"><span class="p_price format-money">${AllList.p_price}</span>
+														</li>
+														<li class="payment-methods ng-binding yogiseo-payment">
+															<span class="ps_price format-money">${AllList.ps_price}</span>
+														</li>
+													</ul>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</a>
+						</div>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td colspan="6" class="tac">등록된 상품이 존재하지 않습니다.</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 </div>
