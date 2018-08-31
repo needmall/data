@@ -123,6 +123,9 @@
 	.contract{ 	
 		margin: 10px;
 	}
+	h4{
+		padding-top: 20px;
+	}
 </style>
 
 
@@ -462,32 +465,28 @@
 			
 			$.getJSON(url, function(data) {
 				
-				$(data).each(function() {					
-					var ps_num = this.ps_num;
-					var si_image = this.si_image;
-					var st_name = this.st_name.replace(/\s/, "<br>");
-					var pi_image = this.pi_image;
-					var p_name = this.p_name;
-					var p_price = this.p_price;
-					var ps_expiration = this.ps_expiration;
-					var ps_count = this.ps_count;
-					var ps_price = this.ps_price;
-					var prv_count = this.prv_count;
-					var prv_scope = this.prv_scope;
-					var distance = this.distance;					
-
-					
-					/* 상품 할인율 계산 */					
-					var discountRate = Math.round((p_price - ps_price) / p_price * 100);
-					
-					
-					
-					console.log(discountRate);
-					/* 목록 생성 */
-					addProducts(ps_num, si_image, st_name, pi_image, p_name, p_price, ps_expiration, ps_count, ps_price, prv_count, prv_scope, discountRate);
-					
-				});
-				
+				if(data == ""){
+					$("#productsList").html("<h4>해당 매장에서 판매중인 상품이 없습니다.</h4>");
+				}else{
+					$(data).each(function() {					
+						var ps_num = this.ps_num;
+						var si_image = this.si_image;
+						var st_name = this.st_name.replace(/\s/, "<br>");
+						var pi_image = this.pi_image;
+						var p_name = this.p_name;
+						var p_price = this.p_price;
+						var ps_expiration = this.ps_expiration;
+						var ps_count = this.ps_count;
+						var ps_price = this.ps_price;
+						var prv_count = this.prv_count;
+						var prv_scope = this.prv_scope;
+						var distance = this.distance;					
+						
+						/* 목록 생성 */
+						addProducts(ps_num, si_image, st_name, pi_image, p_name, p_price, ps_expiration, ps_count, ps_price, prv_count, prv_scope);
+						
+					});
+				}
 			}).fail(function() {
 				alert("매장 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
 			});
@@ -496,7 +495,9 @@
 		
 		//목록이 선택되면 매장 뿌려주기
 		/* 주소 검색 주변매장 동적 생성 */
-	function addProducts(ps_num, si_image, st_name, pi_image, p_name, p_price, ps_expiration, ps_count, ps_price, prv_count, prv_scope, distance, discountRate) {
+	function addProducts(ps_num, si_image, st_name, pi_image, p_name, p_price, ps_expiration, ps_count, ps_price, prv_count, prv_scope, distance) {
+		/* 상품 할인율 계산 */					
+		var disRate = Math.round((p_price - ps_price) / p_price * 100);			
 		var new_div_contract = $("<div>");
 		new_div_contract.addClass("col-md-6 list-group-item contract discount");
 
@@ -566,7 +567,7 @@
 		var new_ul_txt = $("<ul>");
 		var new_li_txt = $("<li>");		
 		var new_span_discount = $("<span>");
-		new_span_discount.html(discountRate);
+		new_span_discount.html(disRate);
 		var new_span_text = $("<span>");
 		new_span_text.html("%");
 
