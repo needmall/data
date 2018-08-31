@@ -13,6 +13,7 @@
 		<typeAlias type="com.needmall.client.productall.vo.ProductallVO" alias="productall"/>
 		<typeAlias type="com.needmall.common.vo.ProductsellVO" alias="productsell"/>
 		<typeAlias type="com.needmall.seller.productsell.vo.ProductInfoVO" alias="productinfo"/>
+		<typeAlias type="com.needmall.seller.productsell.vo.ProductInsertVO" alias="productinsert"/>
 		<typeAlias type="com.needmall.common.vo.CustomerVO" alias="customer"/>
 		<typeAlias type="com.needmall.common.vo.SellerVO" alias="seller"/>
 		<typeAlias type="com.needmall.common.vo.StoreVO" alias="store"/>

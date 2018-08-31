@@ -15,20 +15,22 @@ $(function() {
 	/* 주소-좌표 변환 객체 생성 */
 	var geocoder = new daum.maps.services.Geocoder();
 
-	// geolocation 확인
-	if (navigator.geolocation) {
-	
-		// 접속 위치 확인
-		navigator.geolocation.getCurrentPosition(function(position) {
-			var lat = position.coords.latitude;
-			var lon = position.coords.longitude;
-			
-			// 위도, 경도의 주소 검색
-			geocoder.coord2RegionCode(lon, lat, getAddress);
-			// 주변 매장 검색
-			addSearch(lat, lon);
-		});
-	}
+	;(function($) {
+		// geolocation 확인
+		if (navigator.geolocation) {
+		
+			// 접속 위치 확인
+			navigator.geolocation.getCurrentPosition(function(position) {
+				var lat = position.coords.latitude;
+				var lon = position.coords.longitude;
+				
+				// 위도, 경도의 주소 검색
+				geocoder.coord2RegionCode(lon, lat, getAddress);
+				// 주변 매장 검색
+				addSearch(lat, lon);
+			});
+		}
+	})(jQuery);
 	
 	/* 주소 검색 버튼 */
 	$("#search").click(function() {
