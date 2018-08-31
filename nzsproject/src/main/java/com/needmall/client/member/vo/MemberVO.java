@@ -19,7 +19,7 @@ public class MemberVO extends LoginVO {
 	private double c_lon;
 	private Timestamp c_update;
 	
-	private int s_num;
+	
 	private String s_gender;
 	private int s_genderNum;
 	private String s_birthday;
@@ -103,12 +103,7 @@ public class MemberVO extends LoginVO {
 	public void setC_update(Timestamp c_update) {
 		this.c_update = c_update;
 	}
-	public int getS_num() {
-		return s_num;
-	}
-	public void setS_num(int s_num) {
-		this.s_num = s_num;
-	}
+	
 	public String getS_gender() {
 		return s_gender;
 	}
@@ -157,6 +152,15 @@ public class MemberVO extends LoginVO {
 	}
 	public void setS_date(Timestamp s_date) {
 		this.s_date = s_date;
+	}
+	@Override
+	public String toString() {
+		return "MemberVO [c_num=" + c_num + ", cs_division=" + cs_division + ", c_gender=" + c_gender + ", c_genderNum="
+				+ c_genderNum + ", c_birthday=" + c_birthday + ", c_address=" + c_address + ", c_mail=" + c_mail
+				+ ", c_cell=" + c_cell + ", c_date=" + c_date + ", c_lat=" + c_lat + ", c_lon=" + c_lon + ", c_update="
+				+ c_update + ", s_gender=" + s_gender + ", s_genderNum=" + s_genderNum
+				+ ", s_birthday=" + s_birthday + ", s_address=" + s_address + ", s_mail=" + s_mail + ", s_phone="
+				+ s_phone + ", s_cell=" + s_cell + ", s_date=" + s_date + "]";
 	}
 	
 	 

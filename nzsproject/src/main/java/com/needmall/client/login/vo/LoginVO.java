@@ -3,6 +3,7 @@ package com.needmall.client.login.vo;
 public class LoginVO extends LoginCheck {
 	private String s_id="";
 	private String s_pwd="";
+	private int s_num;
 	private String c_id="";
 	private String c_pwd="";
 	private String s_name="";
@@ -10,10 +11,11 @@ public class LoginVO extends LoginCheck {
 	
 	public LoginVO() {}
 
-	public LoginVO(String s_id, String s_pwd, String c_id, String c_pwd, String s_name, String c_name) {
+	public LoginVO(String s_id, String s_pwd, int s_num, String c_id, String c_pwd, String s_name, String c_name) {
 		super();
 		this.s_id = s_id;
 		this.s_pwd = s_pwd;
+		this.s_num = s_num;
 		this.c_id = c_id;
 		this.c_pwd = c_pwd;
 		this.s_name = s_name;
@@ -34,6 +36,14 @@ public class LoginVO extends LoginCheck {
 
 	public void setS_pwd(String s_pwd) {
 		this.s_pwd = s_pwd;
+	}
+
+	public int getS_num() {
+		return s_num;
+	}
+
+	public void setS_num(int s_num) {
+		this.s_num = s_num;
 	}
 
 	public String getC_id() {
@@ -70,8 +80,10 @@ public class LoginVO extends LoginCheck {
 
 	@Override
 	public String toString() {
-		return "LoginVO [s_id=" + s_id + ", s_pwd=" + s_pwd + ", c_id=" + c_id + ", c_pwd=" + c_pwd + ", s_name="
-				+ s_name + ", c_name=" + c_name + "]";
+		return "LoginVO [s_id=" + s_id + ", s_pwd=" + s_pwd + ", s_num=" + s_num + ", c_id=" + c_id + ", c_pwd=" + c_pwd
+				+ ", s_name=" + s_name + ", c_name=" + c_name + "]";
 	}
+
+	
 	
 }

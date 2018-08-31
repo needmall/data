@@ -180,5 +180,28 @@ public class MemberController {
 	 mav.setViewName("redirect:/member/logout.do");	//logout 으로 굳이 넘길 필요가 있나..?
 	 return mav; 									//넘겨야지..탈퇴하면 로그아웃 돼야지
 	}
+	 
+	 /**************************************************************
+	  * seller 회원 탈퇴 처리
+	  **************************************************************/
+	 @RequestMapping("/sellerDelete.do") 
+	 public ModelAndView sellerDelete(HttpSession session){
+	 logger.info("sellerDelete.do get방식에 의한 메서드 호출 성공");
+	  
+	 ModelAndView mav=new ModelAndView();
+	 LoginVO login =(LoginVO)session.getAttribute("login");
+	  
+	 if(login==null){
+	 mav.setViewName("member/login"); 
+	 return mav;
+	 }
+	 logger.info("control단 login : " + login);
+	 logger.info("control단 sellerDelete s_num : "+login.getS_num());
+	 //mvo.setS_num(login.getS_num());
+	 memberService.reqStoreDelete(login.getS_num());
+	 memberService.sellerDelete(login.getS_id());
+	 mav.setViewName("redirect:/member/logout.do");	//logout 으로 굳이 넘길 필요가 있나..?
+	 return mav; 									//넘겨야지..탈퇴하면 로그아웃 돼야지
+	}
 	
 }

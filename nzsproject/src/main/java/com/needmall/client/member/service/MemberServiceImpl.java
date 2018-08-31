@@ -213,4 +213,21 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public int sellerDelete(String s_id) {
+		//logger.info("sellerDelete에 들어갈 mvo : "+mvo);
+		int result = memberDao.sellerDelete(s_id);
+		//logger.info("reqStoreDelte에 들어갈 mvo.getS_num : "+mvo.getS_num());
+		//memberDao.reqStoreDelete(mvo.getS_num());
+		
+		//result = memberDao.sellerSecurityDelete(s_id);
+		return result;
+	}
+
+	@Override
+	public int reqStoreDelete(int s_num) {
+		int result = memberDao.reqStoreDelete(s_num);
+		return result;
+	}
+
 }
