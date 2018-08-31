@@ -64,10 +64,10 @@
 		<level value="trace" />
 	</logger>
 	
-	<logger name="com.needmall.seller.productsell.dao.">
+	<logger name="com.needmall.seller.productsell.dao">
 		<level value="trace" />
 	</logger>
-	<logger name="com.needmall.client.news.dao.">
+	<logger name="com.needmall.client.news.dao">
 		<level value="trace" />
 	</logger>	
 	

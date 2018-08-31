@@ -24,8 +24,8 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public List<NewsVO> newsDetail() {
-		List<NewsVO> list = newsDao.newsList();
+	public List<NewsVO> newsDetail(int n_num) {
+		List<NewsVO> list = newsDao.newsDetail(n_num);
 		return list;
 	}
 	

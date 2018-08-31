@@ -1,20 +1,18 @@
 package  com.needmall.client.news.controller;
 
 //import java.io.File;
-import java.io.IOException;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 //import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 //import org.springframework.web.bind.annotation.RequestParam;
 
 //import org.springframework.web.multipart.MultipartFile;
@@ -33,7 +31,7 @@ public class NewsController {
 	private NewsService newsService;  //필드명은 인터페이스를 선언함으로서 모든 구현체를 받을 수 있다.
 
 	@RequestMapping(value="/newsList.do", method=RequestMethod.GET)
-	public String newsList(Model model) {   //@ModelAttribute("data") 받아온 BoardVO의 이름을 지정해줄 경우, 아래 model.addAttribute("boardList", boardList) 와 같은 역할
+	public String newsList(Model model) {   
 		logger.info("newsList 호출 성공");
 		
 		List<NewsVO> newsList = newsService.newsList();
@@ -43,10 +41,10 @@ public class NewsController {
 	}	
 	
 	@RequestMapping(value="/newsDetail.do", method=RequestMethod.GET)
-	public String newsDetail(Model model) {   //@ModelAttribute("data") 받아온 BoardVO의 이름을 지정해줄 경우, 아래 model.addAttribute("boardList", boardList) 와 같은 역할
-		logger.info("newsList 호출 성공");
+	public String newsDetail(@RequestParam("n_num") int n_num,  Model model) { 
+		logger.info("newsDetail 호출 성공");
 		
-		List<NewsVO> detailVO = newsService.newsDetail();
+		List<NewsVO> detailVO = newsService.newsDetail(n_num);
 		model.addAttribute("newsDetail", detailVO);     
 		
 		return "client/news/newsDetail";

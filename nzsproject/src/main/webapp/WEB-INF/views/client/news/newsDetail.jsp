@@ -36,17 +36,16 @@
 			<th>등록일</th>
 			<td>${newsDetail.n_udate}<td>				
 		</tr>
-		<c:when test="${not empty ${newsDetail.n_file}">
+		<c:when test="${not empty newsDetail.n_file}">
 			<tr>
-				<th>이미지</th>
+				<th rowspan="2">내용</th>
 				<td>
 				
 				<img id="imgarea"class="img-thumbnail" src="/uploadStorage/news/${newsDetail.n_file}"/>
 				<td>				
 			</tr>
 		</c:when>
-		<tr>
-			<th>내용</th>
+		<tr>			
 			<td>${newsDetail.n_content}<td>				
 		</tr>			
 	</table>

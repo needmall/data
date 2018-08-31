@@ -8,7 +8,7 @@ import com.needmall.common.vo.NewsVO;
 
 public interface NewsDao {
 	public List<NewsVO> newsList();
-	public List<NewsVO> newsDetail();
+	public List<NewsVO> newsDetail(int n_num);
 //	public List<BoardVO> boardList(BoardVO bvo);
 //	public int insertBoard(BoardVO bvo);
 //	public BoardVO detailBoard(BoardVO bvo);
