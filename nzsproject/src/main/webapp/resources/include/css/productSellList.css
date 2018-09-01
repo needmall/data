@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+.fileImageProduct {
+	width: 70px;
+	height: 70px;
+}
+
+.align-center, .align-center th {
+	text-align : center; 
+}
+
+.div_pi_image {
+	margin: 8px 0px;
+}
+
+table td div {
+	margin: 35px 0px;
+}
+
+.addTextRight {
+	text-align: right;
+}

@@ -33,7 +33,7 @@ public class ProductsellController {
 	@RequestMapping(value="/list.do", method = RequestMethod.GET)
 	public String productList(Model model) {
 		
-		if(!s_id.isEmpty()) {
+		if(!s_id.isEmpty()) { 
 			List<ProductsellVO> productList = productsellService.productList(s_id);
 			model.addAttribute("productList", productList);
 		} else {

@@ -19,7 +19,7 @@ public class ProductsellDaoImpl implements ProductsellDao {
 
 	@Override
 	public List<ProductsellVO> productList(String s_id) {
-		return session.selectList("productsellList", s_id);
+		return session.selectList("productList", s_id);
 	}
 
 	@Override
