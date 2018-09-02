@@ -185,7 +185,11 @@ public class ProductsellController {
 			
 			// 판매상품 거래 조회
 			//result = productsellService.productUpdate(ivo);
-			
+			/*
+			 SELECT *
+			FROM customer c INNER JOIN buy1dep b1 ON c.c_num = b1.c_num INNER JOIN buy2dep b2 ON b2.b1_num = b1.b1_num
+			WHERE b_confirm = 0 AND ps_num = (SELECT ps_num FROM seller s INNER JOIN store st ON s.s_num = st.s_num INNER JOIN productsell ps ON ps.s_num = s.s_num WHERE s_id = 'seller_user1' AND ps_num = 1);
+			 * */
 			if(result == 1) {
 				
 				// 상품 판매 삭제
