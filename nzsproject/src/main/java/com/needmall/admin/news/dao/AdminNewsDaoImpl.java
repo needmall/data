@@ -1,4 +1,4 @@
-package com.needmall.client.news.dao;
+package com.needmall.admin.news.dao;
 
 import java.util.List;
 
@@ -11,18 +11,18 @@ import com.needmall.common.vo.NewsVO;
 
 
 @Repository
-public class NewsDaoImpl implements NewsDao {
+public class AdminNewsDaoImpl implements AdminNewsDao {
 	@Autowired
 	private SqlSession session; //mybatis에서 필요
 
 	@Override
-	public List<NewsVO> newsList() {		
-		return session.selectList("newsList");
+	public List<NewsVO> adminNewsList() {		
+		return session.selectList("adminNewsList");
 	}
 
 	@Override
-	public NewsVO newsDetail(NewsVO nvo) {		
-		return session.selectOne("newsDetail", nvo);
+	public NewsVO adminNewsDetail(NewsVO nvo) {		
+		return session.selectOne("adminNewsDetail", nvo);
 	}
 	
 	

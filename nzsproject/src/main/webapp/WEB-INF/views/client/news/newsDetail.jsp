@@ -21,32 +21,30 @@
 </script>
 
 <div class="table-responsive">
-	<h2> 공지 사항 </h2>
-    	<hr>
-	<table class="table table-bordered table-hover">	
+	<table class="table table-bordered">	
 		<tr>
 			<th>No</th>
-			<td>${newsDetail.n_num}<td>				
+			<td>${newsDetail.n_num}</td>		
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td>${newsDetail.n_title}<td>				
+			<td>${newsDetail.n_title}</td>				
 		</tr>
 		<tr>
 			<th>등록일</th>
-			<td>${newsDetail.n_udate}<td>				
+			<td>${newsDetail.n_udate}</td>				
 		</tr>
-		<c:when test="${not empty newsDetail.n_file}">
-			<tr>
-				<th rowspan="2">내용</th>
-				<td>
-				
-				<img id="imgarea"class="img-thumbnail" src="/uploadStorage/news/${newsDetail.n_file}"/>
-				<td>				
-			</tr>
-		</c:when>
-		<tr>			
-			<td>${newsDetail.n_content}<td>				
+		<c:choose>
+			<c:when test="${not empty newsDetail.n_file}">
+				<tr>
+					<th>이미지</th>
+					<td><img id="imgarea"class="img-thumbnail" src="/uploadStorage/news/${newsDetail.n_file}"/></td>				
+				</tr>
+			</c:when>
+		</c:choose> 
+		<tr>
+			<th>내용</th>		
+			<td>${newsDetail.n_content}</td>				
 		</tr>			
 	</table>
 </div>

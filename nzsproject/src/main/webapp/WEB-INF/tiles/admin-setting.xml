@@ -22,4 +22,8 @@
 		<put-attribute name="title" value="매장 등록 페이지"/>
 		<put-attribute name="main" value="/WEB-INF/views/admin/user/{1}.jsp"/>
 	</definition>
+	<definition name="admin/news/*" extends="basic">
+		<put-attribute name="title" value="매장 등록 페이지"/>
+		<put-attribute name="main" value="/WEB-INF/views/admin/news/{1}.jsp"/>
+	</definition>
 </tiles-definitions>

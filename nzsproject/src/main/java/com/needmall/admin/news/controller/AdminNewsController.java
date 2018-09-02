@@ -1,4 +1,4 @@
-package  com.needmall.client.news.controller;
+package  com.needmall.admin.news.controller;
 
 //import java.io.File;
 import java.util.List;
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.needmall.admin.news.service.AdminNewsService;
+
 //import org.springframework.web.bind.annotation.RequestParam;
 
 //import org.springframework.web.multipart.MultipartFile;
@@ -23,32 +25,32 @@ import com.needmall.common.vo.NewsVO;
 
 
 @Controller
-@RequestMapping(value="/news")
-public class NewsController {
-	Logger logger = Logger.getLogger(NewsController.class);
+@RequestMapping(value="admin/news")
+public class AdminNewsController {
+	Logger logger = Logger.getLogger(AdminNewsController.class);
 	
 	@Autowired
-	private NewsService newsService;  //필드명은 인터페이스를 선언함으로서 모든 구현체를 받을 수 있다.
+	private AdminNewsService adminnewsService;  //필드명은 인터페이스를 선언함으로서 모든 구현체를 받을 수 있다.
 
-	@RequestMapping(value="/newsList.do", method=RequestMethod.GET)
-	public String newsList(Model model) {   
-		logger.info("newsList 호출 성공");
+	@RequestMapping(value="/adminNewsList.do", method=RequestMethod.GET)
+	public String adminNewsList(Model model) {   
+		logger.info("adminNewsList 호출 성공");
 		
-		List<NewsVO> newsList = newsService.newsList();
-		model.addAttribute("newsList", newsList);     
+		List<NewsVO> newsList = adminnewsService.adminNewsList();
+		model.addAttribute("adminNewsList", newsList);     
 		
-		return "news/newsList";
+		return "admin/news/adminNewsList";
 	}	
 	
-	@RequestMapping(value="/newsDetail.do", method=RequestMethod.GET)
-	public String newsDetail(NewsVO nvo,  Model model) { 
-		logger.info("newsDetail 호출 성공");
+	@RequestMapping(value="/adminNewsDetail.do", method=RequestMethod.GET)
+	public String adminNewsDetail(NewsVO nvo,  Model model) { 
+		logger.info("adminNewsDetail 호출 성공");
 		
-		NewsVO detailVO = newsService.newsDetail(nvo);
+		NewsVO detailVO = adminnewsService.adminNewsDetail(nvo);
 		
-		model.addAttribute("newsDetail", detailVO);     
+		model.addAttribute("adminNewsDetail", detailVO);     
 		
-		return "news/newsDetail";
+		return "admin/news/adminNewsDetail";
 	}	
 	
 	

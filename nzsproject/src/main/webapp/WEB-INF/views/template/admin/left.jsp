@@ -12,4 +12,6 @@
 	<li class="active"><a href="#">사용자<span class="sr-only"></span></a></li>
 	<li><a href="/admin/user/sellerList.do">판매자 목록</a></li>
 	<li><a href="/admin/user/customerList.do">고객 목록</a></li>
+	<li class="active"><a href="#">게시판<span class="sr-only"></span></a></li>
+	<li><a href="/admin/news/adminNewsList.do">공지사항 목록</a></li>
 </ul>

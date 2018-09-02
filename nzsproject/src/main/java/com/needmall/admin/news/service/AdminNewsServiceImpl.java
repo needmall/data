@@ -1,31 +1,31 @@
-package com.needmall.client.news.service;
+package com.needmall.admin.news.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.needmall.client.news.dao.NewsDao;
+import com.needmall.admin.news.dao.AdminNewsDao;
 import com.needmall.common.vo.NewsVO;
 
 
 
 @Service
-public class NewsServiceImpl implements NewsService {
+public class AdminNewsServiceImpl implements AdminNewsService {
 	
 	
 	@Autowired
-	private NewsDao newsDao;
+	private AdminNewsDao adminNewsDao;
 
 	@Override
-	public List<NewsVO> newsList() {
-		List<NewsVO> list = newsDao.newsList();
+	public List<NewsVO> adminNewsList() {
+		List<NewsVO> list = adminNewsDao.adminNewsList();
 		return list;
 	}
 
 	@Override
-	public NewsVO newsDetail(NewsVO nvo) {		
-		return newsDao.newsDetail(nvo);
+	public NewsVO adminNewsDetail(NewsVO nvo) {		
+		return adminNewsDao.adminNewsDetail(nvo);
 	}
 	
 	

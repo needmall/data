@@ -19,7 +19,7 @@
 <script type="text/javascript">
 	$(function() {
 		$(".goDetail").click(function() {
-			location.href="newsDetail.do?n_num="+$(this).attr("data-num");
+			location.href="adminNewsDetail.do?n_num="+$(this).attr("data-num");
 		});
 		
 		
@@ -32,22 +32,28 @@
 			<tr>
 				<th>No</th>
 				<th>제목</th>				
-				<th>등록일</th>				
+				<th>내용</th>
+				<th>등록일</th>	
+				<th>수정일</th>	
+				<th>이미지</th>					
 			</tr>
 		</thead>
 		<tbody id="list">
 			<c:choose>
-				<c:when test="${not empty newsList}">
-					<c:forEach var="news" items="${newsList}" varStatus="status">
+				<c:when test="${not empty adminNewsList}">
+					<c:forEach var="news" items="${adminNewsList}" varStatus="status">
 						<tr class="goDetail " data-num="${news.n_num}" >
 							<td>${news.n_num}</td>
 							<td>${news.n_title}</td>
-							<td>${news.n_date}</td>						
+							<td>${news.n_date}</td>
+							<td>${news.n_date}</td>
+							<td>${news.n_udate}</td>
+							<td>${news.n_file}</td>						
 						</tr>		
 					</c:forEach>		
 				</c:when>
 				<c:otherwise>
-					<tr><td colspan="3">등록된 물품이 존재하지 않습니다.</td></tr>
+					<tr><td colspan="6">등록된 물품이 존재하지 않습니다.</td></tr>
 				</c:otherwise>
 			</c:choose>
 		</tbody>	
