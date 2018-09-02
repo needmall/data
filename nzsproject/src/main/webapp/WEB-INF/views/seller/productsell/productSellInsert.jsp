@@ -50,7 +50,7 @@
 			
 			$(".addImageProduct").attr("src", pi_image);
 			$(".selectItemData:eq(0)").html(p_name);
-			$(".selectItemData:eq(1)").html(p_price);
+			$(".p_price").html(p_price);
 			$(".selectItemData:eq(2)").html(p_content);
 			$("#p_num").val(p_num);
 		});
@@ -157,7 +157,7 @@
 	
 	/* 할인율 판매가격 계산 */
 	function addDiscountValue(discount) {
-		var p_price = $(".selectItemData:eq(1)").html().replace("원", "") * 1;
+		var p_price = $(".p_price").html().replace("원", "") * 1;
 		var name = discount.attr("name");
 		if(name == 0) {
 			var ps_price = p_price - (p_price * (discount.val() * 0.01));
@@ -262,7 +262,6 @@
 						</td>
 						<td>
 							<div class="selectItemData">
-								<p></p>
 							</div>
 						</td>
 					</tr>
@@ -274,7 +273,7 @@
 						</td>
 						<td>
 							<div class="selectItemData">
-								<p></p>
+								<span class="p_price"></span>
 							</div>
 						</td>
 					</tr>
@@ -287,7 +286,6 @@
 						</td>
 						<td>
 							<div class="selectItemData">
-								<p></p>
 							</div>
 						</td>
 					</tr>
@@ -298,13 +296,9 @@
 			<div class="">
 				<%-- 판매 상품 정보 --%>
 				<form action="" id="submitForm" class="form-inline">
+					<input type="hidden" id="p_num" name="p_num" />
+					<input type="hidden" id="ps_expiration" name="ps_expiration" />
 					<table>
-						<tr>
-							<td colspan="2">
-								<input type="hidden" id="p_num" name="p_num" />
-								<input type="hidden" id="ps_expiration" name="ps_expiration" />
-							</td>
-						</tr>
 						<tr>
 							<td colspan="2">
 								<div class="form-group">
@@ -328,11 +322,11 @@
 								<div class="form-group">
 									<label id="addMarginDiscount" class="control-label" for="discount">할인율</label>
 									<div class="form-group">
-										<select id="discount" class="form-control addSizeInput75" name="1" aria-describedby="discountStatus"></select>
+										<select id="discount" class="form-control addSizeInput75" name="0" aria-describedby="discountStatus"></select>
 										<input type="text" id="inputDiscount" class="form-control addSizeInput75" name="0" />
 										<div class="input-group-addon">%</div>
 									</div>
-									<button type="button" id="changeBtn" class="btn btn-info" name=0>입력</button>
+									<button type="button" id="changeBtn" class="btn btn-info" name="0">입력</button>
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<span id="discountStatus" class="sr-only"></span>
 								</div>
@@ -352,8 +346,8 @@
 				</form>
 			</div>
 			<div id="addCenterSubmit">
-					<button type="button" id="submitBtn" class="btn btn-primary btn-lg addSizeSubmit">등록</button>
-					<button type="button" id="cancelBtn" class="btn btn-default btn-lg addSizeSubmit">취소</button>
+				<button type="button" id="submitBtn" class="btn btn-primary btn-lg addSizeSubmit">등록</button>
+				<button type="button" id="cancelBtn" class="btn btn-default btn-lg addSizeSubmit">취소</button>
 			</div>
 		</div>
 	</div>

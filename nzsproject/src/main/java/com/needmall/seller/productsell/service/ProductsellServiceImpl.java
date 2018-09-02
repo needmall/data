@@ -12,6 +12,7 @@ import com.needmall.common.vo.UserCommonVO;
 import com.needmall.seller.productsell.dao.ProductsellDao;
 import com.needmall.seller.productsell.vo.ProductInfoVO;
 import com.needmall.seller.productsell.vo.ProductInsertVO;
+import com.needmall.seller.productsell.vo.ProductListOneVO;
 
 @Service
 public class ProductsellServiceImpl implements ProductsellService {
@@ -51,6 +52,20 @@ public class ProductsellServiceImpl implements ProductsellService {
 		
 		result = productsellDao.productInsert(ivo);
 		
+		return result;
+	}
+
+	@Override
+	public ProductListOneVO productDetail(ProductInsertVO ivo) {
+		ProductListOneVO Detail = null;
+		Detail = productsellDao.productDetail(ivo);
+		return Detail;
+	}
+
+	@Override
+	public int productUpdate(ProductInsertVO ivo) {
+		int result = 0;
+		result = productsellDao.productUpdate(ivo);
 		return result;
 	}
 

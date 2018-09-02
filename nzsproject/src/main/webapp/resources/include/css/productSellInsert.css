@@ -43,14 +43,12 @@ table, .addTextCenter th, .addTextCenter td, #addCenterSubmit, #submitForm tr{
 	width: 513px;
 	height: 673px;
 	margin: 10px;
-	background-color: black;
 }
 
 #addTableSizeC {
 	width: 513px;
 	height: 673px;
 	margin: 10px;
-	background-color: green;
 }
 
 #searchBtn {

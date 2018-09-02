@@ -12,18 +12,14 @@
 			location.href = "/productsell/writeform.do";
 		});
 		
-		/* 수정 버튼 */
-		$("#updateBtn").click(function() {
-				
-		});
-		
-		/* 삭제 버튼 */
-		$("#deleteBtn").click(function() {
-				
+		/* 상세 페이지 이동 */
+		$(".productInfo").click(function() {
+			var ps_num = $(this).attr("data-num");
+			location.href = "/productsell/detailform.do?ps_num=" + ps_num;
 		});
 		
 		/* 할인율 계산 */
-		addDiscountRate($(".trProductList"));
+		addDiscountRate($(".productInfo"));
 	
 	}); // End Jquery
 	
@@ -55,14 +51,13 @@
 					<th>갯수</th>
 					<th>유통기한</th>
 					<th>등록날짜</th>
-					<th>수정/삭제</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:choose>
 					<c:when test="${not empty productList}">
 						<c:forEach var="List" items="${productList}" varStatus="status">
-							<tr class="trProductList" data-num="${List.ps_num}">
+							<tr class="productInfo" data-num="${List.ps_num}">
 								<td>
 									<div>${status.count}</div>
 								</td>
@@ -90,18 +85,12 @@
 								<td>
 									<div>${List.ps_udate}</div>
 								</td>
-								<td>
-									<div>
-										<button type="button" id="updateBtn">수정</button>
-										<button type="button" id="deleteBtn">삭제</button>
-									</div>
-								</td>
 							</tr>
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
 						<tr class="addTextCenter new_item">
-							<td colspan="10">등록된 상품이 없습니다.</td>
+							<td colspan="9">등록된 상품이 없습니다.</td>
 						</tr>	
 					</c:otherwise>
 				</c:choose>
