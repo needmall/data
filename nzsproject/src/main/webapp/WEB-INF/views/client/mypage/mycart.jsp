@@ -287,7 +287,7 @@ var hidden;
 			
 				<tr>
 					<td><input type="checkbox" id="checkall" /></td>
-					<td><div><input type="button" id="empty" name="empty" value="선택 삭제"></div></td>
+					<td><div><input type="button" id="empty" name="empty" value="선택 삭제"/></div></td>
 					<td>제품명</td>
 					<td>수량</td>
 					<td>가격</td>

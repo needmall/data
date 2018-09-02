@@ -60,6 +60,7 @@ public class MypageServiceImpl implements MypageService {
 	//구매페이지 리스
 	@Override
 	public List<MycartVO> buyList(MycartVO mbvo) {
+		
 		List<MycartVO> list = mypageDao.buyList(mbvo);
 		
 		for(int i=0; i<list.size(); i++) {
@@ -67,8 +68,8 @@ public class MypageServiceImpl implements MypageService {
 			int result2 =list.get(i).getP_price() * list.get(i).getB_count();	//할인가 * 개수
 			list.get(i).setMultiply_count(result);
 			list.get(i).setOriginal_multiply_count(result2);
-			
 		}
+		
 		
 		return list;
 	}
@@ -142,6 +143,17 @@ public class MypageServiceImpl implements MypageService {
 		
 		return mypageDao.cartConfirmList(mvo);
 	}
+
+	@Override
+	public int pageList(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		
+
+		return mypageDao.pageList(mvo);
+	}
+
+
+
 
 
 	

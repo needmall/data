@@ -11,11 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.client.mypage.service.MypageService;
 import com.needmall.client.mypage.vo.MycartVO;
-import com.needmall.common.vo.ProductsellVO;
 
 @Controller
 @RequestMapping(value="/mypage")
@@ -28,11 +25,17 @@ public class MypageController {
 	
 	@RequestMapping("/mypageList.do")
 	public String mypageList(MycartVO mvo,Model model) {
+		logger.info("mypageList 호 출");
+		mvo.setC_num(1);
+		logger.info("mvo " +mvo.getC_num());
+		
 		List<MycartVO> buylist = mypageService.buyList(mvo);
+		int value = mypageService.pageList(mvo);
+		logger.info("value = " +value);
+		model.addAttribute("value",value);
 		model.addAttribute("buylist",buylist);
 		return "mypage/mypage";
 	}
-	
 	
 	
 	/////////////////////////////////////////////////////////////장바구니 로직

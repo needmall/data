@@ -22,6 +22,7 @@
 
 <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
+<script type="text/javascript" src="/resources/include/js/jquery.paging.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 		 <link rel="stylesheet" type="text/css" href="/resources/include/css/common.css" /> -->
 <link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
@@ -31,6 +32,7 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 <style type="text/css">
 /* 	div{border: 1px solid black;} */
 	.all{padding-bottom: 100px;}
@@ -42,8 +44,49 @@
 	#nav li{width: 20%}
 	.tab-pane{padding-top: 50px;}
 	.div_last{height: 100px;}
+	#document_navi{text-align: center;}
 </style>
+
 	<script type="text/javascript">
+// 	페이징 계산 ㅡㅡ 
+// 	int page = 22; 
+// 	int countList = 10; 한 페이지에 출력될 게시물 수 (countList)
+// 	int countPage = 10; 한 화면에 출력될 페이지 수 (countPage)
+// 	int totalCount = 255; 현재 페이지 번호 (이하 page)
+// 	int totalPage = totalCount / countList;
+	
+// 	if (totalCount % countList > 0) {
+// 	    totalPage++;
+// 	}
+// 	if (totalPage < page) {
+// 	    page = totalPage;
+// 	}
+	
+// 	int startPage = ((page - 1) / 10) * 10 + 1;
+// 	int endPage = startPage + countPage - 1;
+	
+// 	if (endPage > totalPage) {
+// 	    endPage = totalPage;
+// 	}
+// 	if (startPage > 1) {
+// 	    System.out.print("<a href=\"?page=1\">처음</a>");
+// 	}
+// 	if (page > 1) {
+// 	    System.out.println("<a href=\"?page=" + (page - 1)  + "\">이전</a>");
+// 	}
+// 	for (int iCount = startPage; iCount <= endPage; iCount++) {
+// 	    if (iCount == page) {
+// 	        System.out.print(" <b>" + iCount + "</b>");
+// 	    } else {
+// 	        System.out.print(" " + iCount + " ");
+// 	    }
+// 	}
+// 	if (page < totalPage) {
+// 	    System.out.println("<a href=\"?page=" + (page + 1)  + "\">다음</a>");
+// 	}
+// 	if (endPage < totalPage) {
+// 	    System.out.print("<a href=\"?page=" + totalPage + "\">끝</a>");
+// 	}
 	$(function(){
 		$('.dropdown-toggle').dropdown();
 		jQuery('.format-money').text(function() {
@@ -52,11 +95,28 @@
 		    );
 		});
 		
+		$(".goDetail td").click(function() {					 //, :nth-last-child(2))
+			var ps_num = $(this).parents("tr").attr("data-num");				
+			location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
+		});	
+			
+	
+		
+		var total = parseInt(${value} /10);
+		console.log(total);
+	
+		jQuery('#document_navi').jaPageNavigator({
+			page_row : "10" // 보여질 게시물 목록 수
+		  	, page_link : total // 보여질 페이지 링크 수
+		  	, total_count : "${value}" // 게시물 총 수
 		});
+		  
+	});
 	</script>
 </head>
 <body>
-	<div class="all">
+	<div class="all">	
+	<input type="hidden" id="total_count">	
 		<div role="tabpanel">
 			<ul id="nav" class="nav nav-tabs clearfix right" role="tablist"  >	
 			  	<li role="presentation" class="dropdown">
@@ -71,7 +131,7 @@
 				<li><a href="#tab3" data-toggle="tab">리뷰</a></li>
 			</ul>
 		</div>
-		<div class="tab-content"> 
+		<div class="tab-content">  <!-- 텝 시작 부분 -->
 			<div class="tab-pane" id= "tab1-1">
 				<p>test</p>
 			</div>
@@ -79,7 +139,7 @@
 				<p>test2</p>
 			</div>
 			<div class="tab-pane" id="tab2">
-				 <div>
+				 <div id="#page=1">
 					<div class="item_succes"><span>구매 성공 내역</span></div>
 					<hr/>
 					<div style="text-align: right ;"><input type="date"></div>
@@ -107,7 +167,7 @@
 							<c:choose>
 								<c:when test="${not empty buylist}">
 										<c:forEach var="buy" items="${buylist}" varStatus="status">
-											<tr class="tr_list">
+											<tr class="tr_list goDetail" data-num ="${buy.ps_num}">
 												<td><div class="list_td">${status.count}</div> </td>
 												<td><div ><img class="img-thumbnail" src="/uploadStorage/product/${buy.pi_image }" width="70px" height="50px;"/></div></td>
 												<td><div class="list_td2" style="text-align: left;"><p><label>${buy.p_name}</label></p>${buy.p_content}</div></td>
@@ -131,6 +191,24 @@
 							</c:choose>
 						</tbody>
 					</table>
+					<div id="document_navi">
+					  <a class="start" href="#">&nbsp;처음</a>
+					  <a class="prev" href="#">&nbsp;이전&nbsp;({page_link})</a>
+					  <a class="prevpage" href="#">이전&nbsp;</a>
+					
+					  <!-- 페이지 번호 링크가 노출되는 영역 -->
+					  <span class="pageaction"></span>
+					  <!-- 페이지 번호 링크 태그 -->
+					  <a class="num" href="">{page}</a>
+					  <!-- 현재 페이지 번호 태그 -->
+					  <strong class="now">{page}</strong>
+					  <!-- 페이지 링크 구분 태그 -->
+					  <span class="div">&nbsp;</span>
+					
+					  <a class="nextpage" href="#">다음&nbsp;</a>
+					  <a class="next" href="#">다음&nbsp;({page_link})&nbsp;</a>
+					  <a class="end" href="#">끝&nbsp;</a>
+					</div>
 				</div>
 			</div>
 			<div class="tab-pane" id="tab3">

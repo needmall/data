@@ -28,5 +28,7 @@ public interface MypageDao {
 
 	int cartConfirmList(MycartVO mvo);
 
+	int pageList(MycartVO mvo);
+
 
 }

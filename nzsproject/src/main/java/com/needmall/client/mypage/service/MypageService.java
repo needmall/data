@@ -21,5 +21,7 @@ public interface MypageService {
 	String productBuy(MycartVO mvo);
 
 	int cartConfirmList(MycartVO mvo);
+
+	int pageList(MycartVO mvo);
 	
 }
