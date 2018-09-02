@@ -6,6 +6,16 @@
 		select n_num, n_title, n_content, n_date, n_udate, n_file  from news
 	</select>
 	<select id="adminNewsDetail" parameterType="news" resultType="news">
-		select n_num, n_title, n_content, n_udate, n_file from news where n_num=#{n_num}
+		select n_num, n_title, n_content, n_udate, n_date, n_file from news where n_num=#{n_num}
 	</select>
+	<delete id="adminNewsDelete" parameterType="news">
+		delete from news where n_num = #{n_num}
+	</delete>
+	<update id="adminNewsUpdate" parameterType="news">
+		update news set n_title=#{n_title}, n_content=#{n_content}, n_udate=sysdate, n_file=#{n_file}		
+	    where n_num = #{n_num}
+	</update>
+	<insert id="adminNewsInsert" parameterType="news">
+		insert into news (n_num, n_title, n_content, n_date, n_udate, n_file) values(news_seq.nextval, #{n_title}, #{n_content}, sysdate, sysdate, #{n_file})
+	</insert>
 </mapper>

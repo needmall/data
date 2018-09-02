@@ -24,42 +24,21 @@ public class AdminNewsDaoImpl implements AdminNewsDao {
 	public NewsVO adminNewsDetail(NewsVO nvo) {		
 		return session.selectOne("adminNewsDetail", nvo);
 	}
-	
-	
-	
-//	@Override
-//	public List<BoardVO> boardList(BoardVO bvo) {
-//		return session.selectList("boardList", bvo);
-//	}
-//
-//	@Override
-//	public int insertBoard(BoardVO bvo) {
-//		return session.insert("insertBoard", bvo);
-//		
-//	}
-//
-//	@Override
-//	public BoardVO detailBoard(BoardVO bvo) {
-//		
-//		return (BoardVO)session.selectOne("detailBoard", bvo);
-//	}
-//
-//	@Override
-//	public int passwdCheck(BoardVO bvo) {			
-//		return (Integer)session.selectOne("passwdCheck", bvo); 
-//	}
-//
-//	@Override
-//	public int deleteBoard(BoardVO bvo) {		
-//		return session.delete("deleteBoard", bvo);
-//	}
-//
-//	@Override
-//	public int updateBoard(BoardVO bvo) {
-//		return session.update("updateBoard", bvo);
-//	}
-//	
-//	
 
+	@Override
+	public int adminNewsDelete(NewsVO nvo) {		
+		return session.delete("adminNewsDelete", nvo);
+	}
+
+	@Override
+	public int adminNewsUpdate(NewsVO nvo) {		
+		return session.update("adminNewsUpdate", nvo);
+	}
+
+	@Override
+	public int adminNewsInsert(NewsVO nvo) {		
+		return session.insert("adminNewsInsert", nvo);
+	}
+	
 	
 }

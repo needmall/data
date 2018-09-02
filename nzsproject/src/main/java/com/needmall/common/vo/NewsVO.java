@@ -2,6 +2,8 @@ package com.needmall.common.vo;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class NewsVO {
 	private int n_num=0;
 	private String n_title="";
@@ -9,6 +11,7 @@ public class NewsVO {
 	private Date n_date;
 	private Date n_udate;
 	private String n_file="";
+	private MultipartFile file; // 첨부 파일
 	public int getN_num() {
 		return n_num;
 	}
@@ -44,6 +47,13 @@ public class NewsVO {
 	}
 	public void setN_file(String n_file) {
 		this.n_file = n_file;
+	}
+	
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	@Override
 	public String toString() {

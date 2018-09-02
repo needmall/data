@@ -22,11 +22,16 @@
 			location.href="adminNewsDetail.do?n_num="+$(this).attr("data-num");
 		});
 		
+		$("#registBtn").click(function() {
+			location.href="adminNewsRegist.do";
+		})
 		
 	})//최상위
 </script>
 
+
 <div class="table-responsive">	
+	<input type="button" id="registBtn" class="btn btn-default" value="등 록">
 	<table class="table table-bordered table-hover">	
 		<thead>			
 			<tr>

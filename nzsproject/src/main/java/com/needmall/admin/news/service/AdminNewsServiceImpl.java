@@ -1,11 +1,16 @@
 package com.needmall.admin.news.service;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.needmall.admin.news.dao.AdminNewsDao;
+import com.needmall.common.file.FileUploadUtil;
 import com.needmall.common.vo.NewsVO;
 
 
@@ -27,76 +32,63 @@ public class AdminNewsServiceImpl implements AdminNewsService {
 	public NewsVO adminNewsDetail(NewsVO nvo) {		
 		return adminNewsDao.adminNewsDetail(nvo);
 	}
-	
-	
-	
-//	@Autowired
-//	private ReplyDao replyDao;  //ReplyDao 사용을 위한  //답글 확인 메서드 사용
-//
-//	@Override
-//	public List<BoardVO> boardList(BoardVO bvo) {
-//		List<BoardVO> myList = null;			
-//		//if(bvo.getSearch()=="")bvo.setSearch("all");
-//		myList = boardDao.boardList(bvo);
-//		return myList;
-//	}
-//
-//	@Override
-//	public int insertBoard(BoardVO bvo) {
-//		int result = 0;
-//		try {
-//			
-//			result=boardDao.insertBoard(bvo);
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return 	result;	
-//	}
-//
-//	@Override
-//	public BoardVO detailBoard(BoardVO bvo) {		
-//		bvo = boardDao.detailBoard(bvo);
-//		return bvo;
-//	}
-//
-//	@Override
-//	public int passwdCheck(BoardVO bvo) {		
-//		return boardDao.passwdCheck(bvo);
-//	}
-//
-//	@Override
-//	public int deleteBoard(BoardVO bvo) {
-//		int result =0;
-//		try {
-//			bvo.setB_pwd(bvo.getB_pwd().trim());
-//			result = boardDao.deleteBoard(bvo); 
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//			result = 0;
-//		}
-//		return 	result;		
-//	}
-//
-//	@Override
-//	public int updateBoard(BoardVO bvo)	{
-//		int result =0;
-//		try {
-//			bvo.setB_pwd(bvo.getB_pwd().trim());
-//			result = boardDao.updateBoard(bvo); 
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//			result = 0;
-//		}
-//		return 	result;	
-//	}
-//	
-//	
-//	// 보드에서 리플라이쪽 접근하기 위해 의존 객체 주입 필요 (필드 확인)
-//	@Override
-//	public int replyCount(int b_num) {
-//		int result = replyDao.replyCount(b_num);		
-//		return result;
-//	}
-//	
 
+	@Override
+	public int adminNewsDelete(NewsVO nvo, HttpServletRequest request) {		
+		int result=0;
+		String preimg=nvo.getN_file();
+		result= adminNewsDao.adminNewsDelete(nvo);
+		if(nvo.getN_file()!="" && result ==1) {
+			try {
+				FileUploadUtil.fileDelete(preimg, request);
+			} catch (IOException e) {				
+				e.printStackTrace();
+			}
+		}		
+		return result;
+	}
+
+	@Override
+	public int adminNewsUpdate(NewsVO bvo, HttpServletRequest request) {
+		int result = 0;		
+		String preimg= bvo.getN_file();
+		String fileName="";
+		if(!bvo.getFile().isEmpty()) {  // null 로 하면 경우에 따라서 오류!!!
+			try {
+				fileName = FileUploadUtil.fileUpload(bvo.getFile(), request, "news");
+				bvo.setN_file(fileName);				
+				result = adminNewsDao.adminNewsUpdate(bvo);
+				if(result==1 && preimg!="") { //잘 수행되고 기존 이미지가 있던경우 기존 이미지 삭제
+					try {
+						FileUploadUtil.fileDelete(preimg, request);						
+					} catch (IOException e) {				
+						e.printStackTrace();
+					}
+				}
+			} catch (IOException e) {			
+				e.printStackTrace();
+			}		
+		}else {  //첨부파일이 없을 경우(기존에 받았던 n_file값 그대로 가지고옴)
+			result = adminNewsDao.adminNewsUpdate(bvo);			
+		}
+		return result;	
+	}
+
+	@Override
+	public int adminNewsInsert(NewsVO bvo, HttpServletRequest request) {
+		int result = 0;		
+		String fileName="";
+		if(!bvo.getFile().isEmpty()) {  // null 로 하면 경우에 따라서 오류!!!
+			try {
+				fileName = FileUploadUtil.fileUpload(bvo.getFile(), request, "news");
+				bvo.setN_file(fileName);												
+			} catch (IOException e) {			
+				e.printStackTrace();
+			}		
+		}
+		result = adminNewsDao.adminNewsInsert(bvo);
+		return result;
+	}
+	
+	
 }
