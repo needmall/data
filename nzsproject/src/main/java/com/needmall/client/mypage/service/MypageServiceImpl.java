@@ -152,6 +152,12 @@ public class MypageServiceImpl implements MypageService {
 		return mypageDao.pageList(mvo);
 	}
 
+	@Override
+	public int cartConfirmUpdate(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		return mypageDao.cartConfirmUpdate(mvo);
+	}
+
 
 
 

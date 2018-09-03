@@ -30,5 +30,7 @@ public interface MypageDao {
 
 	int pageList(MycartVO mvo);
 
+	int cartConfirmUpdate(MycartVO mvo);
+
 
 }

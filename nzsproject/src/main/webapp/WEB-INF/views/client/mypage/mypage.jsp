@@ -28,10 +28,10 @@
 <link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
 
 <!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
 
 <style type="text/css">
 /* 	div{border: 1px solid black;} */
@@ -94,24 +94,65 @@
 		        jQuery(this).text().format()
 		    );
 		});
-		
-		$(".goDetail td").click(function() {					 //, :nth-last-child(2))
-			var ps_num = $(this).parents("tr").attr("data-num");				
-			location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
-		});	
-			
-	
-		
-		var total = parseInt(${value} /10);
+// 		$("#btn_serviceR").click(function() { //서비스 리뷰 등록
+// 		})
+
+// 		$("#li_list2").click(function() {
+// 			$.ajax({
+// 				url : "/mypage/buyList.do",
+// 				type: "post",
+// 				data: "c_num="+1,
+// 				dataType: "text",
+// 				success: function(result) {
+// 					console.log(result);
+					
+
+// 				}
+// 			})
+// 		})
+		var value =${value};
+		var total = parseInt(value/10);
 		console.log(total);
 	
 		jQuery('#document_navi').jaPageNavigator({
 			page_row : "10" // 보여질 게시물 목록 수
 		  	, page_link : total // 보여질 페이지 링크 수
 		  	, total_count : "${value}" // 게시물 총 수
-		});
+		}); 
+		$(".goDetail td :not(:nth-last-child(1),:nth-last-child(2),:nth-last-child(3),:nth-last-child(4))").click(function() {					 //, :nth-last-child(2))
+			var ps_num = $(this).parents("tr").attr("data-num");				
+			location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
+		});	
+	
+
+		
+		$(".btn_confirm").click(function() {
+			if(confirm("정말 수령 하시겠습니까?")){
+				
+				var b2_num = $(this).parents("tr").attr("data-b2_num");
+				console.log("b2_num" + b2_num)
+				$.ajax({
+					url :"/mypage/cartConfirmUpdate.do",
+					type: "post",
+					data: "b_confirm="+1+"&b2_num="+b2_num,
+					dataType: "text",
+					success: function() {
+						console.log("성공");
+					}
+				})
+			}
+		})
+// 		$("#tab1-1").load()
+		
+		
+
+// 		/cartConfirmUpdate.do
 		  
-	});
+	});//풩션 끝!
+	//구입버튼 모달
+	
+
+
 	</script>
 </head>
 <body>
@@ -126,9 +167,9 @@
 	   					<li role="presentation"><a role="menuitem" data-toggle="tab" tabindex="-1" href="#tab1-2">회원 탈퇴</a></li>
 			    	</ul>
 			  	</li>
-				<li><a href="#tab2" data-toggle="tab">구매목록</a></li>
+				<li><a href="#tab2" data-toggle="tab" id="li_list2">구매목록</a></li>
 				<li><a href="#tab3" data-toggle="tab">장바구니</a></li>
-				<li><a href="#tab3" data-toggle="tab">리뷰</a></li>
+<!-- 				<li><a href="#tab3" data-toggle="tab">리뷰</a></li> -->
 			</ul>
 		</div>
 		<div class="tab-content">  <!-- 텝 시작 부분 -->
@@ -148,11 +189,11 @@
 							<col width="5%">
 							<col width="10%">
 							<col width="50%">
-							<col width="7%">
+							<col width="5%">
 							<col width="8%">
-							<col width="10%">
+							<col width="8%">
 							<col width="7%">
-							
+							<col width="7%">
 						</colgroup>
 						<tbody>
 							<tr>
@@ -162,12 +203,14 @@
 								<td>수량</td>
 								<td>가격</td>
 								<td>구입일</td>
+								<td>리 뷰</td>
 								<td>수령확인</td>
 							</tr>
+							
 							<c:choose>
 								<c:when test="${not empty buylist}">
 										<c:forEach var="buy" items="${buylist}" varStatus="status">
-											<tr class="tr_list goDetail" data-num ="${buy.ps_num}">
+											<tr class="tr_list goDetail" data-num ="${buy.ps_num}" data-b2_num = "${buy.b2_num}" data-p_num ="${buy.p_num}" data-s_num ="${buy.s_num}">
 												<td><div class="list_td">${status.count}</div> </td>
 												<td><div ><img class="img-thumbnail" src="/uploadStorage/product/${buy.pi_image }" width="70px" height="50px;"/></div></td>
 												<td><div class="list_td2" style="text-align: left;"><p><label>${buy.p_name}</label></p>${buy.p_content}</div></td>
@@ -179,7 +222,23 @@
 													</div>
 												</td>
 												<td><div class="list_td">${buy.b1_date} </div>
-												<td><div class="list_td">${buy.b_confirm} </div>
+												<td>
+													<div class="list_td3">
+														<button type="button" class="btn btn-default" id="btn_serviceR" data-toggle="modal" data-target="#galleryModal" data-whatever="@mdo">서비스 리뷰</button>
+														<button type="button" class="btn btn-default" id="btn_sellerR" data-toggle="modal" data-target="#galleryModal" data-whatever="@mdo">판매자 리뷰</button>
+													</div>
+												</td>
+												<td>
+													<div class="list_td">
+														<c:if test="${buy.b_confirm==0 }">
+															<input type="button" class="btn_confirm" name="btn_confirm" value="수령">
+														</c:if>
+														
+														<c:if test="${buy.b_confirm==1 }">
+															<span class="label label-danger">수령</span>
+														</c:if>
+													</div>
+												</td>
 											</tr>
 										</c:forEach>
 								</c:when>
@@ -215,12 +274,40 @@
 				<p>menu2 부분입니다.</p>
 <%-- 					<c:import url="mycart.jsp"></c:import> --%>
 <%-- 	<%@include file="productdetallbuy.jsp" %> --%>
-
-
-
-
 			</div>
 		</div>
+	</div>
+	         	<%-- 갤러리 등록 화면 영역(modal) --%>
+	<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="galleryModalLabel">title</h4>
+	      </div>
+	      <div class="modal-body">
+	        <form id="f_writeForm" name="f_writeForm">
+	          <div class="form-group">
+	            <label for="g_name" class="control-label">작성자</label>
+	            <input type="text" class="form-control" name="g_name" id="g_name" maxlength="5" />
+	          </div>
+	        
+		      <div class="form-group">
+		            <label for="g_content" class="control-label">글내용</label>
+		            <textarea class="form-control" name="g_content" id="g_content" ></textarea>
+		      </div>
+		      <div class="form-group">
+		            <label for="file" class="control-label">이미지</label>
+		            <input type="file" name="file" id="file" />
+		      </div>
+	      	</form>
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-default" data-dismiss="modal" >닫기</button>
+	      	<button type="button" class="btn btn-primary" id="galleryInsertBtn" >등록</button>	
+	      </div>
+	    </div>
+	  </div>
 	</div>
 	<div class="div_last"></div>
 </body>

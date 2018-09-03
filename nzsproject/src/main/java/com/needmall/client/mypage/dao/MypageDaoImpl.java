@@ -83,5 +83,11 @@ public class MypageDaoImpl implements MypageDao {
 		return session.selectOne("pageList",mvo);
 	}
 
+	@Override
+	public int cartConfirmUpdate(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		return session.update("cartConfirmUpdate",mvo);
+	}
+
 
 }

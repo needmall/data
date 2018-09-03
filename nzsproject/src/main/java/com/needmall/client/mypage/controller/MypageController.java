@@ -38,6 +38,8 @@ public class MypageController {
 	}
 	
 	
+	
+	
 	/////////////////////////////////////////////////////////////장바구니 로직
 	@RequestMapping(value="/mycartList.do")
 	public String mycartList(MycartVO mvo ,Model model) {
@@ -118,4 +120,14 @@ public class MypageController {
 		return result;
 		
 	}
+	
+
+	@ResponseBody
+	@RequestMapping(value="/cartConfirmUpdate.do")
+	public int cartConfirmUpdate(MycartVO mvo) {
+		int result =mypageService.cartConfirmUpdate(mvo);
+		return result;
+		
+	}
+	
 }
