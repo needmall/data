@@ -14,9 +14,15 @@ $(function(){
 		$("#c_pwd").val($("#s_pwd").val());
 		
 		
-		if (!formCheck($('#c_id'), $('.error:eq(0)'), "아이디를")) return;
+		if (!formCheck($('#c_id'), $('.error:eq(0)'), "아이디를")){
+			$('#c_id').focus();
+			return;
+		}
 		else if (!inputVerify(0,'#c_id','.error:eq(0)')) return;
-		else if (!formCheck($('#c_pwd'),$('.error:eq(1)'), "비밀번호를")) return;
+		else if (!formCheck($('#c_pwd'),$('.error:eq(1)'), "비밀번호를")){
+			$('#c_pwd').focus();
+			return;
+		}
 		else if (!inputVerify(1,'#c_pwd', '.error:eq(1)')) return;
 		else {
 			$("#loginForm").attr({

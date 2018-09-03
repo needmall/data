@@ -60,7 +60,7 @@
         <div class="col-md-4">
           <h2>로그인 및 회원 관리</h2>
           <p>회원 가입 / 정보 수정 / 회원 탈퇴 처리 완료. 로그인 및 로그아웃 처리 완료.</p>
-          <p><a class="btn btn-default" href="/member/join_select.do" role="button">회원관리 &raquo;</a></p>
+          <p><a class="btn btn-default" href="/member/login.do" role="button">회원관리 &raquo;</a></p>
         </div>
       </div>
     </div>

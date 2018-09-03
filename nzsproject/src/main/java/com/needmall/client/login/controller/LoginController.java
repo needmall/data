@@ -71,7 +71,8 @@ public class LoginController {
 				if(loginCheckResult == null){
 					logger.info("customer loginCheckResult 존재하지 않아요!!");
 					mav.addObject("status", 1); 
-					mav.setViewName("member/login");   
+					mav.setViewName("member/login");
+					logger.info("customer id,pwd 불일치 : "+mav);
 					return mav; 
 				}else { // 일치하면
 					logger.info("customer loginCheckResult 존재하오!!");
@@ -93,7 +94,8 @@ public class LoginController {
 				if(loginCheckResult == null){
 					logger.info("seller loginCheckResult 존재하지 않아요!!");
 					mav.addObject("status", 1); 
-					mav.setViewName("member/login");   
+					mav.setViewName("member/login");  
+					logger.info("seller id,pwd 불일치 : " + mav);
 					return mav; 
 				}else { // 일치하면
 					logger.info("seller loginCheckResult 존재하오!!");
@@ -104,7 +106,10 @@ public class LoginController {
 				}
 			} else {	// 존재하지 않는 아이디
 				logger.info("존재하지 않는걸");
+				mav.addObject("status", 1);
+				mav.setViewName("member/login");
 				logger.info(cs_count);
+				logger.info("존재하지 않는 아이디 : " + mav);
 				return mav;
 			}
 			

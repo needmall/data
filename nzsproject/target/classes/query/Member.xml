@@ -103,7 +103,7 @@
 	
 	<update id="reqStoreDelete" parameterType="join">
 		/* seller - "reqStoreDelete" */
-		update reqstore
+		update store
 		set st_address = 0, st_email=0, st_hours=0, st_cell=0, st_ceo=0
         where s_num=#{s_num}
 	</update>
