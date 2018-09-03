@@ -18,7 +18,11 @@
 		
 		/* 삭제 버튼 */
 		$("#deleteBtn").click(function() {
-			
+			$("#updateForm").attr({
+				"method" : "POST",
+				"action" : "/productsell/productdelete.do"
+			});
+			$("#updateForm").submit();	
 		});
 		
 	});

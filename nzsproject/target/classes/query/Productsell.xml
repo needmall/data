@@ -4,12 +4,12 @@
   	
   	<!-- 판매상품 목록 조회-->
 	<select id="productList" parameterType="String" resultType="productselllist">
-		SELECT ps_num, pi_image, p_name, p_price, TO_CHAR(ps_expiration ,'yyyy/mm/dd hh24:mi') AS ps_expiration, ps_count, ps_price, ps_udate
+		SELECT ps_num, pi_image, p_name, p_price, TO_CHAR(ps_expiration ,'yyyy/mm/dd hh24:mi') AS ps_expiration, ps_count, ps_price, TO_CHAR(ps_udate ,'yyyy/mm/dd hh24:mi') AS ps_udate
 		FROM seller s INNER JOIN store st ON s.s_num = st.s_num INNER JOIN productsell ps ON ps.s_num = s.s_num INNER JOIN product p ON p.p_num = ps.p_num INNER JOIN proimage pi ON pi.pi_num = p.pi_num
 		WHERE s_id = #{s_id} AND ps_state = 0 ORDER BY ps_expiration
 	</select>
 	
-	<!-- 등록상품 정보 조회 -->
+	<!-- 상품정보 검색 -->
 	<select id="searchList" parameterType="usercommon" resultType="productinfo">
 		SELECT p_num, pi_image, p_name, p_price, p_content
 		FROM product p INNER JOIN proimage pi ON pi.pi_num = p.pi_num
@@ -25,17 +25,33 @@
 		VALUES (#{ps_num}, #{p_num}, TO_DATE(#{ps_expiration},'yyyy/mm/dd hh24:mi'), #{ps_count}, #{ps_price}, (SELECT s.s_num FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id}), 0)
 	</insert>
 	
-	<!-- 상세 페이지 조회 -->
+	<!-- 판매 상세 페이지 조회 -->
 	<select id="productDetail" parameterType="productinsert" resultType="productlistone">
 		SELECT ps.p_num, ps_num, pi_image, p_name, p_price, p_content, TO_CHAR(ps_expiration ,'yyyy/mm/dd hh24:mi') AS ps_expiration, ps_count, ps_price, ps_regdate
 		FROM seller s INNER JOIN store st ON s.s_num = st.s_num INNER JOIN productsell ps ON ps.s_num = s.s_num INNER JOIN product p ON p.p_num = ps.p_num INNER JOIN proimage pi ON pi.pi_num = p.pi_num
 		WHERE ps_num = #{ps_num} AND s_id = #{s_id} ORDER BY p_name
 	</select>
 	
-	<!-- 상품 상태 변경 -->	
+	<!-- 판매상품 상태 변경 -->	
 	<update id="productUpdate" parameterType="productinsert">
 		UPDATE productsell
-		SET ps_state = 1
+		SET ps_state = 1, ps_count = ((SELECT ps_count FROM productsell ps WHERE ps.ps_num = #{ps_num}) - (SELECT SUM(b_count)FROM productsell ps INNER JOIN buy2dep b2 ON ps.ps_num = b2.ps_num WHERE b2.ps_num = #{ps_num} AND b_confirm = 0))
 		WHERE ps_num = #{ps_num} AND s_num = (SELECT s.s_num FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id}) AND ps_state = 0
 	</update>
+	
+	<!-- 판매상품 거래 확인 -->
+	<select id="productState" parameterType="productinsert" resultType="int">
+		SELECT	NVL((
+						SELECT DISTINCT 1
+						FROM productsell ps INNER JOIN buy2dep b2 ON ps.ps_num = b2.ps_num 
+						WHERE b2.ps_num = #{ps_num} AND b_confirm = 0),0) AS state	
+		FROM DUAL
+	</select>
+	
+	<!-- 판매상품 삭제 -->
+	<delete id="productDelete" parameterType="productinsert">
+		DELETE FROM productsell
+		WHERE ps_num = #{ps_num} AND s_num = (SELECT s.s_num FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id})
+	</delete>
+	
 </mapper>
