@@ -68,6 +68,8 @@
 
     var url = p.url;
     var loc = document.location.pathname + document.location.search;
+//    var loc = document.location.pathname + document.location.search;
+    console.log("loc"+loc)
 
     if (url == null) {
       url = loc;

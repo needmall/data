@@ -147,8 +147,6 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int pageList(MycartVO mvo) {
 		// TODO Auto-generated method stub
-		
-
 		return mypageDao.pageList(mvo);
 	}
 

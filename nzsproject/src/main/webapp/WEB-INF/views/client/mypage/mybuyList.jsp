@@ -21,59 +21,27 @@
 	<!-- <script src="/resources/js/html5shiv.js"</script> -->
 	<!-- [endif] -->
 	<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="/resources/include/js/jquery.paging.js"></script>
-	
+	<script type="text/javascript" src="/resources/include/js/jquery.twbsPagination.js"></script>
 	<style type="text/css">
-
+	/* 	div{border: 1px solid black;} */
+		.all{padding-bottom: 100px;}
+		.item_succes{font-size: 25px; text-align: left!important;}
+		.list_td{padding-top: 20px;}
+		.list_td2{padding-top: 5px;}
+		.list_td3{padding-top: 10px;}
+		#shopping{margin-right: 30px;}
+		#nav li{width: 20%}
+		.tab-pane{padding-top: 50px;}
+		.div_last{height: 100px;}
+		#document_navi{text-align: center;}
+		
 	</style>
-	
-	<script type="text/javascript">
-		$(function() {
-			
-			
-			var value =${value};
-			var total = parseInt(value/10);
-			console.log(total);
-		
-			jQuery('#document_navi').jaPageNavigator({
-				page_row : "10" // 보여질 게시물 목록 수
-			  	, page_link : total // 보여질 페이지 링크 수
-			  	, total_count : "${value}" // 게시물 총 수
-			  	, url :"/mypage/mypageList.do"
-			  	
-			}); 
-			$(".goDetail td :not(:nth-last-child(1),:nth-last-child(2),:nth-last-child(3),:nth-last-child(4))").click(function() {					 //, :nth-last-child(2))
-				var ps_num = $(this).parents("tr").attr("data-num");				
-				location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
-			});	
-		
-
-			
-			$(".btn_confirm").click(function() {
-				if(confirm("정말 수령 하시겠습니까?")){
-					
-					var b2_num = $(this).parents("tr").attr("data-b2_num");
-					console.log("b2_num" + b2_num)
-					$.ajax({
-						url :"/mypage/cartConfirmUpdate.do",
-						type: "post",
-						data: "b_confirm="+1+"&b2_num="+b2_num,
-						dataType: "text",
-						success: function() {
-							console.log("성공");
-						}
-					})
-				}
-			})
-
-		})
-	</script>
 </head>
 <body>
 	<div class="item_succes"><span>구매 성공 내역</span></div>
 	<hr/>
 	<div style="text-align: right ;"><input type="date"></div>
-		<table class="table table-striped table-hover">
+		<table class="table table-striped table-hover" id="tableList">
 			<colgroup>
 				<col width="5%">
 				<col width="10%">
@@ -96,67 +64,12 @@
 					<td>수령확인</td>
 				</tr>
 				
-				<c:choose>
-					<c:when test="${not empty buylist}">
-							<c:forEach var="buy" items="${buylist}" varStatus="status">
-								<tr class="tr_list goDetail" data-num ="${buy.ps_num}" data-b2_num = "${buy.b2_num}" data-p_num ="${buy.p_num}" data-s_num ="${buy.s_num}">
-									<td><div class="list_td">${status.count}</div> </td>
-									<td><div ><img class="img-thumbnail" src="/uploadStorage/product/${buy.pi_image }" width="70px" height="50px;"/></div></td>
-									<td><div class="list_td2" style="text-align: left;"><p><label>${buy.p_name}</label></p>${buy.p_content}</div></td>
-									<td ><div class="list_td">${buy.b_count }개</div></td>
-									<td>
-										<div class="list_td3">
-											<span class="span_count format-money" style="text-decoration: line-through;"> ${buy.original_multiply_count}</span>원<br/>
-											<span class="span_count format-money"> ${buy.multiply_count}</span>원
-										</div>
-									</td>
-									<td><div class="list_td">${buy.b1_date} </div>
-									<td>
-										<div class="list_td3">
-											<button type="button" class="btn btn-default" id="btn_serviceR" data-toggle="modal" data-target="#galleryModal" data-whatever="@mdo">서비스 리뷰</button>
-											<button type="button" class="btn btn-default" id="btn_sellerR" data-toggle="modal" data-target="#galleryModal" data-whatever="@mdo">판매자 리뷰</button>
-										</div>
-									</td>
-									<td>
-										<div class="list_td">
-											<c:if test="${buy.b_confirm==0 }">
-												<input type="button" class="btn_confirm" name="btn_confirm" value="수령">
-											</c:if>
-											
-											<c:if test="${buy.b_confirm==1 }">
-												<span class="label label-danger">수령</span>
-											</c:if>
-										</div>
-									</td>
-								</tr>
-							</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<tr>
-							<th colspan="5" class="tac">구매하신 물품이 존재하지않습니다.</th>
-						</tr>
-					</c:otherwise>
-				</c:choose>
+				
 			</tbody>
 		</table>
-	<div id="document_navi">
-	  <a class="start" href="#">&nbsp;처음</a>
-	  <a class="prev" href="#">&nbsp;이전&nbsp;({page_link})</a>
-	  <a class="prevpage" href="#">이전&nbsp;</a>
-	
-	  <!-- 페이지 번호 링크가 노출되는 영역 -->
-	  <span class="pageaction"></span>
-	  <!-- 페이지 번호 링크 태그 -->
-	  <a class="num" href="">{page}</a>
-	  <!-- 현재 페이지 번호 태그 -->
-	  <strong class="now">{page}</strong>
-	  <!-- 페이지 링크 구분 태그 -->
-	  <span class="div">&nbsp;</span>
-	
-	  <a class="nextpage" href="#">다음&nbsp;</a>
-<!-- 					  <a class="next" href="#">다음&nbsp;({page_link})&nbsp;</a> -->
-	  <a class="end" href="#">끝&nbsp;</a>
-	</div>
+		<div class="text-center"> <!-- 페이징 버튼 -->
+			<ul id="pagination-demo" class="pagination-sm"></ul>
+		</div>
 		         	<%-- 갤러리 등록 화면 영역(modal) --%>
 	<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">

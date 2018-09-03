@@ -27,10 +27,8 @@
 <link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
 
 <!-- 부가적인 테마 -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
 <script src="/resources/include/js/countTime_1.1.js"></script>
 
 <script type="text/javascript">
@@ -348,10 +346,10 @@
 			}
 			function notitemReviewTag(){
 				var accordion_banner = $("<div>");
-				accordion_banner.addClass("accordion_banner panel panel-primary");
+				accordion_banner.addClass("accordion_banner panel panel-default");
 				
 				var accordion_title = $("<div>");
-				accordion_title.addClass("accordion_title panel-body");
+				accordion_title.addClass("accordion_title panel-body panel panel-default");
 				accordion_title.html("현재 리뷰가 없습니다.");
 				//accordion_title.html(prv_date);
 				
@@ -368,10 +366,10 @@
 			function itemReviewTag(prv_date,prv_image,prv_content,prv_scope,c_id,msg) {
 
 				var accordion_banner = $("<div>");
-				accordion_banner.addClass("accordion_banner panel panel-primary");
+				accordion_banner.addClass("accordion_banner panel panel-default");
 				
 				var accordion_title = $("<div>");
-				accordion_title.addClass("accordion_title panel-body");
+				accordion_title.addClass("accordion_title panel-body panel panel-default");
 				accordion_title.html("아이디"+c_id+"님의 리뷰 입니다. &nbsp;&nbsp;평점 :"+prv_scope+"점&nbsp;&nbsp;&nbsp;&nbsp;"+prv_date+"작성");
 				//accordion_title.html(prv_date);
 				
@@ -603,6 +601,9 @@
 	<div class="panel-group" id="accordion" role="tablist"
 		aria-multiselectable="true">
 		<div class="contentTB" id="contentTB"></div>
+		<div>
+<!-- 			<input type="text" value=""> -->
+		</div>
 	</div>
 	
 	
