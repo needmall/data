@@ -18,9 +18,8 @@ public class StatisticServiceImpl implements StatisticService{
 	private StatisticDao statisticDao;
 
 	@Override
-	public List<SalesDataVO> totalData() {
-		List<SalesDataVO> list = statisticDao.totalData();
-		return list;
+	public List<SalesDataVO> totalData() {	
+		return statisticDao.totalData();
 	}
 	
 	

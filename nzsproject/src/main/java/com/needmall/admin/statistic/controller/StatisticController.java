@@ -25,10 +25,11 @@ public class StatisticController {
 	 * totalData : 전체 판매량
 	 * @return
 	 */
-	@RequestMapping(value="/totalData.do",method=RequestMethod.POST)
+	@RequestMapping(value="/totalData.do",method=RequestMethod.GET)
 	public String totalData(SalesDataVO sdvo,Model model) {
 		logger.info("totalData 호출 성공");	
 		List<SalesDataVO> list = statisticService.totalData();
+		model.addAttribute("totalData", list);
 		return "admin/statistic/totalData";
 	}
 //

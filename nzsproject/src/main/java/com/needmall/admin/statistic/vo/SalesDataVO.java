@@ -5,7 +5,8 @@ public class SalesDataVO {
 	private int registSum;
 	private int sellAmount;
 	private int sellSum;
-	private int rate;
+	private Double rate;
+	private String months;
 	
 	public int getRegistAmount() {
 		return registAmount;
@@ -31,11 +32,17 @@ public class SalesDataVO {
 	public void setSellSum(int sellSum) {
 		this.sellSum = sellSum;
 	}
-	public int getRate() {
+	public Double getRate() {
 		return rate;
 	}
-	public void setRate(int rate) {
+	public void setRate(Double rate) {
 		this.rate = rate;
+	}
+	public String getMonths() {
+		return months;
+	}
+	public void setMonths(String months) {
+		this.months = months;
 	}
 	
 	
