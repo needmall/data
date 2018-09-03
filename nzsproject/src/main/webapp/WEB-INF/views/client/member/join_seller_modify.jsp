@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%-- 아래 내용은 DB에 이메일 정보가 javauser2018@naver.com으로 저장되어 있기에 @를 구분자로 분리하고 작성한 소스--%>
-<c:set var="c_mail" value="${fn:split(member.c_mail,'@')}" />
-<c:set var="c_address" value="${fn:split(member.c_address,'/')}" />
+<c:set var="s_mail" value="${fn:split(member.s_mail,'@')}" />
+<c:set var="s_address" value="${fn:split(member.s_address,'/')}" />
 
 <!DOCTYPE html>
    <html>
@@ -37,10 +37,10 @@
         	  }
           }
           
-          loginCustomerId = "${member.c_id}";
+          loginSellerId = "${member.s_id}";
           function emailCheck(){
-        	  var c_mail = "${c_mail[1]}";
-        	  $("#c_mailDomain").val(c_mail).prop("selected", "true");
+        	  var s_mail = "${s_mail[1]}";
+        	  $("#s_mailDomain").val(s_mail).prop("selected", "true");
           }
         	  
           	/* daum map */
@@ -91,56 +91,56 @@
          <div class="contentContainer">
 	<div class="well">
 		<form id="memberForm" class="form-horizontal">
-			<input type="hidden" name="c_num" id="c_num" value="${member.c_num}" />
-			<input type="hidden" name="c_mail" id="c_mail" />
-			<input type="hidden" name="c_address" id="c_address" />
+			<input type="hidden" name="s_num" id="s_num" value="${member.s_num}" />
+			<input type="hidden" name="s_mail" id="s_mail" />
+			<input type="hidden" name="s_address" id="s_address" />
 			
 			<div class="form-group form-group-sm">
-				<label for="c_id" class="col-sm-2 control-label">사용자 ID</label>
+				<label for="s_id" class="col-sm-2 control-label">사용자 ID</label>
 				<div class="col-sm-3">
-					${member.c_id}
+					${member.s_id}
 				</div>
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="c_opwd" class="col-sm-2 control-label">기존 비밀 번호</label>
+				<label for="s_opwd" class="col-sm-2 control-label">기존 비밀 번호</label>
 				<div class="col-sm-3">
-					<input type="password" id="c_opwd" name="c_opwd" maxlength="15" class="form-control" placeholder="기존 비밀번호 입력" >
+					<input type="password" id="s_opwd" name="s_opwd" maxlength="15" class="form-control" placeholder="기존 비밀번호 입력" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
 				</div>
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="c_pwd" class="col-sm-2 control-label">변경할 비밀 번호</label>
+				<label for="s_pwd" class="col-sm-2 control-label">변경할 비밀 번호</label>
 				<div class="col-sm-3">
-					<input type="password" id="c_pwd" name="c_pwd" maxlength="15" class="form-control" placeholder="변경할 비밀번호 입력" >
+					<input type="password" id="s_pwd" name="s_pwd" maxlength="15" class="form-control" placeholder="변경할 비밀번호 입력" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
 				</div>
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="c_pwdCheck" class="col-sm-2 control-label">변경할 비밀번호 확인</label>
+				<label for="s_pwdCheck" class="col-sm-2 control-label">변경할 비밀번호 확인</label>
 				<div class="col-sm-3">
-					<input type="password"  id="c_pwdCheck" name="c_pwdCheck" maxlength="15" class="form-control" placeholder="Password Confirm" >
+					<input type="password"  id="s_pwdCheck" name="s_pwdCheck" maxlength="15" class="form-control" placeholder="Password Confirm" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
 				</div>
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="c_name" class="col-sm-2 control-label">회원이름</label>
+				<label for="s_name" class="col-sm-2 control-label">회원이름</label>
 				<div class="col-sm-3">
-					${member.c_name}
+					${member.s_name}
 				</div>						
 			</div>
 			
 			<!-- 성별(주민번호 뒷자리로 처리할지) -->
 			
 			<div class="form-group form-group-sm">
-				<label for="c_birthday" class="col-sm-2 control-label">생년월일</label>
+				<label for="s_birthday" class="col-sm-2 control-label">생년월일</label>
 				<div class="col-sm-3">
-					${member.c_birthday}
+					${member.s_birthday}
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -148,17 +148,17 @@
 			</div>
 			
 			<div class="form-group form-group-sm">
-				<label for="c_name" class="col-sm-2 control-label">성별</label>
+				<label for="s_name" class="col-sm-2 control-label">성별</label>
 				<div class="col-sm-3">
-					${member.c_gender}
+					${member.s_gender}
 				</div>						
 			</div>
 			
 			<!-- 주소 -->
 			<!-- <div class="form-group form-group-sm">
-				<label for="c_address" class="col-sm-2 control-label">주소</label>
+				<label for="s_address" class="col-sm-2 control-label">주소</label>
 				<div class="col-sm-3">
-					<input type="text" id="c_address" name="c_address" class="form-control" placeholder="c_address">	
+					<input type="text" id="s_address" name="s_address" class="form-control" placeholder="s_address">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -169,7 +169,7 @@
 			<div class="form-group form-group-sm">
 				<label for="sample6_postcode" class="col-sm-2 control-label">우편번호</label>
 				<div class="col-sm-3">
-					<input type="text" id="sample6_postcode" class="form-control" readonly="readonly" placeholder="우편번호" value="${c_address[2]}" >
+					<input type="text" id="sample6_postcode" class="form-control" readonly="readonly" placeholder="우편번호" value="${s_address[2]}" >
 				</div>
 				<div class="col-sm-2">
 					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
@@ -178,10 +178,10 @@
 			<div class="form-group form-group-sm">
 				<label for="sample6_address" class="col-sm-2 control-label">주소</label>
 				<div class="col-sm-3">
-					<input type="text" id="sample6_address" class="form-control" readonly="readonly" placeholder="주소" value="${c_address[0]}">
+					<input type="text" id="sample6_address" class="form-control" readonly="readonly" placeholder="주소" value="${s_address[0]}">
 				</div>
 				<div class="col-sm-2">	
-					<input type="text" id="sample6_address2" class="form-control" placeholder="상세주소" value="${c_address[1]}">	
+					<input type="text" id="sample6_address2" class="form-control" placeholder="상세주소" value="${s_address[1]}">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -191,12 +191,12 @@
 			
 			<!-- 이메일 -->
 			<div class="form-group form-group-sm">
-				<label for="c_mailName" class="col-sm-2 control-label">회원 이메일</label>
+				<label for="s_mailName" class="col-sm-2 control-label">회원 이메일</label>
 				<div class="col-sm-3">
-					<input type="text" id="c_mailName" name="c_mailName" maxlength="60" class="form-control" placeholder="c_mail" value="${c_mail[0]}">
+					<input type="text" id="s_mailName" name="s_mailName" maxlength="60" class="form-control" placeholder="s_mail" value="${s_mail[0]}">
 				</div>
 				<div class="col-sm-2">
-					<select id="c_mailDomain" class="form-control">
+					<select id="s_mailDomain" class="form-control">
 						<option value="naver.com">네이버</option>
 						<option value="daum.net">다음</option>
 						<option value="nate.com">네이트</option>																	
@@ -208,9 +208,9 @@
 			</div>
 			
 			<div class="form-group form-group-sm">
-				<label for="c_cell" class="col-sm-2 control-label">핸드폰 번호</label>
+				<label for="s_cell" class="col-sm-2 control-label">핸드폰 번호</label>
 				<div class="col-sm-3">
-					<input type="text" id="c_cell" name="c_cell" maxlength="15" class="form-control" placeholder="Phone Number" value="${member.c_cell}">	
+					<input type="text" id="s_cell" name="s_cell" maxlength="15" class="form-control" placeholder="Phone Number" value="${member.s_cell}">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -221,7 +221,7 @@
 			
 			<div class="form-group">	
 				<div class="col-sm-offset-2 col-sm-6">
-					<input type="button" value="확인" id="customerModify" class="btn btn-default" /> 
+					<input type="button" value="확인" id="sellerModify" class="btn btn-default" /> 
 					<input type="button" value="재작성" id="modifyReset" class="btn btn-default" />
 					<input type="button" value="취소" id="modifyCancel" class="btn btn-default" />						
 				</div>	

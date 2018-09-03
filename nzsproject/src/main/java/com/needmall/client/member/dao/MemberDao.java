@@ -14,7 +14,7 @@ public interface MemberDao {
 	
 	
 	public int customerIdSelect(String c_id);
-	public int sellerSelect(String s_id);
+	public int sellerIdSelect(String s_id);
 	public JoinVO reqstoreSelect(String st_bnum);
 	
 	public int customerInsert(MemberVO mvo);	
@@ -33,6 +33,8 @@ public interface MemberDao {
 	public int reqStoreDelete(int s_num);
 	
 	public int customerUpdate(MemberVO mvo);
+	public int sellerUpdate(MemberVO mvo);
 	
 	public MemberVO customerSelect(String c_id);
+	public MemberVO sellerSelect(String s_id);
 }

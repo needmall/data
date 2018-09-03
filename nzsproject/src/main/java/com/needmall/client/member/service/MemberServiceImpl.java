@@ -29,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
 		int result2=0;
 		//★★★ Cheeeeeeeeeeck!
 		result1 = memberDao.customerIdSelect(c_id);
-		result2 = memberDao.sellerSelect(c_id);
+		result2 = memberDao.sellerIdSelect(c_id);
 		result = result1 + result2;
 		return result;
 	}
@@ -41,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
 		int result2=0;
 		
 		result1 = memberDao.customerIdSelect(s_id);
-		result2 = memberDao.sellerSelect(s_id);
+		result2 = memberDao.sellerIdSelect(s_id);
 		result = result1 + result2;
 		return result;
 	}
@@ -64,7 +64,7 @@ public class MemberServiceImpl implements MemberService {
 		int result2=0;
 		
 		result1 = memberDao.customerIdSelect(lvo.getC_id());
-		result2 = memberDao.sellerSelect(lvo.getS_id());
+		result2 = memberDao.sellerIdSelect(lvo.getS_id());
 		
 		if(result1==1) {
 			result = 0;
@@ -146,7 +146,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int sellerInsert(JoinVO jvo) {
 		//int sCode = 2;
-		if (memberDao.sellerSelect(jvo.getS_id()) != 0) {
+		if (memberDao.sellerIdSelect(jvo.getS_id()) != 0) {
 			//return 1;
 			throw new RuntimeException();
 		} else {
@@ -251,9 +251,20 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int sellerSelect(String s_id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int sellerUpdate(MemberVO mvo) {
+		if(!mvo.getS_pwd().isEmpty()){
+			MemberSecurity sec = memberDao.sellerSecuritySelect(mvo.getS_id());
+			mvo.setS_pwd(new String(OpenCrypt.getSHA256(mvo.getS_pwd(),sec.getSalt())));
+		}
+		int result = memberDao.sellerUpdate(mvo);
+
+		return result;
+	}
+
+	@Override
+	public MemberVO sellerSelect(String s_id) {
+		MemberVO vo = memberDao.sellerSelect(s_id);
+		return vo;
 	}
 
 }

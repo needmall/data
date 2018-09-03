@@ -40,8 +40,8 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public int sellerSelect(String s_id) {
-		return session.selectOne("sellerSelect", s_id);
+	public int sellerIdSelect(String s_id) {
+		return session.selectOne("sellerIdSelect", s_id);
 	}
 
 	@Override
@@ -97,6 +97,16 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public MemberVO customerSelect(String c_id) {
 		return session.selectOne("customerSelect", c_id);
+	}
+
+	@Override
+	public int sellerUpdate(MemberVO mvo) {
+		return session.update("sellerUpdate", mvo);
+	}
+
+	@Override
+	public MemberVO sellerSelect(String s_id) {
+		return session.selectOne("sellerSelect", s_id);
 	}
 	
 	

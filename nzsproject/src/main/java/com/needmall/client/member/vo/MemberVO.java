@@ -6,8 +6,7 @@ import java.sql.Timestamp;
 import com.needmall.client.login.vo.LoginVO;
 
 public class MemberVO extends LoginVO {
-	private String c_opwd;
-	private int c_num;
+	private String c_opwd;	
 	private int cs_division;
 	private String c_gender;
 	private int c_genderNum;
@@ -37,12 +36,6 @@ public class MemberVO extends LoginVO {
 	}
 	public void setC_opwd(String c_opwd) {
 		this.c_opwd = c_opwd;
-	}
-	public int getC_num() {
-		return c_num;
-	}
-	public void setC_num(int c_num) {
-		this.c_num = c_num;
 	}
 	public int getCs_division() {
 		return cs_division;
@@ -169,7 +162,7 @@ public class MemberVO extends LoginVO {
 	
 	@Override
 	public String toString() {
-		return "MemberVO [c_opwd=" + c_opwd + ", c_num=" + c_num + ", cs_division=" + cs_division + ", c_gender="
+		return "MemberVO [c_opwd=" + c_opwd + ", cs_division=" + cs_division + ", c_gender="
 				+ c_gender + ", c_genderNum=" + c_genderNum + ", c_birthday=" + c_birthday + ", c_address=" + c_address
 				+ ", c_mail=" + c_mail + ", c_cell=" + c_cell + ", c_date=" + c_date + ", c_lat=" + c_lat + ", c_lon="
 				+ c_lon + ", c_update=" + c_update + ", s_opwd=" + s_opwd + ", s_gender=" + s_gender + ", s_genderNum="

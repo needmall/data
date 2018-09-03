@@ -10,7 +10,7 @@
 
 	<select id="customerLoginSelect" parameterType="login" resultType="login">
 		/* customer 로그인 처리 쿼리 */
-		select c_id, c_pwd, c_name
+		select c_id, c_pwd, c_name, c_num
 		from customer
 		where c_id = #{c_id} and c_pwd = #{c_pwd}
 	</select>

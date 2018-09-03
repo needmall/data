@@ -35,7 +35,7 @@
 		where c_id = #{c_id}
 	</select>
 	
-	<select id="sellerSelect" parameterType="String" resultType="int">
+	<select id="sellerIdSelect" parameterType="String" resultType="int">
 		select count(s_num)
 		from seller
 		where s_id = #{s_id}
@@ -120,8 +120,25 @@
 	</update>
 	
 	<select id="customerSelect" parameterType="String" resultType="member">
-		select c_num, cs_division, c_id, c_pwd, c_name, c_gender, c_address, c_mail, c_cell
+		select c_num, cs_division, c_id, c_pwd, c_name, c_gender, c_address, c_mail, c_cell, c_birthday
 		from customer
 		where c_id = #{c_id}
+	</select>
+	
+	<update id="sellerUpdate" parameterType="member">
+		update seller set
+			<if test="s_pwd != null and s_pwd != ''">
+				s_pwd=#{s_pwd},
+			</if>
+		s_address=#{s_address},
+		s_mail=#{s_mail},
+		s_cell=#{s_cell}
+		where s_id=#{s_id}
+	</update>
+	
+	<select id="sellerSelect" parameterType="String" resultType="member">
+		select s_num, cs_division, s_id, s_pwd, s_name, s_gender, s_address, s_mail, s_cell, s_birthday
+		from seller
+		where s_id = #{s_id}
 	</select>
 </mapper>

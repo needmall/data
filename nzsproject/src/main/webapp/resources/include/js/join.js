@@ -182,7 +182,7 @@ $(function(){
 			$("#c_mail").val($("#c_mailName").val()+"@"+$("#c_mailDomain").val());
 			//$("#pinno").val($("#birth").val()+"-"+$("#gender").val());
 			$("#c_gender").val();
-			$("#c_address").val($("#sample6_address").val()+" "+$("#sample6_address2").val());
+			$("#c_address").val($("#sample6_address").val()+"/"+$("#sample6_address2").val()+"/"+$("#sample6_postcode").val());
 			$("#memberForm").attr({
 				"method":"post",	// 주소가 같아서 method가 다르기 때문에 ㄱㅊ
 				"action":"/member/join_customer.do"
@@ -233,11 +233,11 @@ $(function(){
 		else if (stBnum!=2){ alert("사업자번호 중복 체크 진행해 주세요."); return;}
 		
 		else {
-			$("#s_address").val($("#sample6_address").val()+" "+$("#sample6_address2").val());
+			$("#s_address").val($("#sample6_address").val()+"/"+$("#sample6_address2").val()+"/"+$("#sample6_postcode").val());
 			$("#s_mail").val($("#s_mailName").val()+"@"+$("#s_mailDomain").val());
 			//$("#pinno").val($("#birth").val()+"-"+$("#gender").val());
 			$("#s_gender").val();
-			$("#st_address").val($("#sample6_address1").val()+" "+$("#sample6_address22").val());
+			$("#st_address").val($("#sample6_address1").val()+"/"+$("#sample6_address22").val()+"/"+$("#sample6_postcode2").val());
 			$("#st_email").val($("#st_emailName").val()+"@"+$("#st_emailDomain").val());
 			$("#memberForm").attr({
 				"method":"post",	// 주소가 같아서 method가 다르기 때문에 ㄱㅊ
