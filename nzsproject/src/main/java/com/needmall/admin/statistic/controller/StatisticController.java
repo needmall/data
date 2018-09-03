@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.needmall.admin.statistic.service.StatisticService;
+import com.needmall.admin.statistic.vo.CustomerDataVO;
 import com.needmall.admin.statistic.vo.SalesDataVO;
+import com.needmall.admin.statistic.vo.StoreDataVO;
 
 @Controller
 @RequestMapping(value="/admin/statistic")
@@ -28,8 +30,12 @@ public class StatisticController {
 	@RequestMapping(value="/totalData.do",method=RequestMethod.GET)
 	public String totalData(SalesDataVO sdvo,Model model) {
 		logger.info("totalData 호출 성공");	
-		List<SalesDataVO> list = statisticService.totalData();
-		model.addAttribute("totalData", list);
+		List<SalesDataVO> salesDataList = statisticService.salesDataList();
+		model.addAttribute("salesDataList", salesDataList);
+		List<StoreDataVO> storeDataList = statisticService.storeDataList();
+		model.addAttribute("storeDataList", storeDataList);
+		List<CustomerDataVO> customerDataList = statisticService.customerDataList();
+		model.addAttribute("customerDataList", customerDataList);
 		return "admin/statistic/totalData";
 	}
 //

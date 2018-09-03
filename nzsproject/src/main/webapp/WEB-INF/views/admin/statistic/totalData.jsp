@@ -29,15 +29,15 @@
 		</thead>
 		<tbody id="list">
 		<c:choose>
-			<c:when test='${not empty totalData}'>	
-				<c:forEach var="total" items="${totalData}" varStatus="status">
+			<c:when test='${not empty salesDataList}'>	
+				<c:forEach var="sales" items="${salesDataList}" varStatus="status">
 			<tr>
-				<td>${total.months}</td>
-				<td>${total.registAmount}</td>
-				<td>${total.registSum}</td>
-				<td>${total.sellAmount}</td>
-				<td>${total.sellSum}</td>
-				<td>${total.rate}</td>				
+				<td>${sales.months}</td>
+				<td>${sales.registAmount}</td>
+				<td>${sales.registSum}</td>
+				<td>${sales.sellAmount}</td>
+				<td>${sales.sellSum}</td>
+				<td>${sales.rate}</td>				
 			</tr>
 			</c:forEach>
 			</c:when>
