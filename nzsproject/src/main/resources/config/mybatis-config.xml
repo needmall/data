@@ -37,6 +37,7 @@
       	<typeAlias type="com.needmall.admin.product.vo.ReqproductRegistVO" alias="reqproductRegist"/>
       	<typeAlias type="com.needmall.common.vo.UserCommonVO" alias="usercommon"/>
       	<typeAlias type="com.needmall.common.vo.NewsVO" alias="news"/>
+      	<typeAlias type="com.needmall.admin.statistic.vo.SalesDataVO" alias="salesData"/>
       	
 	</typeAliases>
 </configuration>

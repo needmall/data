@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.needmall.admin.statistic.dao.StatisticDao">
+	<select id="totalData" resultType="salesData">
+	select (select sum(ps_count) from productsell) as registAmount, 
+        (select sum(ps_price*ps_count) from productsell) as registSum, 
+        (select sum(b_count) from buy2dep inner join  buy1dep on buy1dep.b1_num=buy2dep.b1_num) as sellAmount, 
+        (select sum(ps_price*b_count) from productsell inner join buy2dep on productsell.ps_num=buy2dep.ps_num inner join buy1dep on buy1dep.b1_num=buy2dep.b1_num) as sellSum, 
+        round(((select sum(ps_price*b_count) from productsell inner join buy2dep on productsell.ps_num=buy2dep.ps_num inner join buy1dep on buy1dep.b1_num=buy2dep.b1_num)/(select sum(ps_price*ps_count) from productsell)*100),2) as rate 
+        from dual
+    </select>    
+</mapper>
