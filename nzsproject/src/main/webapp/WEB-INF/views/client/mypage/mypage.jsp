@@ -96,7 +96,7 @@
 		});
 		
 		$("#li_list2").click(function(){
-			$("#tab2").load("/mypage/mybuyList.do");
+// 			$("#tab2").load("ajax/mypage/mybuyList.do");
 		})
 
 	});//풩션 끝!
@@ -131,7 +131,7 @@
 				<p>test2</p>
 			</div>
 			<div class="tab-pane" id="tab2">
-<%-- 				<jsp:include page="mybuyList.jsp"></jsp:include> --%>
+				<jsp:include page="mybuyList.jsp"></jsp:include>
 			</div>
 			<div class="tab-pane" id="tab3">
 				<p>menu2 부분입니다.</p>

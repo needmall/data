@@ -51,7 +51,7 @@
 	</beans:bean><!-- 우선순위 1은 tilesresolver -->
 		
 	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="prefix" value="/WEB-INF/views/"/>
 		<beans:property name="suffix" value=".jsp" />
 		<beans:property name="order" value="2"/>
 	</beans:bean><!-- 우선순위 2은 viewResolver (header와 footer가 안 붙는다.) -->
