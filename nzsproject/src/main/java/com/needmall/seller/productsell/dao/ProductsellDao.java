@@ -15,9 +15,8 @@ public interface ProductsellDao {
 	public int productInsert(ProductInsertVO ivo);
 	public ProductListOneVO productDetail(ProductInsertVO ivo);
 	public int productUpdate(ProductInsertVO ivo);
-	public ProductListOneVO productState(ProductInsertVO ivo);
+	public UserCommonVO productState(ProductInsertVO ivo);
 	public int productDelete(ProductInsertVO ivo);
-
+	public int productDealUpdate(ProductInsertVO ivo);
 	
-
 }

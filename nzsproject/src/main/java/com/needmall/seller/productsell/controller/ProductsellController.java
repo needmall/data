@@ -101,7 +101,6 @@ public class ProductsellController {
 	public String productDetail(ProductInsertVO ivo, Model model) {
 		logger.info("productDetail 호출 성공");
 		ProductListOneVO Detail = null;
-		String url = "";
 		
 		if(!s_id.isEmpty()) {
 			ivo.setS_id(s_id);
@@ -135,41 +134,52 @@ public class ProductsellController {
 	@RequestMapping(value="/productupdate.do", method=RequestMethod.POST)
 	public String productUpdate(ProductInsertVO ivo, Model model) {
 		logger.info("productUpdate 호출 성공");
-		ProductListOneVO Detail = null;
-		ProductListOneVO status = null;
+		
+		UserCommonVO status = null;
+		ProductListOneVO updateData = null;
+		
 		int result = 0;
 		String url = "";
 		
 		if(!s_id.isEmpty()) {
 			ivo.setS_id(s_id);
-			// 구매중 상태값 변경
-			// 미구매 삭제
 			
-			// 판매상품 구매 여부, 가격 변격 확인
+			// 판매상품 가격변경, 거래상태 조회
 			status = productsellService.productState(ivo);
 			
-			if(result == 1) {
-				// 판매상품 정보 조회
-				Detail = productsellService.productDetail(ivo);
+			// 가격 변경상태 저장
+			ivo.setPriceStatus(status.getPriceStatus());
+			
+			// 가격 변경, 상품 판매
+			if(status.getPriceStatus() == 0 && status.getDealStatus() > 0) {
+				// 가격 변경 판매상품 정보조회 
+				updateData = productsellService.productDetail(ivo);
 				
-				// 상품정보 수정 조합			
+				// 상품정보 수정			
 				int ps_price = ivo.getPs_price();
 				int ps_count = ivo.getPs_count();
-				 
-				Detail.setS_id(s_id);
-				Detail.setPs_price(ps_price);
-				Detail.setPs_count(ps_count);
-					 
+				
+				updateData.setS_id(s_id);
+				updateData.setPs_price(ps_price);
+				updateData.setPs_count(ps_count);
+				
 				// 상품 판매 재등록
-				result = productsellService.productInsert(Detail);
-					
+				productsellService.productInsert(updateData);
+			} else {
+				ivo.setPriceStatus(1);
+			}
+			
+			// 판매 상품 상태 변경 및 판매갯수 등록
+			result = productsellService.productDealUpdate(ivo);
+				
+			if(result == 1) {
 				// 수정 이동
 				url = "/productsell/list.do";
-				} else {
-				url = "/productsell/updateform.do?ps_num=" + ivo.getPs_num();
-				model.addAttribute("error", "상품 등록 실패, 관리자에 문의 하십시요.");
+			} else {
+				url = "/productsell/detailform.do?ps_num=" + ivo.getPs_num();
+				model.addAttribute("error", "상품 삭제 실패, 관리자에 문의 하십시요.");
 			}
-		
+			
 		} else {
 			return "redirect:/";
 		}
@@ -180,30 +190,41 @@ public class ProductsellController {
 	@RequestMapping(value="/productdelete.do", method=RequestMethod.POST)
 	public String productDelete(ProductInsertVO ivo, Model model) {
 		logger.info("productDelete 호출 성공");
+		
+		UserCommonVO status = null;
+		
 		int result = 0;
 		String url = "";
 		
 		if(!s_id.isEmpty()) {
 			ivo.setS_id(s_id);
 			
-			// 판매상품 거래 조회
-			//result = productsellService.productState(ivo);
-			
-			if(result == 0) {
-				// 판매 중인 상품 미 존재
-				// 판매 상품 삭제
-				result = productsellService.productDelete(ivo);
-				
+			// 판매상품 가격변경, 거래상태 조회
+			status = productsellService.productState(ivo);
+			// 판매상품 상태 변경
+			ivo.setPriceStatus(0);
+							 
+			// 가격 변경, 판매 중
+			if(status.getDealStatus() > 0) {
+				// 판매 상품 상태 변경 및 판매갯수 등록
+				result = productsellService.productDealUpdate(ivo);
 			} else {
-				// 판매 중인 상품 존재
-				// 판매 상품 상태값 변경
-				result = productsellService.productUpdate(ivo);
-			} 
-		
+				// 판매된 상품 없을 경우 삭제
+				result = productsellService.productDelete(ivo);
+			}
+			
+			if(result == 1) {
+				// 수정 이동
+				url = "/productsell/list.do";
+			} else {
+				url = "/productsell/detailform.do?ps_num=" + ivo.getPs_num();
+				model.addAttribute("error", "상품 삭제 실패, 관리자에 문의 하십시요.");
+			}
+			
 		} else {
 			return "redirect:/";
 		}
-		return "redirect:/productsell/list.do";
+		return "redirect:" + url;
 	}
 	
 }
