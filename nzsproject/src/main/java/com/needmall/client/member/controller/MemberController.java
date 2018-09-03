@@ -208,12 +208,12 @@ public class MemberController {
 	 mav.setViewName("redirect:/member/logout.do");	//logout 으로 굳이 넘길 필요가 있나..?
 	 return mav; 									//넘겨야지..탈퇴하면 로그아웃 돼야지
 	}
-
+	 
 	 /**************************************************************
 	  * customer 수정 폼
 	  **************************************************************/
 	 @RequestMapping(value="/join_customer_modify.do", method = RequestMethod.GET) 
-	 public ModelAndView memberModify(HttpSession session){
+	 public ModelAndView customerModify(HttpSession session){
 		 logger.info("join_customer_modify.do(수정폼) get 방식에 의한 메서드 호출 성공");
 		 ModelAndView mav=new ModelAndView();
 		 // session 객체에서 로그인 정보 얻기 
@@ -236,7 +236,7 @@ public class MemberController {
 	  * customer 수정 처리(AOP 예외 처리 후)
 	  **************************************************************/
 	 @RequestMapping(value="/join_customer_modify.do", method = RequestMethod.POST) 
-	 public ModelAndView memberModifyProcess(MemberVO mvo, HttpSession session, ModelAndView mav){
+	 public ModelAndView customerModifyProcess(MemberVO mvo, HttpSession session, ModelAndView mav){
 		 logger.info("join_customer_modify.do post 방식에 의한 메서드 호출 성공");
 
 		 LoginVO login =(LoginVO)session.getAttribute("login");
@@ -257,6 +257,58 @@ public class MemberController {
 		 } 
 
 		 memberService.customerUpdate(mvo);
+		 mav.setViewName("redirect:/member/logout.do");
+		 return mav;  
+	 }
+	 
+	 /**************************************************************
+	  * seller 수정 폼
+	  **************************************************************/
+	 @RequestMapping(value="/join_seller_modify.do", method = RequestMethod.GET) 
+	 public ModelAndView sellerModify(HttpSession session){
+		 logger.info("join_seller_modify.do(수정폼) get 방식에 의한 메서드 호출 성공");
+		 ModelAndView mav=new ModelAndView();
+		 // session 객체에서 로그인 정보 얻기 
+		 LoginVO login =(LoginVO)session.getAttribute("login");
+
+		 // 추후 아래 부분에 대한 제어는 한곳에서 설정되도록 변경해 주면 된다 
+		 // 혹 로그인되어 있지 않으면 로그인 화면으로 이동.
+		 if(login==null){
+			 mav.setViewName("member/login"); 
+			 return mav;
+		 }
+		 // 세션에서 로그인 정보 중 아이디만 가지고 해당 아이디에 대한 상세내역  DB에서 조회
+		 MemberVO vo = memberService.sellerSelect(login.getS_id());
+		 mav.addObject("member", vo);
+		 mav.setViewName("member/join_seller_modify"); 
+		 return mav;
+	 } 
+	 
+	 /**************************************************************
+	  * seller 수정 처리(AOP 예외 처리 후)
+	  **************************************************************/
+	 @RequestMapping(value="/join_seller_modify.do", method = RequestMethod.POST) 
+	 public ModelAndView sellerModifyProcess(MemberVO mvo, HttpSession session, ModelAndView mav){
+		 logger.info("join_seller_modify.do post 방식에 의한 메서드 호출 성공");
+
+		 LoginVO login =(LoginVO)session.getAttribute("login");
+
+		 if(login==null){
+			 mav.setViewName("member/login"); 
+			 return mav;
+		 }
+		 // 세션으로 얻은 로그인 정보를 가지고 다시 회원테이블에 존재하는 확인
+		 mvo.setS_id(login.getS_id());
+		 MemberVO vo = memberService.sellerSelect(mvo.getS_id());
+		 // 기존 비빌번호로 회원정보를 확인하여 일치하면 수정 가능하도록 확인 작업
+		 if (loginService.sellerLoginSelect(mvo.getS_id(), mvo.getS_opwd()) == null ) {
+			 mav.addObject("status", 1);
+			 mav.addObject("member",vo);
+			 mav.setViewName("member/join_seller_modify");
+			 return mav;
+		 } 
+
+		 memberService.sellerUpdate(mvo);
 		 mav.setViewName("redirect:/member/logout.do");
 		 return mav;  
 	 }

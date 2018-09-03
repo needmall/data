@@ -18,10 +18,21 @@
 		
 		/* 삭제 버튼 */
 		$("#deleteBtn").click(function() {
-			
+			$("#updateForm").attr({
+				"method" : "POST",
+				"action" : "/productsell/productdelete.do"
+			});
+			$("#updateForm").submit();	
 		});
 		
-	});
+		/* 가격 (,) 생성 */
+		jQuery('.format-money').text(function() {
+		    jQuery(this).text(
+		        jQuery(this).text().format()
+		    );
+		});
+		
+	}); // END JQUERY
 	
 	/* 할인율 계산 */
 	function addDiscountRate(div_cnt) {
@@ -34,13 +45,11 @@
 		})
 	}
 </script>
-	
-
 <div>
-	<div class="productInfo" data-num="${Detail.ps_num}">
+	<div class="productInfo row" data-num="${Detail.ps_num}">
 		<!-- 판매 상품 정보 -->
 		
-		<div id="addTableSizeB" class="addInline-block addTextCenter">
+		<div id="addTableSizeB" class="addInline-block addTextCenter col-lg-6">
 			<table class="table table-bordered">
 				<tbody>
 					<tr>
@@ -70,7 +79,7 @@
 						</td>
 						<td>
 							<div class="selectItemData">
-								<span class="p_price">${Detail.p_price}</span><span>원</span>
+								<span class="p_price format-money">${Detail.p_price}</span><span>원</span>
 							</div>
 						</td>
 					</tr>
@@ -89,7 +98,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div id="addTableSizeC" class="addInline-block">
+		<div id="addTableSizeC" class="addInline-block col-lg-6">
 			<div class="">
 				<%-- 판매 상품 정보 --%>
 				<form action="" id="updateForm" class="form-inline">
@@ -111,7 +120,7 @@
 								<div class="form-group">
 									<label class="control-label" for="ps_price">판매 가격</label>
 									<div class="form-group">
-										<span class="ps_price">${Detail.ps_price}</span><span>원</span>
+										<span class="ps_price format-money">${Detail.ps_price}</span><span>원</span>
 									</div>
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<span id="ps_priceStatus" class="sr-only"></span>

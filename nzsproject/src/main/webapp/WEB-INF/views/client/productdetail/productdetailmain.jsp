@@ -27,10 +27,10 @@
 <link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
 
 <!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
 <script src="/resources/include/js/countTime_1.1.js"></script>
 
 <script type="text/javascript">
@@ -463,10 +463,9 @@
 			
 		</script>
 <style>
-
+/*  	div{border: 1px solid black;} */
 	#table_left{ padding: 10px;}
 	#simg{width: 350px; height: 350px; float: left; margin-right: 30px;margin-top: 15px; margin-left: 15px;  }
-	
 	table tr td{
 		font-size: 15px;
 		padding: 8px;
@@ -479,8 +478,8 @@
 	.accordion_banner{background-color: silver; color:black; }
 	.ul-{padding-top: 10px; }
 	.h4color{background-color: #F6F6F6; font-size: 20px; font-weight: bold;}
-	.div_buttun{text-align: left; margin: 15px 5px 0px 450px ;}
-	.cart{margin-right: 100px !important;}
+	.div_buttun{text-align: right!important; margin: 15px 5px 0px 760px ;}
+ 	.cart{margin-right: 60px !important;} 
 	.div_table{height: 380px; width: 100%}
 	.div_last{height: 100px;}
 </style>
@@ -583,9 +582,11 @@
 				</tr>
 			</table>
 		</div>
-		<div class="div_buttun">
-			<button id="buy_buttun" type="button" class="btn btn-default expire" data-toggle="modal" data-target="#myModal">바로 구매하기</button>
-			<input class="btn btn-default cart expire" type="button" value="장바구니 담기" id="cart" name="cart">
+		<div class="div_buttun2">
+			<div class="div_buttun">
+				<button id="buy_buttun" type="button" class="btn btn-default expire" data-toggle="modal" data-target="#myModal">바로 구매하기</button>
+				<input class="btn btn-default cart expire" type="button" value="장바구니 담기" id="cart" name="cart">
+			</div>
 		</div>
 	</div>
 

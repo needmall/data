@@ -38,6 +38,21 @@ public class MypageController {
 	}
 	
 	
+	@RequestMapping("/mybuyList.do")
+	public String buyList(MycartVO mvo,Model model) {
+		
+		logger.info("mypageList 호 출");
+		mvo.setC_num(1);
+		logger.info("mvo " +mvo.getC_num());
+		
+		List<MycartVO> buylist = mypageService.buyList(mvo);
+		int value = mypageService.pageList(mvo);
+		logger.info("value = " +value);
+		model.addAttribute("value",value);
+		model.addAttribute("buylist",buylist);
+		return "mypage/mybuyList";
+	}
+	
 	/////////////////////////////////////////////////////////////장바구니 로직
 	@RequestMapping(value="/mycartList.do")
 	public String mycartList(MycartVO mvo ,Model model) {
@@ -118,4 +133,14 @@ public class MypageController {
 		return result;
 		
 	}
+	
+
+	@ResponseBody
+	@RequestMapping(value="/cartConfirmUpdate.do")
+	public int cartConfirmUpdate(MycartVO mvo) {
+		int result =mypageService.cartConfirmUpdate(mvo);
+		return result;
+		
+	}
+	
 }

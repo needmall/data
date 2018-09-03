@@ -4,6 +4,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%-- 아래 내용은 DB에 이메일 정보가 javauser2018@naver.com으로 저장되어 있기에 @를 구분자로 분리하고 작성한 소스--%>
 <c:set var="c_mail" value="${fn:split(member.c_mail,'@')}" />
+<c:set var="c_address" value="${fn:split(member.c_address,'/')}" />
+
 <!DOCTYPE html>
    <html>
       <head>
@@ -38,7 +40,7 @@
           loginCustomerId = "${member.c_id}";
           function emailCheck(){
         	  var c_mail = "${c_mail[1]}";
-        	  $("#emailDomain").val(c_mail).prop("selected", "true");
+        	  $("#c_mailDomain").val(c_mail).prop("selected", "true");
           }
         	  
           	/* daum map */
@@ -145,6 +147,13 @@
 				</div>
 			</div>
 			
+			<div class="form-group form-group-sm">
+				<label for="c_name" class="col-sm-2 control-label">성별</label>
+				<div class="col-sm-3">
+					${member.c_gender}
+				</div>						
+			</div>
+			
 			<!-- 주소 -->
 			<!-- <div class="form-group form-group-sm">
 				<label for="c_address" class="col-sm-2 control-label">주소</label>
@@ -160,7 +169,7 @@
 			<div class="form-group form-group-sm">
 				<label for="sample6_postcode" class="col-sm-2 control-label">우편번호</label>
 				<div class="col-sm-3">
-					<input type="text" id="sample6_postcode" class="form-control" readonly="readonly" placeholder="우편번호" >
+					<input type="text" id="sample6_postcode" class="form-control" readonly="readonly" placeholder="우편번호" value="${c_address[2]}" >
 				</div>
 				<div class="col-sm-2">
 					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
@@ -169,10 +178,10 @@
 			<div class="form-group form-group-sm">
 				<label for="sample6_address" class="col-sm-2 control-label">주소</label>
 				<div class="col-sm-3">
-					<input type="text" id="sample6_address" class="form-control" readonly="readonly" placeholder="주소" value="${member.c_address}">
+					<input type="text" id="sample6_address" class="form-control" readonly="readonly" placeholder="주소" value="${c_address[0]}">
 				</div>
 				<div class="col-sm-2">	
-					<input type="text" id="sample6_address2" class="form-control" placeholder="상세주소">	
+					<input type="text" id="sample6_address2" class="form-control" placeholder="상세주소" value="${c_address[1]}">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -212,9 +221,9 @@
 			
 			<div class="form-group">	
 				<div class="col-sm-offset-2 col-sm-6">
-					<input type="button" value="확인" id="customerJoinInsert" class="btn btn-default" /> 
-					<input type="button" value="재작성" id="joinReset" class="btn btn-default" />
-					<input type="button" value="취소" id="joinCancel" class="btn btn-default" />						
+					<input type="button" value="확인" id="customerModify" class="btn btn-default" /> 
+					<input type="button" value="재작성" id="modifyReset" class="btn btn-default" />
+					<input type="button" value="취소" id="modifyCancel" class="btn btn-default" />						
 				</div>	
 			</div>																										
 		</form>

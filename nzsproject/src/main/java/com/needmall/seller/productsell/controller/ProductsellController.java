@@ -28,7 +28,7 @@ public class ProductsellController {
 	@Autowired
 	private ProductsellService productsellService;
 	String s_id = "seller_user1";
-	
+	 
 	/* 판매 상품 목록 */
 	@RequestMapping(value="/list.do", method = RequestMethod.GET)
 	public String productList(Model model) {
@@ -136,14 +136,17 @@ public class ProductsellController {
 	public String productUpdate(ProductInsertVO ivo, Model model) {
 		logger.info("productUpdate 호출 성공");
 		ProductListOneVO Detail = null;
+		ProductListOneVO status = null;
 		int result = 0;
 		String url = "";
 		
 		if(!s_id.isEmpty()) {
 			ivo.setS_id(s_id);
+			// 구매중 상태값 변경
+			// 미구매 삭제
 			
-			// 판매상품 상태값 변경
-			result = productsellService.productUpdate(ivo);
+			// 판매상품 구매 여부, 가격 변격 확인
+			status = productsellService.productState(ivo);
 			
 			if(result == 1) {
 				// 판매상품 정보 조회
@@ -184,28 +187,23 @@ public class ProductsellController {
 			ivo.setS_id(s_id);
 			
 			// 판매상품 거래 조회
-			//result = productsellService.productUpdate(ivo);
-			/*
-			 SELECT *
-			FROM customer c INNER JOIN buy1dep b1 ON c.c_num = b1.c_num INNER JOIN buy2dep b2 ON b2.b1_num = b1.b1_num
-			WHERE b_confirm = 0 AND ps_num = (SELECT ps_num FROM seller s INNER JOIN store st ON s.s_num = st.s_num INNER JOIN productsell ps ON ps.s_num = s.s_num WHERE s_id = 'seller_user1' AND ps_num = 1);
-			 * */
-			if(result == 1) {
+			//result = productsellService.productState(ivo);
+			
+			if(result == 0) {
+				// 판매 중인 상품 미 존재
+				// 판매 상품 삭제
+				result = productsellService.productDelete(ivo);
 				
-				// 상품 판매 삭제
-				//result = productsellService.productInsert(Detail);
-					
-				// 
-				url = "/productsell/list.do";
 			} else {
-				url = "/productsell/detailform.do?ps_num=" + ivo.getPs_num();
-				model.addAttribute("error", "상품 등록 실패, 관리자에 문의 하십시요.");
+				// 판매 중인 상품 존재
+				// 판매 상품 상태값 변경
+				result = productsellService.productUpdate(ivo);
 			} 
 		
 		} else {
 			return "redirect:/";
 		}
-		return "redirect:" + url;
+		return "redirect:/productsell/list.do";
 	}
 	
 }

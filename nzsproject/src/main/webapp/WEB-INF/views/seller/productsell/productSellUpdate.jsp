@@ -20,9 +20,10 @@
 			$("#submitForm").submit();
 		});
 		
-		/* 삭제 버튼 */
+		/* 취소 버튼 */
 		$("#cancelBtn").click(function() {
-			location.href = "/productsell/list.do";
+			var ps_num = $("#ps_num").attr("data-num");
+			location.href = "/productsell/detailform.do?ps_num=" + ps_num;
 		});
 		
 		/* 할인율 선택, 입력 토글 */
@@ -109,9 +110,9 @@
 	}
 </script>
 <div>
-	<div class="productInfo" data-num="${Detail.ps_num}">
+	<div id="ps_num" class="productInfo row" data-num="${Detail.ps_num}">
 		<!-- 판매 상품 정보 -->
-		<div id="addTableSizeB" class="addInline-block addTextCenter">
+		<div id="addTableSizeB" class="addInline-block addTextCenter col-lg-6">
 			<table class="table table-bordered">
 				<tbody>
 					<tr>
@@ -160,7 +161,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div id="addTableSizeC" class="addInline-block">
+		<div id="addTableSizeC" class="addInline-block col-lg-6">
 			<div class="">
 				<%-- 판매 상품 정보 --%>
 				<form action="" id="submitForm" class="form-inline">

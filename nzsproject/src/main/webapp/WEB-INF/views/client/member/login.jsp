@@ -46,6 +46,8 @@
 			var message = confirm("로그아웃..하시겠습니까..?");
 			if(message==true){
 				location.href="/member/logout.do"
+			} else{
+				return false;
 			}
 		});
 		// customer 탈퇴 confirm
@@ -66,6 +68,16 @@
 				return false;
 			}
 		});
+		
+		// seller 정보수정시 store 수정은 관리자에게 문의
+		$("#sellerModify").click(function(){
+			var message = confirm("매장 정보 수정은 관리자에게 문의하시기 바랍니다.");
+			if(message==true){
+				location.href="/member/join_seller_modify.do"
+			} else{
+				return false;
+			}
+		});
 	})
 </script>
 </head>
@@ -77,7 +89,7 @@
 			<c:when test="${login.c_id != null and login.c_id != ''}">
 				<fieldset id="loginAfter">
 					<legend>
-						<strong>[ ${login.c_name} ]님 반갑습니다</strong>
+						<strong>[ ${login.c_name} ]고객님 반갑습니다</strong>
 					</legend>
 					<span id="memberMenu" class="tac"> 
 						<a href="#" id="logout">로그아웃</a>&nbsp;&nbsp;&nbsp; 
@@ -90,11 +102,11 @@
 			<c:when test="${login.s_id != null and login.s_id != ''}">
 				<fieldset id="loginAfter">
 					<legend>
-						<strong>[ ${login.s_name} ]님 반갑습니다</strong>
+						<strong>[ ${login.s_name} ]판매자님 반갑습니다</strong>
 					</legend>
 					<span id="memberMenu" class="tac"> 
 						<a href="#" id="logout">로그아웃</a>&nbsp;&nbsp;&nbsp; 
-						<a href="/member/modify.do">정보수정(비밀번호변경)</a>&nbsp;&nbsp;&nbsp; 
+						<a href="#" id="sellerModify">정보수정(비밀번호변경)</a>&nbsp;&nbsp;&nbsp; 
 						<a href="#" id="sellerDelete">회원탈퇴</a>
 					</span>
 				</fieldset>		

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.needmall.admin.statistic.dao.StatisticDao">
+	<select id="totalData" resultType="salesData">
+	SELECT sum(ps_count) registAmount, sum(ps_price*ps_count) registSum,  sum(bcount) sellAmount, sum(ps_price*bcount) sellSum, round(sum(bcount)/sum(ps_count)*100,2) rate ,months 
+	from (select  productsell.ps_num, ps_count, ps_price, bcount, to_char(ps_udate,'yyyy-mm') months from productsell 
+	left outer join (select sum(b_count) bcount, ps_num from buy2dep group by ps_num) buydata on productsell.ps_num=buydata.ps_num) 
+	group by months order by months desc
+    </select>    
+</mapper>

@@ -22,16 +22,16 @@
 
 <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
-<script type="text/javascript" src="/resources/include/js/jquery.paging.js"></script>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 		 <link rel="stylesheet" type="text/css" href="/resources/include/css/common.css" /> -->
 <link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
 
 <!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
 
 <style type="text/css">
 /* 	div{border: 1px solid black;} */
@@ -95,23 +95,15 @@
 		    );
 		});
 		
-		$(".goDetail td").click(function() {					 //, :nth-last-child(2))
-			var ps_num = $(this).parents("tr").attr("data-num");				
-			location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
-		});	
-			
+		$("#li_list2").click(function(){
+// 			$("#tab2").load("ajax/mypage/mybuyList.do");
+		})
+
+	});//풩션 끝!
+	//구입버튼 모달
 	
-		
-		var total = parseInt(${value} /10);
-		console.log(total);
-	
-		jQuery('#document_navi').jaPageNavigator({
-			page_row : "10" // 보여질 게시물 목록 수
-		  	, page_link : total // 보여질 페이지 링크 수
-		  	, total_count : "${value}" // 게시물 총 수
-		});
-		  
-	});
+
+
 	</script>
 </head>
 <body>
@@ -120,108 +112,35 @@
 		<div role="tabpanel">
 			<ul id="nav" class="nav nav-tabs clearfix right" role="tablist"  >	
 			  	<li role="presentation" class="dropdown">
-				  	<a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">회원관리</a>
+				  	<a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">회원정보 관리</a>
 			    	<ul class="dropdown-menu" role="menu">
-			      		<li role="presentation"><a role="menuitem" data-toggle="tab" tabindex="-1" href="#tab1-1">회원정보 수정</a></li>
-	   					<li role="presentation"><a role="menuitem" data-toggle="tab" tabindex="-1" href="#tab1-2">회원 탈퇴</a></li>
+			      		<li role="presentation" id="li_list1-1"><a role="menuitem" data-toggle="tab" tabindex="-1" href="#tab1-1">회원정보 수정</a></li>
+	   					<li role="presentation" id="li_list1-2"><a role="menuitem" data-toggle="tab" tabindex="-1" href="#tab1-2">회원 탈퇴</a></li>
 			    	</ul>
 			  	</li>
-				<li><a href="#tab2" data-toggle="tab">구매목록</a></li>
+				<li><a href="#tab2" data-toggle="tab" id="li_list2">구매목록</a></li>
 				<li><a href="#tab3" data-toggle="tab">장바구니</a></li>
-				<li><a href="#tab3" data-toggle="tab">리뷰</a></li>
+<!-- 				<li><a href="#tab3" data-toggle="tab">리뷰</a></li> -->
 			</ul>
 		</div>
 		<div class="tab-content">  <!-- 텝 시작 부분 -->
-			<div class="tab-pane" id= "tab1-1">
-				<p>test</p>
+			<div class="tab-pane" id= "tab1-1"> <!-- 정보수정 페이지  -->
+				<jsp:include page="/WEB-INF/views/client/member/join_customer_modify.jsp"></jsp:include>
 			</div>
 			<div class="tab-pane" id= "tab1-2">
 				<p>test2</p>
 			</div>
 			<div class="tab-pane" id="tab2">
-				 <div id="#page=1">
-					<div class="item_succes"><span>구매 성공 내역</span></div>
-					<hr/>
-					<div style="text-align: right ;"><input type="date"></div>
-					<table class="table table-striped table-hover">
-						<colgroup>
-							<col width="5%">
-							<col width="10%">
-							<col width="50%">
-							<col width="7%">
-							<col width="8%">
-							<col width="10%">
-							<col width="7%">
-							
-						</colgroup>
-						<tbody>
-							<tr>
-								<td>번호</td>
-								<td>물품명</td>
-								<td>물품설명</td>
-								<td>수량</td>
-								<td>가격</td>
-								<td>구입일</td>
-								<td>수령확인</td>
-							</tr>
-							<c:choose>
-								<c:when test="${not empty buylist}">
-										<c:forEach var="buy" items="${buylist}" varStatus="status">
-											<tr class="tr_list goDetail" data-num ="${buy.ps_num}">
-												<td><div class="list_td">${status.count}</div> </td>
-												<td><div ><img class="img-thumbnail" src="/uploadStorage/product/${buy.pi_image }" width="70px" height="50px;"/></div></td>
-												<td><div class="list_td2" style="text-align: left;"><p><label>${buy.p_name}</label></p>${buy.p_content}</div></td>
-												<td ><div class="list_td">${buy.b_count }개</div></td>
-												<td>
-													<div class="list_td3">
-														<span class="span_count format-money" style="text-decoration: line-through;"> ${buy.original_multiply_count}</span>원<br/>
-														<span class="span_count format-money"> ${buy.multiply_count}</span>원
-													</div>
-												</td>
-												<td><div class="list_td">${buy.b1_date} </div>
-												<td><div class="list_td">${buy.b_confirm} </div>
-											</tr>
-										</c:forEach>
-								</c:when>
-								<c:otherwise>
-									<tr>
-										<th colspan="5" class="tac">구매하신 물품이 존재하지않습니다.</th>
-									</tr>
-								</c:otherwise>
-							</c:choose>
-						</tbody>
-					</table>
-					<div id="document_navi">
-					  <a class="start" href="#">&nbsp;처음</a>
-					  <a class="prev" href="#">&nbsp;이전&nbsp;({page_link})</a>
-					  <a class="prevpage" href="#">이전&nbsp;</a>
-					
-					  <!-- 페이지 번호 링크가 노출되는 영역 -->
-					  <span class="pageaction"></span>
-					  <!-- 페이지 번호 링크 태그 -->
-					  <a class="num" href="">{page}</a>
-					  <!-- 현재 페이지 번호 태그 -->
-					  <strong class="now">{page}</strong>
-					  <!-- 페이지 링크 구분 태그 -->
-					  <span class="div">&nbsp;</span>
-					
-					  <a class="nextpage" href="#">다음&nbsp;</a>
-					  <a class="next" href="#">다음&nbsp;({page_link})&nbsp;</a>
-					  <a class="end" href="#">끝&nbsp;</a>
-					</div>
-				</div>
+				<jsp:include page="mybuyList.jsp"></jsp:include>
 			</div>
 			<div class="tab-pane" id="tab3">
 				<p>menu2 부분입니다.</p>
 <%-- 					<c:import url="mycart.jsp"></c:import> --%>
 <%-- 	<%@include file="productdetallbuy.jsp" %> --%>
-
-
-
-
 			</div>
 		</div>
 	</div>
+
 	<div class="div_last"></div>
 </body>
 </html>

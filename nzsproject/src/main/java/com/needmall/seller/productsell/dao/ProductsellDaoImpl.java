@@ -43,5 +43,15 @@ public class ProductsellDaoImpl implements ProductsellDao {
 		return session.update("productUpdate", ivo);
 	}
 
+	@Override
+	public ProductListOneVO productState(ProductInsertVO ivo) {
+		return session.selectOne("productState", ivo);
+	}
+
+	@Override
+	public int productDelete(ProductInsertVO ivo) {
+		return session.delete("productDelete", ivo);
+	}
+
 	
 }
