@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.needmall.admin.statistic.dao.StatisticDao;
+import com.needmall.admin.statistic.vo.CustomerDataVO;
 import com.needmall.admin.statistic.vo.SalesDataVO;
+import com.needmall.admin.statistic.vo.StoreDataVO;
 
 
 @Service
@@ -18,8 +20,18 @@ public class StatisticServiceImpl implements StatisticService{
 	private StatisticDao statisticDao;
 
 	@Override
-	public List<SalesDataVO> totalData() {	
-		return statisticDao.totalData();
+	public List<SalesDataVO> salesDataList() {	
+		return statisticDao.salesDataList();
+	}
+
+	@Override
+	public List<StoreDataVO> storeDataList() {
+		return statisticDao.storeDataList();
+	}
+
+	@Override
+	public List<CustomerDataVO> customerDataList() {
+		return statisticDao.customerDataList();
 	}
 	
 	
