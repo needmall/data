@@ -20,18 +20,9 @@
 	<!-- [if lt IE 9] -->
 	<!-- <script src="/resources/js/html5shiv.js"</script> -->
 	<!-- [endif] -->
-	
+	<meta http-equiv="refresh" content="5; url=/mypage/mypageList.do">
 	<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="/resources/include/js/common.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<!-- 		 <link rel="stylesheet" type="text/css" href="/resources/include/css/common.css" /> -->
-	<link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
-	
-	<!-- 부가적인 테마 -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-	
-	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 	
 	<style type="text/css">
 /*    		div{border: 1px solid gray;}      */

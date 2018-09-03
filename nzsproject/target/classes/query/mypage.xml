@@ -30,7 +30,7 @@
 		    inner join productsell on productsell.ps_num = cart2dep.ps_num
 		    inner join product on product.p_num = productsell.p_num 
 		    inner join proimage on proimage.pi_num = product.pi_num
-		WHERE c_num =1
+		WHERE c_num =#{c_num}
 	</select>
 	<update id="countUpdate" parameterType="mypage">
 		UPDATE cart2dep SET cart2_count = #{cart2_count}
