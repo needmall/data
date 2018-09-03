@@ -69,12 +69,12 @@ public class ProductsellServiceImpl implements ProductsellService {
 		return result;
 	}
 
-	@Override
-	public int productState(ProductInsertVO ivo) {
-		int result = 0;
+	/*@Override
+	public ProductListOneVO ProductsellServiceImpl(ProductInsertVO ivo) {
+		ProductListOneVO result = null;
 		result = productsellDao.productState(ivo);
 		return result;
-	}
+	}*/
 
 	@Override
 	public int productDelete(ProductInsertVO ivo) {
@@ -82,5 +82,13 @@ public class ProductsellServiceImpl implements ProductsellService {
 		result = productsellDao.productDelete(ivo);
 		return result;
 	}
+
+	@Override
+	public ProductListOneVO productState(ProductInsertVO ivo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 }

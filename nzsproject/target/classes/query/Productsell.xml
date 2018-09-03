@@ -32,19 +32,36 @@
 		WHERE ps_num = #{ps_num} AND s_id = #{s_id} ORDER BY p_name
 	</select>
 	
-	<!-- 판매상품 상태 변경 -->	
-	<update id="productUpdate" parameterType="productinsert">
+	<!-- 판매상품 구매 중 상품 정보 변경 -->	
+	<update id="productDealUpdate" parameterType="productinsert">
 		UPDATE productsell
-		SET ps_state = 1, ps_count = ((SELECT ps_count FROM productsell ps WHERE ps.ps_num = #{ps_num}) - (SELECT SUM(b_count)FROM productsell ps INNER JOIN buy2dep b2 ON ps.ps_num = b2.ps_num WHERE b2.ps_num = #{ps_num} AND b_confirm = 0))
-		WHERE ps_num = #{ps_num} AND s_num = (SELECT s.s_num FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id}) AND ps_state = 0
+		SET
+			<if test="priceStatus == 0"> 
+				ps_state = 1, b_count = (SELECT SUM(b_count)FROM productsell ps INNER JOIN buy2dep b2 ON ps.ps_num = b2.ps_num WHERE b2.ps_num = #{ps_num} AND b_confirm = 0)
+			</if>
+			<if test="priceStatus > 0">
+				ps_count = #{ps_count}
+			</if>
+		WHERE ps_num = #{ps_num} AND s_num = (SELECT s.s_num FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id}) AND ps_state = 0		
 	</update>
 	
-	<!-- 판매상품 거래 확인 -->
-	<select id="productState" parameterType="productinsert" resultType="int">
+	<!-- 판매상품 미 구매 중 상품 정보 변경 -->	
+	<update id="productDealUpdate" parameterType="productinsert">
+		UPDATE productsell
+		SET ps_price = #{ps_price}, ps_count = #{ps_count}
+		WHERE ps_num = #{ps_num} AND s_num = (SELECT s.s_num FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id}) AND ps_state = 0		
+	</update>
+	
+	<!-- 판매상품 구매 및 가격 변경 확인-->
+	<select id="productState" parameterType="productinsert" resultType="productinsert">
 		SELECT	NVL((
-						SELECT DISTINCT 1
+						SELECT SUM(b_count)
 						FROM productsell ps INNER JOIN buy2dep b2 ON ps.ps_num = b2.ps_num 
-						WHERE b2.ps_num = #{ps_num} AND b_confirm = 0),0) AS state	
+						WHERE b2.ps_num = #{ps_num} AND b_confirm = 0), 0) AS dealStatus,
+         		NVL((
+						SELECT 1 
+						FROM productsell ps 
+						WHERE ps.ps_num = #{ps_num} AND ps_price = #{ps_price}), 0) AS priceStatus
 		FROM DUAL
 	</select>
 	

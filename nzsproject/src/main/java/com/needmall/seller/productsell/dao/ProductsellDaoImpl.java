@@ -44,7 +44,7 @@ public class ProductsellDaoImpl implements ProductsellDao {
 	}
 
 	@Override
-	public int productState(ProductInsertVO ivo) {
+	public ProductListOneVO productState(ProductInsertVO ivo) {
 		return session.selectOne("productState", ivo);
 	}
 

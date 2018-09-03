@@ -28,7 +28,7 @@ public class ProductsellController {
 	@Autowired
 	private ProductsellService productsellService;
 	String s_id = "seller_user1";
-	
+	 
 	/* 판매 상품 목록 */
 	@RequestMapping(value="/list.do", method = RequestMethod.GET)
 	public String productList(Model model) {
@@ -136,14 +136,17 @@ public class ProductsellController {
 	public String productUpdate(ProductInsertVO ivo, Model model) {
 		logger.info("productUpdate 호출 성공");
 		ProductListOneVO Detail = null;
+		ProductListOneVO status = null;
 		int result = 0;
 		String url = "";
 		
 		if(!s_id.isEmpty()) {
 			ivo.setS_id(s_id);
+			// 구매중 상태값 변경
+			// 미구매 삭제
 			
-			// 판매상품 상태값 변경
-			result = productsellService.productUpdate(ivo);
+			// 판매상품 구매 여부, 가격 변격 확인
+			status = productsellService.productState(ivo);
 			
 			if(result == 1) {
 				// 판매상품 정보 조회
@@ -184,7 +187,7 @@ public class ProductsellController {
 			ivo.setS_id(s_id);
 			
 			// 판매상품 거래 조회
-			result = productsellService.productState(ivo);
+			//result = productsellService.productState(ivo);
 			
 			if(result == 0) {
 				// 판매 중인 상품 미 존재
