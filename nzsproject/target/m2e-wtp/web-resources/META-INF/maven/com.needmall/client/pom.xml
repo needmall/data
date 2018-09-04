@@ -84,6 +84,21 @@
 	         <version>1.8.8</version>
 	      </dependency>
 
+		<!-- 메일 발송을 위한 라이브러리 -->
+		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+			<dependency>
+			    <groupId>javax.mail</groupId>
+			    <artifactId>javax.mail-api</artifactId>
+			    <version>1.5.5</version>
+			</dependency>
+			
+			<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+			<dependency>
+			    <groupId>com.sun.mail</groupId>
+			    <artifactId>javax.mail</artifactId>
+			    <version>1.5.5</version>
+			</dependency>
+		
 		<!-- Thumbnail create : imageScalr -->
 		<dependency>
 			<groupId>org.imgscalr</groupId>

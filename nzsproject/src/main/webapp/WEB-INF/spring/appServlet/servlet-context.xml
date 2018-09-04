@@ -96,6 +96,22 @@
     	</beans:property>
     </beans:bean> -->
 	
+	<!-- mail bean -->
+		<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+			<beans:property name="host" value="smtp.gmail.com" />
+			<beans:property name="port" value="587" />
+			<beans:property name="username" value="alfosmdfur" />  <!-- 구글 계정 아이디 -->
+			<beans:property name="password" value="alfosmdfur506!" /><!-- 구글 계정 비밀번호 -->
+			<beans:property name="javaMailProperties">
+				<beans:props>
+					<beans:prop key="mail.smtp.auth">true</beans:prop>
+					<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+					<beans:prop key="mail.smtp.timeout">8500</beans:prop> <!-- 메일 서버 연결시 timeout 시간 설정 -->
+					<beans:prop key="mail.debug">true</beans:prop>  <!-- log를 보고 싶다면 사용 -->
+				</beans:props>
+			</beans:property>
+		</beans:bean>
+	
 	
 	
 </beans:beans>

@@ -1,84 +1,76 @@
 @charset "UTF-8";
 
-td div label {
-	width: 80px;
-	text-align: center;
+.productInfo {
+	margin: 15px;
 }
 
-.addInline-block{
-	display: inline-block;
+.addTableSetting {
+	width: 535px;
+	height: 600px;
+	margin: 10px;
+	padding: 5px;
 }
 
-.addTextRight {
-	text-align: right;
+.addImageSetting {
+	margin: 0 134px;
 }
 
-table, .addTextCenter th, .addTextCenter td, #addCenterSubmit, #submitForm tr{
-	text-align: center;
+.addImage {
+	width: 250px;
+	height: 250px;
 }
 
-.addSizeSubmit {
-	width: 100px;
+.sizeHight85 {
+	height: 85px;
 }
-
-#addTableSizeB tr:first-child {
-	height: 300px;
-}
-
-#addTableSizeB tr:last-child {
+.sizeHight150 {
 	height: 150px;
 }
-
-
-#addMarginCenter {
-	margin: 0 405px;
+.sizeWidth395 {
+	width: 395px;
+}
+.paddingTd35 {
+	padding-top: 35px !important;
 }
 
-#searchBtn {
-	width: 50px;
-	height: 40px;
+.paddingTd-content {
+	padding-top: 10% !important;
 }
 
-#addTableSizeB {
-	width: 513px;
-	height: 750px;
-	margin: 10px;
+.sizeHight133 {
+	height: 133px;
 }
 
-#addTableSizeC {
-	width: 513px;
-	height: 750px;
-	margin: 10px;
+.sizeHight87 {
+	height: 87px;
 }
 
-#searchBtn {
-	width: 76px;
+.sizeHight235 {
+	height: 235px;
 }
 
-#keyword {
-	width: 250px;
-	height: 40px;
+.paddingTd55 {
+	padding-top: 55px !important;
 }
 
-#addTableSizeB td:first-child {
-	width: 171px;
-	margin: 0px;
-	padding: 7%;
-}
-#addTableSizeB td:last-child {
-	margin: 0px;
-	padding: 7%;	
+.paddingTd31 {
+	padding-top: 31px !important;
 }
 
-#addTableSizeC tbody tr td div{
-	margin: 20px 0px;
+.paddingTd86 {
+	padding-top: 95px !important;
+}
+ 
+.sizeInput200 {
+    width: 200px !important;
 }
 
-.addSizeInput75 {
-	width:  75px !important;
+.sizeInput75 {	
+    width: 75.97916599999999px !important;
 }
 
-.input-group-addon {
-    display:  inline;
+.sizeInput55 {
+    width: 55.979166px !important;
 }
+
 
