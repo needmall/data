@@ -153,10 +153,8 @@ var count;
 				var ps_num = $(this).parents("tr").attr("data-num");				
 				location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
 			});	
-		
 			
-			
-			$("document").on('click','.btn_confirm',function() {
+			$(document).on('click','.btn_confirm',function() {
 				if(confirm("정말 수령 하시겠습니까?")){
 					var b2_num = $(this).parents("tr").attr("data-b2_num");
 					console.log("b2_num" + b2_num)
@@ -172,8 +170,9 @@ var count;
 				}
 			})
 			
-			$("#li_list2").click(function(){
-
+			$("#nav").click(function(){
+				$("#nav li").removeClass("active"); 
+				$(this).addClass("active");
 			})
 
 		});//풩션 끝!
