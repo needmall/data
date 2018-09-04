@@ -30,11 +30,17 @@ public class MypageController {
 	public String mypageList(MycartVO mvo,Model model) {
 		logger.info("mypageList 호 출");
 		mvo.setC_num(1);
-		
+
 		List<MycartVO> list = mypageService.mycartList(mvo);
-		Date date =list.get(1).getCart1_date();
+		logger.info(list.size());
+		if(list.size()>0) {
+//			logger.info("당황스럽네요 왜 안나오죠?"+list.size());
+			Date date =list.get(0).getCart1_date();
+			model.addAttribute("date",date);
+		}
+
 		model.addAttribute("cartList",list);
-		model.addAttribute("date",date);
+		
 		return "mypage/mypage";
 	}
 	
@@ -68,10 +74,10 @@ public class MypageController {
 	public String mycartList(MycartVO mvo ,Model model) {
 		logger.info("mycartList 호 출");
 		//		mvo.setC_num(2); // 나중에 세션 값 받아서 넘겨야함
-		List<MycartVO> list = mypageService.mycartList(mvo);
-		Date date =list.get(1).getCart1_date();
-		model.addAttribute("cartList",list);
-		model.addAttribute("date",date);
+//		List<MycartVO> list = mypageService.mycartList(mvo);
+//		Date date =list.get(1).getCart1_date();
+//		model.addAttribute("cartList",list);
+//		model.addAttribute("date",date);
 		
 		return "mypage/mycart";
 		

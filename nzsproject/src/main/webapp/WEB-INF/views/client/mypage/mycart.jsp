@@ -37,13 +37,6 @@ var all_price=0;
 var hidden;
 	$(function(){
 		
-		//숫자 3자리 앞에 , 붙이기
-		jQuery('.format-money').text(function() {
-		    jQuery(this).text(
-		        jQuery(this).text().format()
-		    );
-		});
-
 		$('#myModal').on('shown.bs.modal', function () {
 		  	$('#myInput').focus();
 			$('#myModal').modal({
@@ -126,7 +119,7 @@ var hidden;
 	        }
 	    })
 // 	   
-		$(".goDetail td :not(:nth-last-child(1), :nth-last-child(2),:nth-last-child(3),:nth-last-child(4),:nth-last-child(6),:nth-last-child(7))").click(function() {					 //, :nth-last-child(2))
+		$(".goDetail2 td:not(:nth-last-child(1), :nth-last-child(2),:nth-last-child(3),:nth-last-child(4),:nth-last-child(6),:nth-last-child(7))").click(function() {					 //, :nth-last-child(2))
 			var ps_num = $(this).parents("tr").attr("data-num");				
 			location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
 		});
@@ -269,7 +262,9 @@ var hidden;
 
 	<div>
 		<div class="div_date">
-			<label>수정일 : <span>${date}</span></label>
+			<c:if test=" ${ !empty date}">
+					<label>수정일 : <span>${date}</span></label>
+			</c:if>
 		</div>
 		<table class="table table-striped table-hover">
 			<colgroup>
@@ -278,7 +273,7 @@ var hidden;
 				<col width="13%">
 				<col width="6%">
 				<col width="8%">
-				<col width="2%">
+				<col width="3%">
 				<col width="4%">
 			</colgroup>
 			<tbody>
@@ -295,7 +290,7 @@ var hidden;
 				<c:choose>
 					<c:when test="${not empty cartList}">
 						<c:forEach var="cart" items="${cartList }" varStatus="status">
-							<tr class="goDetail" data-num="${cart.ps_num}" data-cart="${cart.cart2_num}" data-price ="${cart.ps_price}">
+							<tr class="goDetail2" data-num="${cart.ps_num}" data-cart="${cart.cart2_num}" data-price ="${cart.ps_price}">
 								<td><img class="img-thumbnail" src="/uploadStorage/product/${cart.pi_image }" width="150px" height="50px;"/></td>
 								<td><div class="td_list2"><label>${cart.p_name}</label><p>${cart.p_content }</p></div></td>
 								<td>
@@ -326,7 +321,7 @@ var hidden;
 										<input type="hidden" class="ps_num" name="ps_num" value="${cart.ps_num}">
 										<input type="hidden" class="cart2_count" name="cart2_count" value="${cart.cart2_count}">
 										<input type="hidden" class="cart2_num" name="cart2_num" value="${cart.cart2_num}">
-										<input type="hidden" class="changeCount" id="changeCount" name="changeCount" value="0">
+										<input type="hidden" class="changeCount"  name="changeCount" value="0">
 									</form>
 								</td>
 							</tr>
@@ -334,7 +329,7 @@ var hidden;
 					</c:when>
 					<c:otherwise>
 						<tr>
-							<td colspan="8" class="tac">등록된 게시물이 존재하지않습니다.
+							<td colspan="8" class="tac">장바구니에 등록된 물품이 존재하지않습니다.
 						</tr>
 					</c:otherwise>
 				</c:choose>
