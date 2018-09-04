@@ -132,6 +132,19 @@ public class ProductdetailController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value="/productdetailFavpDelete.do")
+	public String productdetailFavpDelete(FavproductVO fvo) {
+		return productdetailService.productdetailFavpDelete(fvo);
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/productdetailFavsDelete.do")
+	public String productdetailFavsDelete(FavstoreVO fvo) {
+		return productdetailService.productdetailFavsDelete(fvo);
+	}
+	
+	@ResponseBody
 	@RequestMapping(value="/productdetailFavsInsert.do")	//    c_num,st_num
 	public String productdetailFavsInsert(FavstoreVO svo) {
 		logger.info("productdetailFavpUpdate 호출");

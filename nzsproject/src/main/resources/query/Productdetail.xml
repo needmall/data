@@ -165,4 +165,15 @@
 		    #{c_num}
 		)
 	</insert>
+	<delete id="productdetailFavpDelete" parameterType="favproduct">
+		DELETE FROM favproduct
+		WHERE
+    		c_num =#{c_num} AND p_num =#{p_num}
+	</delete>
+	<delete id="productdetailFavsDelete" parameterType="favstore">
+	    DELETE FROM favstore
+		WHERE
+    		c_num =#{c_num } AND st_num =#{st_num }
+	</delete>
+	
 </mapper>

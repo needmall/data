@@ -22,6 +22,8 @@
 	<!-- [endif] -->
 	<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript" src="/resources/include/js/jquery.twbsPagination.js"></script>
+	<script type="text/javascript" src="/resources/include/js/common.js"></script>
+	
 	<style type="text/css">
 	/* 	div{border: 1px solid black;} */
 		.all{padding-bottom: 100px;}
@@ -36,6 +38,18 @@
 		#document_navi{text-align: center;}
 		
 	</style>
+	<script type="text/javascript">
+	$(function() {
+		jQuery('.format-money').text(function() {
+		    jQuery(this).text(
+		        jQuery(this).text().format()
+		    );
+		});
+	})
+		
+		
+		
+	</script>
 </head>
 <body>
 	<div class="item_succes"><span>구매 성공 내역</span></div>
@@ -63,14 +77,12 @@
 					<td>리 뷰</td>
 					<td>수령확인</td>
 				</tr>
-				
-				
 			</tbody>
 		</table>
 		<div class="text-center"> <!-- 페이징 버튼 -->
 			<ul id="pagination-demo" class="pagination-sm"></ul>
 		</div>
-		         	<%-- 갤러리 등록 화면 영역(modal) --%>
+		    		<%-- (modal) --%>
 	<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -79,6 +91,7 @@
 	        <h4 class="modal-title" id="galleryModalLabel">title</h4>
 	      </div>
 	      <div class="modal-body">
+				<!--------------------- 	      동적 바디 추가  부분			--------------->	      
 	        <form id="f_writeForm" name="f_writeForm">
 	          <div class="form-group">
 	            <label for="g_name" class="control-label">작성자</label>

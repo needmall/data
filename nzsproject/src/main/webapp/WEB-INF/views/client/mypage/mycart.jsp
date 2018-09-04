@@ -269,11 +269,11 @@ var hidden;
 		<table class="table table-striped table-hover">
 			<colgroup>
 				<col width="10%">
-				<col width="50%">
+				<col width="55%">
 				<col width="13%">
 				<col width="6%">
 				<col width="8%">
-				<col width="3%">
+				<col width="4%">
 				<col width="4%">
 			</colgroup>
 			<tbody>
@@ -285,7 +285,7 @@ var hidden;
 					<td>가격</td>
 					<td>유통기한</td>
 					<td>구매</td>
-					<td colspan="2">취소</td>
+					<td colspan="3">취소</td>
 				</tr>
 				<c:choose>
 					<c:when test="${not empty cartList}">

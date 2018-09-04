@@ -35,5 +35,9 @@ public interface ProductdetailDao {
 
 	int productdetailBigCartInsert(ProductdetailVO pvo);
 
+	int productdetailFavpDelete(FavproductVO fvo);
+
+	int productdetailFavsDelete(FavstoreVO fvo);
+
 
 }

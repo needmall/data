@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.needmall.client.login.vo.LoginVO;
 import com.needmall.client.mypage.service.MypageService;
 import com.needmall.client.mypage.vo.MycartVO;
 
@@ -27,10 +28,14 @@ public class MypageController {
 //	/mypage/mycartList.do
 	
 	@RequestMapping("/mypageList.do")
-	public String mypageList(MycartVO mvo,Model model) {
+	public String mypageList(MycartVO mvo,Model model,HttpSession session) {
 		logger.info("mypageList 호 출");
-		mvo.setC_num(1);
-
+		LoginVO login = (LoginVO)session.getAttribute("login");
+		if(login!=null) {
+			mvo.setC_num(login.getC_num());
+		}else {
+			mvo.setC_num(0);
+		}
 		List<MycartVO> list = mypageService.mycartList(mvo);
 		logger.info(list.size());
 		if(list.size()>0) {
@@ -38,7 +43,7 @@ public class MypageController {
 			Date date =list.get(0).getCart1_date();
 			model.addAttribute("date",date);
 		}
-
+		model.addAttribute("login",login);
 		model.addAttribute("cartList",list);
 		
 		return "mypage/mypage";
@@ -46,11 +51,15 @@ public class MypageController {
 	
 	@ResponseBody
 	@RequestMapping("/mybuyList.do")
-	public String buyList(MycartVO mvo,ObjectMapper mapper) {
+	public String buyList(MycartVO mvo,ObjectMapper mapper,HttpSession session) {
 		String value =""; 
 		logger.info("mybuyList 호 출");
-		mvo.setC_num(1);
-		logger.info("mvo " +mvo.getC_num());
+		LoginVO login = (LoginVO)session.getAttribute("login");
+		if(login!=null) {
+			mvo.setC_num(login.getC_num());
+		}else {
+			mvo.setC_num(0);
+		}
 		List<MycartVO> buylist = mypageService.buyList(mvo);
 		try {
 			value= mapper.writeValueAsString(buylist);
@@ -63,25 +72,29 @@ public class MypageController {
 	
 	@ResponseBody
 	@RequestMapping("/pageList.do")//페이징 전체
-	public int pageList(MycartVO mvo) {
+	public int pageList(MycartVO mvo,HttpSession session) {
 		logger.info("pageList 호 출");
-		return mypageService.pageList(mvo);
+		LoginVO login = (LoginVO)session.getAttribute("login");
+//		mvo.setC_num(login.getC_num());
+		int a = mypageService.pageList(mvo);
+		logger.info("pageList = "+a);
+		return a;
 		
 	}
 	
 	/////////////////////////////////////////////////////////////장바구니 로직
-	@RequestMapping(value="/mycartList.do")
-	public String mycartList(MycartVO mvo ,Model model) {
-		logger.info("mycartList 호 출");
-		//		mvo.setC_num(2); // 나중에 세션 값 받아서 넘겨야함
-//		List<MycartVO> list = mypageService.mycartList(mvo);
-//		Date date =list.get(1).getCart1_date();
-//		model.addAttribute("cartList",list);
-//		model.addAttribute("date",date);
-		
-		return "mypage/mycart";
-		
-	}
+//	@RequestMapping(value="/mycartList.do")
+//	public String mycartList(MycartVO mvo ,Model model) {
+//		logger.info("mycartList 호 출");
+//		//		mvo.setC_num(2); // 나중에 세션 값 받아서 넘겨야함
+////		List<MycartVO> list = mypageService.mycartList(mvo);
+////		Date date =list.get(1).getCart1_date();
+////		model.addAttribute("cartList",list);
+////		model.addAttribute("date",date);
+//		
+//		return "mypage/mycart";
+//		
+//	}
 	
 
 	

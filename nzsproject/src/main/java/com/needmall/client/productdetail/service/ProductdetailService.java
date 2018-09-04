@@ -39,4 +39,9 @@ public interface ProductdetailService {
 	String productdetailCartInsert(ProductdetailVO pvo);
 
 
+	String productdetailFavpDelete(FavproductVO fvo);
+
+	String productdetailFavsDelete(FavstoreVO fvo);
+
+
 }

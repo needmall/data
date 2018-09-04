@@ -1,3 +1,4 @@
+
 package com.needmall.client.productdetail.service;
 
 import java.util.List;
@@ -132,6 +133,29 @@ public class ProductdetailServiceImpl implements ProductdetailService {
 	public String productdetailCartInsert(ProductdetailVO pvo) {
 		// TODO Auto-generated method stub
 		int a= productdetailDao.productdetailCartInsert(pvo);
+		String value = "false";
+		if(a==1) {
+			value="success";
+		}
+		return value;
+	}
+
+
+	@Override
+	public String productdetailFavpDelete(FavproductVO fvo) {
+		// TODO Auto-generated method stub
+		int a= productdetailDao.productdetailFavpDelete(fvo);
+		String value = "false";
+		if(a==1) {
+			value="success";
+		}
+		return value;
+	}
+
+
+	@Override
+	public String productdetailFavsDelete(FavstoreVO fvo) {
+		int a= productdetailDao.productdetailFavsDelete(fvo);
 		String value = "false";
 		if(a==1) {
 			value="success";

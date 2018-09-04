@@ -88,6 +88,7 @@
 var count;
 		$(function(){
 			$('.dropdown-toggle').dropdown();
+			
 			jQuery('.format-money').text(function() {
 			    jQuery(this).text(
 			        jQuery(this).text().format()
@@ -95,10 +96,11 @@ var count;
 			});
 		
 			$("#li_list3").click(function(){
-		// 			$("#tab2").load("ajax/mypage/mybuyList.do");
+				var c_num = ${login.c_num};
+// 				console.log(c_num);
 				$.ajax({
 					url :"/mypage/pageList.do",
-					data :"c_num="+1,
+					data: "c_num="+c_num,
 					type:"post",
 					dataType: "text",
 					success: function(data) {
@@ -107,18 +109,21 @@ var count;
 						if (totalPages%10 > 0) {  // 만약 52개면 6개 버튼을 만들기 위해서 
 							totalPages++;
 						}
-// 						console.log(total);
+						if(totalPages == 0 ){
+							totalPages=1;
+						}
+						console.log(totalPages);
 						$('#pagination-demo').twbsPagination({
 			    			totalPages: totalPages,  // 전체 page 수
 			   				visiblePages: 10,  // 출력될 page 수
 			    			onPageClick: function (event, page) {
 			    				$(".goDetail").remove();
-			    				$('#page-content').text('Page ' + page);
+			    				$('#page-content').text('Page' + page);
 			    				console.log("page  :="+page)
 			    				var pageValue = (page-1);  //인덱스 번호는 0부터 시작하므로
-			    				
+			    				console.log("pageValue = " +pageValue)
 			    				count = (page-1)*10+1;
-			    				$.getJSON("/mypage/mybuyList.do?c_num="+1+"&page="+pageValue, function(data){
+			    				$.getJSON("/mypage/mybuyList.do?page="+pageValue+"&c_num="+c_num, function(data){
 // 			    					$("#tableList").html("");
 			    					if(data.length==0){
 			    						notitemReviewTag();
@@ -173,7 +178,10 @@ var count;
 			$("#nav").click(function(){
 				$("#nav li").removeClass("active"); 
 				$(this).addClass("active");
+				console.log("나와라 네비네비");
 			})
+			
+// 			$(".goDetail").click
 
 		});//풩션 끝!
 		
@@ -188,12 +196,12 @@ var count;
 			var td5= $("<td><div class='list_td3'><span class='span_count format-money' style='text-decoration: line-through;'>"+original_multiply_count+"</span>원<br/><span class='span_count format-money'>"+multiply_count+"</span>원</div></td>");
 			var td6= $("<td><div class='list_td'>"+b1_date+"</div></td>");
 			var td7= $("<td><div class='list_td3'><button type='button' class='btn btn-default' id='btn_serviceR' data-toggle='modal' data-target='#galleryModal' data-whatever='@mdo'>서비스 리뷰</button><button type='button' class='btn btn-default' id='btn_sellerR' data-toggle='modal' data-target='#galleryModal' data-whatever='@mdo'>판매자 리뷰</button></div></td>");
-			var div= $("<div class='list_td'></div>");
+			var div= $("<td><div class='list_td'></div></td>");
 			var input;
 			if(b_confirm==0){
 				input =("<input type='button' class='btn btn-default btn_confirm' name='btn_confirm' value='수령'>")
 			}else if(b_confirm){
-				input = ("<span class='label label-danger'>수령</span>");
+				input = ("<span class='label label-danger' style='font-size: 16px;'>완료</span>");
 			} 
 			div.append(input);
 			
@@ -238,9 +246,7 @@ var count;
 <!-- 				//끝 부분  -->
 			</div>
 			<div class="tab-pane" id="tab4">
-				<div id="page_group">
-					
-				</div>
+				<jsp:include page="myfavorites.jsp"></jsp:include>
 			</div>
 		</div>
 	</div>

@@ -91,6 +91,18 @@ public class ProductdetailDaoImpl implements ProductdetailDao {
 		
 	}
 
+	@Override
+	public int productdetailFavpDelete(FavproductVO fvo) {
+		// TODO Auto-generated method stub
+		return session.delete("productdetailFavpDelete",fvo);
+	}
+
+	@Override
+	public int productdetailFavsDelete(FavstoreVO fvo) {
+		// TODO Auto-generated method stub
+		return session.delete("productdetailFavsDelete",fvo);
+	}
+
 
 
 

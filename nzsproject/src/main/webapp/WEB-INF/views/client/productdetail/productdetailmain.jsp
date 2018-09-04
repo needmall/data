@@ -148,7 +148,7 @@
         		});
 				
 				$(".ul- li:first-child").trigger("click");
-			////////////////////////////////////////////////////상품 즐겨찾기임
+			//////////////////////////////////////////////////상품 즐겨찾기임
 				$("#itemsearch").click(function() {
 					var p_num = $("#p_num").val();
 					var c_num = $("#c_num").val();
@@ -181,7 +181,19 @@
 											}
 										})
 									}else if(data==1){
+// 										alert("이미 등록되어있습니다.")	
 										alert("이미 등록되어있습니다.")
+										if(confirm("상품 즐겨찾기를 취소 하시겠습니까?")){
+											$.ajax({
+												url :"/productdetail/productdetailFavpDelete.do",
+												type:"post",
+												data:"c_num="+c_num+"&p_num="+p_num,
+												dataType: "text",
+												success: function(data) {
+													console.log("삭제 완료");
+												}
+											})
+										}
 									}
 								},
 								error: function() {
@@ -227,6 +239,17 @@
 										})
 									}else if(data==1){
 										alert("이미 등록되어있습니다.")
+										if(confirm("판매점 즐겨찾기를 취소 하시겠습니까?")){
+											$.ajax({
+												url :"/productdetail/productdetailFavsDelete.do",
+												type:"post",
+												data:"c_num="+c_num+"&st_num="+st_num,
+												dataType: "text",
+												success: function(data) {
+													console.log("삭제 완료");
+												}
+											})
+										}
 									}
 								},
 								error: function() {
@@ -282,7 +305,7 @@
 									if(confirm("장바구니로 이동하시겠습니까?")){
 										$("#hidden").attr({
 											"method":"post",
-											"action":"/mypage/mycartList.do"
+											"action":"/mypage/mypageList.do"
 										});
 										$("#hidden").submit();
 									}
