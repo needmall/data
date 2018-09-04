@@ -312,5 +312,109 @@ public class MemberController {
 		 mav.setViewName("redirect:/member/logout.do");
 		 return mav;  
 	 }
+	 
+	 /**************************************************************
+	  * customer 수정시 비밀번호 확인 폼
+	  **************************************************************/
+	 @RequestMapping(value="/modify_customer_check.do", method = RequestMethod.GET) 
+	 public ModelAndView modifyCustomerCheck(HttpSession session){
+		 logger.info("modify_customer_check.do(수정폼) get 방식에 의한 메서드 호출 성공");
+		 ModelAndView mav=new ModelAndView();
+		 // session 객체에서 로그인 정보 얻기 
+		 LoginVO login =(LoginVO)session.getAttribute("login");
+
+		 // 추후 아래 부분에 대한 제어는 한곳에서 설정되도록 변경해 주면 된다 
+		 // 혹 로그인되어 있지 않으면 로그인 화면으로 이동.
+		 if(login==null){
+			 mav.setViewName("member/login"); 
+			 return mav;
+		 }
+		 // 세션에서 로그인 정보 중 아이디만 가지고 해당 아이디에 대한 상세내역  DB에서 조회
+		 MemberVO vo = memberService.customerSelect(login.getC_id());
+		 mav.addObject("member", vo);
+		 mav.setViewName("member/modify_customer_check"); 
+		 return mav;
+	 } 
+	 
+	 /**************************************************************
+	  * customer 수정 비밀번호 확인 처리(AOP 예외 처리 후)
+	  **************************************************************/
+	 @RequestMapping(value="/modify_customer_check.do", method = RequestMethod.POST) 
+	 public ModelAndView modifyCustomerCheckProcess(MemberVO mvo, HttpSession session, ModelAndView mav){
+		 logger.info("modify_customer_check.do post 방식에 의한 메서드 호출 성공");
+
+		 LoginVO login =(LoginVO)session.getAttribute("login");
+
+		 if(login==null){
+			 mav.setViewName("member/login"); 
+			 return mav;
+		 }
+		 // 세션으로 얻은 로그인 정보를 가지고 다시 회원테이블에 존재하는 확인
+		 mvo.setC_id(login.getC_id());
+		 MemberVO vo = memberService.customerSelect(mvo.getC_id());
+		 // 기존 비빌번호로 회원정보를 확인하여 일치하면 수정 가능하도록 확인 작업
+		 if (loginService.customerLoginSelect(mvo.getC_id(), mvo.getC_opwd()) == null ) {
+			 mav.addObject("status", 1);
+			 mav.addObject("member",vo);
+			 mav.setViewName("member/modify_customer_check");
+			 return mav;
+		 } 
+
+		 //memberService.customerUpdate(mvo);
+		 mav.setViewName("redirect:/member/join_customer_modify.do");
+		 return mav;  
+	 }
+	 
+	 /**************************************************************
+	  * seller 수정시 비밀번호 확인 폼
+	  **************************************************************/
+	 @RequestMapping(value="/modify_seller_check.do", method = RequestMethod.GET) 
+	 public ModelAndView modifySellerCheck(HttpSession session){
+		 logger.info("modify_seller_check.do(수정폼) get 방식에 의한 메서드 호출 성공");
+		 ModelAndView mav=new ModelAndView();
+		 // session 객체에서 로그인 정보 얻기 
+		 LoginVO login =(LoginVO)session.getAttribute("login");
+
+		 // 추후 아래 부분에 대한 제어는 한곳에서 설정되도록 변경해 주면 된다 
+		 // 혹 로그인되어 있지 않으면 로그인 화면으로 이동.
+		 if(login==null){
+			 mav.setViewName("member/login"); 
+			 return mav;
+		 }
+		 // 세션에서 로그인 정보 중 아이디만 가지고 해당 아이디에 대한 상세내역  DB에서 조회
+		 MemberVO vo = memberService.sellerSelect(login.getS_id());
+		 mav.addObject("member", vo);
+		 mav.setViewName("member/modify_seller_check"); 
+		 return mav;
+	 } 
+	 
+	 /**************************************************************
+	  * seller 수정 비밀번호 확인 처리(AOP 예외 처리 후)
+	  **************************************************************/
+	 @RequestMapping(value="/modify_seller_check.do", method = RequestMethod.POST) 
+	 public ModelAndView modifySellerCheckProcess(MemberVO mvo, HttpSession session, ModelAndView mav){
+		 logger.info("modify_seller_check.do post 방식에 의한 메서드 호출 성공");
+
+		 LoginVO login =(LoginVO)session.getAttribute("login");
+
+		 if(login==null){
+			 mav.setViewName("member/login"); 
+			 return mav;
+		 }
+		 // 세션으로 얻은 로그인 정보를 가지고 다시 회원테이블에 존재하는 확인
+		 mvo.setS_id(login.getS_id());
+		 MemberVO vo = memberService.sellerSelect(mvo.getS_id());
+		 // 기존 비빌번호로 회원정보를 확인하여 일치하면 수정 가능하도록 확인 작업
+		 if (loginService.sellerLoginSelect(mvo.getS_id(), mvo.getS_opwd()) == null ) {
+			 mav.addObject("status", 1);
+			 mav.addObject("member",vo);
+			 mav.setViewName("member/modify_seller_check");
+			 return mav;
+		 } 
+
+		 //memberService.sellerUpdate(mvo);
+		 mav.setViewName("redirect:/member/join_seller_modify.do");
+		 return mav;  
+	 }
 	
 }

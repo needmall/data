@@ -100,6 +100,34 @@ $(function(){
 			}			
 		}
 	});
+	
+	/* customer 수정폼 가기 전 비밀번호 확인에서 확인 버튼 클릭 시 처리 이벤트 */
+	$("#customerModifyCheck").click(function(){
+		//	입력값 체크
+		if (!formCheck($('#c_opwd'), $('.error:eq(0)'), "기존 비밀번호를")) return;
+		else if (!inputVerify(1,'#c_opwd', '.error:eq(0)')) return;
+		else{
+			$("#memberForm").attr({
+				"method":"post",
+				"action":"/member/modify_customer_check.do"
+			});
+			$("#memberForm").submit();
+		}	
+	});
+
+	/* seller 수정폼 가기 전 비밀번호 확인에서 확인 버튼 클릭 시 처리 이벤트 */
+	$("#sellerModifyCheck").click(function(){
+		//	입력값 체크
+		if (!formCheck($('#s_opwd'), $('.error:eq(0)'), "기존 비밀번호를")) return;
+		else if (!inputVerify(1,'#s_opwd', '.error:eq(0)')) return;
+		else{
+			$("#memberForm").attr({
+				"method":"post",
+				"action":"/member/modify_seller_check.do"
+			});
+			$("#memberForm").submit();
+		}	
+	});
 
 	$("#modifyReset").click(function(){
 		$("#memberForm").each(function(){

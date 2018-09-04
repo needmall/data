@@ -79,7 +79,7 @@
 		$("#sellerModify").click(function(){
 			var message = confirm("매장 정보 수정은 관리자에게 문의하시기 바랍니다.");
 			if(message==true){
-				location.href="/member/join_seller_modify.do"
+				location.href="/member/modify_seller_check.do"
 			} else{
 				return false;
 			}
@@ -99,7 +99,7 @@
 					</legend>
 					<span id="memberMenu" class="tac"> 
 						<a href="#" id="logout">로그아웃</a>&nbsp;&nbsp;&nbsp; 
-						<a href="/member/join_customer_modify.do">정보수정(비밀번호변경)</a>&nbsp;&nbsp;&nbsp; 
+						<a href="/member/modify_customer_check.do">정보수정(비밀번호변경)</a>&nbsp;&nbsp;&nbsp; 
 						<a href="#" id="customerDelete">회원탈퇴</a>
 					</span>
 				</fieldset>
