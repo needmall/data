@@ -90,7 +90,7 @@
 	
 	<update id="customerDelete" parameterType="member">
 		/* customer - "customerDelete" */
-		update customer set cs_division = 2, c_pwd=0, c_name=0, c_gender=0, c_address=0, c_cell=0, c_lat=0, c_lon=0
+		update customer set cs_division = 2, c_pwd=0, c_name=0, c_gender=0, c_address=0, c_cell=0, c_lat=0, c_lon=0, c_update=sysdate
         where c_id=#{c_id}
 	</update> 
 	
@@ -104,7 +104,7 @@
 	<update id="reqStoreDelete" parameterType="join">
 		/* seller - "reqStoreDelete" */
 		update store
-		set st_address = 0, st_email=0, st_hours=0, st_cell=0, st_ceo=0
+		set st_address = 0, st_email=0, st_hours=0, st_cell=0, st_ceo=0, st_update=sysdate
         where s_num=#{s_num}
 	</update>
 	
