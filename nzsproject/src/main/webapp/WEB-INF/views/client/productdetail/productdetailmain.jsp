@@ -43,6 +43,7 @@
 				        jQuery(this).text().format()
 				    );
 				});
+				
 // 				buy(p_name,pi_image,p_content,ps_count,ps_expiration,ps_price);
 				$(document).on('click',"#buy_buttun",function(){
 					//////////////////////////////////////////////////
