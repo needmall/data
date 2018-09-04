@@ -23,5 +23,7 @@ public interface MypageService {
 	int cartConfirmList(MycartVO mvo);
 
 	int pageList(MycartVO mvo);
+
+	int cartConfirmUpdate(MycartVO mvo);
 	
 }

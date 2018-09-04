@@ -26,7 +26,13 @@
 		
 		/* 할인율 계산 */
 		addDiscountRate($(".productInfo"));
-	
+		
+		/* 가격 (,) 생성 */
+		jQuery('.format-money').text(function() {
+		    jQuery(this).text(
+		        jQuery(this).text().format()
+		    );
+		});
 	}); // End Jquery
 	
 	/* 할인율 계산 */
@@ -81,10 +87,10 @@
 										<div>${List.p_name}</div>
 									</td>
 									<td>
-										<div><span class="p_price">${List.p_price}</span><span>원</span></div>
+										<div><span class="p_price format-money">${List.p_price}</span><span>원</span></div>
 									</td>
 									<td>
-										<div><span class="ps_price">${List.ps_price}</span><span>원</span></div>
+										<div><span class="ps_price format-money">${List.ps_price}</span><span>원</span></div>
 									</td>
 									<td>
 										<div><span class="discountRate"></span><span>%</span></div>

@@ -70,16 +70,23 @@ public class ProductsellServiceImpl implements ProductsellService {
 	}
 
 	@Override
-	public int productState(ProductInsertVO ivo) {
+	public int productDelete(ProductInsertVO ivo) {
 		int result = 0;
+		result = productsellDao.productDelete(ivo);
+		return result;
+	}
+
+	@Override
+	public UserCommonVO productState(ProductInsertVO ivo) {
+		UserCommonVO result = null;
 		result = productsellDao.productState(ivo);
 		return result;
 	}
 
 	@Override
-	public int productDelete(ProductInsertVO ivo) {
+	public int productDealUpdate(ProductInsertVO ivo) {
 		int result = 0;
-		result = productsellDao.productDelete(ivo);
+		result = productsellDao.productDealUpdate(ivo);
 		return result;
 	}
 

@@ -4,6 +4,8 @@ package com.needmall.client.mypage.controller;
 import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.client.mypage.service.MypageService;
 import com.needmall.client.mypage.vo.MycartVO;
 
@@ -27,16 +30,38 @@ public class MypageController {
 	public String mypageList(MycartVO mvo,Model model) {
 		logger.info("mypageList 호 출");
 		mvo.setC_num(1);
-		logger.info("mvo " +mvo.getC_num());
 		
-		List<MycartVO> buylist = mypageService.buyList(mvo);
-		int value = mypageService.pageList(mvo);
-		logger.info("value = " +value);
-		model.addAttribute("value",value);
-		model.addAttribute("buylist",buylist);
+		List<MycartVO> list = mypageService.mycartList(mvo);
+		Date date =list.get(1).getCart1_date();
+		model.addAttribute("cartList",list);
+		model.addAttribute("date",date);
 		return "mypage/mypage";
 	}
 	
+	@ResponseBody
+	@RequestMapping("/mybuyList.do")
+	public String buyList(MycartVO mvo,ObjectMapper mapper) {
+		String value =""; 
+		logger.info("mybuyList 호 출");
+		mvo.setC_num(1);
+		logger.info("mvo " +mvo.getC_num());
+		List<MycartVO> buylist = mypageService.buyList(mvo);
+		try {
+			value= mapper.writeValueAsString(buylist);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return value;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/pageList.do")//페이징 전체
+	public int pageList(MycartVO mvo) {
+		logger.info("pageList 호 출");
+		return mypageService.pageList(mvo);
+		
+	}
 	
 	/////////////////////////////////////////////////////////////장바구니 로직
 	@RequestMapping(value="/mycartList.do")
@@ -118,4 +143,14 @@ public class MypageController {
 		return result;
 		
 	}
+	
+
+	@ResponseBody
+	@RequestMapping(value="/cartConfirmUpdate.do")
+	public int cartConfirmUpdate(MycartVO mvo) {
+		int result =mypageService.cartConfirmUpdate(mvo);
+		return result;
+		
+	}
+	
 }

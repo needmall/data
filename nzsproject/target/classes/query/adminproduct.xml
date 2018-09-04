@@ -58,11 +58,5 @@
 		SELECT reqp_num, category2dep.c1_num, c1_name, reqproduct.c2_num, c2_name, p_name, p_price, p_date, p_content, p_num, s_num FROM reqproduct 
 		inner join category2dep on reqproduct.c2_num=category2dep.c2_num inner join category1dep on category1dep.c1_num=category2dep.c1_num
 	</select>
-	
-<!-- 	<update id="updateBoard" parameterType="board"> -->
-<!-- 		update spring_board set b_title=#{b_title}, b_content=#{b_content}, b_date=sysdate  -->
-<!-- 		<if test="b_pwd !=''">, b_pwd=#{b_pwd} </if>   if를 사용하여 비밀번호가 없을때를 컨트롤하며 이때 빈문자 사용을 위해 VO초기값을 ''로 세팅  -->
-<!-- 		<if test="b_file != null and b_file != '' ">, b_file=#{b_file} </if> -->
-<!-- 	    where b_num=#{b_num}  -->
-<!-- 	</update> -->
+
 </mapper>

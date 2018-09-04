@@ -30,7 +30,7 @@
 		    inner join productsell on productsell.ps_num = cart2dep.ps_num
 		    inner join product on product.p_num = productsell.p_num 
 		    inner join proimage on proimage.pi_num = product.pi_num
-		WHERE c_num =1
+		WHERE c_num =#{c_num}
 	</select>
 	<update id="countUpdate" parameterType="mypage">
 		UPDATE cart2dep SET cart2_count = #{cart2_count}
@@ -45,13 +45,17 @@
 		
         <![CDATA[
           	SELECT
-	     		to_char(X.b1_date,'yyyy-mm-dd')as b1_date,X.b_count as b_count,X.b_confirm as b_confirm,X.ps_expiration as ps_expiration,X.ps_count as ps_count,X.p_price as p_price,X.ps_price as ps_price,X.p_name as p_name,X.p_date as p_date,X.p_content as p_content,X.p_division as p_division,X.pi_image as pi_image,X.ps_num as ps_num
+	     		to_char(X.b1_date,'yyyy-mm-dd')as b1_date,X.b_count as b_count,X.b_confirm as b_confirm,X.ps_expiration as ps_expiration,
+	     		X.ps_count as ps_count,X.p_price as p_price,X.ps_price as ps_price,X.p_name as p_name,X.p_date as p_date,X.p_content as p_content,
+	     		X.p_division as p_division,X.pi_image as pi_image,X.ps_num as ps_num,X.b2_num as b2_num,X.p_num as p_num,X.c_num as c_num,X.s_num as s_num
 	           FROM(
 	              SELECT
-	                   rownum as rnum,A.b1_date,A.b_count,A.b_confirm,A.ps_expiration,A.ps_count,A.ps_price,A.p_name,A.p_price,A.p_date,A.p_content,A.p_division,A.pi_image,A.ps_num
+	                   rownum as rnum,A.b1_date,A.b_count,A.b_confirm,A.ps_expiration,A.ps_count,A.ps_price,A.p_name,A.p_price,
+	                   A.p_date,A.p_content,A.p_division,A.pi_image,A.ps_num,A.b2_num,A.p_num ,A.c_num,A.s_num
 	              FROM
 	                  (SELECT
-	                      b1_date,b_count,b_confirm,ps_expiration,ps_count,ps_price,p_name,p_price,p_date,p_content,p_division,pi_image,productsell.ps_num
+	                      b1_date,b_count,b_confirm,ps_expiration,ps_count,ps_price,p_name,p_price,p_date,p_content,p_division,pi_image,
+	                      productsell.ps_num,BUY2DEP.b2_num,PRODUCT.p_num,buy1dep.c_num,productsell.s_num
 	                  FROM
 	                      buy1dep inner join buy2dep on buy1dep.b1_num = buy2dep.b1_num
 	                      inner join productsell on productsell.ps_num = buy2dep.ps_num
@@ -117,4 +121,11 @@
 	    WHERE
 	        buy1dep.c_num = #{c_num}
 	</select>
+	<update id="cartConfirmUpdate" parameterType="mypage">
+		UPDATE buy2dep
+		    SET
+		        b_confirm =#{b_confirm}
+		WHERE
+		    b2_num =#{b2_num}
+	</update>
 </mapper>

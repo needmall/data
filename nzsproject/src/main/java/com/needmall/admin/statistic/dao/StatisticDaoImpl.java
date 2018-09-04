@@ -6,7 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.needmall.admin.statistic.vo.CustomerDataVO;
 import com.needmall.admin.statistic.vo.SalesDataVO;
+import com.needmall.admin.statistic.vo.StoreDataVO;
 
 @Repository
 public class StatisticDaoImpl implements StatisticDao{
@@ -15,10 +17,19 @@ public class StatisticDaoImpl implements StatisticDao{
 	private SqlSession session;
 
 	@Override
-	public List<SalesDataVO> totalData() {
-		return session.selectList("totalData");
+	public List<SalesDataVO> salesDataList() {
+		return session.selectList("salesDataList");
 	}
 
-		
+	@Override
+	public List<StoreDataVO> storeDataList() {
+		return session.selectList("storeDataList");
+	}
+
+	@Override
+	public List<CustomerDataVO> customerDataList() {
+
+		return session.selectList("customerDataList");
+	}
 	
 }

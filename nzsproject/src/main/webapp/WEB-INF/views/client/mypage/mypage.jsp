@@ -22,29 +22,27 @@
 
 <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
-<script type="text/javascript" src="/resources/include/js/jquery.paging.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 		 <link rel="stylesheet" type="text/css" href="/resources/include/css/common.css" /> -->
 <link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
-
+<script type="text/javascript" src="/resources/include/js/jquery.twbsPagination.js"></script>
 <!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
 
 <style type="text/css">
 /* 	div{border: 1px solid black;} */
-	.all{padding-bottom: 100px;}
-	.item_succes{font-size: 25px; text-align: left!important;}
-	.list_td{padding-top: 20px;}
-	.list_td2{padding-top: 5px;}
-	.list_td3{padding-top: 10px;}
-	#shopping{margin-right: 30px;}
-	#nav li{width: 20%}
-	.tab-pane{padding-top: 50px;}
+
+	.nav_div{text-align: center;}
+	.td_list{padding-top:30px; }
+	.td_list2{padding-top:20px; }
+	.td_list3{padding-top:25px; }
+	.td_list4{padding-top:25px; padding-left: 7px; }
+	.close{margin-right: 15px;}
+	.div_date{text-align: right;}
 	.div_last{height: 100px;}
-	#document_navi{text-align: center;}
 </style>
 
 	<script type="text/javascript">
@@ -87,31 +85,124 @@
 // 	if (endPage < totalPage) {
 // 	    System.out.print("<a href=\"?page=" + totalPage + "\">끝</a>");
 // 	}
-	$(function(){
-		$('.dropdown-toggle').dropdown();
-		jQuery('.format-money').text(function() {
-		    jQuery(this).text(
-		        jQuery(this).text().format()
-		    );
-		});
+var count;
+		$(function(){
+			$('.dropdown-toggle').dropdown();
+			jQuery('.format-money').text(function() {
+			    jQuery(this).text(
+			        jQuery(this).text().format()
+			    );
+			});
 		
-		$(".goDetail td").click(function() {					 //, :nth-last-child(2))
-			var ps_num = $(this).parents("tr").attr("data-num");				
-			location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
-		});	
+			$("#li_list3").click(function(){
+		// 			$("#tab2").load("ajax/mypage/mybuyList.do");
+				$.ajax({
+					url :"/mypage/pageList.do",
+					data :"c_num="+1,
+					type:"post",
+					dataType: "text",
+					success: function(data) {
+						var value =data;
+						var totalPages = parseInt(value/10);
+						if (totalPages%10 > 0) {  // 만약 52개면 6개 버튼을 만들기 위해서 
+							totalPages++;
+						}
+// 						console.log(total);
+						$('#pagination-demo').twbsPagination({
+			    			totalPages: totalPages,  // 전체 page 수
+			   				visiblePages: 10,  // 출력될 page 수
+			    			onPageClick: function (event, page) {
+			    				$(".goDetail").remove();
+			    				$('#page-content').text('Page ' + page);
+			    				console.log("page  :="+page)
+			    				var pageValue = (page-1);  //인덱스 번호는 0부터 시작하므로
+			    				
+			    				count = (page-1)*10+1;
+			    				$.getJSON("/mypage/mybuyList.do?c_num="+1+"&page="+pageValue, function(data){
+// 			    					$("#tableList").html("");
+			    					if(data.length==0){
+			    						notitemReviewTag();
+			    					}
+			    					$(data).each(function() {
+			    						
+										var ps_num = this.ps_num;
+										var b2_num = this.b2_num;
+										var p_num = this.p_num;
+										var s_num = this.s_num;
+										var pi_image = this.pi_image;
+										var p_name = this.p_name;
+										var p_content = this.p_content;
+										var b_count = this.b_count;
+										var original_multiply_count = this.original_multiply_count;
+										var multiply_count = this.multiply_count;
+										var b_confirm = this.b_confirm;
+										var b1_date = this.b1_date;
+										
+										
+										buyList(ps_num,b2_num,p_num,s_num,pi_image,p_name,p_content,b_count,original_multiply_count,multiply_count,b_confirm,b1_date,count);
+										count= count+1;
+			    					})
+			    				})
+			         			
+							}
+						});
+					}
+				});
+			})
+			$(".goDetail td:not(:nth-last-child(1),:nth-last-child(2),:nth-last-child(3),:nth-last-child(4))").click(function() {					 //, :nth-last-child(2))
+				var ps_num = $(this).parents("tr").attr("data-num");				
+				location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
+			});	
+		
 			
-	
+			
+			$("document").on('click','.btn_confirm',function() {
+				if(confirm("정말 수령 하시겠습니까?")){
+					var b2_num = $(this).parents("tr").attr("data-b2_num");
+					console.log("b2_num" + b2_num)
+					$.ajax({
+						url :"/mypage/cartConfirmUpdate.do",
+						type: "post",
+						data: "b_confirm="+1+"&b2_num="+b2_num,
+						dataType: "text",
+						success: function() {
+							console.log("성공");
+						}
+					})
+				}
+			})
+			
+			$("#li_list2").click(function(){
+
+			})
+
+		});//풩션 끝!
 		
-		var total = parseInt(${value} /10);
-		console.log(total);
-	
-		jQuery('#document_navi').jaPageNavigator({
-			page_row : "10" // 보여질 게시물 목록 수
-		  	, page_link : total // 보여질 페이지 링크 수
-		  	, total_count : "${value}" // 게시물 총 수
-		});
-		  
-	});
+		function buyList(ps_num,b2_num,p_num,s_num,pi_image,p_name,p_content,b_count,original_multiply_count,multiply_count,b_confirm,b1_date,count){
+			
+			
+			var tr = $("<tr class='tr_list goDetail' data-num ='"+ps_num+"' data-b2_num = '"+b2_num+"' data-p_num ='"+p_num+"' data-s_num ='"+s_num+"'>");
+			var td1= $("<td><div class='list_td'>"+count+"</div></td>");
+			var td2= $("<td><div ><img class='img-thumbnail' src='/uploadStorage/product/"+pi_image+"' width='70px' height='50px;'/></div></td>");
+			var td3= $("<td><div class='list_td2' style='text-align: left;'><p><label>"+p_name+"</label></p>"+p_content+"</div></td>");
+			var td4= $("<td ><div class='list_td'>"+b_count+"개</div></td>");
+			var td5= $("<td><div class='list_td3'><span class='span_count format-money' style='text-decoration: line-through;'>"+original_multiply_count+"</span>원<br/><span class='span_count format-money'>"+multiply_count+"</span>원</div></td>");
+			var td6= $("<td><div class='list_td'>"+b1_date+"</div></td>");
+			var td7= $("<td><div class='list_td3'><button type='button' class='btn btn-default' id='btn_serviceR' data-toggle='modal' data-target='#galleryModal' data-whatever='@mdo'>서비스 리뷰</button><button type='button' class='btn btn-default' id='btn_sellerR' data-toggle='modal' data-target='#galleryModal' data-whatever='@mdo'>판매자 리뷰</button></div></td>");
+			var div= $("<div class='list_td'></div>");
+			var input;
+			if(b_confirm==0){
+				input =("<input type='button' class='btn btn-default btn_confirm' name='btn_confirm' value='수령'>")
+			}else if(b_confirm){
+				input = ("<span class='label label-danger'>수령</span>");
+			} 
+			div.append(input);
+			
+			var tr2= $("</tr>");
+			tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(div).append(tr2);
+			$("#tableList").append(tr);
+		}
+		
 	</script>
 </head>
 <body>
@@ -119,109 +210,42 @@
 	<input type="hidden" id="total_count">	
 		<div role="tabpanel">
 			<ul id="nav" class="nav nav-tabs clearfix right" role="tablist"  >	
-			  	<li role="presentation" class="dropdown">
-				  	<a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">회원관리</a>
-			    	<ul class="dropdown-menu" role="menu">
-			      		<li role="presentation"><a role="menuitem" data-toggle="tab" tabindex="-1" href="#tab1-1">회원정보 수정</a></li>
-	   					<li role="presentation"><a role="menuitem" data-toggle="tab" tabindex="-1" href="#tab1-2">회원 탈퇴</a></li>
-			    	</ul>
-			  	</li>
-				<li><a href="#tab2" data-toggle="tab">구매목록</a></li>
-				<li><a href="#tab3" data-toggle="tab">장바구니</a></li>
-				<li><a href="#tab3" data-toggle="tab">리뷰</a></li>
+<!-- 			  	<li role="presentation" class="dropdown"> -->
+<!-- 				  	<a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">회원정보 관리</a> -->
+<!-- 			    	<ul class="dropdown-menu" role="menu"> -->
+<!-- 			      		<li role="presentation" id="li_list1-1"><a role="menuitem" data-toggle="tab" tabindex="-1" href="#tab1-1">회원정보 수정</a></li> -->
+<!-- 	   					<li role="presentation" id="li_list1-2"><a role="menuitem" data-toggle="tab" tabindex="-1" href="#tab1-2">회원 탈퇴</a></li> -->
+<!-- 			    	</ul> -->
+<!-- 			  	</li> -->
+			  	<li><a href="#tab1" data-toggle="tab">회원정보 수정</a></li>
+				<li><a href="#tab2" data-toggle="tab" id="li_list2">장바구니</a></li>
+				<li><a href="#tab3" data-toggle="tab" id="li_list3">구매목록</a></li>
+				<li><a href="#tab4" data-toggle="tab">즐겨찾기</a></li>
+<!-- 				<li><a href="#tab3" data-toggle="tab">리뷰</a></li> -->
 			</ul>
 		</div>
 		<div class="tab-content">  <!-- 텝 시작 부분 -->
-			<div class="tab-pane" id= "tab1-1">
-				<p>test</p>
-			</div>
-			<div class="tab-pane" id= "tab1-2">
-				<p>test2</p>
+			<div class="tab-pane" id= "tab1"> <!-- 정보수정 페이지  -->
+				<jsp:include page="/WEB-INF/views/client/member/join_customer_modify.jsp"></jsp:include>
 			</div>
 			<div class="tab-pane" id="tab2">
-				 <div id="#page=1">
-					<div class="item_succes"><span>구매 성공 내역</span></div>
-					<hr/>
-					<div style="text-align: right ;"><input type="date"></div>
-					<table class="table table-striped table-hover">
-						<colgroup>
-							<col width="5%">
-							<col width="10%">
-							<col width="50%">
-							<col width="7%">
-							<col width="8%">
-							<col width="10%">
-							<col width="7%">
-							
-						</colgroup>
-						<tbody>
-							<tr>
-								<td>번호</td>
-								<td>물품명</td>
-								<td>물품설명</td>
-								<td>수량</td>
-								<td>가격</td>
-								<td>구입일</td>
-								<td>수령확인</td>
-							</tr>
-							<c:choose>
-								<c:when test="${not empty buylist}">
-										<c:forEach var="buy" items="${buylist}" varStatus="status">
-											<tr class="tr_list goDetail" data-num ="${buy.ps_num}">
-												<td><div class="list_td">${status.count}</div> </td>
-												<td><div ><img class="img-thumbnail" src="/uploadStorage/product/${buy.pi_image }" width="70px" height="50px;"/></div></td>
-												<td><div class="list_td2" style="text-align: left;"><p><label>${buy.p_name}</label></p>${buy.p_content}</div></td>
-												<td ><div class="list_td">${buy.b_count }개</div></td>
-												<td>
-													<div class="list_td3">
-														<span class="span_count format-money" style="text-decoration: line-through;"> ${buy.original_multiply_count}</span>원<br/>
-														<span class="span_count format-money"> ${buy.multiply_count}</span>원
-													</div>
-												</td>
-												<td><div class="list_td">${buy.b1_date} </div>
-												<td><div class="list_td">${buy.b_confirm} </div>
-											</tr>
-										</c:forEach>
-								</c:when>
-								<c:otherwise>
-									<tr>
-										<th colspan="5" class="tac">구매하신 물품이 존재하지않습니다.</th>
-									</tr>
-								</c:otherwise>
-							</c:choose>
-						</tbody>
-					</table>
-					<div id="document_navi">
-					  <a class="start" href="#">&nbsp;처음</a>
-					  <a class="prev" href="#">&nbsp;이전&nbsp;({page_link})</a>
-					  <a class="prevpage" href="#">이전&nbsp;</a>
-					
-					  <!-- 페이지 번호 링크가 노출되는 영역 -->
-					  <span class="pageaction"></span>
-					  <!-- 페이지 번호 링크 태그 -->
-					  <a class="num" href="">{page}</a>
-					  <!-- 현재 페이지 번호 태그 -->
-					  <strong class="now">{page}</strong>
-					  <!-- 페이지 링크 구분 태그 -->
-					  <span class="div">&nbsp;</span>
-					
-					  <a class="nextpage" href="#">다음&nbsp;</a>
-					  <a class="next" href="#">다음&nbsp;({page_link})&nbsp;</a>
-					  <a class="end" href="#">끝&nbsp;</a>
-					</div>
+				<div id="page_group">
+					<jsp:include page="mycart.jsp"></jsp:include>
 				</div>
 			</div>
 			<div class="tab-pane" id="tab3">
-				<p>menu2 부분입니다.</p>
-<%-- 					<c:import url="mycart.jsp"></c:import> --%>
-<%-- 	<%@include file="productdetallbuy.jsp" %> --%>
-
-
-
-
+<!-- 				//시작 부분 -->
+				<jsp:include page="mybuyList.jsp"></jsp:include>
+<!-- 				//끝 부분  -->
+			</div>
+			<div class="tab-pane" id="tab4">
+				<div id="page_group">
+					
+				</div>
 			</div>
 		</div>
 	</div>
+
 	<div class="div_last"></div>
 </body>
 </html>

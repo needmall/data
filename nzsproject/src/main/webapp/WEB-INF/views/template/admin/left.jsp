@@ -15,6 +15,7 @@
 	<li class="active"><a href="#">게시판<span class="sr-only"></span></a></li>
 	<li><a href="/admin/news/adminNewsList.do">공지사항 목록</a></li>
 	<li class="active"><a href="#">통  계<span class="sr-only"></span></a></li>
+	<li><a href="/admin/statistic/totalData.do">판매량</a></li>	
 	<li><a href="/admin/statistic/storeData.do">판매점별</a></li>	
 	<li><a href="/admin/statistic/productData.do">상품별</a></li>
 </ul>

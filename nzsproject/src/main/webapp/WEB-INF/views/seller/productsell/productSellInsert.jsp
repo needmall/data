@@ -135,7 +135,6 @@
 			addDiscountValue($("#ps_price"));
 		})
 		
-		
 	}); // End Jquery
 	
 	/* 할인율 option 동적 */
@@ -167,14 +166,13 @@
 			$("#inputDiscount").val(ps_price.toFixed(1));
 		}
 	}
-	
-	
+	  
 	/* 검색 상품정보 동적 생성*/
 	function addItem(num, pi_image, p_name, p_price, p_content, p_num) {
 		var new_tr = $("<tr>");
 		new_tr.addClass("new_item");
 		new_tr.attr("data-p_num", p_num);
-		
+		 
 		var new_td_num = $("<td>");
 		new_td_num.html(num);
 		
@@ -243,8 +241,8 @@
 		</div>
 	</div>
 	<%-- 상품 선택정보 --%>
-	<div>
-		<div id="addTableSizeB" class="addInline-block addTextCenter">
+	<div class="productInfo row">
+		<div id="addTableSizeB" class="addInline-block addTextCenter col-lg-6">
 			<table class="table table-bordered">
 				<tbody>
 					<tr>
@@ -292,13 +290,13 @@
 				</tbody>
 			</table>
 		</div>
-		<div id="addTableSizeC" class="addInline-block">
+		<div id="addTableSizeC" class="addInline-block col-lg-6">
 			<div class="">
 				<%-- 판매 상품 정보 --%>
 				<form action="" id="submitForm" class="form-inline">
 					<input type="hidden" id="p_num" name="p_num" />
 					<input type="hidden" id="ps_expiration" name="ps_expiration" />
-					<table>
+					<table class="table table-bordered">
 						<tr>
 							<td colspan="2">
 								<div class="form-group">

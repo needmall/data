@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.needmall.admin.statistic.dao.StatisticDao">
-	<select id="totalData" resultType="salesData">
-	select (select sum(ps_count) from productsell) as registAmount, 
-        (select sum(ps_price*ps_count) from productsell) as registSum, 
-        (select sum(b_count) from buy2dep inner join  buy1dep on buy1dep.b1_num=buy2dep.b1_num) as sellAmount, 
-        (select sum(ps_price*b_count) from productsell inner join buy2dep on productsell.ps_num=buy2dep.ps_num inner join buy1dep on buy1dep.b1_num=buy2dep.b1_num) as sellSum, 
-        round(((select sum(ps_price*b_count) from productsell inner join buy2dep on productsell.ps_num=buy2dep.ps_num inner join buy1dep on buy1dep.b1_num=buy2dep.b1_num)/(select sum(ps_price*ps_count) from productsell)*100),2) as rate 
-        from dual
-    </select>    
+	<select id="salesDataList" resultType="salesData">
+	SELECT sum(ps_count) registAmount, sum(ps_price*ps_count) registSum,  sum(bcount) sellAmount, sum(ps_price*bcount) sellSum, round(sum(bcount)/sum(ps_count)*100,2) rate ,months 
+	from (select  productsell.ps_num, ps_count, ps_price, bcount, to_char(ps_udate,'yyyy-mm') months from productsell 
+	left outer join (select sum(b_count) bcount, ps_num from buy2dep group by ps_num) buydata on productsell.ps_num=buydata.ps_num) 
+	group by months order by months desc
+    </select> 
+    <select id="storeDataList" resultType="storeData">
+    <![CDATA[
+    select months, (select count(st_num) from store where to_char(st_date,'yyyy-mm') <= months) storeamount, activeStore, round((activeStore/(select count(st_num) from store where to_char(st_date,'yyyy-mm') <= months))*100,2) as activeRate, nvl(openStore,0), nvl(closeStore,0)  
+	from (select count(f_num) activeStore, to_char(f_setdate,'yyyy-mm') months from fees group by to_char(f_setdate,'yyyy-mm')) activedata 
+	left outer join (select count(st_num) openStore, to_char(st_date, 'yyyy-mm')openday from store group by to_char(st_date, 'yyyy-mm')) opendata on months=openday 
+	left outer join (select count(st_num) closeStore, to_char(st_udate, 'yyyy-mm')closeday from store where  st_ceo='0' group by to_char(st_udate, 'yyyy-mm')) closedata on months=closeday
+    ]]>	 
+    </select> 
+    <select id="customerDataList" resultType="customerData">
+     <![CDATA[
+     
+     ]]>	 
+    </select>  
 </mapper>

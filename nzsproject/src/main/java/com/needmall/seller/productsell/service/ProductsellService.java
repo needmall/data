@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.needmall.common.vo.ProductsellVO;
 import com.needmall.common.vo.UserCommonVO;
-import com.needmall.seller.productsell.vo.ProductInfoVO;
 import com.needmall.seller.productsell.vo.ProductInsertVO;
 import com.needmall.seller.productsell.vo.ProductListOneVO;
 
@@ -16,8 +15,10 @@ public interface ProductsellService {
 	public int productInsert(ProductInsertVO ivo);
 	public ProductListOneVO productDetail(ProductInsertVO ivo);
 	public int productUpdate(ProductInsertVO ivo);
-	public int productState(ProductInsertVO ivo);
+	public UserCommonVO productState(ProductInsertVO ivo);
 	public int productDelete(ProductInsertVO ivo);
+	public int productDealUpdate(ProductInsertVO ivo);
+	
 
 	
 	

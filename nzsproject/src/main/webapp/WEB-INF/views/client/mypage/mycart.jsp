@@ -28,10 +28,8 @@
 <link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
 
 <!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 var start =0;
 var all_count=0;
@@ -176,6 +174,7 @@ var hidden;
 						success: function() {
 							console.log("성공");
 							alert("재고가 없어서 장바구니에서 제외 되었습니다."); ///////////////////-> 카트 화면 새로고침이 안됨;
+							$('.modal').modal('hide');
 						},
 						error: function() {
 							alert("시스템 오류입니다. 관리자한테 문의하세요.");
@@ -274,7 +273,6 @@ var hidden;
 		</div>
 		<table class="table table-striped table-hover">
 			<colgroup>
-				<col width="2%">
 				<col width="10%">
 				<col width="50%">
 				<col width="13%">
@@ -286,9 +284,8 @@ var hidden;
 			<tbody>
 			
 				<tr>
-					<td><input type="checkbox" id="checkall" /></td>
-					<td><div><input type="button" id="empty" name="empty" value="선택 삭제"/></div></td>
-					<td>제품명</td>
+					<td>제품</td>
+					<td>설명</td>
 					<td>수량</td>
 					<td>가격</td>
 					<td>유통기한</td>
@@ -299,7 +296,6 @@ var hidden;
 					<c:when test="${not empty cartList}">
 						<c:forEach var="cart" items="${cartList }" varStatus="status">
 							<tr class="goDetail" data-num="${cart.ps_num}" data-cart="${cart.cart2_num}" data-price ="${cart.ps_price}">
-								<td class="align-middle"><div class="td_list"><input type="checkbox" name="chk" data-num="${cart.cart2_num }"/></div></td>
 								<td><img class="img-thumbnail" src="/uploadStorage/product/${cart.pi_image }" width="150px" height="50px;"/></td>
 								<td><div class="td_list2"><label>${cart.p_name}</label><p>${cart.p_content }</p></div></td>
 								<td>

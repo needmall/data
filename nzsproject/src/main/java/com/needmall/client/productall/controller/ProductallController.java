@@ -40,7 +40,7 @@ public class ProductallController {
 			List<ProductallVO> productFavList = productallService.productFavList(c_id);
 			model.addAttribute("productFavList", productFavList);
 		}
-		
+		 
 		// 모든 매장 판매 상품
 		List<ProductallVO> productAllList = productallService.productAllList();
 		model.addAttribute("productAllList", productAllList);
