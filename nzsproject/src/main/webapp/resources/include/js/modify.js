@@ -12,15 +12,15 @@ $(function(){
 	});
 
 	// customer
-	$('#c_id, #c_pwd, #c_pwdCheck, #c_cell').bind("focus",function(){
-		var idx = $("#c_id, #c_pwd, #c_pwdCheck, #c_cell").index(this);
+	$('#c_opwd, #c_pwd, #c_pwdCheck, #c_cell').bind("focus",function(){
+		var idx = $('#c_opwd, #c_pwd, #c_pwdCheck, #c_cell').index(this);
 		//	console.log("대상 : "+ idx );
 		$(this).parents(".form-group").find(".error").html(message[idx]);
 	});
 	
 	// seller
-	$('#s_id, #s_pwd, #s_pwdCheck, #s_cell').bind("focus",function(){
-		var idx = $("#s_id, #s_pwd, #s_pwdCheck, #s_cell").index(this);
+	$('#s_opwd, #s_pwd, #s_pwdCheck, #s_cell').bind("focus",function(){
+		var idx = $('#s_opwd, #s_pwd, #s_pwdCheck, #s_cell').index(this);
 		//	console.log("대상 : "+ idx );
 		$(this).parents(".form-group").find(".error").html(message[idx]);
 	});
@@ -66,21 +66,21 @@ $(function(){
 	/* seller 수정폼에서 확인 버튼 클릭 시 처리 이벤트 */
 	$("#sellerModify").click(function(){
 		//	입력값 체크
-		if (!formCheck($('#s_opwd'), $('.error:eq(1)'), "기존 비밀번호를")) return;
-		else if (!inputVerify(1,'#s_opwd', '.error:eq(1)')) return;
+		if (!formCheck($('#s_opwd'), $('.error:eq(0)'), "기존 비밀번호를")) return;
+		else if (!inputVerify(1,'#s_opwd', '.error:eq(0)')) return;
 		//else if (!formCheck($('#sample6_postcode'), $('.error:eq(5)'), "우편번호를")) return;
-		else if (!formCheck($('#sample6_address2'), $('.error:eq(8)'), "상세주소를")) return;
-		else if (!formCheck($('#s_mailName'), $('.error:eq(9)'), "이메일 주소를")) return;
-		else if (!formCheck($('#s_cell'), $('.error:eq(10)'), "핸드폰번호를")) return;
-		else if (!inputVerify(2,'#s_cell', '.error:eq(10)')) return;
+		else if (!formCheck($('#sample6_address2'), $('.error:eq(4)'), "상세주소를")) return;
+		else if (!formCheck($('#s_mailName'), $('.error:eq(5)'), "이메일 주소를")) return;
+		else if (!formCheck($('#s_cell'), $('.error:eq(6)'), "핸드폰번호를")) return;
+		else if (!inputVerify(2,'#s_cell', '.error:eq(6)')) return;
 		
 		else {    
 			if($('#s_pwd').val()!=""){
-				if (!inputVerify(1,'#s_pwd', '.error:eq(2)')) return;
+				if (!inputVerify(1,'#s_pwd', '.error:eq(1)')) return;
 				if (!sellerIdPwdCheck()) return;
 			}
 			if($('#s_pwdCheck').val()!=""){
-				if (!inputVerify(1,'#s_pwdCheck', '.error:eq(3)')) return;
+				if (!inputVerify(1,'#s_pwdCheck', '.error:eq(2)')) return;
 			}
 			if($('#s_pwd').val()!="" && $('#s_pwdCheck').val()!=""){
 				if (!sellerPasswordCheck()) return;
@@ -99,6 +99,34 @@ $(function(){
 				return false;
 			}			
 		}
+	});
+	
+	/* customer 수정폼 가기 전 비밀번호 확인에서 확인 버튼 클릭 시 처리 이벤트 */
+	$("#customerModifyCheck").click(function(){
+		//	입력값 체크
+		if (!formCheck($('#c_opwd'), $('.error:eq(0)'), "기존 비밀번호를")) return;
+		else if (!inputVerify(1,'#c_opwd', '.error:eq(0)')) return;
+		else{
+			$("#memberForm").attr({
+				"method":"post",
+				"action":"/member/modify_customer_check.do"
+			});
+			$("#memberForm").submit();
+		}	
+	});
+
+	/* seller 수정폼 가기 전 비밀번호 확인에서 확인 버튼 클릭 시 처리 이벤트 */
+	$("#sellerModifyCheck").click(function(){
+		//	입력값 체크
+		if (!formCheck($('#s_opwd'), $('.error:eq(0)'), "기존 비밀번호를")) return;
+		else if (!inputVerify(1,'#s_opwd', '.error:eq(0)')) return;
+		else{
+			$("#memberForm").attr({
+				"method":"post",
+				"action":"/member/modify_seller_check.do"
+			});
+			$("#memberForm").submit();
+		}	
 	});
 
 	$("#modifyReset").click(function(){

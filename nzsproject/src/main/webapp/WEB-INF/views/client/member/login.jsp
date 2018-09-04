@@ -30,7 +30,13 @@
 		if (status != "") {
 			// 명확한 자료형 명시를 위해 status의 타입을 정수형으로 변환.
 			switch (parseInt(status)) {
+			case 0:
+				alert("아이디 또는 비밀번호 일치 하지 않거나 존재하지 않는 \n회원입니다. 다시 로그인해 주세요.");
+				break;
 			case 1:
+				alert("아이디 또는 비밀번호 일치 하지 않거나 존재하지 않는 \n회원입니다. 다시 로그인해 주세요.");
+				break;
+			case 2:
 				alert("아이디 또는 비밀번호 일치 하지 않거나 존재하지 않는 \n회원입니다. 다시 로그인해 주세요.");
 				break;
 			case 6:
@@ -73,7 +79,7 @@
 		$("#sellerModify").click(function(){
 			var message = confirm("매장 정보 수정은 관리자에게 문의하시기 바랍니다.");
 			if(message==true){
-				location.href="/member/join_seller_modify.do"
+				location.href="/member/modify_seller_check.do"
 			} else{
 				return false;
 			}
@@ -93,7 +99,7 @@
 					</legend>
 					<span id="memberMenu" class="tac"> 
 						<a href="#" id="logout">로그아웃</a>&nbsp;&nbsp;&nbsp; 
-						<a href="/member/join_customer_modify.do">정보수정(비밀번호변경)</a>&nbsp;&nbsp;&nbsp; 
+						<a href="/member/modify_customer_check.do">정보수정(비밀번호변경)</a>&nbsp;&nbsp;&nbsp; 
 						<a href="#" id="customerDelete">회원탈퇴</a>
 					</span>
 				</fieldset>

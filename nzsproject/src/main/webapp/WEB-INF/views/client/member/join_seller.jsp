@@ -178,7 +178,7 @@
 					<input type="date" id="s_birthday" name="s_birthday" class="form-control">	
 				</div>
 				<div class="col-sm-2">
-					<input type="text" id="s_genderNum" name="s_genderNum" maxlength="1" class="form-control" placeholder="주민등록번호 7번째 1자리">	
+					<input type="text" id="s_genderNum" name="s_genderNum" maxlength="1" class="form-control" placeholder="주민등록번호 뒷자리 첫번호">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -221,8 +221,9 @@
 			<div class="form-group form-group-sm">
 				<label for="s_mailName" class="col-sm-2 control-label">회원 이메일</label>
 				<div class="col-sm-3">
-					<input type="text" id="s_mailName" name="s_mailName" maxlength="60" class="form-control" placeholder="s_mailName">
+					<input type="text" id="s_mailName" name="s_mailName" maxlength="60" class="form-control" placeholder="이메일 아이디만">
 				</div>
+				
 				<div class="col-sm-2">
 					<select id="s_mailDomain" class="form-control">
 						<option value="naver.com">네이버</option>
@@ -237,7 +238,7 @@
 			<div class="form-group form-group-sm">
 				<label for="s_cell" class="col-sm-2 control-label">핸드폰 번호</label>
 				<div class="col-sm-3">
-					<input type="text" id="s_cell" name="s_cell" maxlength="15" class="form-control" placeholder="s_cell Number">	
+					<input type="text" id="s_cell" name="s_cell" maxlength="15" class="form-control" placeholder="핸드폰번호">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -246,7 +247,7 @@
 			<div class="form-group form-group-sm">
 				<label for="s_phone" class="col-sm-2 control-label">유선 전화</label>
 				<div class="col-sm-3">
-					<input type="text" id="s_phone" name="s_phone" maxlength="15" class="form-control" placeholder="s_phone Number">	
+					<input type="text" id="s_phone" name="s_phone" maxlength="15" class="form-control" placeholder="선택사항">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -271,7 +272,7 @@
 			<div class="form-group form-group-sm">
 				<label for="st_name" class="col-sm-2 control-label">상호명</label>
 				<div class="col-sm-3">
-					<input type="text" id="st_name" name="st_name"  maxlength="20" class="form-control" placeholder="User ID" />
+					<input type="text" id="st_name" name="st_name"  maxlength="20" class="form-control" placeholder="store name" />
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
