@@ -122,7 +122,7 @@
 			<div class="form-group form-group-sm">
 				<label for="s_pwdCheck" class="col-sm-2 control-label">변경할 비밀번호 확인</label>
 				<div class="col-sm-3">
-					<input type="password"  id="s_pwdCheck" name="s_pwdCheck" maxlength="15" class="form-control" placeholder="Password Confirm" >
+					<input type="password"  id="s_pwdCheck" name="s_pwdCheck" maxlength="15" class="form-control" placeholder="변경할 비밀번호 확인" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -193,7 +193,7 @@
 			<div class="form-group form-group-sm">
 				<label for="s_mailName" class="col-sm-2 control-label">회원 이메일</label>
 				<div class="col-sm-3">
-					<input type="text" id="s_mailName" name="s_mailName" maxlength="60" class="form-control" placeholder="s_mail" value="${s_mail[0]}">
+					<input type="text" id="s_mailName" name="s_mailName" maxlength="60" class="form-control" placeholder="아이디만 입력" value="${s_mail[0]}">
 				</div>
 				<div class="col-sm-2">
 					<select id="s_mailDomain" class="form-control">
