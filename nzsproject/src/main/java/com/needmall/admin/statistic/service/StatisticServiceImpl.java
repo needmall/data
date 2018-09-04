@@ -33,6 +33,26 @@ public class StatisticServiceImpl implements StatisticService{
 	public List<CustomerDataVO> customerDataList() {
 		return statisticDao.customerDataList();
 	}
+
+	@Override
+	public List<SalesDataVO> storeSalesList() {
+		return statisticDao.storeSalesList();
+	}
+
+	@Override
+	public List<SalesDataVO> productSalesList() {
+		return statisticDao.productSalesList();
+	}
+
+	@Override
+	public List<SalesDataVO> storeSalesData(SalesDataVO sdvo) {
+		return statisticDao.storeSalesData(sdvo);
+	}
+
+	@Override
+	public List<SalesDataVO> productSalesData(SalesDataVO sdvo) {
+		return statisticDao.productSalesData(sdvo);
+	}
 	
 	
 			

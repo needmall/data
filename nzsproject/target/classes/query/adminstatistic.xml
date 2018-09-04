@@ -9,7 +9,7 @@
     </select> 
     <select id="storeDataList" resultType="storeData">
     <![CDATA[
-    select months, (select count(st_num) from store where to_char(st_date,'yyyy-mm') <= months) storeamount, activeStore, round((activeStore/(select count(st_num) from store where to_char(st_date,'yyyy-mm') <= months))*100,2) as activeRate, nvl(openStore,0), nvl(closeStore,0)  
+    select months, (select count(st_num) from store where to_char(st_date,'yyyy-mm') <= months) storeamount, activeStore, round((activeStore/(select count(st_num) from store where to_char(st_date,'yyyy-mm') <= months))*100,2) as activeRate, nvl(openStore,0) openStore, nvl(closeStore,0) closeStore  
 	from (select count(f_num) activeStore, to_char(f_setdate,'yyyy-mm') months from fees group by to_char(f_setdate,'yyyy-mm')) activedata 
 	left outer join (select count(st_num) openStore, to_char(st_date, 'yyyy-mm')openday from store group by to_char(st_date, 'yyyy-mm')) opendata on months=openday 
 	left outer join (select count(st_num) closeStore, to_char(st_udate, 'yyyy-mm')closeday from store where  st_ceo='0' group by to_char(st_udate, 'yyyy-mm')) closedata on months=closeday
@@ -17,7 +17,35 @@
     </select> 
     <select id="customerDataList" resultType="customerData">
      <![CDATA[
-     
+     select months, (select count(c_num) from customer where to_char(c_date,'yyyy-mm') <= months) customerAmount, activeCustomer, round((activeCustomer/(select count(c_num) from customer where to_char(c_date,'yyyy-mm')<= months))*100,2) as activeRate, nvl(joinCustomer,0) joinCustomer, nvl(leaveCustomer,0) leaveCustomer  
+	from (select count(b1_num) activeCustomer, to_char(b1_date,'yyyy-mm') months from buy1dep group by to_char(b1_date,'yyyy-mm')) activeCustomer 
+	left outer join (select count(c_num) joinCustomer, to_char(c_date, 'yyyy-mm')joinday from customer group by to_char(c_date, 'yyyy-mm')) joindata on months=joinday 
+	left outer join (select count(c_num) leaveCustomer, to_char(c_udate, 'yyyy-mm')leaveday from customer where  cs_division = 0 group by to_char(c_udate, 'yyyy-mm')) leavedata on months=leaveday
      ]]>	 
-    </select>  
+    </select> 
+    <select id="storeSalesList" resultType="salesData">
+    SELECT st_num, nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(sum(bcount),0)/nvl(sum(ps_count),0)*100,2) rate 
+	from (select  productsell.ps_num, ps_count, ps_price, bcount, st_num from productsell inner join seller on productsell.s_num=seller.s_num inner join store on productsell.s_num=store.s_num
+	left outer join (select sum(b_count) bcount, ps_num from buy2dep group by ps_num) buydata on productsell.ps_num=buydata.ps_num) 
+	group by st_num order by sellAmount desc
+    </select>
+    <select id="productSalesList" resultType="salesData">
+    SELECT ps_num, nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(sum(bcount),0)/nvl(sum(ps_count),0)*100,2) rate 
+	from (select  productsell.ps_num, ps_count, ps_price, bcount from productsell 
+	left outer join (select sum(b_count) bcount, ps_num from buy2dep group by ps_num) buydata on productsell.ps_num=buydata.ps_num) 
+	group by ps_num order by sellAmount desc
+    </select> 
+    <select id="storeSalesData" parameterType="salesData" resultType="salesData">
+    SELECT nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(sum(bcount),0)/nvl(sum(ps_count),0)*100,2) rate ,months
+	from (select  productsell.ps_num, ps_count, ps_price, bcount, st_num, to_char(ps_udate,'yyyy-mm') months from productsell inner join seller on productsell.s_num=seller.s_num inner join store on productsell.s_num=store.s_num
+	left outer join (select sum(b_count) bcount, ps_num from buy2dep group by ps_num) buydata on productsell.ps_num=buydata.ps_num) where st_num =#{st_num}
+	group by months order by months desc
+	</select>
+    <select id="productSalesData" parameterType="salesData" resultType="salesData">
+    SELECT nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(sum(bcount),0)/nvl(sum(ps_count),0)*100,2) rate ,months 
+	from (select  productsell.ps_num, ps_count, ps_price, bcount, to_char(ps_udate,'yyyy-mm') months from productsell
+	left outer join (select sum(b_count) bcount, ps_num from buy2dep group by ps_num) buydata on productsell.ps_num=buydata.ps_num) where ps_num = #{ps_num}
+	group by months order by months desc
+	</select>
+    
 </mapper>

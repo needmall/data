@@ -28,7 +28,7 @@ public class StatisticController {
 	 * @return
 	 */
 	@RequestMapping(value="/totalData.do",method=RequestMethod.GET)
-	public String totalData(SalesDataVO sdvo,Model model) {
+	public String totalData(Model model) {
 		logger.info("totalData 호출 성공");	
 		List<SalesDataVO> salesDataList = statisticService.salesDataList();
 		model.addAttribute("salesDataList", salesDataList);
@@ -38,23 +38,55 @@ public class StatisticController {
 		model.addAttribute("customerDataList", customerDataList);
 		return "admin/statistic/totalData";
 	}
-//
-//	/**
-//	 * productData : 상품별 판매량
-//	 * @return
-//	 */
-//	@RequestMapping(value="/productData.do",method=RequestMethod.POST)
-//	public String productData(Model model) {
-//		logger.info("productData 호출 성공");		
-//		return "admin/statistic/productData";
-//	}
-//	/**
-//	 * storeData : 매장별 판매량
-//	 * @return
-//	 */
-//	@RequestMapping(value="/storeData.do",method=RequestMethod.POST)
-//	public String storeData(Model model) {
-//		logger.info("storeData 호출 성공");		
-//		return "admin/statistic/storeData";
-//	}
+	
+	/**
+	 * storeSalesList : 매장별 판매량
+	 * @return
+	 */
+	@RequestMapping(value="/storeSalesList.do",method=RequestMethod.GET)
+	public String storeSalesList(Model model) {
+		logger.info("storeSalesList 호출 성공");
+		List<SalesDataVO> storeSalesList = statisticService.storeSalesList();
+		model.addAttribute("storeSalesList", storeSalesList);
+		return "admin/statistic/storeSalesList";
+	}
+
+	/**
+	 * productSalesList : 상품별 판매량
+	 * @return
+	 */
+	@RequestMapping(value="/productSalesList.do",method=RequestMethod.GET)
+	public String productSalesList(Model model) {
+		logger.info("productSalesList 호출 성공");	
+		List<SalesDataVO> productSalesList = statisticService.productSalesList();
+		model.addAttribute("productSalesList", productSalesList);
+		return "admin/statistic/productSalesList";
+	}
+	
+	/**
+	 * storeSalesData : 매점별 기간 통계
+	 * @return
+	 */
+	@RequestMapping(value="/storeSalesData.do",method=RequestMethod.GET)
+	public String storeSalesData(SalesDataVO sdvo,Model model) {
+		logger.info("storeSalesData 호출 성공");	
+		List<SalesDataVO> storeSalesData = statisticService.storeSalesData(sdvo);
+		model.addAttribute("storeSalesData", storeSalesData);
+		
+		return "admin/statistic/storeSalesData";
+	}
+	
+	/**
+	 * productSalesData : 상붐별 기간 통계
+	 * @return
+	 */
+	@RequestMapping(value="/productSalesData.do",method=RequestMethod.GET)
+	public String productSalesData(SalesDataVO sdvo,Model model) {
+		logger.info("productSalesData 호출 성공");	
+		List<SalesDataVO> productSalesData = statisticService.productSalesData(sdvo);
+		model.addAttribute("productSalesData", productSalesData);
+		
+		return "admin/statistic/productSalesData";
+	}
+	
 }

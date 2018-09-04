@@ -3,7 +3,9 @@
 <%@ include file="/WEB-INF/views/common/common.jspf"%>
 
 <style type="text/css">
-  	
+  	th, td{
+  		text-align: center;
+  	}
 </style>
 	
  
@@ -28,22 +30,22 @@
 			</tr>
 		</thead>
 		<tbody id="list">
-		<c:choose>
-			<c:when test='${not empty salesDataList}'>	
-				<c:forEach var="sales" items="${salesDataList}" varStatus="status">
-			<tr>
-				<td>${sales.months}</td>
-				<td>${sales.registAmount}</td>
-				<td>${sales.registSum}</td>
-				<td>${sales.sellAmount}</td>
-				<td>${sales.sellSum}</td>
-				<td>${sales.rate}</td>				
-			</tr>
-			</c:forEach>
-			</c:when>
-			<c:otherwise>
-				<tr><td colspan="6">통계 자료가 없습니다.</td></tr>
-			</c:otherwise>
+			<c:choose>
+				<c:when test='${not empty salesDataList}'>	
+					<c:forEach var="sales" items="${salesDataList}" varStatus="status">
+				<tr>
+					<td>${sales.months}</td>
+					<td>${sales.registAmount}</td>
+					<td>${sales.registSum}</td>
+					<td>${sales.sellAmount}</td>
+					<td>${sales.sellSum}</td>
+					<td>${sales.rate}%</td>				
+				</tr>
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr><td colspan="6">통계 자료가 없습니다.</td></tr>
+				</c:otherwise>
 			</c:choose>
 		</tbody>	
 	</table>
@@ -64,14 +66,23 @@
 			</tr>
 		</thead>
 		<tbody id="list">
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>				
-			</tr>
+			<c:choose>
+				<c:when test='${not empty storeDataList}'>	
+					<c:forEach var="store" items="${storeDataList}" varStatus="status">
+				<tr>
+					<td>${store.months}</td>
+					<td>${store.storeAmount}</td>
+					<td>${store.activeStore}</td>
+					<td>${store.activeRate}%</td>
+					<td>${store.openStore}</td>
+					<td>${store.closeStore}</td>				
+				</tr>
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr><td colspan="6">통계 자료가 없습니다.</td></tr>
+				</c:otherwise>
+			</c:choose>
 		</tbody>	
 	</table>
 </div>	
@@ -91,13 +102,23 @@
 			</tr>
 		</thead>
 		<tbody id="list">
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>				
-			</tr>
+			<c:choose>
+				<c:when test='${not empty customerDataList}'>	
+					<c:forEach var="customer" items="${customerDataList}" varStatus="status">
+				<tr>
+					<td>${customer.months}</td>
+					<td>${customer.customerAmount}</td>
+					<td>${customer.activeCustomer}</td>
+					<td>${customer.activeRate}%</td>
+					<td>${customer.joinCustomer}</td>
+					<td>${customer.leaveCustomer}</td>				
+				</tr>
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr><td colspan="6">통계 자료가 없습니다.</td></tr>
+				</c:otherwise>
+			</c:choose>
 		</tbody>	
 	</table>
 </div>		

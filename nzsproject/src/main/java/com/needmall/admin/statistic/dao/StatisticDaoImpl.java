@@ -28,8 +28,28 @@ public class StatisticDaoImpl implements StatisticDao{
 
 	@Override
 	public List<CustomerDataVO> customerDataList() {
-
 		return session.selectList("customerDataList");
 	}
+
+	@Override
+	public List<SalesDataVO> storeSalesList() {		
+		return session.selectList("storeSalesList");
+	}
+
+	@Override
+	public List<SalesDataVO> productSalesList() {		
+		return session.selectList("productSalesList");
+	}
+
+	@Override
+	public List<SalesDataVO> storeSalesData(SalesDataVO sdvo) {	
+		return session.selectList("storeSalesData", sdvo);
+	}
+
+	@Override
+	public List<SalesDataVO> productSalesData(SalesDataVO sdvo) {
+		return session.selectList("productSalesData", sdvo);
+	}	
+	
 	
 }
