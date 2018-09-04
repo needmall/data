@@ -6,6 +6,8 @@ package com.needmall.seller.productsell.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.needmall.client.login.vo.LoginVO;
 import com.needmall.common.vo.ProductsellVO;
 import com.needmall.common.vo.UserCommonVO;
 import com.needmall.seller.productsell.service.ProductsellService;
@@ -27,19 +30,25 @@ public class ProductsellController {
 	 
 	@Autowired
 	private ProductsellService productsellService;
-	String s_id = "seller_user1";
+	String s_id = ""; 
+	//"seller_user1";
 	 
 	/* 판매 상품 목록 */
 	@RequestMapping(value="/list.do", method = RequestMethod.GET)
-	public String productList(Model model) {
+	public String productList(Model model, HttpSession session) {
 		logger.info("productList 호출 성공");
 		
-		if(!s_id.isEmpty()) { 
+		LoginVO login = (LoginVO)session.getAttribute("login");
+		
+		// 세션 확인
+		if(login != null) { 
+			s_id = login.getS_id();
+			
 			List<ProductsellVO> productList = productsellService.productList(s_id);
 			model.addAttribute("productList", productList);
 		} else {
 			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
-			return "redirect:/";  
+			return "redirect:/member/login.do";  
 		}
 		
 		return "seller/productsell/productSellSelectList";
@@ -56,7 +65,7 @@ public class ProductsellController {
 	/* 판매 상품 검색 */
 	@ResponseBody
 	@RequestMapping(value="/search.do", method = RequestMethod.GET)
-	public String searchList(UserCommonVO ucvo) {
+	public String searchList(UserCommonVO ucvo, Model model) {
 		logger.info("searchList 호출 성공");
 		String listData = "";
 		  
@@ -64,7 +73,8 @@ public class ProductsellController {
 			ucvo.setS_id(s_id);
 			listData = productsellService.searchList(ucvo);
 		} else {
-			return "redirect:/";
+			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
+			return "redirect:/member/login.do";
 		} 
 		return listData;
 	} 
@@ -90,7 +100,8 @@ public class ProductsellController {
 			}
 			
 		} else {
-			url =  "/";
+			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
+			url =  "/member/login.do";
 		}
 		
 		return "redirect:" + url;
@@ -109,7 +120,8 @@ public class ProductsellController {
 			
 			//productsellService.product
 		} else {
-			return "redirect:/";
+			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
+			return "redirect:/member/login.do";
 		}
 		return "seller/productsell/productSellSelectOne";
 	}
@@ -125,7 +137,8 @@ public class ProductsellController {
 			Detail = productsellService.productDetail(ivo);
 			model.addAttribute("Detail", Detail);
 		} else {
-			return "redirect:/";
+			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
+			return "redirect:/member/login.do";
 		}
 		return "seller/productsell/productSellUpdate";
 	}
@@ -181,7 +194,8 @@ public class ProductsellController {
 			}
 			
 		} else {
-			return "redirect:/";
+			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
+			url = "/member/login.do";
 		}
 		return "redirect:" + url;
 	}
@@ -222,7 +236,8 @@ public class ProductsellController {
 			}
 			
 		} else {
-			return "redirect:/";
+			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
+			url = "/member/login.do";
 		}
 		return "redirect:" + url;
 	}
