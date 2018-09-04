@@ -57,7 +57,7 @@ var stBnum = 1;
 $(function(){
 	errCodeCheck();
 	// 사용자에게 요구사항에 대한 문자열로 배열 초기화.
-	var message = ["영문, 숫자만 가능. 6~12자로 입력해주세요", "영문,숫자,특수문자만 가능. 8~15자 입력해 주세요.", "비밀번호와 비밀번호 확인란은 값이 일치해야 합니다.","","","","", "- 포함 입력해주세요. 예시) 010-0000-0000","(선택) 입력시 -포함 입력해주세요.","-포함 입력해주세요. 예시)123-12-12345"];
+	var message = ["영문, 숫자만 가능. 6~12자로 입력해주세요", "영문,숫자,특수문자만 가능. 8~15자 입력해 주세요.", "비밀번호와 비밀번호 확인란은 값이 일치해야 합니다.","","","","","", "- 포함 입력해주세요. 예시) 010-0000-0000","(선택) 입력시 -포함 입력해주세요.","-포함 입력해주세요. 예시)123-12-12345"];
 	
 	$('.error').each(function(index){
 		$('.error').eq(index).html(message[index]);
@@ -171,10 +171,10 @@ $(function(){
 		//else if (!inputVerify(2,'#c_gendernum','.error:eq(3)')) return;	
 		
 		else if (!formCheck($('#sample6_postcode'), $('.error:eq(5)'), "우편번호를")) return;
-		else if (!formCheck($('#sample6_address2'), $('.error:eq(6)'), "상세주소를")) return;
+		else if (!formCheck($('#sample6_address2'), $('.error:eq(5)'), "상세주소를")) return;
 		
 		
-		else if (!formCheck($('#c_mailName'), $('.error:eq(7)'), "이메일 주소를")) return;
+		else if (!formCheck($('#c_mailName'), $('.error:eq(6)'), "이메일 주소를")) return;
 		else if (!formCheck($('#c_cell'), $('.error:eq(8)'), "핸드폰번호를")) return;
 		else if (!inputVerify(2,'#c_cell','.error:eq(8)')) return;	
 		else if (idConfirm!=2){ alert("아이디 중복 체크 진행해 주세요."); return;}
@@ -189,6 +189,12 @@ $(function(){
 			});
 			$("#memberForm").submit();
 		}		
+	});
+	
+	$("#cIdenBut").click(function(){
+		if (!formCheck($('#c_mailName'), $('.error:eq(6)'), "이메일 주소를")) return;
+		$("#c_iden").attr("readonly",false);
+		
 	});
 	
 	/* seller 확인 버튼 클릭 시 처리 이벤트 */

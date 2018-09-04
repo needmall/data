@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
    <html>
       <head>
@@ -80,6 +81,7 @@
 		            }
 		        }).open();
           	}
+          
           </script> 
       </head>
       <body>
@@ -191,11 +193,27 @@
 						<option value="daum.net">다음</option>
 						<option value="nate.com">네이트</option>																	
 					</select> 
+				</div>				
+				<div class="col-sm-2">
+					<input type="button" id="cIdenBut" name="cIdenBut" value="인증"><br>
 				</div>
 				<div class="col-sm-3">
 					<p class="form-control-static error"></p>
 				</div>
 			</div>
+			
+			
+			<div class="form-group form-group-sm">
+				<label for="c_name" class="col-sm-2 control-label">인증번호 입력</label>
+				<div class="col-sm-3">
+					<input type="text" id="c_iden" name="c_iden" readonly="readonly" class="form-control">
+				</div>
+				<div class="col-sm-3">
+					<p class="form-control-static error"></p>
+				</div>						
+			</div>
+			
+			
 			
 			<div class="form-group form-group-sm">
 				<label for="c_cell" class="col-sm-2 control-label">핸드폰 번호</label>
