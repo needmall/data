@@ -90,4 +90,11 @@ public class ProductsellServiceImpl implements ProductsellService {
 		return result;
 	}
 
+	@Override
+	public int feesConfirm(String s_id) {
+		int result = 0;
+		result = productsellDao.feesConfirm(s_id);
+		return result;
+	}
+
 }

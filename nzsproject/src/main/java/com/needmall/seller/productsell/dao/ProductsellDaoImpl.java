@@ -58,4 +58,9 @@ public class ProductsellDaoImpl implements ProductsellDao {
 		return session.update("productDealUpdate", ivo);
 	}
 
+	@Override
+	public int feesConfirm(String s_id) {
+		return session.selectOne("feesConfirm", s_id);
+	}
+
 }

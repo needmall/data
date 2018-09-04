@@ -9,6 +9,13 @@
 		WHERE s_id = #{s_id} AND ps_state = 0 ORDER BY ps_expiration
 	</select>
 	
+	<!-- 수수료 납부 기한확인 -->
+	<select id="feesConfirm" parameterType="String" resultType="int">
+		SELECT NVL((SELECT COUNT(*)
+		FROM seller s INNER JOIN fees f ON s.s_num = f.s_num
+		WHERE s_id = #{s_id} AND ADD_MONTHS(f_setdate, 1) > SYSDATE),0) AS feesConfirm FROM DUAL
+	</select>
+	
 	<!-- 상품정보 검색 -->
 	<select id="searchList" parameterType="usercommon" resultType="productinfo">
 		SELECT p_num, pi_image, p_name, p_price, p_content

@@ -298,89 +298,97 @@ $(function() {
 		<input class="btn btn-default" type="button" id="search" value="검 색">
 	</div>
 </div>
-<form id="detailForm">
-	<input type="hidden" id="ps_num" name="ps_num" />
-	<input type="hidden" id="review" name="review" />
-</form>
-
+<div>
+	<form id="detailForm">
+		<input type="hidden" id="ps_num" name="ps_num" />
+		<input type="hidden" id="review" name="review" />
+	</form>
+</div>
 <div class="container restaurant-list\">
-	<div class="main_prodlist main_prodlist_list">
-		<h4 > 즐겨찾기 매장 상품</h4>
-		<div class="favorites_list">
-			<c:choose>
-				<c:when test="${not empty productFavList}">
-					<c:forEach var="FavList" items="${productFavList}" varStatus="status">
-						<div class="col-md-6 contract list-group-item">
-							<a class="item clearfix list-group-item" href="/productdetail/productdetailmain.do?ps_num=${FavList.ps_num}">
-								<table>
-									<tbody>
-										<tr data-num="${FavList.ps_num}">
-											<td class="jb-th-1">
-												<div>
-													<img class="fileImageLogo" src="/uploadStorage/store/${FavList.si_image}">
-													<p class="store_name align-center">${FavList.st_name}</p>
-												</div>
-											</td>
-											<td class="jb-th-1">
-												<div>
-													<img class="fileImageProduct" src="/uploadStorage/product/${FavList.pi_image}">
-												</div>
-											</td>
-											<td>
-												<div class="restaurants-info">
-													<div class="restaurant-name ng-binding"
-														title="${FavList.p_name}">${FavList.p_name}</div>
-													<div class="restaurant-name ng-binding"
-														title="${FavList.ps_expiration}">${FavList.ps_expiration}</div>
-													<div class="stars">
-														<span class="ico-star1 ng-binding glyphicon glyphicon-star">${FavList.prv_scope}</span>
-														<span class="review_num ng-binding">리뷰 ${FavList.prv_count}</span>
+	<c:if test="${not empty login}">
+		<div class="main_prodlist main_prodlist_list">
+			<h4>즐겨찾기 매장 상품</h4>
+			<div class="favorites_list">
+				<c:choose>
+					<c:when test="${not empty productFavList}">
+						<c:forEach var="FavList" items="${productFavList}"
+							varStatus="status">
+							<div class="col-md-6 contract list-group-item">
+								<a class="item clearfix list-group-item"
+									href="/productdetail/productdetailmain.do?ps_num=${FavList.ps_num}">
+									<table>
+										<tbody>
+											<tr data-num="${FavList.ps_num}">
+												<td class="jb-th-1">
+													<div>
+														<img class="fileImageLogo"
+															src="/uploadStorage/store/${FavList.si_image}">
+														<p class="store_name align-center">${FavList.st_name}</p>
 													</div>
-												</div>
-											</td>
-											<td>
-												<div class="restaurants-info align-center">
-													<span class="restaurant-name ng-binding">남은수량</span>
-													<div></div>
-													<span>${FavList.ps_count}개</span>
-												</div>
-											</td>
-											<td class="jb-th-2">
-												<div>
-													<ul>
-														<li class="payment-methods ng-binding yogiseo-payment">
-															<span class="discountRate"></span><span>%</span>
-														</li>
-													</ul>
-												</div>
-											</td>
-											<td>
-												<div class="align-center">
-													<ul>
-														<li class="payment-methods ng-binding yogiseo-payment"><span class="p_price format-money">${FavList.p_price}</span>
-														</li>
-														<li class="payment-methods ng-binding yogiseo-payment">
-															<span class="ps_price format-money">${FavList.ps_price}</span>
-														</li>
-													</ul>
-												</div>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</a>
-						</div>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
+												</td>
+												<td class="jb-th-1">
+													<div>
+														<img class="fileImageProduct"
+															src="/uploadStorage/product/${FavList.pi_image}">
+													</div>
+												</td>
+												<td>
+													<div class="restaurants-info">
+														<div class="restaurant-name ng-binding"
+															title="${FavList.p_name}">${FavList.p_name}</div>
+														<div class="restaurant-name ng-binding"
+															title="${FavList.ps_expiration}">${FavList.ps_expiration}</div>
+														<div class="stars">
+															<span
+																class="ico-star1 ng-binding glyphicon glyphicon-star">${FavList.prv_scope}</span>
+															<span class="review_num ng-binding">리뷰
+																${FavList.prv_count}</span>
+														</div>
+													</div>
+												</td>
+												<td>
+													<div class="restaurants-info align-center">
+														<span class="restaurant-name ng-binding">남은수량</span>
+														<div></div>
+														<span>${FavList.ps_count}개</span>
+													</div>
+												</td>
+												<td class="jb-th-2">
+													<div>
+														<ul>
+															<li class="payment-methods ng-binding yogiseo-payment">
+																<span class="discountRate"></span><span>%</span>
+															</li>
+														</ul>
+													</div>
+												</td>
+												<td>
+													<div class="align-center">
+														<ul>
+															<li class="payment-methods ng-binding yogiseo-payment"><span
+																class="p_price format-money">${FavList.p_price}</span></li>
+															<li class="payment-methods ng-binding yogiseo-payment">
+																<span class="ps_price format-money">${FavList.ps_price}</span>
+															</li>
+														</ul>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</a>
+							</div>
+						</c:forEach>
+					</c:when>
+				</c:choose>
+				<c:if test="${empty productFavList}">
 					<tr>
 						<td colspan="6" class="tac">등록된 상품이 존재하지 않습니다.</td>
 					</tr>
-				</c:otherwise>
-			</c:choose>
+				</c:if>
+			</div>
 		</div>
-	</div>
-	
+	</c:if>
 	<div class="main_prodlist main_prodlist_list periphery">
 		<h4> 주변 매장 상품</h4>
 		<div class="periphery_list">

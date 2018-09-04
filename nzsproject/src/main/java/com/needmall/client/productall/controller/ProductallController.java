@@ -45,7 +45,8 @@ public class ProductallController {
 			// 즐겨찾기 매장 판매 상품
 			List<ProductallVO> productFavList = productallService.productFavList(c_id);
 			model.addAttribute("productFavList", productFavList);
-		}
+			model.addAttribute("login", "1");
+		} 
 		 
 		// 모든 매장 판매 상품
 		List<ProductallVO> productAllList = productallService.productAllList();

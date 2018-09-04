@@ -56,10 +56,26 @@ public class ProductsellController {
 	
 	/* 판매 상품 등록 페이지 이동 */
 	@RequestMapping(value="/writeform.do")
-	public String writeForm() {
+	public String writeForm(Model model) {
 		logger.info("writeForm 호출 성공");
-				
-		return "seller/productsell/productSellInsert";
+		int result = 0;
+		
+		if(!s_id.isEmpty()) {
+			// 수수료 기한 납부 확인
+			result = productsellService.feesConfirm(s_id);
+			
+			if(result > 0) {
+				// 상품 등록
+				return "seller/productsell/productSellInsert";
+			} else {
+				// 기한 만료
+				model.addAttribute("error", "판매등록 기한이 만료 되었습니다.");
+				return "redirect:/member/login.do";
+			}
+		} else {
+			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
+			return "redirect:/member/login.do";
+		} 
 	}
 	
 	/* 판매 상품 검색 */
