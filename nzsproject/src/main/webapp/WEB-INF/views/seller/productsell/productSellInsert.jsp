@@ -206,28 +206,28 @@
 
 <div>
 	<div>
-		<div id="addMarginCenter">
+		<div id="addMarginCenter" class="text-center">
 			<%-- 상품검색 --%>
 			<form class="form-inline-block">
 				<div class="form-group">
 					<input type="text" id="keyword" class="form-control addInline-block" name="keyword" placeholder="상품 검색" />
-					<button type="button" id="searchBtn" class="btn btn-success">검색</button>
+					<button type="button" id="searchBtn" class="btn btn-success addInline-block">검색</button>
 				</div>
 			</form>
 		</div>
-		<div class="addTextRight">
+		<div class="text-right">
 			<button type="button" id="reqProductBtn" class="btn btn-danger addInline-block">상품등록 요청</button>
 		</div>
 		<div id="addTableSizeA">
 			<%-- 검색결과 --%>
-			<table class="table table-striped">
+			<table class="table table-striped text-center">
 				<thead>
-					<tr class="addTextCenter">
-						<th>번호</th>
-						<th>이미지</th>
-						<th>이름</th>
-						<th>가격</th>
-						<th>내용</th>
+					<tr class="addCenterTh">
+						<th class="sizeth1">번호</th>
+						<th class="sizeth2">이미지</th>
+						<th class="sizeth3">이름</th>
+						<th class="sizeth4">가격</th>
+						<th class="sizeth5">내용</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -299,7 +299,7 @@
 							<td class="paddingTd55" colspan="2">
 								<div class="form-group">
 									<label class="control-label" for="date">유통기한</label>
-									<input type="datetime-local" id="date" class="form-control sizeInput200" min="" max="" aria-describedby="dateStatus" />
+									<input type="datetime-local" id="date" class="form-control sizeInput225" min="" max="" aria-describedby="dateStatus" />
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<span id="dateStatus" class="sr-only"></span>
 								</div>

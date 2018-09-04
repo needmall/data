@@ -2,7 +2,7 @@ package com.needmall.client.productall.controller;
 
 import java.util.List;
 
-
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.needmall.client.login.vo.LoginVO;
 import com.needmall.client.productall.service.ProductallService;
 import com.needmall.client.productall.vo.ProductallVO;
 
@@ -28,14 +29,19 @@ public class ProductallController {
 	
 	@Autowired
 	private ProductallService productallService;
-	private String c_id = "customer_user1";
+	private String c_id = "";
+	// customer_user1 / customer_user1
 	
 	@RequestMapping(value="/productList.do", method = RequestMethod.GET)
-	public String productallList(Model model) {
+	public String productallList(Model model, HttpSession session) {
 		logger.info("productList 호출 성공");
 		
+		LoginVO login = (LoginVO)session.getAttribute("login");
 		
-		if(c_id != null) {
+		// 세션 확인 
+		if(login != null) {
+			c_id = login.getC_id();
+			
 			// 즐겨찾기 매장 판매 상품
 			List<ProductallVO> productFavList = productallService.productFavList(c_id);
 			model.addAttribute("productFavList", productFavList);
