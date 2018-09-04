@@ -2,6 +2,8 @@ package com.needmall.client.productdetail.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.needmall.client.login.vo.LoginVO;
 import com.needmall.client.productall.controller.ProductallController;
 import com.needmall.client.productdetail.service.ProductdetailService;
 import com.needmall.client.productdetail.vo.PreviewVO;
@@ -31,9 +34,16 @@ public class ProductdetailController {
 
 	@RequestMapping(value="/productdetailmain.do",method=RequestMethod.GET)
 
-	public String productdetailmain(ProductdetailVO dvo,Model model) {
+	public String productdetailmain(ProductdetailVO dvo,Model model,HttpSession session) {
 		logger.info("productdetailmain 호출");
 		ProductdetailVO detail = new ProductdetailVO();
+		
+		LoginVO login =(LoginVO)session.getAttribute("login");
+		if(login!=null){
+			model.addAttribute("login",login);
+			logger.info("login  = " +login.toString());
+		}
+//		System.out.println(login.toString());
 		detail =productdetailService.productdetailmain(dvo);
 		model.addAttribute("detail",detail);
 	

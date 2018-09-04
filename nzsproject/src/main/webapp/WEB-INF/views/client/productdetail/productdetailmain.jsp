@@ -156,36 +156,39 @@
 					
 					console.log(p_num);
 					console.log(c_num);
-				
-					if(confirm("상품을 즐겨 찾기 하시겠습니까?")){
-						$.ajax({
-							url :"/productdetail/productdetailFavpList.do",
-							type:"post",
-							data:"c_num="+c_num+"&p_num="+p_num,
-							dataType: "text",
-							success: function(data) {
-								if(data == 0){//c_num,p_num
-									$.ajax({
-										url :"/productdetail/productdetailFavpInsert.do",
-										type:"post",
-										data:"c_num="+c_num+"&p_num="+p_num,
-										dataType: "text",
-										success: function(data) {
-											console.log(data);
-											alert("추가 되었습니다.");
-										},
-										error: function() {
-											alert("시스템 오류입니다. 관리자한테 문의하세요.");
-										}
-									})
-								}else if(data==1){
-									alert("이미 등록되어있습니다.")
+					if(c_num ==0 ){
+						alert("로그인을 해주십시오.")
+					}else{
+						if(confirm("상품을 즐겨 찾기 하시겠습니까?")){
+							$.ajax({
+								url :"/productdetail/productdetailFavpList.do",
+								type:"post",
+								data:"c_num="+c_num+"&p_num="+p_num,
+								dataType: "text",
+								success: function(data) {
+									if(data == 0){//c_num,p_num
+										$.ajax({
+											url :"/productdetail/productdetailFavpInsert.do",
+											type:"post",
+											data:"c_num="+c_num+"&p_num="+p_num,
+											dataType: "text",
+											success: function(data) {
+												console.log(data);
+												alert("추가 되었습니다.");
+											},
+											error: function() {
+												alert("시스템 오류입니다. 관리자한테 문의하세요.");
+											}
+										})
+									}else if(data==1){
+										alert("이미 등록되어있습니다.")
+									}
+								},
+								error: function() {
+									alert("시스템 오류입니다. 관리자한테 문의하세요.");
 								}
-							},
-							error: function() {
-								alert("시스템 오류입니다. 관리자한테 문의하세요.");
-							}
-						})
+							})
+						}
 					}
 				})///itemsearch.click end
 				
@@ -198,37 +201,42 @@
 					console.log(p_num);
 					console.log(c_num);
 				
-					if(confirm("상품을 즐겨 찾기 하시겠습니까?")){
-						$.ajax({
-							url :"/productdetail/productdetailFavsList.do",
-							type:"post",
-							data:"c_num="+c_num+"&st_num="+st_num,
-							dataType: "text",
-							success: function(data) {
-								if(data == 0){//c_num,p_num
-									$.ajax({
-										url :"/productdetail/productdetailFavsInsert.do",
-										type:"post",
-										data:"c_num="+c_num+"&p_num="+st_num,
-										dataType: "text",
-										success: function(data) {
-											console.log(data);
-											alert("추가 되었습니다.");
-										},
-										error: function() {
-											alert("시스템 오류입니다. 관리자한테 문의하세요.");
-										}
-									})
-								}else if(data==1){
-									alert("이미 등록되어있습니다.")
+					if(c_num ==0 ){
+						alert("로그인을 해주십시오.")
+					}else{
+						if(confirm("상품을 즐겨 찾기 하시겠습니까?")){
+							$.ajax({
+								url :"/productdetail/productdetailFavsList.do",
+								type:"post",
+								data:"c_num="+c_num+"&st_num="+st_num,
+								dataType: "text",
+								success: function(data) {
+									if(data == 0){//c_num,p_num
+										$.ajax({
+											url :"/productdetail/productdetailFavsInsert.do",
+											type:"post",
+											data:"c_num="+c_num+"&st_num="+st_num,
+											dataType: "text",
+											success: function(data) {
+												console.log(data);
+												alert("추가 되었습니다.");
+											},
+											error: function() {
+												alert("시스템 오류입니다. 관리자한테 문의하세요.");
+											}
+										})
+									}else if(data==1){
+										alert("이미 등록되어있습니다.")
+									}
+								},
+								error: function() {
+									alert("시스템 오류입니다. 관리자한테 문의하세요.");
 								}
-							},
-							error: function() {
-								alert("시스템 오류입니다. 관리자한테 문의하세요.");
-							}
-						})
+							})
+						}
 					}
 				})
+				
 				
 				////////////////////////////////////////////////////////////장바구니 로직
 				$("#cart").click(function(){
@@ -236,48 +244,52 @@
 					var cart2_count = $("#count").val();
 					var ps_num =$("#ps_num").val();
 					var status =0;
-					$.ajax({
-						url :"/productdetail/productdetailCartList.do",
-						type:"post",
-						data:"c_num="+c_num+"&ps_num="+ps_num,
-						dataType: "text",
-						success: function(data) {
-							if(data==0){
-								$.ajax({
-									url :"/productdetail/productdetailCartInsert.do",
-									type:"post",
-									data:"ps_num="+ps_num+"&cart2_count="+cart2_count+"&c_num="+c_num,
-									dataType: "text",
-									success: function(data) {
-										alert("추가 되었습니다.");
-										$.ajax({
-											url :"/mypage/dateCountUpdate.do",
-											type:"post",
-											data:"c_num="+c_num,
-											dataType: "text",
-										})
-										status =1;
-									},
-									error: function() {
-										alert("시스템 오류입니다. 관리자한테 문의하세요.");
+					if(c_num ==0 ){
+						alert("로그인을 해주십시오.")
+					}else{
+						$.ajax({
+							url :"/productdetail/productdetailCartList.do",
+							type:"post",
+							data:"c_num="+c_num+"&ps_num="+ps_num,
+							dataType: "text",
+							success: function(data) {
+								if(data==0){
+									console.log("")
+									$.ajax({
+										url :"/productdetail/productdetailCartInsert.do",
+										type:"post",
+										data:"ps_num="+ps_num+"&cart2_count="+cart2_count+"&c_num="+c_num,
+										dataType: "text",
+										success: function(data) {
+											alert("추가 되었습니다.");
+											$.ajax({
+												url :"/mypage/dateCountUpdate.do",
+												type:"post",
+												data:"c_num="+c_num,
+												dataType: "text",
+											})
+											status =1;
+										},
+										error: function() {
+											alert("시스템 오류입니다. 관리자한테 문의하세요.");
+										}
+									})
+								}else if(data ==1){
+									alert("이미 등록되어있습니다.");
+									status=1;
+								}
+								if(status==1){
+									if(confirm("장바구니로 이동하시겠습니까?")){
+										$("#hidden").attr({
+											"method":"post",
+											"action":"/mypage/mycartList.do"
+										});
+										$("#hidden").submit();
 									}
-								})
-							}else if(data ==1){
-								alert("이미 등록되어있습니다.");
-								status=1;
-							}
-							if(status==1){
-								if(confirm("장바구니로 이동하시겠습니까?")){
-									$("#hidden").attr({
-										"method":"post",
-										"action":"/mypage/mycartList.do"
-									});
-									$("#hidden").submit();
 								}
 							}
-						}
-					})
-
+						})
+					}
 				})
 
 				
@@ -292,6 +304,7 @@
 					});
 					$("#hidden").submit();
 				})
+// 				console.log(${login})
 			});////////////////////////////////////////////////////////////풩션 끝
 			
 			
@@ -389,7 +402,7 @@
 			function sellInformation() {
 				$("#contentTB").html("");
 				var url = "/productdetail/productdetailStore.do?st_num="+${detail.st_num};
-				//ps_num -> 받아오면 바꿔야함 ---------------------------------------
+
      			$.getJSON(url, function(data){
      				console.log(data.s_num);
 					var div =$("<div>")
@@ -498,8 +511,12 @@
 		<input type="hidden" id="ps_price" name="ps_price" value="${detail.ps_price }">
 		<input type="hidden" id="st_num" name="st_num" value="${detail.st_num }">
 		<input type="hidden" id="changeCount" name="changeCount" value="0">
-		
-		<input type="hidden" id="c_num" name="c_num" value="1">
+		<c:if test="${login.c_num ==null}">
+			<input type="hidden" id="c_num" name="c_num" value="0">
+		</c:if>
+		<c:if test="${login.c_num !=0}">
+			<input type="hidden" id="c_num" name="c_num" value="${login.c_num}">
+		</c:if>
 <!-- 		위에 c_num 세션값으로 갖고와야함 ------------------------------------------------------------------------------>
 		
 	</form>

@@ -116,8 +116,8 @@
 			    
 			) VALUES (
 			    FAVPRODUCT_SEQ.nextval,
-			    #(c_num),
-			    #(st_num)
+			    #{c_num},
+			    #{st_num}
 			    
 			)
 	</insert>
@@ -137,7 +137,7 @@
 	
 	<insert id="productdetailCartInsert" parameterType="productdetail">
 		<selectKey keyProperty="cart1_num" resultType="int" order="BEFORE">
-			 SELECT count(cart1_num) FROM cart1dep where c_num=#{c_num}
+			 SELECT cart1_num FROM cart1dep where c_num=#{c_num}
 		</selectKey>
 		INSERT INTO cart2dep (
 		    cart2_num,
@@ -162,7 +162,7 @@
 		    c_num
 		) VALUES (
 		    cart1dep_seq.nextval,
-		    c_num =#{c_num}
+		    #{c_num}
 		)
 	</insert>
 </mapper>
