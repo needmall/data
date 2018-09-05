@@ -18,7 +18,7 @@
 			location.href = "/productsell/detailform.do?ps_num=" + ps_num;
 		});
 		
-		/* 탭 이동 */
+		/* 탭 이동  */
 		$('#myTab a').click(function (e) {
 			e.preventDefault()
   			$(this).tab('show')
