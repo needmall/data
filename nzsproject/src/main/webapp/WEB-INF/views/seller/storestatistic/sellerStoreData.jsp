@@ -28,7 +28,7 @@
 			</tr>
 		</thead>
 		<tbody id="list">			
-			<tr class="goDetail" data-num="${sellerStoreTotal.st_num}">				
+			<tr data-num="${sellerStoreTotal.st_num}">				
 				<td>${sellerStoreTotal.registAmount}</td>
 				<td>${sellerStoreTotal.registSum}</td>
 				<td>${sellerStoreTotal.sellAmount}</td>
@@ -57,12 +57,12 @@
 				<c:when test='${not empty sellerStoreData}'>	
 					<c:forEach var="storeSales" items="${sellerStoreData}" varStatus="status">
 				<tr>
-					<td>${sellerStoreData.months}</td>
-					<td>${sellerStoreData.registAmount}</td>
-					<td>${sellerStoreData.registSum}</td>
-					<td>${sellerStoreData.sellAmount}</td>
-					<td>${sellerStoreData.sellSum}</td>
-					<td>${sellerStoreData.rate}%</td>				
+					<td>${storeSales.months}</td>
+					<td>${storeSales.registAmount}</td>
+					<td>${storeSales.registSum}</td>
+					<td>${storeSales.sellAmount}</td>
+					<td>${storeSales.sellSum}</td>
+					<td>${storeSales.rate}%</td>				
 				</tr>
 				</c:forEach>
 				</c:when>
