@@ -140,8 +140,15 @@
 						<div class="col-sm-offset-2 col-sm-6">
 							<input type="button" value="로그인" id="loginBtn" class="btn btn-default" /> 
 							<input type="button" value="회원가입" id="joinBtn" class="btn btn-default" />
+							
 						</div>
 					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-6">
+							<a href="/member/idIdenSelect.do">아이디</a>＊<a href="/member/pwdIden.do">비밀번호 찾기</a>
+						</div>
+					</div>
+					
 				</form>
 			
 			

@@ -141,4 +141,17 @@
 		from seller
 		where s_id = #{s_id}
 	</select>
+	
+	<select id="customerIdIdenSelect" parameterType="member" resultType="String">
+		select c_id
+		from customer
+		where c_name = #{c_name} and c_mail = #{c_mail}
+	</select>
+	
+	<select id="sellerIdIdenSelect" parameterType="member" resultType="String">
+		select s_id
+		from seller
+		where s_name = #{s_name} and s_mail = #{s_mail}
+	</select>
+	
 </mapper>

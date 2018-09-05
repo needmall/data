@@ -253,6 +253,19 @@ $(function(){
 		}		
 	});
 	
+	$("#customerIdIden").click(function(){
+		if (!formCheck($('#c_name'), $('.error:eq(0)'), "이름을")) return;
+		else if (!formCheck($('#c_mailName'), $('.error:eq(1)'), "이메일 주소를")) return;
+		else{
+			$("#c_mail").val($("#c_mailName").val()+"@"+$("#c_mailDomain").val());
+			$("#memberForm").attr({
+				"method":"post",	// 주소가 같아서 method가 다르기 때문에 ㄱㅊ
+				"action":"/member/customerIdIden.do"
+			});
+			$("#memberForm").submit();
+		}
+	});
+	
 	$("#joinCancel").click(function(){
 		location.href="/member/login.do";
 	});

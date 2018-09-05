@@ -1,5 +1,9 @@
 package com.needmall.client.member.service;
 
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -265,6 +269,60 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO sellerSelect(String s_id) {
 		MemberVO vo = memberDao.sellerSelect(s_id);
 		return vo;
+	}
+
+	@Override
+	public String customerIdIden(String c_name, String c_mail) {
+		
+		MemberVO mvo = new MemberVO();
+		mvo.setC_name(c_name);
+		mvo.setC_mail(c_mail);
+		
+		
+		logger.info("c_name : " + c_name);
+		
+		String c_id = memberDao.customerIdIdenSelect(mvo);
+		logger.info("mvo : " + mvo);
+		logger.info("c_id : " + c_id);
+		
+		LoginVO lvo = new LoginVO();
+		lvo.setC_id(c_id);
+		logger.info("lvo : " + lvo);
+		
+		if (c_id==null) {
+			logger.info("가입된 아이디가 없습니다.");			
+			return null;
+		} else {
+			logger.info("성공");
+			return c_id;
+		}
+		
+	}
+
+	@Override
+	public String sellerIdIden(String s_name, String s_mail) {
+		MemberVO mvo = new MemberVO();
+		mvo.setS_name(s_name);
+		mvo.setS_mail(s_mail);
+
+
+		logger.info("s_name : " + s_name);
+
+		String s_id = memberDao.sellerIdIdenSelect(mvo);
+		logger.info("mvo : " + mvo);
+		logger.info("s_id : " + s_id);
+
+		LoginVO lvo = new LoginVO();
+		lvo.setS_id(s_id);
+		logger.info("lvo : " + lvo);
+
+		if (s_id==null) {
+			logger.info("가입된 아이디가 없습니다.");
+			return null;
+		} else {
+			logger.info("성공");
+			return s_id;
+		}
 	}
 
 }

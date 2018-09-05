@@ -23,4 +23,8 @@ public interface MemberService {
 	
 	public MemberVO customerSelect(String c_id);
 	public MemberVO sellerSelect(String s_id);
+	
+	public String customerIdIden(String c_name, String c_mail);
+	public String sellerIdIden(String s_name, String s_mail);
+	
 }

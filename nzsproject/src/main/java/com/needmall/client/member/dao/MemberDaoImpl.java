@@ -109,7 +109,15 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne("sellerSelect", s_id);
 	}
 	
-	
+	@Override
+	public String customerIdIdenSelect(MemberVO mvo) {
+		return session.selectOne("customerIdIdenSelect", mvo);
+	}
+
+	@Override
+	public String sellerIdIdenSelect(MemberVO mvo) {
+		return session.selectOne("sellerIdIdenSelect", mvo);
+	}
 
 	/*
 	@Override

@@ -46,7 +46,7 @@ public class EmailController {
 	@ResponseBody
 	@RequestMapping(value="/sendMimeMail.do", method=RequestMethod.GET, produces="text/plain; charset=utf-8")
 	public String sendMimeMail(@ModelAttribute EmailVO evo,@RequestParam("c_mail") String c_mail) throws FileNotFoundException, URISyntaxException {
-		evo.setTo(c_mail);//★체크!!!!!!!!!!!!
+		evo.setC_mail(c_mail);//★체크!!!!!!!!!!!!
 		String result = "";
 		result = emailService.sendMimeMail(evo);
 		return result;

@@ -37,4 +37,8 @@ public interface MemberDao {
 	
 	public MemberVO customerSelect(String c_id);
 	public MemberVO sellerSelect(String s_id);
+	
+	public String customerIdIdenSelect(MemberVO mvo);
+	public String sellerIdIdenSelect(MemberVO mvo);
+	
 }

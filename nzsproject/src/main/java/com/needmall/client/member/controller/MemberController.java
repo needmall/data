@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -416,5 +417,99 @@ public class MemberController {
 		 mav.setViewName("redirect:/member/join_seller_modify.do");
 		 return mav;  
 	 }
+	 
+	 	/********************************************************************
+		 * id 찾기 선택 폼(idIden)
+		 ********************************************************************/
+		@RequestMapping(value="/idIdenSelect.do", method = RequestMethod.GET)	// console창에 sever 구동할때 "{[/member/join.do],methods=[GET]}"
+		public String idIdenSelect(Model model) {
+			logger.info("idIdenSelect.do get 방식에 의한 메서드 호출 성공");
+			return "member/idIdenSelect";
+		}
+	 
+	 	/********************************************************************
+		 * customer id 찾기 폼(idIden)
+		 ********************************************************************/
+		@RequestMapping(value="/customerIdIden.do", method = RequestMethod.GET)	// console창에 sever 구동할때 "{[/member/join.do],methods=[GET]}"
+		public String customerIdIden(Model model) {
+			logger.info("customerIdIden.do get 방식에 의한 메서드 호출 성공");
+			return "member/customerIdIden";
+		}
+		
+		/**************************************************************
+		 * customer id 찾기
+		 *************************************************************/
+			@RequestMapping(value="/customerIdIden.do", method = RequestMethod.POST)
+			public ModelAndView customerIdIdenProcess(@ModelAttribute LoginVO lvo, @RequestParam("c_name") String c_name, @RequestParam("c_mail") String c_mail, ModelAndView mav) {
+				logger.info("customerIdIdenProcess 메서드 호출 성공");
+				logger.info("전 mav : " + mav);
+				
+				String idCheck = memberService.customerIdIden(c_name, c_mail);
+				
+				if(idCheck == null) {
+					logger.info("id가 존재하지 않아요!");
+					mav.addObject("status", 1);
+					mav.setViewName("member/customerIdIden");
+					logger.info("mav : " + mav);
+					return mav;
+				} else {
+					mav.addObject("c_id", memberService.customerIdIden(c_name, c_mail));
+					mav.addObject("c_name", c_name);
+					
+					mav.setViewName("member/idIdenSuccess");
+					logger.info("memberService.customerIdIden : "+memberService.customerIdIden(c_name, c_mail));
+					
+					lvo.setC_id(memberService.customerIdIden(c_name, c_mail));
+					logger.info("lvo.getC_id() : "+lvo.getC_id());
+					logger.info("후 mav : " + mav);
+					return mav;
+				}
+						
+			}
+			
+		
+			/********************************************************************
+			 * seller id 찾기 폼(idIden)
+			 ********************************************************************/
+			@RequestMapping(value="/sellerIdIden.do", method = RequestMethod.GET)	// console창에 sever 구동할때 "{[/member/join.do],methods=[GET]}"
+			public String sellerIdIden(Model model) {
+				logger.info("sellerIdIden.do get 방식에 의한 메서드 호출 성공");
+				return "member/sellerIdIden";
+			}
+			
+			/**************************************************************
+			 * seller id 찾기
+			 *************************************************************/
+				@RequestMapping(value="/sellerIdIden.do", method = RequestMethod.POST)
+				public ModelAndView sellerIdIdenProcess(@ModelAttribute LoginVO lvo, @RequestParam("s_name") String s_name, @RequestParam("s_mail") String s_mail, ModelAndView mav) {
+					logger.info("sellerIdIdenProcess 메서드 호출 성공");
+					logger.info("전 mav : " + mav);
+					
+					String idCheck = memberService.sellerIdIden(s_name, s_mail);
+					
+					if(idCheck == null) {
+						logger.info("id가 존재하지 않아요!");
+						mav.addObject("status", 1);
+						mav.setViewName("member/sellerIdIden");
+						logger.info("mav : " + mav);
+						return mav;
+					} else {
+						mav.addObject("s_id", memberService.sellerIdIden(s_name, s_mail));
+						mav.addObject("s_name", s_name);
+						
+						mav.setViewName("member/idIdenSuccess");
+						logger.info("memberService.sellerIdIden : "+memberService.sellerIdIden(s_name, s_mail));
+						
+						lvo.setS_id(memberService.sellerIdIden(s_name, s_mail));
+						logger.info("lvo.getS_id() : "+lvo.getS_id());
+						logger.info("후 mav : " + mav);
+						return mav;
+					}
+							
+				}
+			
+			
+			 
+
 	
 }
