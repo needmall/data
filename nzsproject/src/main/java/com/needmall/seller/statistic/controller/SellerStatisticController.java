@@ -36,6 +36,6 @@ public class SellerStatisticController {
 		List<SalesDataVO> sellerStoreData = sellerStatisticService.sellerStoreData(st_num);
 		model.addAttribute("sellerStoreData", sellerStoreData);		
 		
-		return "seller/storestatistic/sellerStoreData";
+		return "seller/storeStatistic/sellerStoreData";
 	}
 }
