@@ -19,5 +19,6 @@ public interface ProductsellDao {
 	public int productDelete(ProductInsertVO ivo);
 	public int productDealUpdate(ProductInsertVO ivo);
 	public int feesConfirm(String s_id);
+	public int storeNumSelectOne(String s_id);
 	
 }

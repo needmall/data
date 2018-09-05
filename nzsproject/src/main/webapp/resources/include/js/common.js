@@ -33,6 +33,30 @@ function chkData(item, msg){
 		return true;
 	}
 }
+
+/* 숫자 범위 유효성 검사 
+ * 요소, 메시지, 최소값, 최대값
+ * */
+function chkNumber(item, msg, min, max) {
+	var number = $(item).val() * 1;
+	if(number < min){
+		alert(msg + " " + min + "보다 작을 수 없습니다.");
+		$(item).val("");
+		$(item).focus();
+		return false;
+	}
+	
+	if (number > max) { 
+		alert(msg + " " + max + "보다 클수 없습니다.");
+		$(item).val("");
+		$(item).focus();
+		return false;
+	} else{
+		return true;
+	}
+}
+
+
 /* placeholder 유효성*/
 function checkForm(item, msg){
 	if($(item).val().replace(/\s/g,"")==""){

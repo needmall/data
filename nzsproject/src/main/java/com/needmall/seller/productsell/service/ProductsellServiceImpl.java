@@ -97,4 +97,11 @@ public class ProductsellServiceImpl implements ProductsellService {
 		return result;
 	}
 
+	@Override
+	public int storeNumSelectOne(String s_id) {
+		int result = 0;
+		result = productsellDao.storeNumSelectOne(s_id);
+		return result;
+	}
+
 }

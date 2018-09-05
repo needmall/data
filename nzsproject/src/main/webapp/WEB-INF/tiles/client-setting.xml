@@ -48,8 +48,5 @@
 		<put-attribute name="title" value="공지사항"/>
 		<put-attribute name="body" value="/WEB-INF/views/client/news/{1}.jsp"/>
 	</definition>
-	<definition name="seller/storeStatistic/*" extends="content">
-		<put-attribute name="title" value="판매자 통계"/>
-		<put-attribute name="body" value="/WEB-INF/views/seller/storeStatistic/{1}.jsp"/>
-	</definition>
+	
 </tiles-definitions>

@@ -9,6 +9,13 @@
 		WHERE s_id = #{s_id} AND ps_state = 0 ORDER BY ps_expiration
 	</select>
 	
+	<!-- 판매 상세 페이지 조회 -->
+	<select id="productDetail" parameterType="productinsert" resultType="productlistone">
+		SELECT ps.p_num, ps_num, pi_image, p_name, p_price, p_content, TO_CHAR(ps_expiration ,'yyyy/mm/dd hh24:mi') AS ps_expiration, ps_count, ps_price, ps_regdate
+		FROM seller s INNER JOIN store st ON s.s_num = st.s_num INNER JOIN productsell ps ON ps.s_num = s.s_num INNER JOIN product p ON p.p_num = ps.p_num INNER JOIN proimage pi ON pi.pi_num = p.pi_num
+		WHERE ps_num = #{ps_num} AND s_id = #{s_id} ORDER BY p_name
+	</select>
+	
 	<!-- 수수료 납부 기한확인 -->
 	<select id="feesConfirm" parameterType="String" resultType="int">
 		SELECT NVL((SELECT COUNT(*)
@@ -31,15 +38,8 @@
 		INSERT INTO productsell (ps_num, p_num, ps_expiration, ps_count, ps_price, s_num, ps_state )
 		VALUES (#{ps_num}, #{p_num}, TO_DATE(#{ps_expiration},'yyyy/mm/dd hh24:mi'), #{ps_count}, #{ps_price}, (SELECT s.s_num FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id}), 0)
 	</insert>
-	
-	<!-- 판매 상세 페이지 조회 -->
-	<select id="productDetail" parameterType="productinsert" resultType="productlistone">
-		SELECT ps.p_num, ps_num, pi_image, p_name, p_price, p_content, TO_CHAR(ps_expiration ,'yyyy/mm/dd hh24:mi') AS ps_expiration, ps_count, ps_price, ps_regdate
-		FROM seller s INNER JOIN store st ON s.s_num = st.s_num INNER JOIN productsell ps ON ps.s_num = s.s_num INNER JOIN product p ON p.p_num = ps.p_num INNER JOIN proimage pi ON pi.pi_num = p.pi_num
-		WHERE ps_num = #{ps_num} AND s_id = #{s_id} ORDER BY p_name
-	</select>
-	
-	<!-- 판매상품 구매 중 상품 정보 변경 -->	
+
+	<!-- 판매상품 구매 중 상품 정보 수정 -->	
 	<update id="productDealUpdate" parameterType="productinsert">
 		UPDATE productsell
 		SET
@@ -54,7 +54,7 @@
 		WHERE ps_num = #{ps_num} AND s_num = (SELECT s.s_num FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id}) AND ps_state = 0		
 	</update>
 	
-	<!-- 판매상품 구매 및 가격 변경 확인-->
+	<!-- 판매상품 구매 및 가격 수정 확인-->
 	<select id="productState" parameterType="productinsert" resultType="usercommon">
 		SELECT	NVL((
 						SELECT SUM(b_count)
@@ -73,4 +73,10 @@
 		WHERE ps_num = #{ps_num} AND s_num = (SELECT s.s_num FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id})
 	</delete>
 	
+	<!-- 통계 판매자 매장 조회 -->
+	<select id="storeNumSelectOne" parameterType="String" resultType="int">
+		SELECT st_num
+		FROM seller s INNER JOIN store st ON s.s_num = st.s_num
+		WHERE s_id = #{s_id}
+	</select>
 </mapper>

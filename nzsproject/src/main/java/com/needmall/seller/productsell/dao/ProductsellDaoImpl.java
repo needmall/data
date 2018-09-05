@@ -63,4 +63,9 @@ public class ProductsellDaoImpl implements ProductsellDao {
 		return session.selectOne("feesConfirm", s_id);
 	}
 
+	@Override
+	public int storeNumSelectOne(String s_id) {
+		return session.selectOne("storeNumSelectOne", s_id);
+	}
+
 }

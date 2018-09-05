@@ -22,6 +22,7 @@ import com.needmall.common.vo.UserCommonVO;
 import com.needmall.seller.productsell.service.ProductsellService;
 import com.needmall.seller.productsell.vo.ProductInsertVO;
 import com.needmall.seller.productsell.vo.ProductListOneVO;
+import com.needmall.seller.statistic.serviece.SellerStatisticService;
 
 @Controller
 @RequestMapping(value="/productsell")
@@ -30,13 +31,17 @@ public class ProductsellController {
 	 
 	@Autowired
 	private ProductsellService productsellService;
-	String s_id = ""; 
+	
+	@Autowired
+	private SellerStatisticService sellerStatisticService;
+	
+	String s_id = "";
 	 
 	/* 판매 상품 목록 */
 	@RequestMapping(value="/list.do", method = RequestMethod.GET)
 	public String productList(Model model, HttpSession session) {
 		logger.info("productList 호출 성공");
-		
+		int st_num = 0;
 		LoginVO login = (LoginVO)session.getAttribute("login");
 		
 		// 세션 확인, 판매자 구분
@@ -46,6 +51,12 @@ public class ProductsellController {
 			// 상품 판매 목록 조회
 			List<ProductsellVO> productList = productsellService.productList(s_id);
 			model.addAttribute("productList", productList);
+			 
+			// 통계 페이지 조회
+			st_num = productsellService.storeNumSelectOne(s_id);
+			model.addAttribute("st_num", st_num);
+			
+			
 		} else {
 			model.addAttribute("error", "로그인 실패 확인 후 다시 이용 하시기 바랍니다.");
 			return "redirect:/member/login.do";  

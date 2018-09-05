@@ -5,8 +5,6 @@
 <script type="text/javascript">
 	$(function() {
 		
-		//pi_image, p_name, p_price, p_content, 
-		
 		/* 상품 등록 페이지 이동 */
 		$("#reqProductBtn").click(function() {
 			location.href = "/productsell/writeform.do";
@@ -118,7 +116,9 @@
 		</div>
 		</div>
       <div role="tabpanel" class="tab-pane" id="statistics" aria-labelledby="statistics-tab">
-        
+      	<jsp:include page="/seller/statistic/sellerStoreData.do" flush="false">
+    		<jsp:param name="st_num" value="${st_num}"/>    		
+		</jsp:include>	
       </div>
 	</div>
 </div>

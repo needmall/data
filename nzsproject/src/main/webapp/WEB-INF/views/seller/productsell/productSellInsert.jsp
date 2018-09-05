@@ -11,26 +11,30 @@
 		
 		/* 상품 검색 */ 
 		$("#searchBtn").click(function() {
-			var url = "/productsell/search.do?keyword=" + $("#keyword").val();
-			num = 0;
-			// 검색 상품 리스트 초기화
-			$(document).find(".new_item").remove();
 			
-			$.getJSON(url, function(data) {
+			if(!chkData("#keyword", "판매할 상품 이름을")) return;
+			else {			
+				var url = "/productsell/search.do?keyword=" + $("#keyword").val();
+				num = 0;
+				// 검색 상품 리스트 초기화
+				$(document).find(".new_item").remove();
 				
-				$(data).each(function () {
-					num = num + 1;
-					var pi_image	= this.pi_image;
-					var p_name		= this.p_name;
-					var p_price		= this.p_price;
-					var p_content	= this.p_content;
-					var p_num		= this.p_num;
-					 
-					addItem(num, pi_image, p_name, p_price, p_content, p_num);
+				$.getJSON(url, function(data) {
+					
+					$(data).each(function () {
+						num = num + 1;
+						var pi_image	= this.pi_image;
+						var p_name		= this.p_name;
+						var p_price		= this.p_price;
+						var p_content	= this.p_content;
+						var p_num		= this.p_num;
+						 
+						addItem(num, pi_image, p_name, p_price, p_content, p_num);
+					});
+				}).fail(function() {
+					alert("상품 검색을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
 				});
-			}).fail(function() {
-				alert("상품 검색을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
-			});
+			}
 		});
 		
 		/* 상품 등록 요청 페이지 이동 */
@@ -46,11 +50,14 @@
 			var p_content = $(this).find(".itemP_content").html();
 			var p_num = $(this).attr("data-p_num");
 			
-			$(".addImageProduct").attr("src", pi_image);
+			$(".addImage").attr("src", pi_image);
 			$(".selectItemData:eq(0)").html(p_name);
 			$(".p_price").html(p_price);
 			$(".selectItemData:eq(2)").html(p_content);
 			$("#p_num").val(p_num);
+			
+			// 입력 폼 허용
+			document.getElementById("formControl").disabled = false;
 		});
 		
 		/* 할인율 선택, 입력 토글 */
@@ -74,11 +81,20 @@
 		
 		/* 판매 상품 등록 */
 		$("#submitBtn").click(function() {
-			$("#submitForm").attr({
-				"method" : "POST",
-				"action" : "/productsell/productinsert.do"
-			});
-			$("#submitForm").submit();
+			var p_price = $(".p_price").html().replace("원", "") * 1;
+			
+			if(!chkData("#date", "유통기한을")) return;
+			else if(!chkData("#ps_price", "판매 가격을")) return;
+			else if(!chkNumber("#ps_price", "판매 가격이", 0, p_price)) return;
+			else if(!chkData("#ps_count", "판매 수량을")) return;
+			else if(!chkNumber("#ps_count", "판매 수량이", 0, 99999)) return;
+			else {
+				$("#submitForm").attr({
+					"method" : "POST",
+					"action" : "/productsell/productinsert.do"
+				});
+				$("#submitForm").submit();
+			}
 		});
 		
 		/* 판매상품 취소 */
@@ -91,7 +107,7 @@
 			var date = new Date($("#date").val());
 			
 			var year = date.getFullYear();
-			var month = date.getMonth();
+			var month = date.getMonth() + 1;
 			var day = date.getDate();
 			var hours = date.getHours()
 			var minutes = date.getMinutes();
@@ -108,8 +124,8 @@
 				hours = "00";
 			}
 			
+			// 형식 변경
 			$("#ps_expiration").val(year + "/" + month + "/" + day + " " + hours + ":" + minutes);
-			
 		});
 		
 		/* 할인율 선택 판매가격 계산 */
@@ -119,17 +135,21 @@
 		
 		/* 할인율 입력 판매가가격 계산 */
 		$("#inputDiscount").change(function() {
+			if(!chkNumber("#inputDiscount", "할인율이", 0, 100)) return;
 			addDiscountValue($("#inputDiscount"));
 		});
 		
 		/* 판매가 입력 할인율 계산*/
 		$("#ps_price").change(function() {
+			var p_price = $(".p_price").html().replace("원", "") * 1;
+			
 			$("#inputDiscount").val("");
 			$("#inputDiscount").show();
 			$("#discount").hide();
 			
 			$("#changeBtn").attr("name", "1");
 			$("#changeBtn").html("선택");
+			if(!chkNumber("#ps_price", "판매 가격이", 0, p_price)) return;
 			addDiscountValue($("#ps_price"));
 		})
 		
@@ -163,6 +183,33 @@
 			var ps_price = 100 - ((discount.val() * 100) / p_price) ;
 			$("#inputDiscount").val(ps_price.toFixed(1));
 		}
+	}
+	
+	/* 유통기한 최소 시간 유효성 */
+	function addDateFormat(inputDate) {
+		var date = new Date();
+
+		var year = date.getFullYear();
+		var month = date.getMonth() + 1;
+		var day = date.getDate();
+		var hours = date.getHours()
+		var minutes = date.getMinutes();
+
+		var arr = [month, day, hours, minutes];
+		// 10 미만의 숫자 문자 추가
+		for(var i = 0; i < 4; i++) {
+			if(arr[i] < 10) arr[i] = "0" + arr[i];
+		}
+		
+		// date 타입 형식추가(yyyy-MM-ddThh:mm)
+		var min = year + "-" + arr[0] + "-" + arr[1] + "T" + arr[2] + ":" + arr[3];
+		var max = (year+1) + "-" + (arr[0]) + "-" + arr[1] + "T" + arr[2] + ":" + arr[3];
+		
+		// 최소, 최대 속성값 추가
+		$(inputDate).attr({
+			"min" : min,
+			"max" : max
+		});
 	}
 	  
 	/* 검색 상품정보 동적 생성*/
@@ -198,9 +245,12 @@
 	}
 	
 	function setting() {
-		// 할인율 생성, 입력 숨김
+		// 할인율 선택 생성
 		addDiscount();
+		// 할인율 입력 숨김
 		$("#inputDiscount").hide();
+		// 입력 데이터 최소, 최대 속성 추가
+		addDateFormat("#date");
 	}
 </script>
 
@@ -210,7 +260,7 @@
 			<%-- 상품검색 --%>
 			<form class="form-inline-block">
 				<div class="form-group">
-					<input type="text" id="keyword" class="form-control addInline-block" name="keyword" placeholder="상품 검색" />
+					<input type="text" id="keyword" class="form-control addInline-block" name="keyword" placeholder="상품 검색"/>
 					<button type="button" id="searchBtn" class="btn btn-success addInline-block">검색</button>
 				</div>
 			</form>
@@ -292,6 +342,7 @@
 			<div class="">
 				<%-- 판매 상품 정보 --%>
 				<form action="" id="submitForm" class="form-inline">
+					<fieldset disabled id="formControl">
 					<input type="hidden" id="p_num" name="p_num" />
 					<input type="hidden" id="ps_expiration" name="ps_expiration" />
 					<table class="table table-bordered text-center">
@@ -309,7 +360,7 @@
 							<td class="paddingTd55 col-md-6">
 								<div class="form-group">
 									<label class="control-label" for="ps_price">판매 가격</label>
-									<input type="text" id="ps_price" class="form-control sizeInput75" name="ps_price" aria-describedby="ps_priceStatus"/>
+									<input type="text" id="ps_price" class="form-control sizeInput75" name="ps_price" maxlength="6" aria-describedby="ps_priceStatus"/>
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<span id="ps_priceStatus" class="sr-only"></span>
 								</div>
@@ -319,7 +370,7 @@
 									<label id="addMarginDiscount" class="control-label" for="discount">할인율</label>
 									<div class="input-group">
 										<select id="discount" class="form-control" name="0" style="width:75px;" aria-describedby="discountStatus"></select>
-										<input type="text" id="inputDiscount" class="form-control sizeInput55" name="0" />
+										<input type="text" id="inputDiscount" class="form-control sizeInput55" name="0" maxlength="3" />
 										<div class="input-group-addon">%</div>
 									</div>
 									<button type="button" id="changeBtn" class="btn btn-info" name="0">입력</button>
@@ -332,7 +383,7 @@
 							<td class="paddingTd31" colspan="2">
 								<div class="form-group">
 									<label class="control-label" for="ps_count">판매 수량</label>
-									<input type="text" id="ps_count" class="form-control sizeInput75" name="ps_count" aria-describedby="ps_countStatus"/>
+									<input type="text" id="ps_count" class="form-control sizeInput75" name="ps_count" maxlength="5" aria-describedby="ps_countStatus"/>
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<span id="ps_countStatus" class="sr-only"></span>
 								</div>
@@ -347,6 +398,7 @@
 							</td>
 						</tr>
 					</table>
+					</fieldset>
 				</form>
 			</div>
 		</div>
