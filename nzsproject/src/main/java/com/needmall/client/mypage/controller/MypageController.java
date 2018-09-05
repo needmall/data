@@ -1,7 +1,6 @@
 package com.needmall.client.mypage.controller;
 
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
 import java.sql.Date;
 import java.util.List;
@@ -195,13 +194,13 @@ public class MypageController {
 		return value;
 	}
 	//삽입
-
+	@ResponseBody
 	@RequestMapping(value="/myProductRInsert.do",method=RequestMethod.POST, produces ="text/plain; charset=UTF-8")
-	public String myProductRInsert(PreviewVO pvo, HttpServletRequest request, Model model) {
+	public int myProductRInsert(PreviewVO pvo, HttpServletRequest request, Model model) {
 		logger.info("myProductRInsert 호출");
 		int result = 0;
 		result = mypageService.myProductRInsert(pvo,request);
-		return "redirect:mypage/mypage";
+		return result;
 		
 	}
 	
@@ -212,12 +211,12 @@ public class MypageController {
 	
 	///판매점 리뷰
 	@ResponseBody
-	@RequestMapping(value="/mySellertRList.do")
+	@RequestMapping(value="/mySellerRList.do")
 	public String mySellertRList(SreviewVO svo,ObjectMapper mapper,HttpSession session) {
 		String value = "";
 		LoginVO login = (LoginVO)session.getAttribute("login");
 		svo.setC_num(login.getC_num());
-		List<PreviewVO> list =mypageService.mySellertRList(svo);
+		List<PreviewVO> list =mypageService.mySellerRList(svo);
 		try {
 			value=mapper.writeValueAsString(list);
 		}catch (Exception e) {

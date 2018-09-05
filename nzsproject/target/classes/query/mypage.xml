@@ -143,7 +143,7 @@
 		    
 		    where c_num=#{c_num} and p_num =#{p_num}
 	</select>
-	<select id="mySellertRList" parameterType="Sreview" resultType="Sreview">
+	<select id="mySellerRList" parameterType="Sreview" resultType="Sreview">
 		SELECT
 		    srv_num,
 		    c_num,
