@@ -31,7 +31,6 @@ public class ProductsellController {
 	@Autowired
 	private ProductsellService productsellService;
 	String s_id = ""; 
-	//"seller_user1";
 	 
 	/* 판매 상품 목록 */
 	@RequestMapping(value="/list.do", method = RequestMethod.GET)
@@ -40,17 +39,17 @@ public class ProductsellController {
 		
 		LoginVO login = (LoginVO)session.getAttribute("login");
 		
-		// 세션 확인
-		if(login != null) { 
+		// 세션 확인, 판매자 구분
+		if(login != null && !login.getS_id().isEmpty()) { 
 			s_id = login.getS_id();
 			
+			// 상품 판매 목록 조회
 			List<ProductsellVO> productList = productsellService.productList(s_id);
 			model.addAttribute("productList", productList);
 		} else {
-			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
+			model.addAttribute("error", "로그인 실패 확인 후 다시 이용 하시기 바랍니다.");
 			return "redirect:/member/login.do";  
 		}
-		
 		return "seller/productsell/productSellSelectList";
 	}
 	
@@ -59,6 +58,7 @@ public class ProductsellController {
 	public String writeForm(Model model) {
 		logger.info("writeForm 호출 성공");
 		int result = 0;
+		String url = "";
 		
 		if(!s_id.isEmpty()) {
 			// 수수료 기한 납부 확인
@@ -66,16 +66,17 @@ public class ProductsellController {
 			
 			if(result > 0) {
 				// 상품 등록
-				return "seller/productsell/productSellInsert";
+				url = "seller/productsell/productSellInsert";
 			} else {
 				// 기한 만료
 				model.addAttribute("error", "판매등록 기한이 만료 되었습니다.");
-				return "redirect:/member/login.do";
+				url = "/productsell/list.do";
 			}
 		} else {
 			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
-			return "redirect:/member/login.do";
-		} 
+			url = "/member/login.do";
+		}
+		return "redirect:" + url;
 	}
 	
 	/* 판매 상품 검색 */

@@ -10,6 +10,7 @@
 $(function() {
 	/* 할인율 계산 */
 	addDiscountRate($(".contract"));
+	/* 스토어 이름 라인 추가 */
 	addStorename($(".store_name"));
 	
 	/* 주소-좌표 변환 객체 생성 */
@@ -305,7 +306,7 @@ $(function() {
 	</form>
 </div>
 <div class="container restaurant-list\">
-	<c:if test="${not empty login}">
+	<c:if test="${not empty succes}">
 		<div class="main_prodlist main_prodlist_list">
 			<h4>즐겨찾기 매장 상품</h4>
 			<div class="favorites_list">

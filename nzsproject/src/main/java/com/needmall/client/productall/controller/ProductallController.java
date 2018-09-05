@@ -35,17 +35,21 @@ public class ProductallController {
 	@RequestMapping(value="/productList.do", method = RequestMethod.GET)
 	public String productallList(Model model, HttpSession session) {
 		logger.info("productList 호출 성공");
-		
+		String succes = "";
 		LoginVO login = (LoginVO)session.getAttribute("login");
-		
+
 		// 세션 확인 
 		if(login != null) {
+			// 사용자 정보 대입
 			c_id = login.getC_id();
 			
 			// 즐겨찾기 매장 판매 상품
 			List<ProductallVO> productFavList = productallService.productFavList(c_id);
 			model.addAttribute("productFavList", productFavList);
-			model.addAttribute("login", "1");
+			
+			// 로그인 확인
+			succes = "true";
+			model.addAttribute("succes", succes);
 		} 
 		 
 		// 모든 매장 판매 상품

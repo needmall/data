@@ -20,8 +20,4 @@ public interface ProductsellService {
 	public int productDealUpdate(ProductInsertVO ivo);
 	public int feesConfirm(String s_id);
 	
-
-	
-	
-
 }
