@@ -66,7 +66,7 @@ public class ProductsellController {
 			
 			if(result > 0) {
 				// 상품 등록
-				url = "seller/productsell/productSellInsert";
+				return "seller/productsell/productSellInsert";
 			} else {
 				// 기한 만료
 				model.addAttribute("error", "판매등록 기한이 만료 되었습니다.");
