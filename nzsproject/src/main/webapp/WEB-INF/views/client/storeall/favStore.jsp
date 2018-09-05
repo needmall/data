@@ -2,6 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf"%>
 
+<style type="text/css">	
+	#favStoreArea {margin-left: 10px; width: 1100px; }
+	#favStoreArea .selectStore{margin:5px; padding:0; width:250px; height:50px !important; float:left;}
+	#favStoreArea .starDiv{padding:0; margin: 0px;}
+	#favStoreArea .starImg{ padding:0; margin: 0px;}
+	#favStoreArea .imgDiv{padding:0; margin: 0px; width: 40px; margin-right: 10px; margin-left: 10px;}
+	#favStoreArea .storeImg{padding:0; margin: 0px; width: 40px;}
+	#favStoreArea .nameDiv{padding:0; margin: 0px; width: 200px;}	
+	
+</style>
+
 <script type="text/javascript">
 	$(function() {
 		if('${login.c_num}'!=""){			
@@ -17,20 +28,25 @@
 							var si_image = this.si_image;
 							var st_num = this.st_num;
 							var st_name = this.st_name;										
-							var div = $("<div>");
+							var div = $("<a>");
 							div.attr("data-num",st_num);
-							div.addClass("selectStore");
+							div.addClass("selectStore list-group-item");
 							var starDiv=$("<div>");
+							starDiv.addClass("starDiv");
 							var starImg=$("<img>");
 							starImg.attr("src","");
+							starImg.addClass("starImg");
 							starDiv.append(starImg);
 							
 							var imgDiv=$("<div>");
+							imgDiv.addClass("imgDiv");
 							var storeImg=$("<img>");
+							storeImg.addClass("storeImg");
 							storeImg.attr("src","/uploadStorage/store/" + si_image);
 							imgDiv.append(storeImg);
 							
 							var nameDiv=$("<div>");
+							nameDiv.addClass("nameDiv");
 							var storeName=$("<p>");
 							storeName.addClass("stname");
 							storeName.html(st_name);							

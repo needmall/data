@@ -64,6 +64,7 @@
 		height: 665px;
 	}
 	
+	.clearboth{clear: both;}
 	/* 여기부터 제품 목록에 대한 css */
 	
 	#productsList{
@@ -80,8 +81,7 @@
 		padding : 10px 0px;
 	}
 	.jb-th-2 {
-		width : 30px;
-		bo
+		width : 30px;		
 	}
 
 	.fileImageLogo {
@@ -126,13 +126,14 @@
 	h4{
 		padding-top: 20px;
 	}
+	
 </style>
+
 
 <!-- 즐겨 찾기 매장 띄우기 -->
 <jsp:include page="favStore.jsp"></jsp:include>
-
 <!-- 당신의 위치 -->
-<div class="form-inline">
+<div class="form-inline clearboth">
 	<div class="form-group">
 		<label for="yourlocation"> 검색된 지역  </label>
 		<input class="form-control" type="text" id="yourlocation" readonly="readonly">
