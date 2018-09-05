@@ -67,7 +67,7 @@
 				</c:forEach>
 				</c:when>
 				<c:otherwise>
-					<tr><td colspan="6">통계 자료가 없습니다.</td></tr>
+					<tr><td colspan="6">통계 자료가 없습니다. </td></tr>
 				</c:otherwise>
 			</c:choose>
 		</tbody>	
