@@ -40,6 +40,6 @@
       	<typeAlias type="com.needmall.admin.statistic.vo.SalesDataVO" alias="salesData"/>
       	<typeAlias type="com.needmall.admin.statistic.vo.StoreDataVO" alias="storeData"/>
       	<typeAlias type="com.needmall.admin.statistic.vo.CustomerDataVO" alias="customerData"/>
-      	
+      	<typeAlias type="com.needmall.admin.store.vo.FavStoreListVO" alias="favStoreList"/>
 	</typeAliases>
 </configuration>

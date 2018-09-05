@@ -2,6 +2,7 @@ package com.needmall.admin.store.dao;
 
 import java.util.List;
 
+import com.needmall.admin.store.vo.FavStoreListVO;
 import com.needmall.admin.store.vo.StoreRegistVO;
 import com.needmall.common.vo.FeesVO;
 import com.needmall.common.vo.ReqstoreVO;
@@ -17,14 +18,6 @@ public interface StoreRegistDao {
 	public int storeFeeDelete(FeesVO fvo);
 	public StoreRegistVO storeDetail(StoreRegistVO srvo);
 	public int storeUpdate(StoreRegistVO srvo);
-	
-	
-//	public List<ProductRegistVO> productListAll();
-//	public ProductRegistVO productDetail(ProductRegistVO prvo);
-//	public int productUsageCount(int p_num);
-//	public int productImageDelete(int pi_num); 
-//	public int productDelete(int p_num);	
-//	
-//	public int p_stateX(int p_num);
-//	public int p_stateO(int p_num);	
+	public List<FavStoreListVO> favStore(int c_num);	
+
 }

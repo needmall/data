@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.store.service.StoreRegistService;
 import com.needmall.admin.store.vo.StoreRegistVO;
 import com.needmall.common.vo.FeesVO;
@@ -143,4 +145,14 @@ public class StoreRegistController {
 		return "redirect:/admin/store/storeDetail.do?st_num="+srvo.getSt_num();
 	}
 
+	/**
+	 * favStore : 즐겨찾기 목록반환	  
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/favStore.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
+	public String favStore(@RequestParam("c_num") int c_num, ObjectMapper mapper) {		
+		String favStore = storeRegistService.favStore(c_num, mapper);		
+		return favStore; // 문자열 반환
+	}
 }

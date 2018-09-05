@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.store.vo.StoreRegistVO;
-import com.needmall.client.productall.vo.ProductallVO;
 import com.needmall.common.vo.FeesVO;
 import com.needmall.common.vo.ReqstoreVO;
 
@@ -19,11 +18,7 @@ public interface StoreRegistService {
 	public int storeFeeDelete(FeesVO fvo);
 	public StoreRegistVO storeDetail(StoreRegistVO srvo);
 	public int storeUpdate(StoreRegistVO srvo, HttpServletRequest request);
-	
-//	public List<ProductRegistVO> productList(ProductRegistVO prvo);
-//	public ProductRegistVO productDetail(ProductRegistVO prvo);
-//	public int productUsageCount(int p_num);
-//	public int productDelete(ProductRegistVO prvo, HttpServletRequest request);
-//	public int productUpdate(ProductRegistVO prvo, HttpServletRequest request);
-//	public int stateUpdate(int p_num, int p_state);
+	public String favStore(int c_num, ObjectMapper mapper);
+
+
 }
