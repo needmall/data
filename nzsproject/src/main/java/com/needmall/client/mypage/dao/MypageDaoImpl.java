@@ -10,6 +10,8 @@ import com.needmall.client.member.dao.MemberDao;
 import com.needmall.client.member.vo.MemberSecurity;
 import com.needmall.client.member.vo.MemberVO;
 import com.needmall.client.mypage.vo.MycartVO;
+import com.needmall.client.productdetail.vo.PreviewVO;
+import com.needmall.client.productdetail.vo.SreviewVO;
 
 @Repository
 public class MypageDaoImpl implements MypageDao {
@@ -87,6 +89,18 @@ public class MypageDaoImpl implements MypageDao {
 	public int cartConfirmUpdate(MycartVO mvo) {
 		// TODO Auto-generated method stub
 		return session.update("cartConfirmUpdate",mvo);
+	}
+
+	@Override
+	public List<PreviewVO> myProductReview(PreviewVO pvo) {
+		// TODO Auto-generated method stub
+		return session.selectList("myProductReview",pvo);
+	}
+
+	@Override
+	public List<PreviewVO> mySellertReview(SreviewVO svo) {
+		// TODO Auto-generated method stub
+		return session.selectList("mySellertReview",svo);
 	}
 
 

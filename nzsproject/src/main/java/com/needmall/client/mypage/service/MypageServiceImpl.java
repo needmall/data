@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.needmall.client.mypage.dao.MypageDao;
 import com.needmall.client.mypage.vo.MycartVO;
+import com.needmall.client.productdetail.vo.PreviewVO;
+import com.needmall.client.productdetail.vo.SreviewVO;
 
 @Service
 public class MypageServiceImpl implements MypageService {
@@ -154,6 +156,18 @@ public class MypageServiceImpl implements MypageService {
 	public int cartConfirmUpdate(MycartVO mvo) {
 		// TODO Auto-generated method stub
 		return mypageDao.cartConfirmUpdate(mvo);
+	}
+
+	@Override
+	public List<PreviewVO> myProductReview(PreviewVO pvo) {
+		// TODO Auto-generated method stub
+		return mypageDao.myProductReview(pvo);
+	}
+
+	@Override
+	public List<PreviewVO> mySellertReview(SreviewVO svo) {
+		// TODO Auto-generated method stub
+		return mypageDao.mySellertReview(svo);
 	}
 
 

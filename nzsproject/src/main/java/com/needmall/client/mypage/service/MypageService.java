@@ -3,6 +3,8 @@ package com.needmall.client.mypage.service;
 import java.util.List;
 
 import com.needmall.client.mypage.vo.MycartVO;
+import com.needmall.client.productdetail.vo.PreviewVO;
+import com.needmall.client.productdetail.vo.SreviewVO;
 
 public interface MypageService {
 
@@ -25,5 +27,9 @@ public interface MypageService {
 	int pageList(MycartVO mvo);
 
 	int cartConfirmUpdate(MycartVO mvo);
+
+	List<PreviewVO> myProductReview(PreviewVO pvo);
+
+	List<PreviewVO> mySellertReview(SreviewVO svo);
 	
 }

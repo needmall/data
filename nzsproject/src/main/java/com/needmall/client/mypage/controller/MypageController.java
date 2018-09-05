@@ -17,6 +17,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.client.login.vo.LoginVO;
 import com.needmall.client.mypage.service.MypageService;
 import com.needmall.client.mypage.vo.MycartVO;
+import com.needmall.client.productdetail.vo.PreviewVO;
+import com.needmall.client.productdetail.vo.SreviewVO;
+import com.needmall.common.vo.SellerVO;
 
 @Controller
 @RequestMapping(value="/mypage")
@@ -97,7 +100,7 @@ public class MypageController {
 //	}
 	
 
-	
+
 	@ResponseBody
 	@RequestMapping(value="/countUpdate.do")
 	public String countUpdate(MycartVO mvo) {
@@ -171,5 +174,38 @@ public class MypageController {
 		return result;
 		
 	}
+	////////////댓글 
+	//상품 리뷰 불러오기
+	
+	@ResponseBody
+	@RequestMapping(value="/myProductReview.do")
+	public String myProductReview(PreviewVO pvo,ObjectMapper mapper,HttpSession session) {
+		String value = "";
+		LoginVO login = (LoginVO)session.getAttribute("login");
+		pvo.setC_num(login.getC_num());
+		List<PreviewVO> list =mypageService.myProductReview(pvo);
+		try {
+			value=mapper.writeValueAsString(list);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return value;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/mySellertReview.do")
+	public String mySellertReview(SreviewVO svo,ObjectMapper mapper,HttpSession session) {
+		String value = "";
+		LoginVO login = (LoginVO)session.getAttribute("login");
+		svo.setC_num(login.getC_num());
+		List<PreviewVO> list =mypageService.mySellertReview(svo);
+		try {
+			value=mapper.writeValueAsString(list);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return value;
+	}
+	
 	
 }
