@@ -92,3 +92,15 @@ h4{
 	font: bold;
 	
 }
+
+.list-group-item {
+	padding: 0 20px;
+}
+
+.sizeWith171 {
+	width: 171px;
+}
+/* 마우스 손 생성 */
+.list-group-item {
+	cursor: pointer;
+}

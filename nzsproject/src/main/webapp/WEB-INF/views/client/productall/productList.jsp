@@ -10,13 +10,14 @@
 $(function() {
 	/* 할인율 계산 */
 	addDiscountRate($(".contract"));
-	/* 스토어 이름 라인 추가 */
+	/* 스토어 이름 형식 추가 */
 	addStorename($(".store_name"));
 	
+	$(".periphery_list").hide();
 	/* 주소-좌표 변환 객체 생성 */
 	var geocoder = new daum.maps.services.Geocoder();
 
-	
+		
 		// geolocation 확인
 		if (navigator.geolocation) {
 		
@@ -30,8 +31,9 @@ $(function() {
 				// 주변 매장 검색
 				addSearch(lat, lon);
 			});
+			
 		}
-	
+	$(".periphery_list").show();
 	
 	/* 주소 검색 버튼 */
 	$("#search").click(function() {
@@ -55,20 +57,20 @@ $(function() {
 		});
 	}); // END #search
 	
-// 	/* 상세페이지 이동 */
-// 	$(document).on("click", ".restaurant-name", function() {
-// 		var ps_num = $(this).parents("tr").attr("data-num");
-// 		$("#ps_num").val(ps_num);
-// 		$("#review").val("0");
+ 	/* 상세페이지 이동 */
+ 	$(document).on("click", ".list-group-item", function() {
+ 		var ps_num = $(this).find("tr").attr("data-num");
+ 		$("#ps_num").val(ps_num);
+ 		$("#review").val("0");
 		
-// 		$("#detailForm").attr({
-// 			"method" : "GET",
-// 			"action" : "/productdetail/productdetailmain.do"
-// 		});
-// 			$("#detailForm").submit();
-// 	});
+ 		$("#detailForm").attr({
+ 			"method" : "GET",
+ 			"action" : "/productdetail/productdetailmain.do"
+ 		});
+ 			$("#detailForm").submit();
+ 	});
 	
-	/* 평점, 리뷰 상세페이지 이동 */
+	/* 평점, 리뷰 상세페이지 이동 
 	$(document).on("click", ".stars", function() {
 		var ps_num = $(this).parents("tr").attr("data-num");
 		$("#ps_num").val(ps_num);
@@ -79,7 +81,7 @@ $(function() {
 			"action" : "/productdetail/productdetailmain.do"
 		});
 			$("#detailForm").submit();
-	});
+	});*/
 	
 	/* 가격 (,) 생성 */
 	jQuery('.format-money').text(function() {
@@ -134,15 +136,17 @@ $(function() {
 			});
 			/* 동적 추가된 상품 할인율 계산 */
 			addDiscountRate($(".contract_periphery"));
-			addStorename($(".add_store_name"));
+			addStorename($(".store_name"));
 		}).fail(function() {
 			alert("매장 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
 		});
 	}
 	
 	function addStorename(item) {
-		var new_br = item.html().replace(/\s/, "<br>");
-		item.html(new_br);
+		$(item).each(function() {
+			var st_name = $(this).html().replace(/\s/, "<br>");
+			$(this).html(st_name);;
+		});
 	}
 	
 	/* 주소 검색 주변매장 동적 생성 */
@@ -150,10 +154,9 @@ $(function() {
 		var new_div_contract = $("<div>");
 		new_div_contract.addClass("col-md-6 contract contract_periphery list-group-item");
 
-		var new_a_clearfix = $("<a>");
+		/* var new_a_clearfix = $("<a>");
 		new_a_clearfix.attr("href","/productdetail/productdetailmain.do?ps_num="+ps_num);
-		new_a_clearfix.addClass("list-group-item");
-		new_a_clearfix.addClass("item clearfix");
+		new_a_clearfix.addClass("item clearfix"); */
 
 		var new_table = $("<table>");
 		var new_tbody = $("<tbody>");
@@ -172,7 +175,7 @@ $(function() {
 
 		var new_p_name = $("<p>");
 		new_p_name.html(st_name);
-		new_p_name.addClass("add_store_name align-center");
+		new_p_name.addClass("store_name align-center");
 
 		var new_td_pi = $("<td>");
 		new_td_pi.addClass("jb-th-1");
@@ -184,7 +187,7 @@ $(function() {
 
 		var new_td_p = $("<td>");
 		var new_div_name = $("<div>");
-		new_div_name.addClass("restaurants-info");
+		new_div_name.addClass("restaurants-info sizeWith171");
 		var new_div_expiration = $("<div>");
 		new_div_expiration.attr("title", p_name);
 		new_div_expiration.addClass("restaurant-name ng-binding");
@@ -280,8 +283,8 @@ $(function() {
 		new_tr.append(new_td_p_ps);
 
 		new_table.append(new_tbody).append(new_tr);
-		new_a_clearfix.append(new_table);
-		new_div_contract.append(new_a_clearfix);
+		//new_a_clearfix.append(new_table);
+		new_div_contract.append(new_table);
 
 		$(".periphery_list").append(new_div_contract);
 
@@ -315,8 +318,7 @@ $(function() {
 						<c:forEach var="FavList" items="${productFavList}"
 							varStatus="status">
 							<div class="col-md-6 contract list-group-item">
-								<a class="item clearfix list-group-item"
-									href="/productdetail/productdetailmain.do?ps_num=${FavList.ps_num}">
+								<!-- <a class="item clearfix list-group-item" href="/productdetail/productdetailmain.do?ps_num=${FavList.ps_num}">-->
 									<table>
 										<tbody>
 											<tr data-num="${FavList.ps_num}">
@@ -334,7 +336,7 @@ $(function() {
 													</div>
 												</td>
 												<td>
-													<div class="restaurants-info">
+													<div class="restaurants-info sizeWith171">
 														<div class="restaurant-name ng-binding"
 															title="${FavList.p_name}">${FavList.p_name}</div>
 														<div class="restaurant-name ng-binding"
@@ -377,7 +379,7 @@ $(function() {
 											</tr>
 										</tbody>
 									</table>
-								</a>
+								<!-- </a> -->
 							</div>
 						</c:forEach>
 					</c:when>
@@ -397,7 +399,7 @@ $(function() {
 				<c:when test="${not empty productAllList}">
 					<c:forEach var="AllList" items="${productAllList}" varStatus="status">
 						<div class="col-md-6 contract list-group-item">
-							<a class="item clearfix list-group-item" href="/productdetail/productdetailmain.do?ps_num=${AllList.ps_num}">
+							<%-- <a class="item clearfix list-group-item" href="/productdetail/productdetailmain.do?ps_num=${AllList.ps_num}"> --%>
 								<table>
 									<tbody>
 										<tr data-num="${AllList.ps_num}">
@@ -413,7 +415,7 @@ $(function() {
 												</div>
 											</td>
 											<td>
-												<div class="restaurants-info">
+												<div class="restaurants-info sizeWith171">
 													<div class="restaurant-name ng-binding" title="${AllList.p_name}">${AllList.p_name}
 													</div>
 													<div class="restaurant-name ng-binding" title="${AllList.ps_expiration}">${AllList.ps_expiration}
@@ -454,7 +456,7 @@ $(function() {
 										</tr>
 									</tbody>
 								</table>
-							</a>
+							<!-- </a> -->
 						</div>
 					</c:forEach>
 				</c:when>
