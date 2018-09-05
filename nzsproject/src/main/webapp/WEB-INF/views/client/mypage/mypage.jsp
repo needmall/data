@@ -181,13 +181,54 @@ var count;
 				console.log("나와라 네비네비");
 			})
 			
-// 			$(".goDetail").click
+			
+			$(document).on('click','.btn_productR',function() {
+				var p_num = $(this).parents("tr").attr("data-p_num");
+				var s_num = $(this).parents("tr").attr("data-s_num");
+				$(".myReview").html("");
+				$.getJSON("/mypage/myProductReview.do?p_num="+p_num, function(data){
+// 					$("#tableList").html("");
+					if(data.length==0){
+						notList();
+					}
+					$(data).each(function() {
+						console.log("나와라 성공성공")
+						
+						var prv_date  =this.prv_date;
+						var prv_image =this.prv_image;
+						var prv_content = this.prv_content;
+						var prv_scope = this.prv_scope;
+						
+						productList(prv_image,prv_scope,prv_content,prv_date);
+					})
+				})
+				console.log("나와라 클릭클릭")
 
+			})
+				
 		});//풩션 끝!
+
+		//상품 리뷰
+		function productList(prv_image,prv_scope,prv_content,prv_date){
+			var tr =$("<tr class='myReview'>");
+			var td1 = $("<td>사진 넣을거임</td>");
+			var td2 = $("<td>"+prv_scope+"</td>");
+			var td3 = $("<td>"+prv_content+"</td>");
+			var td4 = $("<td>"+prv_date+"</td>");
+			
+			tr.append(td1).append(td2).append(td3).append(td4)
+			$(".tableReview").append(tr);
+		}
+		//자신의 리뷰가 없을때
+		function notList() {
+			var tr =$("<tr>");
+			var td =$("<td colspan='4'>등록된 고객님의 리뷰가 없습니다</td>");
+			tr.append(td);
+			$(".tableReview").append(tr);
+		}
 		
+		//구매목록
 		function buyList(ps_num,b2_num,p_num,s_num,pi_image,p_name,p_content,b_count,original_multiply_count,multiply_count,b_confirm,b1_date,count){
-			
-			
 			var tr = $("<tr class='tr_list goDetail' data-num ='"+ps_num+"' data-b2_num = '"+b2_num+"' data-p_num ='"+p_num+"' data-s_num ='"+s_num+"'>");
 			var td1= $("<td><div class='list_td'>"+count+"</div></td>");
 			var td2= $("<td><div ><img class='img-thumbnail' src='/uploadStorage/product/"+pi_image+"' width='70px' height='50px;'/></div></td>");
@@ -195,14 +236,14 @@ var count;
 			var td4= $("<td ><div class='list_td'>"+b_count+"개</div></td>");
 			var td5= $("<td><div class='list_td3'><span class='span_count format-money' style='text-decoration: line-through;'>"+original_multiply_count+"</span>원<br/><span class='span_count format-money'>"+multiply_count+"</span>원</div></td>");
 			var td6= $("<td><div class='list_td'>"+b1_date+"</div></td>");
-			var td7= $("<td><div class='list_td3'><button type='button' class='btn btn-default' id='btn_serviceR' data-toggle='modal' data-target='#galleryModal' data-whatever='@mdo'>서비스 리뷰</button><button type='button' class='btn btn-default' id='btn_sellerR' data-toggle='modal' data-target='#galleryModal' data-whatever='@mdo'>판매자 리뷰</button></div></td>");
+			var td7= $("<td><div class='list_td3'><button type='button' class='btn btn-default btn_productR' data-toggle='modal' data-target='#galleryModal' data-whatever='@mdo'>상품 리뷰</button><button type='button' class='btn btn-default' id='btn_sellerR' data-toggle='modal' data-target='#galleryModal' data-whatever='@mdo'>판매자 리뷰</button></div></td>");
 			var div= $("<td><div class='list_td'></div></td>");
 			var input;
 			if(b_confirm==0){
 				input =("<input type='button' class='btn btn-default btn_confirm' name='btn_confirm' value='수령'>")
 			}else if(b_confirm){
 				input = ("<span class='label label-danger' style='font-size: 16px;'>완료</span>");
-			} 
+			}
 			div.append(input);
 			
 			var tr2= $("</tr>");

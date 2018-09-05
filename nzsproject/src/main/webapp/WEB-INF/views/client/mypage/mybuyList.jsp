@@ -92,6 +92,27 @@
 	      </div>
 	      <div class="modal-body">
 				<!--------------------- 	      동적 바디 추가  부분			--------------->	      
+				
+				
+	        <div>
+				<table class="table table-striped table-hover tableReview">
+					<colgroup>
+						<col width="15%">
+						<col width="10%">
+						<col width="60%">
+						<col width="20%">
+					</colgroup>
+					
+					<tr>
+						<th>사진</th>
+						<th>평점</th>
+						<th>내용</th>
+						<th>날짜</th>
+					</tr>
+
+				</table>
+	        </div>
+	        <hr>
 	        <form id="f_writeForm" name="f_writeForm">
 	          <div class="form-group">
 	            <label for="g_name" class="control-label">작성자</label>
