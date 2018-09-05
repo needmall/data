@@ -51,6 +51,7 @@
 					var ps_num =$("#ps_num").val();
 					var ps_price = ${detail.ps_price };
 					var count = $("#count").val();
+					$("#multiply_count").val(count);
 					all_price= ps_price * $("#count").val();
 					buy('${detail.p_name }','${detail.pi_image}','${detail.p_content }',count,'${detail.ps_expiration}','${detail.ps_price }');
 				
@@ -66,7 +67,7 @@
 								if(confirm("이미 장바구니에  등록되어있습니다. 장바구니로 이동하시겠습니까?")){
 									$("#hidden").attr({
 										"method":"post",
-										"action":"/mypage/mycartList.do"
+										"action":"/mypage/mypageList.do"
 									});
 									$("#hidden").submit();
 								}
@@ -318,7 +319,9 @@
 
 				
 				$("#btn_cart_buy").click(function(){
-					var value = ($("#ps_count").val() -$("#count").val());
+					var value = ($("#ps_count").val() - $("#count").val());
+					var count = $("#count").val();
+					
 // 					console.log("value= "+ value);
 					$("#changeCount").val(value);
 					
@@ -535,6 +538,9 @@
 		<input type="hidden" id="ps_price" name="ps_price" value="${detail.ps_price }">
 		<input type="hidden" id="st_num" name="st_num" value="${detail.st_num }">
 		<input type="hidden" id="changeCount" name="changeCount" value="0">
+		<input type="hidden" id="multiply_count" name="multiply_count" value="0">
+		
+		
 		<c:if test="${login.c_num ==null}">
 			<input type="hidden" id="c_num" name="c_num" value="0">
 		</c:if>

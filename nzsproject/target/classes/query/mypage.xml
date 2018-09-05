@@ -84,7 +84,7 @@
 		  </selectKey>
 		  
 		  INSERT INTO buy2dep (b2_num,b1_num,ps_num,b_count,b_confirm)
-	      VALUES (BUY2DEP_SEQ.NEXTVAL,#{b1_num},#{ps_num},#{ps_num},0)
+	      VALUES (BUY2DEP_SEQ.NEXTVAL,#{b1_num},#{ps_num},#{multiply_count},0)
 	</insert>
 	
 	<update id="dateCountUpdate" parameterType="mypage">

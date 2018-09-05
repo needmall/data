@@ -21,7 +21,7 @@
 	<!-- <script src="/resources/js/html5shiv.js"</script> -->
 	<!-- [endif] -->
 	<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="/resources/include/js/jquery.twbsPagination.js"></script>
+	<script type="text/javascript" src="/resources/include/js/jquery.twbsPagination.js"></script><script type="text/javascript" src="/resources/include/js/jquery.twbsPagination.js"></script>
 	<script type="text/javascript" src="/resources/include/js/common.js"></script>
 	
 	<style type="text/css">

@@ -83,7 +83,7 @@ public class MypageServiceImpl implements MypageService {
 		// TODO Auto-generated method stub
 		int count_change = (mvo.getPs_count() - mvo.getCart2_count());
 		System.out.println("count_change = "+count_change);
-
+		mvo.setMultiply_count(mvo.getCart2_count());
 		int confirm = 0 ;
 		int last_confirm=0;
 		int delete_confirm =0;

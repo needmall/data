@@ -35,6 +35,12 @@ var start =0;
 var all_count=0;
 var all_price=0;
 var hidden;
+var arr = [];
+var checkB = [];
+var checkB = [];
+var checkB = [];
+var checkB = [];
+var checkB = [];
 	$(function(){
 		
 		$('#myModal').on('shown.bs.modal', function () {
@@ -106,26 +112,12 @@ var hidden;
 			}
 		})	
 	
-	    //최상단 체크박스 클릭
-	    $("#checkall").click(function(){
-	        //클릭되었으면
-	        if($("#checkall").prop("checked")){
-	            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
-	            $("input[name=chk]").prop("checked",true);
-	            //클릭이 안되있으면
-	        }else{
-	            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
-	            $("input[name=chk]").prop("checked",false);
-	        }
-	    })
-// 	   
 		$(".goDetail2 td:not(:nth-last-child(1), :nth-last-child(2),:nth-last-child(3),:nth-last-child(4),:nth-last-child(6),:nth-last-child(7))").click(function() {					 //, :nth-last-child(2))
 			var ps_num = $(this).parents("tr").attr("data-num");				
 			location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
 		});
 	
 		$(".btn_cart").click(function() {
-			
 // 			p_name,pi_image,p_content,ps_count,expirationChange,ps_price
 			var p_name = $(this).parents("tr").find(".p_name").val();
 			var pi_image =$(this).parents("tr").find(".pi_image").val();
@@ -183,22 +175,10 @@ var hidden;
 				}
 	  		});
 		})
-// 		console.log(${fn:length(cartList)} );
-//		페이징
-// 		for(int i =0; i< ${fn:length(cartList)} i++)
-// 		if((i % 5) ==1){
-// 			li_add = $("<li><a href='#'>1</a></li>")
-// 			li_add.appendTo.$(".pre_li")
-// 		}
-
-				
-// 			$("#btn_cart").click(function() {
-// 				$("#hidden").attr({
-// 					"method":"post",
-// 					"action":"/mypage/mycartBuy.do"
-// 				});
-// 			$("#hidden").submit();
 		
+		$("#btn_allBuy").click(function(){
+			
+		})
 	})//풩션 끝--------------------------------------------------------------------------------
 	function buy(p_name,pi_image,p_content,ps_count,expirationChange,ps_price){
 				$(".container-fluid").html("");
@@ -246,25 +226,6 @@ var hidden;
 				}
 			}
 			
-/* 		    function boxForm() {
-		       var values = document.getElementsByName("item");
-		       for (var i = 0; i < values.length; i++) {
-		          if (values[i].checked) {
-		            checkB.push(values[i].value);
-		          }
-		       }
-		       var output = "";
-		       for (var i = 0; i < checkB.length; ++i) {
-		       		output += checkB[i];
-		         //if(i<checkB.length-1) output+=","
-		         //   output = output + "<input type='hidden' name='b_no' value='"+checkB[i]+"'/>"; 
-		       }
-
-		       $("#b_number").val(checkB);
-		       //console.log($("#b_number").val());
-		       //return output;
-		   } */
-	
 </script>
 <style type="text/css">
 	.nav_div{text-align: right;}
@@ -279,8 +240,6 @@ var hidden;
 </head>
 <body>
 
-<input type='hidden' name='b_number' id="b_number" />
-	
 	<div>
 		<div class="div_date">
 			<c:if test=" ${ !empty date}">
@@ -289,7 +248,6 @@ var hidden;
 		</div>
 		<table class="table table-striped table-hover">
 			<colgroup>
-				<col width="1%">
 				<col width="10%">
 				<col width="55%">
 				<col width="13%">
@@ -301,7 +259,6 @@ var hidden;
 			<tbody>
 			
 				<tr>
-					<td></td>
 					<td>제품</td>
 					<td>설명</td>
 					<td>수량</td>
@@ -324,8 +281,8 @@ var hidden;
 								</td>
 								<td>
 									<div class="td_list2">
-										<span class="p_price2 format-money" style="text-decoration: line-through;">${cart.multiply_count }</span>원 
-										<span class="p_price format-money">${cart.original_multiply_count }</span>원 
+										<span class="p_price2 " style="text-decoration: line-through;">${cart.multiply_count }</span>원 
+										<span class="p_price ">${cart.original_multiply_count }</span>원 
 									</div>
 								</td>
 								<td><div class="td_list2">${cart.ps_expiration }</div></td>
@@ -360,7 +317,7 @@ var hidden;
 		</table>
 		
 		<div class="nav_div">
-			<input type="button" class="btn btn-default" value="전체 구매하기">
+			<input type="button" class="btn btn-default" id="btn_allBuy" value="전체 구매하기">
 		</div>
 		<!-- 		모달부분 -->
 		<div class="modal fade bs-example-modal-lg"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
