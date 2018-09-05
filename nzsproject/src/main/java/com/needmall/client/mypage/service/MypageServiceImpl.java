@@ -1,8 +1,10 @@
 package com.needmall.client.mypage.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import com.needmall.client.mypage.dao.MypageDao;
 import com.needmall.client.mypage.vo.MycartVO;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.SreviewVO;
+import com.needmall.common.file.FileUploadUtil;
 
 @Service
 public class MypageServiceImpl implements MypageService {
@@ -159,15 +162,32 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<PreviewVO> myProductReview(PreviewVO pvo) {
+	public List<PreviewVO> myProductRList(PreviewVO pvo) {
 		// TODO Auto-generated method stub
-		return mypageDao.myProductReview(pvo);
+		return mypageDao.myProductRList(pvo);
 	}
 
 	@Override
-	public List<PreviewVO> mySellertReview(SreviewVO svo) {
+	public List<PreviewVO> mySellertRList(SreviewVO svo) {
 		// TODO Auto-generated method stub
-		return mypageDao.mySellertReview(svo);
+		return mypageDao.mySellertRList(svo);
+	}
+
+	@Override
+	public int myProductRInsert(PreviewVO pvo, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		int result = 0;		
+		String fileName="";
+		if(!pvo.getFile().isEmpty()) {  // null 로 하면 경우에 따라서 오류!!!
+			try {
+				fileName = FileUploadUtil.fileUpload(pvo.getFile(), request, "preview");
+				pvo.setPrv_image(fileName);												
+			} catch (IOException e) {			
+				e.printStackTrace();
+			}		
+		}
+		result = mypageDao.myProductRInsert(pvo);
+		return result;
 	}
 
 

@@ -43,6 +43,65 @@
 	.close{margin-right: 15px;}
 	.div_date{text-align: right;}
 	.div_last{height: 100px;}
+	   #productsList{
+      width:1100px;      
+      margin-left: auto; 
+      margin-right: auto;   
+   }
+   #productsList .align-center {
+      text-align : center; 
+   }
+
+   #productsList .jb-th-1 {
+      width : 70px;
+      padding : 10px 0px;
+   }
+   #productsList .jb-th-2 {
+      width : 30px;
+   }
+
+   #productsList .fileImageLogo {
+      width: 70px;
+      height: 40px;
+   }
+   
+   #productsList .fileImageProduct {
+      width: 70px;
+      height: 70px;
+   }
+   #productsList .review_num:before {
+     content: "|";
+     color: #d9d9d9;
+   }
+   #productsList .p_price {
+      text-decoration : line-through;
+   }
+   #productsList ul {
+      list-style-type : none;
+   }
+   #productsList tr {
+      width: 520px;
+      
+   }
+   #productsList td {   
+      padding-left   : 7px;
+      padding-right   : 7px; 
+   }
+   
+   #productsList ul {
+      padding   : 0px;
+      margin   : 0px;
+   }
+   #productsList .col-md-6 {
+      width: 530px;
+      padding: 5px;
+   }
+   #productsList .contract{    
+      margin: 10px;
+   }
+   #productsList h4{
+      padding-top: 20px;
+   }
 </style>
 
 	<script type="text/javascript">
@@ -180,37 +239,122 @@ var count;
 				$(this).addClass("active");
 				console.log("나와라 네비네비");
 			})
-			
-			
+			//상품 리뷰
 			$(document).on('click','.btn_productR',function() {
 				var p_num = $(this).parents("tr").attr("data-p_num");
 				var s_num = $(this).parents("tr").attr("data-s_num");
+				var c_name = "${login.c_name}";
+				
+				$(".modal-title").html("상품 리뷰");
 				$(".myReview").html("");
-				$.getJSON("/mypage/myProductReview.do?p_num="+p_num, function(data){
+				$("#form_productR").show();
+				$("#form_sellerR").hide();
+				
+				$(".btn_hide1").show();
+				$(".btn_hide2").hide();
+				
+				$(".p_num").val(p_num);
+				$.getJSON("/mypage/myProductRList.do?p_num="+p_num, function(data){
 // 					$("#tableList").html("");
 					if(data.length==0){
 						notList();
 					}
 					$(data).each(function() {
-						console.log("나와라 성공성공")
-						
+						var prv_num = this.prv_num;
 						var prv_date  =this.prv_date;
 						var prv_image =this.prv_image;
 						var prv_content = this.prv_content;
 						var prv_scope = this.prv_scope;
-						
-						productList(prv_image,prv_scope,prv_content,prv_date);
+						productList(prv_image,prv_scope,prv_content,prv_date,prv_num);
 					})
 				})
-				console.log("나와라 클릭클릭")
-
 			})
+			
+			//서비스 리뷰
+			$(document).on('click','.btn_sellerR',function() {
+				var p_num = $(this).parents("tr").attr("data-p_num");
+				var s_num = $(this).parents("tr").attr("data-s_num");
+				var c_name = "${login.c_name}";
+				$(".modal-title").html("서비스 리뷰");
+				$(".myReview").html("");
+				$("#form_sellerR").show();
+				$("#form_productR").hide();
 				
+				$(".btn_hide2").show();
+				$(".btn_hide1").hide();
+				
+				$(".p_num").val(p_num);
+// 				$.getJSON("/mypage/myProductRList.do?p_num="+p_num, function(data){
+// // 					$("#tableList").html("");
+// 					if(data.length==0){
+// 						notList();
+// 					}
+// 					$(data).each(function() {
+// 						var prv_num = this.prv_num;
+// 						var prv_date  =this.prv_date;
+// 						var prv_image =this.prv_image;
+// 						var prv_content = this.prv_content;
+// 						var prv_scope = this.prv_scope;
+// 						productList(prv_image,prv_scope,prv_content,prv_date,prv_num);
+// 					})
+// 				})
+			})
+			//
+			
+			$("#insert1").click(function() {
+				$("#form_productR").attr({"method":"post","action":"/mypage/myProductRInsert.do","enctype":"multipart/form-data"});
+				$("#form_productR").submit();
+			})
+			
+			//////////////////////////////////////////즐겨찾기
+			/* 즐겨찾기 매장 클릭하면 리스트 출력 */
+	         $(document).on("click",".selectStore",function(){
+	            var stnum=$(this).attr("data-num");
+	            var stname=$(this).find(".stname").html();
+	            //목록 선택되면 실행
+	            var url = "/storeall/storeProducts.do?st_num="+stnum;
+	            
+	            /* 상품 초기화 */
+	            $("#productsList").html("");
+	            $("#productsList").append("<h4 class='h4color selectedstname'>판매 제품 목록: "+stname+"</h4>");
+	            
+	            
+	            $.getJSON(url, function(data) {
+	               
+	               if(data == ""){
+	                  $("#productsList").html("<h4>해당 매장에서 판매중인 상품이 없습니다.</h4>");
+	               }else{
+	                  $(data).each(function() {               
+	                     var ps_num = this.ps_num;
+	                     var si_image = this.si_image;
+	                     var st_name = this.st_name.replace(/\s/, "<br>");
+	                     var pi_image = this.pi_image;
+	                     var p_name = this.p_name;
+	                     var p_price = this.p_price;
+	                     var ps_expiration = this.ps_expiration;
+	                     var ps_count = this.ps_count;
+	                     var ps_price = this.ps_price;
+	                     var prv_count = this.prv_count;
+	                     var prv_scope = this.prv_scope;
+	                     var distance = this.distance;               
+	                     
+	                     /* 목록 생성 */
+	                     addProducts(ps_num, si_image, st_name, pi_image, p_name, p_price, ps_expiration, ps_count, ps_price, prv_count, prv_scope);
+	                     
+	                  });
+	               }
+	            }).fail(function() {
+	               alert("매장 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
+	            });
+	         });
+			
+			
 		});//풩션 끝!
 
 		//상품 리뷰
-		function productList(prv_image,prv_scope,prv_content,prv_date){
-			var tr =$("<tr class='myReview'>");
+		function productList(prv_image,prv_scope,prv_content,prv_date,prv_num,c_name){
+			
+			var tr =$("<tr class='myReview' data-num="+prv_num+"></tr>");
 			var td1 = $("<td>사진 넣을거임</td>");
 			var td2 = $("<td>"+prv_scope+"</td>");
 			var td3 = $("<td>"+prv_content+"</td>");
@@ -218,14 +362,17 @@ var count;
 			
 			tr.append(td1).append(td2).append(td3).append(td4)
 			$(".tableReview").append(tr);
+			
 		}
+
 		//자신의 리뷰가 없을때
-		function notList() {
+		function notList(c_name) {
 			var tr =$("<tr>");
 			var td =$("<td colspan='4'>등록된 고객님의 리뷰가 없습니다</td>");
 			tr.append(td);
 			$(".tableReview").append(tr);
 		}
+		
 		
 		//구매목록
 		function buyList(ps_num,b2_num,p_num,s_num,pi_image,p_name,p_content,b_count,original_multiply_count,multiply_count,b_confirm,b1_date,count){
@@ -236,7 +383,7 @@ var count;
 			var td4= $("<td ><div class='list_td'>"+b_count+"개</div></td>");
 			var td5= $("<td><div class='list_td3'><span class='span_count format-money' style='text-decoration: line-through;'>"+original_multiply_count+"</span>원<br/><span class='span_count format-money'>"+multiply_count+"</span>원</div></td>");
 			var td6= $("<td><div class='list_td'>"+b1_date+"</div></td>");
-			var td7= $("<td><div class='list_td3'><button type='button' class='btn btn-default btn_productR' data-toggle='modal' data-target='#galleryModal' data-whatever='@mdo'>상품 리뷰</button><button type='button' class='btn btn-default' id='btn_sellerR' data-toggle='modal' data-target='#galleryModal' data-whatever='@mdo'>판매자 리뷰</button></div></td>");
+			var td7= $("<td><div class='list_td3'><button type='button' class='btn btn-default btn_productR' data-toggle='modal' data-target='#galleryModal' data-whatever='@mdo'>상품 리뷰</button><button type='button' class='btn btn-default btn_sellerR' id='btn_sellerR' data-toggle='modal' data-target='#galleryModal' data-whatever='@mdo'>서비스 리뷰</button></div></td>");
 			var div= $("<td><div class='list_td'></div></td>");
 			var input;
 			if(b_confirm==0){
@@ -250,12 +397,146 @@ var count;
 			tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(div).append(tr2);
 			$("#tableList").append(tr);
 		}
+		   //목록이 선택되면 매장 뿌려주기
+	      /* 주소 검색 주변매장 동적 생성 */
+	   function addProducts(ps_num, si_image, st_name, pi_image, p_name, p_price, ps_expiration, ps_count, ps_price, prv_count, prv_scope, distance) {
+	      /* 상품 할인율 계산 */               
+	      var disRate = Math.round((p_price - ps_price) / p_price * 100);         
+	      var new_div_contract = $("<div>");
+	      new_div_contract.addClass("col-md-6 list-group-item contract discount");
+
+	      var new_a_clearfix = $("<a>");
+	      new_a_clearfix.attr("href","/productdetail/productdetailmain.do?ps_num="+ps_num);
+	      new_a_clearfix.addClass("list-group-item");
+
+	      var new_table = $("<table>");
+	      var new_tbody = $("<tbody>");
+	      
+
+	      var new_tr = $("<tr>");
+	      new_tr.attr("data-num", ps_num);
+	      
+	      var new_td_si = $("<td>");
+	      new_td_si.addClass("jb-th-1");
+	      var new_div_logo = $("<div>");
+	      
+	      var new_img_si = $("<img>");
+	      new_img_si.attr("src", "/uploadStorage/store/" + si_image);
+	      new_img_si.addClass("fileImageLogo");
+
+	      var new_p_name = $("<p>");
+	      new_p_name.html(st_name);
+	      new_p_name.addClass("stname align-center");
+
+	      var new_td_pi = $("<td>");
+	      new_td_pi.addClass("jb-th-1");
+	      var new_div_product = $("<div>");
+
+	      var new_img_pi = $("<img>");
+	      new_img_pi.attr("src", "/uploadStorage/product/" + pi_image);
+	      new_img_pi.addClass("fileImageProduct");
+
+	      var new_td_p = $("<td>");
+	      var new_div_name = $("<div>");
+	      new_div_name.addClass("restaurants-info");
+	      var new_div_expiration = $("<div>");
+	      new_div_expiration.attr("title", p_name);
+	      new_div_expiration.html(p_name);
+
+	      var new_div_scope = $("<div>");
+	      new_div_scope.attr("title", ps_expiration);
+	      new_div_scope.html(ps_expiration);
+
+	      var new_div_stars = $("<div>");
+	      new_div_stars.addClass("stars");
+	      var new_span_scope = $("<span>");
+	      new_span_scope.addClass("ico-star1 ng-binding glyphicon glyphicon-star");
+	      new_span_scope.html(prv_scope);
+	      var new_span_count_prv = $("<span>");
+	      new_span_count_prv.addClass("review_num");
+	      new_span_count_prv.html("리뷰 " + prv_count);
+
+	      var new_td_ps = $("<td>");
+	      var new_div_txt = $("<div>");
+	      new_div_txt.addClass("align-center");
+	      var new_span_txt = $("<span>");      
+	      new_span_txt.html("남은수량");
+	      var new_div_space = $("<div>");
+	      var new_span_count_ps = $("<span>");
+	      new_span_count_ps.html(ps_count + "개");
+
+	      var new_td_discount = $("<td>");
+	      new_td_discount.addClass("jb-th-2");
+	      var new_div_discount = $("<div>");
+	      var new_ul_txt = $("<ul>");
+	      var new_li_txt = $("<li>");      
+	      var new_span_discount = $("<span>");
+	      new_span_discount.html(disRate);
+	      var new_span_text = $("<span>");
+	      new_span_text.html("%");
+
+	      var new_td_p_ps = $("<td>");
+	      var new_div_price = $("<div>");
+	      new_div_price.addClass("align-center");
+	      var new_ul_price = $("<ul>");
+	      var new_li_price = $("<li>");      
+	      var new_span_price = $("<span>");
+	      new_span_price.addClass("p_price");
+	      new_span_price.html(p_price+"원");
+	      var new_li_ps_price = $("<li>");   
+	      var new_span_price_ps = $("<span>");
+	      new_span_price_ps.addClass("ps_price");
+	      new_span_price_ps.html(ps_price+"원");
+	      
+
+	      new_div_logo.append(new_img_si).append(new_p_name);
+	      new_td_si.append(new_div_logo);
+	      new_tr.append(new_td_si);
+
+	      new_div_product.append(new_img_pi);
+	      new_td_pi.append(new_div_product)
+	      new_tr.append(new_td_pi);
+
+	      new_div_stars.append(new_span_scope).append(new_span_count_prv);
+	      new_div_scope.append(new_div_stars);
+	      new_div_expiration.append(new_div_scope);
+	      new_div_name.append(new_div_expiration);
+	      new_td_p.append(new_div_name);
+	      new_tr.append(new_td_p);
+
+	      new_div_txt.append(new_span_txt).append(new_div_space).append(new_span_count_ps);
+	      new_td_ps.append(new_div_txt);
+	      new_tr.append(new_td_ps);
+
+	      new_li_txt.append(new_span_discount).append(new_span_text);
+	      new_ul_txt.append(new_li_txt);
+	      new_div_discount.append(new_ul_txt)
+	      new_td_discount.append(new_div_discount);
+	      new_tr.append(new_td_discount);
+	      
+	      new_li_price.append(new_span_price);
+	      new_ul_price.append(new_li_price);
+	      new_li_ps_price.append(new_span_price_ps);
+	      new_ul_price.append(new_li_ps_price);
+	      
+	      new_div_price.append(new_ul_price);
+	      new_td_p_ps.append(new_div_price)
+	      new_tr.append(new_td_p_ps);
+
+	      new_table.append(new_tbody).append(new_tr);
+	      new_a_clearfix.append(new_table);
+	      new_div_contract.append(new_a_clearfix);
+
+	      $("#productsList").append(new_div_contract);
+
+	      return new_div_contract;
+	   }
 		
 	</script>
 </head>
 <body>
 	<div class="all">	
-	<input type="hidden" id="total_count">	
+	<input type="hidden" name="total_count">	
 		<div role="tabpanel">
 			<ul id="nav" class="nav nav-tabs clearfix right" role="tablist"  >	
 <!-- 			  	<li role="presentation" class="dropdown"> -->
@@ -278,7 +559,9 @@ var count;
 			</div>
 			<div class="tab-pane" id="tab2">
 				<div id="page_group">
-					<jsp:include page="mycart.jsp"></jsp:include>
+					<jsp:include page="mycart.jsp">
+						<jsp:param value="${login}" name="login"/>
+					</jsp:include>
 				</div>
 			</div>
 			<div class="tab-pane" id="tab3">
@@ -287,10 +570,103 @@ var count;
 <!-- 				//끝 부분  -->
 			</div>
 			<div class="tab-pane" id="tab4">
-				<jsp:include page="myfavorites.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/client/storeall/favStore.jsp"></jsp:include>
+				<div id="productsList"></div>
 			</div>
 		</div>
 	</div>
+	
+			    		<%-- (modal) --%>
+	<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="galleryModalLabel">title</h4>
+	      </div>
+	      <div class="modal-body">
+				<!--------------------- 	      동적 바디 추가  부분			--------------->	      
+				
+	        <div>
+				<table class="table table-striped table-hover tableReview">
+					<colgroup>
+						<col width="15%">
+						<col width="10%">
+						<col width="60%">
+						<col width="20%">
+					</colgroup>
+					
+					<tr>
+						<th>사진</th>
+						<th>평점</th>
+						<th>내용</th>
+						<th>날짜</th>
+					</tr>
+
+				</table>
+	        </div>
+	        <hr>
+<!-- 	      	//////////////  Preview-->
+	        <form id="form_productR" name="form_productR">
+	          <div class="form-group">
+	            <label class="control-label">작성자</label>
+	            <label for="prv_scope">별점 :</label>
+	            <input type="text" placeholder="0~5" style="width: 30px; text-align: right!important;" name="prv_scope"  >
+	            <input type="text" class="form-control" maxlength="5" value="${login.c_id }" disabled="disabled"/>
+	          </div>
+	        
+		      <div class="form-group">
+		            <label for="prv_content" class="control-label">글내용</label>
+		            <textarea class="form-control" name="prv_content" ></textarea>
+		      </div>
+		      <div class="form-group">
+		            <label for="file" class="control-label">이미지</label>
+		            <input type="file" name="file" />
+		      </div>
+		      <input type="hidden" name="c_num" class="c_num" value="${login.c_num}">
+		      <input type="hidden" name="p_num" class="p_num" value="0">
+		      
+	      	</form>
+	      	
+<!-- 	      	//////////////  Sreview-->
+	      	<form id="form_sellerR" name="form_sellerR">
+	          <div class="form-group">
+	            <label class="control-label">작성자</label>
+	            <label for="srv_scope">별점 :</label>
+	            <input type="text" placeholder="0~5" style="width: 30px; text-align: right!important;" name="srv_scope" >
+	            <input type="text" class="form-control" maxlength="5" value="${login.c_id }" disabled="disabled" />
+	          </div>
+	        
+		      <div class="form-group">
+		            <label for="srv_content" class="control-label">글내용</label>
+		            <textarea class="form-control" name="srv_content" id="srv_content" ></textarea>
+		      </div>
+		      <div class="form-group">
+		            <label for="file" class="control-label">이미지</label>
+		            <input type="file" name="file" />
+		      </div>
+		      <input type="hidden" name="c_num" value="${login.c_num}">
+		      <input type="hidden" name="s_num" value="0">
+	      	</form>
+	      </div>
+	      <div class="modal-footer btn_hide1">
+	      	<button type="button" class="btn btn-primary" id="insert1" >등록</button>
+	      	<button type="button" class="btn btn-primary" id="update1" >수정</button>	
+	      	<button type="button" class="btn btn-primary" id="delete1" >삭제</button>	
+	      	<button type="button" class="btn btn-default" data-dismiss="modal" >닫기</button>
+	      	
+	      </div>
+	      <div class="modal-footer btn_hide2">
+	      	<button type="button" class="btn btn-primary" id="insert2" >등록</button>
+	      	<button type="button" class="btn btn-primary" id="update2" >수정</button>	
+	      	<button type="button" class="btn btn-primary" id="delete2" >삭제</button>	
+	      	<button type="button" class="btn btn-default" data-dismiss="modal" >닫기</button>
+	      	
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
 
 	<div class="div_last"></div>
 </body>

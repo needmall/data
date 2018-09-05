@@ -34,9 +34,11 @@ public interface MypageDao {
 
 	int cartConfirmUpdate(MycartVO mvo);
 
-	List<PreviewVO> myProductReview(PreviewVO pvo);
+	List<PreviewVO> myProductRList(PreviewVO pvo);
 
-	List<PreviewVO> mySellertReview(SreviewVO svo);
+	List<PreviewVO> mySellertRList(SreviewVO svo);
+
+	int myProductRInsert(PreviewVO pvo);
 
 
 }

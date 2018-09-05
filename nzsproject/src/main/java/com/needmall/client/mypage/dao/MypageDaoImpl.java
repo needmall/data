@@ -5,10 +5,6 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.needmall.client.member.dao.MemberDao;
-import com.needmall.client.member.vo.MemberSecurity;
-import com.needmall.client.member.vo.MemberVO;
 import com.needmall.client.mypage.vo.MycartVO;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.SreviewVO;
@@ -92,15 +88,21 @@ public class MypageDaoImpl implements MypageDao {
 	}
 
 	@Override
-	public List<PreviewVO> myProductReview(PreviewVO pvo) {
+	public List<PreviewVO> myProductRList(PreviewVO pvo) {
 		// TODO Auto-generated method stub
-		return session.selectList("myProductReview",pvo);
+		return session.selectList("myProductRList",pvo);
 	}
 
 	@Override
-	public List<PreviewVO> mySellertReview(SreviewVO svo) {
+	public List<PreviewVO> mySellertRList(SreviewVO svo) {
 		// TODO Auto-generated method stub
-		return session.selectList("mySellertReview",svo);
+		return session.selectList("mySellertRList",svo);
+	}
+
+	@Override
+	public int myProductRInsert(PreviewVO pvo) {
+		// TODO Auto-generated method stub
+		return session.insert("myProductRInsert",pvo);
 	}
 
 

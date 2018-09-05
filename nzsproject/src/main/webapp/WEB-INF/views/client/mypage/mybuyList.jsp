@@ -82,59 +82,6 @@
 		<div class="text-center"> <!-- 페이징 버튼 -->
 			<ul id="pagination-demo" class="pagination-sm"></ul>
 		</div>
-		    		<%-- (modal) --%>
-	<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="galleryModalLabel">title</h4>
-	      </div>
-	      <div class="modal-body">
-				<!--------------------- 	      동적 바디 추가  부분			--------------->	      
-				
-				
-	        <div>
-				<table class="table table-striped table-hover tableReview">
-					<colgroup>
-						<col width="15%">
-						<col width="10%">
-						<col width="60%">
-						<col width="20%">
-					</colgroup>
-					
-					<tr>
-						<th>사진</th>
-						<th>평점</th>
-						<th>내용</th>
-						<th>날짜</th>
-					</tr>
 
-				</table>
-	        </div>
-	        <hr>
-	        <form id="f_writeForm" name="f_writeForm">
-	          <div class="form-group">
-	            <label for="g_name" class="control-label">작성자</label>
-	            <input type="text" class="form-control" name="g_name" id="g_name" maxlength="5" />
-	          </div>
-	        
-		      <div class="form-group">
-		            <label for="g_content" class="control-label">글내용</label>
-		            <textarea class="form-control" name="g_content" id="g_content" ></textarea>
-		      </div>
-		      <div class="form-group">
-		            <label for="file" class="control-label">이미지</label>
-		            <input type="file" name="file" id="file" />
-		      </div>
-	      	</form>
-	      </div>
-	      <div class="modal-footer">
-	      	<button type="button" class="btn btn-default" data-dismiss="modal" >닫기</button>
-	      	<button type="button" class="btn btn-primary" id="galleryInsertBtn" >등록</button>	
-	      </div>
-	    </div>
-	  </div>
-	</div>
 </body>
 </html>

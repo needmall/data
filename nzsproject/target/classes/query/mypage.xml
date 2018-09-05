@@ -128,7 +128,7 @@
 		WHERE
 		    b2_num =#{b2_num}
 	</update>
-	<select id="myProductReview" parameterType="Preview" resultType="Preview">
+	<select id="myProductRList" parameterType="Preview" resultType="Preview">
 
         SELECT
 		    prv_num,
@@ -143,7 +143,7 @@
 		    
 		    where c_num=#{c_num} and p_num =#{p_num}
 	</select>
-	<select id="mySellertReview" parameterType="Sreview" resultType="Sreview">
+	<select id="mySellertRList" parameterType="Sreview" resultType="Sreview">
 		SELECT
 		    srv_num,
 		    c_num,
@@ -157,4 +157,21 @@
 		WHERE
 		    c_num =#{c_num}
 	</select>
+	<insert id="myProductRInsert" parameterType="Preview">
+	   INSERT INTO preview (
+		    prv_num,
+		    c_num,
+		    p_num,
+		    prv_image,
+		    prv_content,
+		    prv_scope
+		) VALUES (
+		    preview_seq.nextval,
+		    #{c_num},
+		    #{p_num},
+		    #{prv_image},
+		    #{prv_content},
+		    #{prv_scope}
+		)
+	 </insert>
 </mapper>

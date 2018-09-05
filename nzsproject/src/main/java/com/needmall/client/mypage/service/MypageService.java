@@ -2,6 +2,8 @@ package com.needmall.client.mypage.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.needmall.client.mypage.vo.MycartVO;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.SreviewVO;
@@ -28,8 +30,10 @@ public interface MypageService {
 
 	int cartConfirmUpdate(MycartVO mvo);
 
-	List<PreviewVO> myProductReview(PreviewVO pvo);
+	List<PreviewVO> myProductRList(PreviewVO pvo);
 
-	List<PreviewVO> mySellertReview(SreviewVO svo);
+	List<PreviewVO> mySellertRList(SreviewVO svo);
+
+	int myProductRInsert(PreviewVO pvo, HttpServletRequest request);
 	
 }

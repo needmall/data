@@ -1,9 +1,12 @@
 package com.needmall.client.mypage.controller;
 
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+
 import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +23,6 @@ import com.needmall.client.mypage.service.MypageService;
 import com.needmall.client.mypage.vo.MycartVO;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.SreviewVO;
-import com.needmall.common.vo.SellerVO;
 
 @Controller
 @RequestMapping(value="/mypage")
@@ -37,7 +40,7 @@ public class MypageController {
 		if(login!=null) {
 			mvo.setC_num(login.getC_num());
 		}else {
-			mvo.setC_num(0);
+			mvo.setC_num(0);//에러 띄어서 로그인 페이지로 보내야함;
 		}
 		List<MycartVO> list = mypageService.mycartList(mvo);
 		logger.info(list.size());
@@ -61,7 +64,7 @@ public class MypageController {
 		if(login!=null) {
 			mvo.setC_num(login.getC_num());
 		}else {
-			mvo.setC_num(0);
+			mvo.setC_num(0);//에러 띄어서 로그인 페이지로 보내야함;
 		}
 		List<MycartVO> buylist = mypageService.buyList(mvo);
 		try {
@@ -77,8 +80,8 @@ public class MypageController {
 	@RequestMapping("/pageList.do")//페이징 전체
 	public int pageList(MycartVO mvo,HttpSession session) {
 		logger.info("pageList 호 출");
-		LoginVO login = (LoginVO)session.getAttribute("login");
-//		mvo.setC_num(login.getC_num());
+//		LoginVO login = (LoginVO)session.getAttribute("login");
+////		mvo.setC_num(login.getC_num());
 		int a = mypageService.pageList(mvo);
 		logger.info("pageList = "+a);
 		return a;
@@ -175,15 +178,15 @@ public class MypageController {
 		
 	}
 	////////////댓글 
-	//상품 리뷰 불러오기
 	
+	//상품 리뷰 불러오기
 	@ResponseBody
-	@RequestMapping(value="/myProductReview.do")
+	@RequestMapping(value="/myProductRList.do")
 	public String myProductReview(PreviewVO pvo,ObjectMapper mapper,HttpSession session) {
 		String value = "";
 		LoginVO login = (LoginVO)session.getAttribute("login");
 		pvo.setC_num(login.getC_num());
-		List<PreviewVO> list =mypageService.myProductReview(pvo);
+		List<PreviewVO> list =mypageService.myProductRList(pvo);
 		try {
 			value=mapper.writeValueAsString(list);
 		}catch (Exception e) {
@@ -191,14 +194,30 @@ public class MypageController {
 		}
 		return value;
 	}
+	//삽입
+
+	@RequestMapping(value="/myProductRInsert.do",method=RequestMethod.POST, produces ="text/plain; charset=UTF-8")
+	public String myProductRInsert(PreviewVO pvo, HttpServletRequest request, Model model) {
+		logger.info("myProductRInsert 호출");
+		int result = 0;
+		result = mypageService.myProductRInsert(pvo,request);
+		return "redirect:mypage/mypage";
+		
+	}
 	
+	//수정
+	
+	//삭제
+	
+	
+	///판매점 리뷰
 	@ResponseBody
-	@RequestMapping(value="/mySellertReview.do")
-	public String mySellertReview(SreviewVO svo,ObjectMapper mapper,HttpSession session) {
+	@RequestMapping(value="/mySellertRList.do")
+	public String mySellertRList(SreviewVO svo,ObjectMapper mapper,HttpSession session) {
 		String value = "";
 		LoginVO login = (LoginVO)session.getAttribute("login");
 		svo.setC_num(login.getC_num());
-		List<PreviewVO> list =mypageService.mySellertReview(svo);
+		List<PreviewVO> list =mypageService.mySellertRList(svo);
 		try {
 			value=mapper.writeValueAsString(list);
 		}catch (Exception e) {

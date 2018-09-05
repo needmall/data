@@ -2,6 +2,8 @@ package com.needmall.client.productdetail.vo;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PreviewVO {
     private int prv_num=0;
     private int c_num=0;
@@ -11,6 +13,8 @@ public class PreviewVO {
     private String prv_content="";
     private int prv_scope=0;
     private String c_id="";
+    private MultipartFile file;
+    
 	public int getPrv_num() {
 		return prv_num;
 	}
@@ -59,12 +63,20 @@ public class PreviewVO {
 	public void setC_id(String c_id) {
 		this.c_id = c_id;
 	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
 	@Override
 	public String toString() {
 		return "PreviewVO [prv_num=" + prv_num + ", c_num=" + c_num + ", p_num=" + p_num + ", prv_date=" + prv_date
 				+ ", prv_image=" + prv_image + ", prv_content=" + prv_content + ", prv_scope=" + prv_scope + ", c_id="
-				+ c_id + "]";
+				+ c_id + ", file=" + file + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
 	}
+    
     
     
 }
