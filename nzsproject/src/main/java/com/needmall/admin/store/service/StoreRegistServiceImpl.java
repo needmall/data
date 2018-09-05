@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.store.dao.StoreRegistDao;
-import com.needmall.admin.store.vo.FavStoreListVO;
 import com.needmall.admin.store.vo.StoreRegistVO;
 import com.needmall.common.file.FileUploadUtil;
 import com.needmall.common.vo.FeesVO;
@@ -129,18 +128,5 @@ public class StoreRegistServiceImpl implements StoreRegistService{
 		}
 		return result;
 	}
-
-	@Override
-	public String favStore(int c_num, ObjectMapper mapper) {
-		List<FavStoreListVO> list = storeRegistDao.favStore(c_num);
-		String favlist = "";
-		try {
-			favlist=mapper.writeValueAsString(list);
-		}catch(JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return favlist;
-	}
-
 	
 }

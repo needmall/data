@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.needmall.admin.store.vo.FavStoreListVO;
 import com.needmall.client.productall.vo.ProductallVO;
 import com.needmall.client.storeall.dao.StoreallDao;
 import com.needmall.client.storeall.vo.StoreallVO;
@@ -45,4 +46,18 @@ public class StoreallServiceImpl implements StoreallService{
 		}
 		return list;
 	}
+	
+
+	@Override
+	public String favStore(int c_num, ObjectMapper mapper) {
+		List<FavStoreListVO> list = storeallDao.favStore(c_num);
+		String favlist = "";
+		try {
+			favlist=mapper.writeValueAsString(list);
+		}catch(JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return favlist;
+	}
+
 }

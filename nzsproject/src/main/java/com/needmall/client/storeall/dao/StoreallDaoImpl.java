@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.needmall.admin.store.vo.FavStoreListVO;
 import com.needmall.client.productall.vo.ProductallVO;
 import com.needmall.client.storeall.vo.StoreallVO;
 import com.needmall.common.vo.CustomerVO;
@@ -24,6 +25,11 @@ public class StoreallDaoImpl implements StoreallDao{
 	@Override
 	public List<ProductallVO> storeProducts(int st_num) {
 		return session.selectList("storeProducts", st_num);
+	}
+
+	@Override
+	public List<FavStoreListVO> favStore(int c_num) {		
+		return session.selectList("favStore", c_num);
 	}
 
 	

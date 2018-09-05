@@ -128,6 +128,8 @@
 	}
 </style>
 
+<!-- 즐겨 찾기 매장 띄우기 -->
+<jsp:include page="favStore.jsp"></jsp:include>
 
 <!-- 당신의 위치 -->
 <div class="form-inline">
@@ -171,7 +173,48 @@
 		var selectedmarkerImage;
 		
 		
-		$(function() {	
+		$(function() {
+			/* 즐겨찾기 매장 클릭하면 리스트 출력 */
+			$(document).on("click",".selectStore",function(){
+				var stnum=$(this).attr("data-num");
+				var stname=$(this).find(".stname").html();
+				//목록 선택되면 실행
+				var url = "/storeall/storeProducts.do?st_num="+stnum;
+				
+				/* 상품 초기화 */
+				$("#productsList").html("");
+				$("#productsList").append("<h4 class='h4color selectedstname'>판매 제품 목록: "+stname+"</h4>");
+				
+				
+				$.getJSON(url, function(data) {
+					
+					if(data == ""){
+						$("#productsList").html("<h4>해당 매장에서 판매중인 상품이 없습니다.</h4>");
+					}else{
+						$(data).each(function() {					
+							var ps_num = this.ps_num;
+							var si_image = this.si_image;
+							var st_name = this.st_name.replace(/\s/, "<br>");
+							var pi_image = this.pi_image;
+							var p_name = this.p_name;
+							var p_price = this.p_price;
+							var ps_expiration = this.ps_expiration;
+							var ps_count = this.ps_count;
+							var ps_price = this.ps_price;
+							var prv_count = this.prv_count;
+							var prv_scope = this.prv_scope;
+							var distance = this.distance;					
+							
+							/* 목록 생성 */
+							addProducts(ps_num, si_image, st_name, pi_image, p_name, p_price, ps_expiration, ps_count, ps_price, prv_count, prv_scope);
+							
+						});
+					}
+				}).fail(function() {
+					alert("매장 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
+				});
+			});
+			
 			getlist();
 			/* 지도를 띄우는 코드 */
 			var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
@@ -458,7 +501,7 @@
 			//목록 선택되면 실행
 			var url = "/storeall/storeProducts.do?st_num="+st_num;
 			
-			/* 주변매장 상품 초기화 */
+			/* 상품 초기화 */
 			$("#productsList").html("");
 			$("#productsList").append("<h4 class='h4color selectedstname'>판매 제품 목록: "+st_name+"</h4>");
 			

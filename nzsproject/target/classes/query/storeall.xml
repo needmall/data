@@ -16,4 +16,7 @@
 		FROM store st INNER JOIN storeimage si ON st.si_division = si.si_division INNER JOIN productsell ps ON ps.s_num = st.s_num INNER JOIN product p ON p.p_num = ps.p_num INNER JOIN proimage pi ON pi.pi_num = p.pi_num
 		WHERE ps_state = 0 AND ps_count > 0 and st_num =#{st_num}
 	</select>
+	<select id="favStore" parameterType="int" resultType="favStoreList">
+		select fs_num, customer.c_num, store.st_num, fs_date, st_name, si_image from customer inner join favstore on favstore.c_num = customer.c_num inner join store on favstore.st_num=store.st_num inner join storeimage on store.si_division=storeimage.si_division where customer.c_num=#{c_num}
+	</select>
 </mapper>

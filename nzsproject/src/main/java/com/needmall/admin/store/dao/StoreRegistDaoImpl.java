@@ -64,12 +64,4 @@ public class StoreRegistDaoImpl implements StoreRegistDao{
 		return session.update("storeUpdate",srvo);
 	}
 
-	@Override
-	public List<FavStoreListVO> favStore(int c_num) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.needmall.client.productall.vo.ProductallVO;
 import com.needmall.client.storeall.service.StoreallService;
 import com.needmall.common.vo.CustomerVO;
 
@@ -55,19 +54,14 @@ public class StoreallController {
 		return list;
 	}
 	
-	/*
+	/**
+	 * favStore : 즐겨찾기 목록반환	  
+	 * @return
+	 */
 	@ResponseBody
-	@RequestMapping(value="/storelist.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
-	public String storelist(CustomerVO cvo, ObjectMapper mapper) {
-		logger.info("storelist 호출 성공");
-		String listData = "";
-		List<StoreallVO> list = storeallService.storeList(cvo);
-		try {
-			listData = mapper.writeValueAsString(list); // list의 객체를 listData에 jason형태로 담는다.
-		}catch(JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		
-		return listData; // 문자열 반환
-	}*/
+	@RequestMapping(value="/favStore.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
+	public String favStore(@RequestParam("c_num") int c_num, ObjectMapper mapper) {		
+		String favStore = storeallService.favStore(c_num, mapper);		
+		return favStore; // 문자열 반환
+	}
 }
