@@ -28,12 +28,12 @@
 			</tr>
 		</thead>
 		<tbody id="list">			
-			<tr class="goDetail" data-num="${storeSales.st_num}">				
-				<td>${storeSales.registAmount}</td>
-				<td>${storeSales.registSum}</td>
-				<td>${storeSales.sellAmount}</td>
-				<td>${storeSales.sellSum}</td>
-				<td>${storeSales.rate}%</td>				
+			<tr class="goDetail" data-num="${sellerStoreTotal.st_num}">				
+				<td>${sellerStoreTotal.registAmount}</td>
+				<td>${sellerStoreTotal.registSum}</td>
+				<td>${sellerStoreTotal.sellAmount}</td>
+				<td>${sellerStoreTotal.sellSum}</td>
+				<td>${sellerStoreTotal.rate}%</td>				
 			</tr>			
 		</tbody>	
 	</table>
@@ -54,15 +54,15 @@
 		</thead>
 		<tbody id="list">
 			<c:choose>
-				<c:when test='${not empty storeSalesData}'>	
-					<c:forEach var="storeSales" items="${storeSalesData}" varStatus="status">
+				<c:when test='${not empty sellerStoreData}'>	
+					<c:forEach var="storeSales" items="${sellerStoreData}" varStatus="status">
 				<tr>
-					<td>${storeSales.months}</td>
-					<td>${storeSales.registAmount}</td>
-					<td>${storeSales.registSum}</td>
-					<td>${storeSales.sellAmount}</td>
-					<td>${storeSales.sellSum}</td>
-					<td>${storeSales.rate}%</td>				
+					<td>${sellerStoreData.months}</td>
+					<td>${sellerStoreData.registAmount}</td>
+					<td>${sellerStoreData.registSum}</td>
+					<td>${sellerStoreData.sellAmount}</td>
+					<td>${sellerStoreData.sellSum}</td>
+					<td>${sellerStoreData.rate}%</td>				
 				</tr>
 				</c:forEach>
 				</c:when>

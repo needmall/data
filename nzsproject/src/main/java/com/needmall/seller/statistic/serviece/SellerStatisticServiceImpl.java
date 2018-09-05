@@ -17,7 +17,7 @@ public class SellerStatisticServiceImpl implements SellerStatisticService {
 	
 	@Override
 	public SalesDataVO sellerStoreTotal(int st_num) {		
-		return sellerStoreTotal(st_num);
+		return sellerStatisticDao.sellerStoreTotal(st_num);
 	}
 	
 	@Override
