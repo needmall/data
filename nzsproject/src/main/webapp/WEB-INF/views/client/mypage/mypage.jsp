@@ -19,9 +19,10 @@
 <!-- [if lt IE 9] -->
 <!-- <script src="/resources/js/html5shiv.js"</script> -->
 <!-- [endif] -->
-
+ 
 <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
+ <script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 		 <link rel="stylesheet" type="text/css" href="/resources/include/css/common.css" /> -->
 <link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
@@ -246,7 +247,7 @@ var count;
 				var c_name = "${login.c_name}";
 				
 				$(".modal-title").html("상품 리뷰");
-				$(".myReview").html("");
+				$(".myReview").remove();
 				$("#form_productR").show();
 				$("#form_sellerR").hide();
 				
@@ -276,7 +277,9 @@ var count;
 				var s_num = $(this).parents("tr").attr("data-s_num");
 				var c_name = "${login.c_name}";
 				$(".modal-title").html("서비스 리뷰");
-				$(".myReview").html("");
+				
+				$(".myReview").remove();
+				
 				$("#form_sellerR").show();
 				$("#form_productR").hide();
 				
@@ -284,26 +287,66 @@ var count;
 				$(".btn_hide1").hide();
 				
 				$(".p_num").val(p_num);
-// 				$.getJSON("/mypage/myProductRList.do?p_num="+p_num, function(data){
-// // 					$("#tableList").html("");
-// 					if(data.length==0){
-// 						notList();
-// 					}
-// 					$(data).each(function() {
-// 						var prv_num = this.prv_num;
-// 						var prv_date  =this.prv_date;
-// 						var prv_image =this.prv_image;
-// 						var prv_content = this.prv_content;
-// 						var prv_scope = this.prv_scope;
-// 						productList(prv_image,prv_scope,prv_content,prv_date,prv_num);
-// 					})
-// 				})
+				$.getJSON("/mypage/mySellerRList.do?p_num="+p_num, function(data){
+// 					$("#tableList").html("");
+					if(data.length==0){
+						notList();
+					}
+					$(data).each(function() {
+						var prv_num = this.prv_num;
+						var prv_date  =this.prv_date;
+						var prv_image =this.prv_image;
+						var prv_content = this.prv_content;
+						var prv_scope = this.prv_scope;
+						productList(prv_image,prv_scope,prv_content,prv_date,prv_num);
+					})
+				})
 			})
 			//
 			
 			$("#insert1").click(function() {
-				$("#form_productR").attr({"method":"post","action":"/mypage/myProductRInsert.do","enctype":"multipart/form-data"});
-				$("#form_productR").submit();
+// 				$("#form_productR").attr({"method":"post","action":"/mypage/myProductRInsert.do","enctype":"multipart/form-data"});
+// 				$("#form_productR").submit();
+			
+				if(!checkForm("#prv_scope","별점을")) return;
+               else if(!checkForm("#prv_content","내용을")) return;
+//                else if($('input[name=file]').attr('value')==null){
+//             	   alert("이미지 파일을 넣어주세요");
+//             	   return;
+//                }
+//                else if($('input[name=file]').attr('value')!=null){
+//             		var ext = $('input[name=file]').attr('value').split('.').pop().toLowerCase();	
+//             		if(jQuery.inArray(ext, ['gif','png','jpg','jpeg'])==-1){
+//             			alert("이미지 파일만 업로드 할 수 있습니다.");
+//             			return false;
+//             		}else{
+//             			return true;
+//             		}
+//                }
+               else {
+                  $("#form_productR").ajaxForm({ 
+                     url:"/mypage/myProductRInsert.do",
+                     type:"post",
+                     enctype:"multipart/form-data",
+                     dataType :"text",
+                     error: function(){
+                        alert("시스템 오류 입니다. 관리자에게 문의하세요");
+                     },
+                     success : function(data){
+                        console.log(data);
+                        if(data==1){
+                        	formReset();
+                           $("#galleryModal").modal("hide");
+                        }else{
+                           alert("["+data+"]\n등록에 문제가 있어 완료하지 못하였습니다. 잠시 후 다시 시도해 주세요.");
+                           formReset();
+                        }                           
+                     }
+                  });
+                  $("#form_productR").submit();
+               }
+				
+				
 			})
 			
 			//////////////////////////////////////////즐겨찾기
@@ -351,6 +394,14 @@ var count;
 			
 		});//풩션 끝!
 
+		function formReset(){
+			$("#form_sellerR").each(function(){
+				this.reset();
+			})
+			$("#form_productR").each(function(){
+				this.reset();
+			})
+		}
 		//상품 리뷰
 		function productList(prv_image,prv_scope,prv_content,prv_date,prv_num,c_name){
 			
@@ -367,7 +418,7 @@ var count;
 
 		//자신의 리뷰가 없을때
 		function notList(c_name) {
-			var tr =$("<tr>");
+			var tr =$("<tr class='myReview'>");
 			var td =$("<td colspan='4'>등록된 고객님의 리뷰가 없습니다</td>");
 			tr.append(td);
 			$(".tableReview").append(tr);
@@ -531,7 +582,6 @@ var count;
 
 	      return new_div_contract;
 	   }
-		
 	</script>
 </head>
 <body>
@@ -554,7 +604,7 @@ var count;
 			</ul>
 		</div>
 		<div class="tab-content">  <!-- 텝 시작 부분 -->
-			<div class="tab-pane" id= "tab1"> <!-- 정보수정 페이지  -->
+			<div class="tab-pane active" id= "tab1"> <!-- 정보수정 페이지  -->
 				<jsp:include page="/WEB-INF/views/client/member/join_customer_modify.jsp"></jsp:include>
 			</div>
 			<div class="tab-pane" id="tab2">
@@ -611,13 +661,13 @@ var count;
 	          <div class="form-group">
 	            <label class="control-label">작성자</label>
 	            <label for="prv_scope">별점 :</label>
-	            <input type="text" placeholder="0~5" style="width: 30px; text-align: right!important;" name="prv_scope"  >
+	            <input type="text" placeholder="0~5" style="width: 30px; text-align: right!important;" name="prv_scope" id="prv_scope" >
 	            <input type="text" class="form-control" maxlength="5" value="${login.c_id }" disabled="disabled"/>
 	          </div>
 	        
 		      <div class="form-group">
 		            <label for="prv_content" class="control-label">글내용</label>
-		            <textarea class="form-control" name="prv_content" ></textarea>
+		            <textarea class="form-control" name="prv_content" id="prv_content" ></textarea>
 		      </div>
 		      <div class="form-group">
 		            <label for="file" class="control-label">이미지</label>
@@ -633,7 +683,7 @@ var count;
 	          <div class="form-group">
 	            <label class="control-label">작성자</label>
 	            <label for="srv_scope">별점 :</label>
-	            <input type="text" placeholder="0~5" style="width: 30px; text-align: right!important;" name="srv_scope" >
+	            <input type="text" placeholder="0~5" style="width: 30px; text-align: right!important;" name="srv_scope" id="srv_scope" >
 	            <input type="text" class="form-control" maxlength="5" value="${login.c_id }" disabled="disabled" />
 	          </div>
 	        

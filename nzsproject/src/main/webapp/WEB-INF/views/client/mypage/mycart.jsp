@@ -245,10 +245,29 @@ var hidden;
 					label_all.html("총 가격 : <span class='format-money'>"+all_price +"<span>원")
 				}
 			}
+			
+/* 		    function boxForm() {
+		       var values = document.getElementsByName("item");
+		       for (var i = 0; i < values.length; i++) {
+		          if (values[i].checked) {
+		            checkB.push(values[i].value);
+		          }
+		       }
+		       var output = "";
+		       for (var i = 0; i < checkB.length; ++i) {
+		       		output += checkB[i];
+		         //if(i<checkB.length-1) output+=","
+		         //   output = output + "<input type='hidden' name='b_no' value='"+checkB[i]+"'/>"; 
+		       }
+
+		       $("#b_number").val(checkB);
+		       //console.log($("#b_number").val());
+		       //return output;
+		   } */
 	
 </script>
 <style type="text/css">
-	.nav_div{text-align: center;}
+	.nav_div{text-align: right;}
 	.td_list{padding-top:30px; }
 	.td_list2{padding-top:20px; }
 	.td_list3{padding-top:25px; }
@@ -260,6 +279,8 @@ var hidden;
 </head>
 <body>
 
+<input type='hidden' name='b_number' id="b_number" />
+	
 	<div>
 		<div class="div_date">
 			<c:if test=" ${ !empty date}">
@@ -268,6 +289,7 @@ var hidden;
 		</div>
 		<table class="table table-striped table-hover">
 			<colgroup>
+				<col width="1%">
 				<col width="10%">
 				<col width="55%">
 				<col width="13%">
@@ -279,6 +301,7 @@ var hidden;
 			<tbody>
 			
 				<tr>
+					<td></td>
 					<td>제품</td>
 					<td>설명</td>
 					<td>수량</td>
@@ -337,23 +360,7 @@ var hidden;
 		</table>
 		
 		<div class="nav_div">
-			<nav>
-			  <ul class="pagination">
-			    <li class="pre_li">
-			      <a href="#" aria-label="Previous">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-	
-	<!-- 		    <li><a href="#">1</a></li> -->
-	
-			    <li>
-			      <a href="#" aria-label="Next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-			  </ul>
-			</nav>
+			<input type="button" class="btn btn-default" value="전체 구매하기">
 		</div>
 		<!-- 		모달부분 -->
 		<div class="modal fade bs-example-modal-lg"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

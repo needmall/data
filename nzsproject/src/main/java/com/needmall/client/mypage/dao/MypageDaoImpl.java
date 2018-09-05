@@ -94,9 +94,9 @@ public class MypageDaoImpl implements MypageDao {
 	}
 
 	@Override
-	public List<PreviewVO> mySellertRList(SreviewVO svo) {
+	public List<PreviewVO> mySellerRList(SreviewVO svo) {
 		// TODO Auto-generated method stub
-		return session.selectList("mySellertRList",svo);
+		return session.selectList("mySellerRList",svo);
 	}
 
 	@Override

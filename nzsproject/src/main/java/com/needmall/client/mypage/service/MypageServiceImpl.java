@@ -168,9 +168,9 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<PreviewVO> mySellertRList(SreviewVO svo) {
+	public List<PreviewVO> mySellerRList(SreviewVO svo) {
 		// TODO Auto-generated method stub
-		return mypageDao.mySellertRList(svo);
+		return mypageDao.mySellerRList(svo);
 	}
 
 	@Override

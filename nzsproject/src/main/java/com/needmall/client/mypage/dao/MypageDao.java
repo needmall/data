@@ -36,7 +36,7 @@ public interface MypageDao {
 
 	List<PreviewVO> myProductRList(PreviewVO pvo);
 
-	List<PreviewVO> mySellertRList(SreviewVO svo);
+	List<PreviewVO> mySellerRList(SreviewVO svo);
 
 	int myProductRInsert(PreviewVO pvo);
 
