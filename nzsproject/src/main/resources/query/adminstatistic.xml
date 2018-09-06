@@ -24,25 +24,25 @@
      ]]>	 
     </select> 
     <select id="storeSalesList" resultType="salesData">
-    SELECT st_num, nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(sum(bcount),0)/nvl(sum(ps_count),0)*100,2) rate 
+    SELECT st_num, nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(nvl(sum(bcount),0)/decode(sum(ps_count),0,null,sum(ps_count)),0)*100,2) rate 
 	from (select  productsell.ps_num, ps_count, ps_price, bcount, st_num from productsell inner join seller on productsell.s_num=seller.s_num inner join store on productsell.s_num=store.s_num
 	left outer join (select sum(b_count) bcount, ps_num from buy2dep group by ps_num) buydata on productsell.ps_num=buydata.ps_num) 
 	group by st_num order by sellAmount desc
     </select>
     <select id="productSalesList" resultType="salesData">
-    SELECT ps_num, nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(sum(bcount),0)/nvl(sum(ps_count),0)*100,2) rate 
+    SELECT ps_num, nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(nvl(sum(bcount),0)/decode(sum(ps_count),0,null,sum(ps_count)),0)*100,2) rate 
 	from (select  productsell.ps_num, ps_count, ps_price, bcount from productsell 
 	left outer join (select sum(b_count) bcount, ps_num from buy2dep group by ps_num) buydata on productsell.ps_num=buydata.ps_num) 
 	group by ps_num order by sellAmount desc
     </select> 
     <select id="storeSalesData" parameterType="salesData" resultType="salesData">
-    SELECT nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(sum(bcount),0)/nvl(sum(ps_count),0)*100,2) rate ,months
+    SELECT nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(nvl(sum(bcount),0)/decode(sum(ps_count),0,null,sum(ps_count)),0)*100,2) rate ,months
 	from (select  productsell.ps_num, ps_count, ps_price, bcount, st_num, to_char(ps_udate,'yyyy-mm') months from productsell inner join seller on productsell.s_num=seller.s_num inner join store on productsell.s_num=store.s_num
 	left outer join (select sum(b_count) bcount, ps_num from buy2dep group by ps_num) buydata on productsell.ps_num=buydata.ps_num) where st_num =#{st_num}
 	group by months order by months desc
 	</select>
     <select id="productSalesData" parameterType="salesData" resultType="salesData">
-    SELECT nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(sum(bcount),0)/nvl(sum(ps_count),0)*100,2) rate ,months 
+    SELECT nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(nvl(sum(bcount),0)/decode(sum(ps_count),0,null,sum(ps_count)),0)*100,2) rate ,months 
 	from (select  productsell.ps_num, ps_count, ps_price, bcount, to_char(ps_udate,'yyyy-mm') months from productsell
 	left outer join (select sum(b_count) bcount, ps_num from buy2dep group by ps_num) buydata on productsell.ps_num=buydata.ps_num) where ps_num = #{ps_num}
 	group by months order by months desc

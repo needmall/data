@@ -4,12 +4,12 @@
 
 <style type="text/css">	
 	#favStoreArea {margin-left: 10px; width: 1100px; }
-	#favStoreArea .selectStore{margin:5px; padding:0; width:250px; height:50px !important; float:left;}
-	#favStoreArea .starDiv{padding:0; margin: 0px;}
-	#favStoreArea .starImg{ padding:0; margin: 0px;}
-	#favStoreArea .imgDiv{padding:0; margin: 0px; width: 40px; margin-right: 10px; margin-left: 10px;}
+	#favStoreArea .selectStore{margin:5px; padding:0; height:50px !important; width:auto;  float:left;}
+	#favStoreArea .starDiv{padding:0; margin:0px; height:50px !important; float:left;}
+	#favStoreArea .starImg{ padding:0; margin: 0px; margin-left: 10px; margin-top: 10px; width: 20px;}
+	#favStoreArea .imgDiv{padding:0; margin: 0px; width:auto; height:50px !important; margin-right: 10px;  margin-left: 10px;}
 	#favStoreArea .storeImg{padding:0; margin: 0px; width: 40px;}
-	#favStoreArea .nameDiv{padding:0; margin: 0px; width: 200px;}	
+	#favStoreArea .nameDiv{padding:0; margin: 0px; height:50px !important; margin-top: 10px; width: 220px;}	
 	
 </style>
 
@@ -34,7 +34,7 @@
 							var starDiv=$("<div>");
 							starDiv.addClass("starDiv");
 							var starImg=$("<img>");
-							starImg.attr("src","");
+							starImg.attr("src","/resources/images/favorites.png");
 							starImg.addClass("starImg");
 							starDiv.append(starImg);
 							

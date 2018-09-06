@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.needmall.seller.statistic.dao.SellerStatisticDao">
     <select id="sellerStoreTotal" parameterType="int" resultType="salesData">
-        SELECT nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(sum(bcount),0)/nvl(sum(ps_count),0)*100,2) rate  
+        SELECT nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(nvl(sum(bcount),0)/decode(sum(ps_count),0,null,sum(ps_count)),0)*100,2) rate  
         from productsell
         left outer join (select sum(b_count) bcount, ps_num from buy2dep group by ps_num) buydata on productsell.ps_num=buydata.ps_num  where productsell.ps_num = #{ps_num}
 	</select>
     <select id="sellerStoreData" parameterType="int" resultType="salesData">
-    SELECT nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(sum(bcount),0)/nvl(sum(ps_count),0)*100,2) rate ,months 
+    SELECT nvl(sum(ps_count),0) registAmount, nvl(sum(ps_price*ps_count),0) registSum,  nvl(sum(bcount),0) sellAmount, nvl(sum(ps_price*bcount),0) sellSum, round(nvl(nvl(sum(bcount),0)/decode(sum(ps_count),0,null,sum(ps_count)),0)*100,2) rate ,months 
 	from (select  productsell.ps_num, ps_count, ps_price, bcount, to_char(ps_udate,'yyyy-mm') months from productsell
 	left outer join (select sum(b_count) bcount, ps_num from buy2dep group by ps_num) buydata on productsell.ps_num=buydata.ps_num) where ps_num = #{ps_num}
 	group by months order by months desc

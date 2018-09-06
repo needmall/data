@@ -134,6 +134,7 @@
 <jsp:include page="favStore.jsp"></jsp:include>
 <!-- 당신의 위치 -->
 <div class="form-inline clearboth">
+<h4> &nbsp; 매장 검색</h4>
 	<div class="form-group">
 		<label for="yourlocation"> 검색된 지역  </label>
 		<input class="form-control" type="text" id="yourlocation" readonly="readonly">
