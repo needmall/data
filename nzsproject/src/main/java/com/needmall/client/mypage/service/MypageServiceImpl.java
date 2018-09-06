@@ -218,6 +218,90 @@ public class MypageServiceImpl implements MypageService {
 		return mypageDao.myProductRselectList(pvo);
 	}
 
+	@Override
+	public int mySellerRupdate(SreviewVO svo, HttpServletRequest request) {
+		int result = 0;		
+		String preimg= svo.getSrv_image();
+		String fileName="";
+		if(!svo.getFile().isEmpty()) {  // null 로 하면 경우에 따라서 오류!!!
+			try {
+				fileName = FileUploadUtil.fileUpload(svo.getFile(), request, "review");
+				svo.setSrv_image(fileName);				
+				result = mypageDao.mySellerDelete(svo);
+				if(result==1 && preimg!="") { //잘 수행되고 기존 이미지가 있던경우 기존 이미지 삭제
+					try {
+						FileUploadUtil.fileDelete(preimg, request);						
+					} catch (IOException e) {				
+						e.printStackTrace();
+					}
+				}
+			} catch (IOException e) {			
+				e.printStackTrace();
+			}		
+		}else {  //첨부파일이 없을 경우(기존에 받았던 n_file값 그대로 가지고옴)
+			result = mypageDao.mySellerRupdate(svo);			
+		}
+		return result;	
+	}
+
+	@Override
+	public int mySellerDelete(SreviewVO svo, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		int result=0;
+		String preimg=svo.getSrv_image();
+		result= mypageDao.mySellerDelete(svo);
+		if(svo.getSrv_image()!="" && result ==1) {
+			try {
+				FileUploadUtil.fileDelete(preimg, request);
+			} catch (IOException e) {				
+				e.printStackTrace();
+			}
+		}		
+		return result;
+	}
+	
+	@Override
+	public int myProductRupdate(PreviewVO pvo, HttpServletRequest request) {
+		int result = 0;		
+		String preimg= pvo.getPrv_image();
+		String fileName="";
+		if(!pvo.getFile().isEmpty()) {  // null 로 하면 경우에 따라서 오류!!!
+			try {
+				fileName = FileUploadUtil.fileUpload(pvo.getFile(), request, "review");
+				pvo.setPrv_image(fileName);				
+				result = mypageDao.myProductDelete(pvo);
+				if(result==1 && preimg!="") { //잘 수행되고 기존 이미지가 있던경우 기존 이미지 삭제
+					try {
+						FileUploadUtil.fileDelete(preimg, request);						
+					} catch (IOException e) {				
+						e.printStackTrace();
+					}
+				}
+			} catch (IOException e) {			
+				e.printStackTrace();
+			}		
+		}else {  //첨부파일이 없을 경우(기존에 받았던 n_file값 그대로 가지고옴)
+			result = mypageDao.myProductRupdate(pvo);			
+		}
+		return result;	
+	}
+
+	@Override
+	public int myProductDelete(PreviewVO pvo, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		int result=0;
+		String preimg=pvo.getPrv_image();
+		result= mypageDao.myProductDelete(pvo);
+		if(pvo.getPrv_image()!="" && result ==1) {
+			try {
+				FileUploadUtil.fileDelete(preimg, request);
+			} catch (IOException e) {				
+				e.printStackTrace();
+			}
+		}		
+		return result;
+	}
+
 
 
 		

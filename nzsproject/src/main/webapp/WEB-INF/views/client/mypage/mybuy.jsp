@@ -54,10 +54,6 @@
 </head>
 <body>
 	<div class="all">
-	<form class="hidden">
-		<input type="hidden" id="c_num" name="c_num" value="1"> <!-- 아이디 세션값 들어오면 지워야함 -->
-	</form>
-	
 		<div class="in">
 			<div class="display">
 				<div><span class="item_title">물품 구매 성공</span></div>

@@ -31,11 +31,7 @@ var all_count=0;
 var all_price=0;
 var hidden;
 var arr = [];
-var checkB = [];
-var checkB = [];
-var checkB = [];
-var checkB = [];
-var checkB = [];
+
 	$(function(){
 		
 		$('#myModal').on('shown.bs.modal', function () {
@@ -234,7 +230,6 @@ var checkB = [];
 </style>
 </head>
 <body>
-
 	<div>
 		<div class="div_date">
 			<c:if test=" ${ !empty date}">

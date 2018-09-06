@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,6 +23,7 @@ import com.needmall.client.mypage.service.MypageService;
 import com.needmall.client.mypage.vo.MycartVO;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.SreviewVO;
+import com.needmall.common.vo.NewsVO;
 
 @Controller
 @RequestMapping(value="/mypage")
@@ -41,17 +43,17 @@ public class MypageController {
 	  }
 	  if(!login.getC_id().isEmpty()) {
 
-	   mvo.setC_num(login.getC_num());
-	   List<MycartVO> list = mypageService.mycartList(mvo);
-	   logger.info(list.size());
-	   if(list.size()>0) {
+	  mvo.setC_num(login.getC_num());
+	  List<MycartVO> list = mypageService.mycartList(mvo);
+	  logger.info(list.size());
+	  if(list.size()>0) {
 //	    logger.info("당황스럽네요 왜 안나오죠?"+list.size());
-	    Date date =list.get(0).getCart1_date();
-	    model.addAttribute("date",date);
-	   }
-	   model.addAttribute("t",t);
-	   model.addAttribute("login",login);
-	   model.addAttribute("cartList",list);
+	  Date date =list.get(0).getCart1_date();
+	  model.addAttribute("date",date);
+	  }
+	  model.addAttribute("t",t);
+	  model.addAttribute("login",login);
+	  model.addAttribute("cartList",list);
 	  }else {
 	   return "redirect:/member/login.do";
 	  }
@@ -199,7 +201,7 @@ public class MypageController {
 		}
 		return value;
 	}
-	//삽입
+	//삽입 상품 리뷰
 	@ResponseBody
 	@RequestMapping(value="/myProductRInsert.do")
 	public int myProductRInsert(PreviewVO pvo, HttpServletRequest request, Model model) {
@@ -210,7 +212,7 @@ public class MypageController {
 		
 	}
 	
-	//수정
+	//삽입 서비스 리뷰
 	@ResponseBody
 	@RequestMapping(value="/mySellerInsert.do")
 	public int mySellerInsert(SreviewVO svo, HttpServletRequest request, Model model) {
@@ -220,13 +222,11 @@ public class MypageController {
 		return result;
 		
 	}
-	//삭제
-	
 	
 	///판매점 리뷰
 	@ResponseBody
 	@RequestMapping(value="/mySellerRList.do")
-	public String mySellertRList(SreviewVO svo,ObjectMapper mapper,HttpSession session) {
+	public String mySellerRList(SreviewVO svo,ObjectMapper mapper,HttpSession session) {
 		String value = "";
 		LoginVO login = (LoginVO)session.getAttribute("login");
 		svo.setC_num(login.getC_num());
@@ -240,7 +240,7 @@ public class MypageController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/mySellerRselectList.do")
+	@RequestMapping(value="/mySellerRselectList.do", method=RequestMethod.GET)
 	public String mySellerRselectList(SreviewVO svo,HttpSession session,ObjectMapper mapper) {
 		String value = "";
 		LoginVO login = (LoginVO)session.getAttribute("login");
@@ -255,7 +255,7 @@ public class MypageController {
 		
 	}
 	@ResponseBody
-	@RequestMapping(value="/myProductRselectList.do")
+	@RequestMapping(value="/myProductRselectList.do", method=RequestMethod.GET)
 	public String myProductRselectList(PreviewVO pvo,HttpSession session,ObjectMapper mapper) {
 		String value = "";
 		LoginVO login = (LoginVO)session.getAttribute("login");
@@ -270,4 +270,40 @@ public class MypageController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/mySellerDelete.do")
+	public int mySellerDelete(SreviewVO svo,HttpServletRequest request) {
+		logger.info("mySellerDelete 호출");
+		int result = 0;
+		result = mypageService.mySellerDelete(svo,request);
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/mySellerRupdate.do")
+	public int mySellerRupdate(SreviewVO svo,HttpServletRequest request) {
+		logger.info("mySellerRupdate 호출");
+		int result = 0;
+		result = mypageService.mySellerRupdate(svo,request);
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/myProductDelete.do")
+	public int myProductDelete(PreviewVO pvo,HttpServletRequest request) {
+		logger.info("myProductDelete 호출");
+		int result = 0;
+		result = mypageService.myProductDelete(pvo,request);
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/myProductRupdate.do")
+	public int myProductRupdate(PreviewVO pvo,HttpServletRequest request) {
+		logger.info("myProductRupdate 호출");
+		int result = 0;
+		result = mypageService.myProductRupdate(pvo,request);
+		return result;
+	}
+
 }

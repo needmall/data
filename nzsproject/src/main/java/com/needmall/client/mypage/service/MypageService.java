@@ -42,5 +42,13 @@ public interface MypageService {
 
 	PreviewVO myProductRselectList(PreviewVO pvo);
 
+	int mySellerRupdate(SreviewVO svo, HttpServletRequest request);
+
+	int mySellerDelete(SreviewVO svo, HttpServletRequest request);
+
+	int myProductDelete(PreviewVO pvo, HttpServletRequest request);
+
+	int myProductRupdate(PreviewVO pvo, HttpServletRequest request);
+
 	
 }

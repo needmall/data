@@ -123,6 +123,29 @@ public class MypageDaoImpl implements MypageDao {
 		return session.selectOne("myProductRselectList",pvo);
 	}
 
+	@Override
+	public int mySellerRupdate(SreviewVO svo) {
+		// TODO Auto-generated method stub
+		return session.update("mySellerRupdate",svo);
+	}
+
+	@Override
+	public int mySellerDelete(SreviewVO svo) {
+		// TODO Auto-generated method stub
+		return session.delete("mySellerDelete",svo);
+	}
+	@Override
+	public int myProductRupdate(PreviewVO pvo) {
+		// TODO Auto-generated method stub
+		return session.update("myProductRupdate",pvo);
+	}
+
+	@Override
+	public int myProductDelete(PreviewVO pvo) {
+		// TODO Auto-generated method stub
+		return session.delete("myProductDelete",pvo);
+	}
+
 
 
 }

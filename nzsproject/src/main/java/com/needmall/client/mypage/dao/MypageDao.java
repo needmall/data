@@ -44,6 +44,14 @@ public interface MypageDao {
 
 	PreviewVO myProductRselectList(PreviewVO pvo);
 
+	int mySellerRupdate(SreviewVO svo);
+
+	int mySellerDelete(SreviewVO svo);
+
+	int myProductRupdate(PreviewVO svo);
+
+	int myProductDelete(PreviewVO svo);
+
 
 
 
