@@ -36,9 +36,12 @@ public class MypageController {
 	 public String mypageList(@RequestParam("t") int t, MycartVO mvo,Model model,HttpSession session) {
 	  logger.info("mypageList 호 출");
 	  LoginVO login = (LoginVO)session.getAttribute("login");
+	  if(login==null) {
+		  return "redirect:/member/login.do";
+	  }
 	  if(!login.getC_id().isEmpty()) {
+
 	   mvo.setC_num(login.getC_num());
-	   
 	   List<MycartVO> list = mypageService.mycartList(mvo);
 	   logger.info(list.size());
 	   if(list.size()>0) {

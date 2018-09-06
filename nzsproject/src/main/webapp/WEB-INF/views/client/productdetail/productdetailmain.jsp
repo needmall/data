@@ -541,6 +541,7 @@
 		<input type="hidden" id="multiply_count" name="multiply_count" value="0">
 		
 		
+		
 		<c:if test="${login.c_num ==null}">
 			<input type="hidden" id="c_num" name="c_num" value="0">
 		</c:if>
