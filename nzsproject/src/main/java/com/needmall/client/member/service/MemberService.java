@@ -27,4 +27,8 @@ public interface MemberService {
 	public String customerIdIden(String c_name, String c_mail);
 	public String sellerIdIden(String s_name, String s_mail);
 	
+	public String customerPwdSelect(String c_id, String c_mail);
+	
+	public int customerPwdFindUpdate(String c_id, String c_mail);
+	
 }

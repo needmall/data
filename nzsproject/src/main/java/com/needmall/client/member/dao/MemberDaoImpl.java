@@ -119,6 +119,16 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne("sellerIdIdenSelect", mvo);
 	}
 
+	@Override
+	public String customerPwdSelect(MemberVO mvo) {
+		return session.selectOne("customerPwdSelect", mvo);
+	}
+
+	@Override
+	public int customerPwdFindUpdate(MemberVO mvo) {
+		return session.update("customerPwdFindUpdate", mvo);
+	}
+
 	/*
 	@Override
 	public int customerSecurityDelete(String c_id) {

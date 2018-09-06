@@ -154,4 +154,15 @@
 		where s_name = #{s_name} and s_mail = #{s_mail}
 	</select>
 	
+	<select id="customerPwdSelect" parameterType="member" resultType="String">
+		select c_pwd
+		from customer
+		where c_id = #{c_id} and c_mail = #{c_mail}
+	</select>
+	
+	<update id="customerPwdFindUpdate" parameterType="member">
+		update customer set c_pwd='slemahf12!'
+		where c_id= #{c_id} and c_mail= #{c_mail}
+	</update>
+	
 </mapper>

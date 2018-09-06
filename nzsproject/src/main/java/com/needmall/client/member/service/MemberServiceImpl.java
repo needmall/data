@@ -325,4 +325,41 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
+	@Override
+	public String customerPwdSelect(String c_id, String c_mail) {
+		MemberVO mvo = new MemberVO();
+		mvo.setC_id(c_id);
+		mvo.setC_mail(c_mail);
+		
+		
+		logger.info("c_id : " + c_id);
+		
+		String c_pwd = memberDao.customerPwdSelect(mvo);
+		logger.info("mvo : " + mvo);
+		logger.info("c_pwd : " + c_pwd);
+		
+		//LoginVO lvo = new LoginVO();
+		//lvo.setC_id(c_id);
+		//logger.info("lvo : " + lvo);
+		
+		if (c_pwd==null) {
+			logger.info("가입된 정보가 없습니다.");			
+			return null;
+		} else {
+			logger.info("존재하는 회원입니다.");
+			return c_pwd;
+		}
+	}
+
+	@Override
+	public int customerPwdFindUpdate(String c_id, String c_mail) {
+		MemberVO mvo = new MemberVO();
+		mvo.setC_id(c_id);
+		mvo.setC_mail(c_mail);
+		
+		int result = memberDao.customerPwdFindUpdate(mvo);
+			
+		return result;
+	}
+
 }

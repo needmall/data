@@ -145,7 +145,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-6">
-							<a href="/member/idIdenSelect.do">아이디</a>＊<a href="/member/pwdIden.do">비밀번호 찾기</a>
+							<a href="/member/idIdenSelect.do">아이디</a>＊<a href="/member/pwdIdenSelect.do">비밀번호 찾기</a>
 						</div>
 					</div>
 					
