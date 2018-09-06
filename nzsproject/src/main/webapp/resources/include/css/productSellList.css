@@ -21,3 +21,7 @@ table td div {
 	text-align: right;
 	margin: 10px 0;
 }
+
+.productInfo {
+	cursor: pointer;
+}

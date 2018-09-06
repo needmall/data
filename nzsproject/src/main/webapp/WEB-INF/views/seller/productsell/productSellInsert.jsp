@@ -57,7 +57,7 @@
 			$("#p_num").val(p_num);
 			
 			// 입력 폼 허용
-			document.getElementById("formControl").disabled = false;
+			$(".adddisabled").removeAttr("disabled");
 		});
 		
 		/* 할인율 선택, 입력 토글 */
@@ -82,13 +82,14 @@
 		/* 판매 상품 등록 */
 		$("#submitBtn").click(function() {
 			var p_price = $(".p_price").html().replace("원", "") * 1;
+			var p_name = $(".selectItemData:eq(0)").html();
 			
 			if(!chkData("#date", "유통기한을")) return;
 			else if(!chkData("#ps_price", "판매 가격을")) return;
 			else if(!chkNumber("#ps_price", "판매 가격이", 0, p_price)) return;
 			else if(!chkData("#ps_count", "판매 수량을")) return;
 			else if(!chkNumber("#ps_count", "판매 수량이", 0, 99999)) return;
-			else {
+			else if(confirm(p_name + "를 등록 하시겠습니까?") == true) {
 				$("#submitForm").attr({
 					"method" : "POST",
 					"action" : "/productsell/productinsert.do"
@@ -152,6 +153,13 @@
 			if(!chkNumber("#ps_price", "판매 가격이", 0, p_price)) return;
 			addDiscountValue($("#ps_price"));
 		})
+		
+		/* 엔터값 제거 */
+		$(document).on("keydown", "#keyword", function(event) {
+			if(event.keyCode === 13) {
+				event.preventDefault();
+			}
+		});
 		
 	}); // End Jquery
 	
@@ -219,27 +227,42 @@
 		new_tr.attr("data-p_num", p_num);
 		 
 		var new_td_num = $("<td>");
-		new_td_num.html(num);
+		new_td_num.addClass("tdPaddingTop49")
+		var new_div_num = $("<div>");
+		new_div_num.html(num);
 		
 		var new_td_pi_image = $("<td>");
+		var new_div_image = $("<div>");
 		var new_td_image = $("<img>");
 		new_td_image.addClass("itemImage");
 		new_td_image.attr("src", "/uploadStorage/product/" + pi_image);
 		new_td_image.css("width", "100px");
 		
 		var new_td_p_name = $("<td>");
-		new_td_p_name.addClass("itemP_name");
-		new_td_p_name.html(p_name);
+		new_td_p_name.addClass("tdPaddingTop49")
+		var new_div_name = $("<div>");
+		new_div_name.addClass("itemP_name");
+		new_div_name.html(p_name);
 		
 		var new_td_p_price = $("<td>");
-		new_td_p_price.addClass("itemP_price");
-		new_td_p_price.html(p_price + "원");
+		new_td_p_price.addClass("tdPaddingTop49")
+		var new_div_price = $("<div>");
+		new_div_price.addClass("itemP_price");
+		new_div_price.html(p_price + "원");
 		
 		var new_td_p_content = $("<td>");
-		new_td_p_content.addClass("itemP_content");
-		new_td_p_content.html(p_content);
+		new_td_p_content.addClass("tdPaddingTop49")
+		var new_div_content = $("<div>");
+		new_div_content.addClass("itemP_content");
+		new_div_content.html(p_content);
 		
-		new_td_pi_image.append(new_td_image);
+		new_td_p_content.append(new_div_content);
+		new_td_p_price.append(new_div_price);
+		new_td_p_name.append(new_div_name);
+		new_div_image.append(new_td_image);
+		new_td_pi_image.append(new_div_image);
+		new_td_num.append(new_div_num);
+		
 		new_tr.append(new_td_num).append(new_td_pi_image).append(new_td_p_name).append(new_td_p_price).append(new_td_p_content);
 		$("#addTableSizeA").find("tbody").append(new_tr);
 	}
@@ -342,7 +365,6 @@
 			<div class="">
 				<%-- 판매 상품 정보 --%>
 				<form action="" id="submitForm" class="form-inline">
-					<fieldset disabled id="formControl">
 					<input type="hidden" id="p_num" name="p_num" />
 					<input type="hidden" id="ps_expiration" name="ps_expiration" />
 					<table class="table table-bordered text-center">
@@ -350,7 +372,7 @@
 							<td class="paddingTd55" colspan="2">
 								<div class="form-group">
 									<label class="control-label" for="date">유통기한</label>
-									<input type="datetime-local" id="date" class="form-control sizeInput225" min="" max="" aria-describedby="dateStatus" />
+									<input type="datetime-local" id="date" class="form-control adddisabled sizeInput225" min="" max="" aria-describedby="dateStatus" disabled />
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<span id="dateStatus" class="sr-only"></span>
 								</div>
@@ -360,7 +382,7 @@
 							<td class="paddingTd55 col-md-6">
 								<div class="form-group">
 									<label class="control-label" for="ps_price">판매 가격</label>
-									<input type="text" id="ps_price" class="form-control sizeInput75" name="ps_price" maxlength="6" aria-describedby="ps_priceStatus"/>
+									<input type="text" id="ps_price" class="form-control adddisabled sizeInput75" name="ps_price" maxlength="6" aria-describedby="ps_priceStatus" disabled/>
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<span id="ps_priceStatus" class="sr-only"></span>
 								</div>
@@ -369,11 +391,11 @@
 								<div class="form-group">
 									<label id="addMarginDiscount" class="control-label" for="discount">할인율</label>
 									<div class="input-group">
-										<select id="discount" class="form-control" name="0" style="width:75px;" aria-describedby="discountStatus"></select>
-										<input type="text" id="inputDiscount" class="form-control sizeInput55" name="0" maxlength="3" />
+										<select id="discount" class="form-control adddisabled" name="0" style="width:75px;" aria-describedby="discountStatus" disabled></select>
+										<input type="text" id="inputDiscount" class="form-control adddisabled sizeInput55" name="0" maxlength="3" disabled/>
 										<div class="input-group-addon">%</div>
 									</div>
-									<button type="button" id="changeBtn" class="btn btn-info" name="0">입력</button>
+									<button type="button" id="changeBtn" class="btn btn-info adddisabled" name="0" disabled>입력</button>
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<span id="discountStatus" class="sr-only"></span>
 								</div>
@@ -383,7 +405,7 @@
 							<td class="paddingTd31" colspan="2">
 								<div class="form-group">
 									<label class="control-label" for="ps_count">판매 수량</label>
-									<input type="text" id="ps_count" class="form-control sizeInput75" name="ps_count" maxlength="5" aria-describedby="ps_countStatus"/>
+									<input type="text" id="ps_count" class="form-control adddisabled sizeInput75" name="ps_count" maxlength="5" aria-describedby="ps_countStatus" disabled/>
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<span id="ps_countStatus" class="sr-only"></span>
 								</div>
@@ -392,13 +414,12 @@
 						<tr class="sizeHight235">
 							<td class="paddingTd86" colspan="2">
 								<div id="addCenterSubmit">
-									<button type="button" id="submitBtn" class="btn btn-primary btn-lg addSizeSubmit">등록</button>
+									<button type="button" id="submitBtn" class="btn btn-primary btn-lg adddisabled addSizeSubmit" disabled>등록</button>
 									<button type="button" id="cancelBtn" class="btn btn-default btn-lg addSizeSubmit">취소</button>
 								</div>
 							</td>
 						</tr>
 					</table>
-					</fieldset>
 				</form>
 			</div>
 		</div>

@@ -101,6 +101,15 @@
 	width: 446px;
 	
 }
+
+.new_item {
+	cursor: pointer;
+}
+
+.tdPaddingTop49 {
+	padding-top: 49px !important;
+}
+
 #keyword {
 	width: 250px;
 	height: 40px;

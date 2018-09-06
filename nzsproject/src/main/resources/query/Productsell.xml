@@ -36,7 +36,7 @@
 			SELECT productsell_seq.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO productsell (ps_num, p_num, ps_expiration, ps_count, ps_price, s_num, ps_state )
-		VALUES (#{ps_num}, #{p_num}, TO_DATE(#{ps_expiration},'yyyy/mm/dd hh24:mi'), #{ps_count}, #{ps_price}, (SELECT s.s_num FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id}), 0)
+		VALUES (#{ps_num}, #{p_num}, TO_DATE(#{ps_expiration},'yyyy/mm/dd hh24:mi'), #{ps_count}, #{ps_price}, (SELECT s_num FROM seller s WHERE s_id = #{s_id}), 0)
 	</insert>
 
 	<!-- 판매상품 구매 중 상품 정보 수정 -->	
@@ -51,7 +51,7 @@
 			<if test="priceStatus == 1">
 				ps_price = #{ps_price}, ps_count = #{ps_count}
 			</if>
-		WHERE ps_num = #{ps_num} AND s_num = (SELECT s.s_num FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id}) AND ps_state = 0		
+		WHERE ps_num = #{ps_num} AND s_num = (SELECT s_num FROM seller WHERE s_id = #{s_id}) AND ps_state = 0		
 	</update>
 	
 	<!-- 판매상품 구매 및 가격 수정 확인-->
@@ -70,7 +70,7 @@
 	<!-- 판매상품 삭제 -->
 	<delete id="productDelete" parameterType="productinsert">
 		DELETE FROM productsell
-		WHERE ps_num = #{ps_num} AND s_num = (SELECT s.s_num FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id})
+		WHERE ps_num = #{ps_num} AND s_num = (SELECT s_num FROM seller s WHERE s_id = #{s_id})
 	</delete>
 	
 	<!-- 통계 판매자 매장 조회 -->

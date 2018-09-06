@@ -18,11 +18,14 @@
 		
 		/* 삭제 버튼 */
 		$("#deleteBtn").click(function() {
-			$("#updateForm").attr({
-				"method" : "POST",
-				"action" : "/productsell/productdelete.do"
-			});
-			$("#updateForm").submit();	
+			var p_name = "<c:out value='${Detail.p_name}' />";
+			if(confirm(p_name + "를 삭제 하시겠습니까?") == true) {
+				$("#updateForm").attr({
+					"method" : "POST",
+					"action" : "/productsell/productdelete.do"
+				});
+				$("#updateForm").submit();
+			}
 		});
 		
 		/* 목록 이동 */
