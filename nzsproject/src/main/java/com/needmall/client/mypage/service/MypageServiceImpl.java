@@ -179,7 +179,7 @@ public class MypageServiceImpl implements MypageService {
 		String fileName="";
 		if(!pvo.getFile().isEmpty()) {  // null 로 하면 경우에 따라서 오류!!!
 			try {
-				fileName = FileUploadUtil.fileUpload(pvo.getFile(), request, "preview");
+				fileName = FileUploadUtil.fileUpload(pvo.getFile(), request, "review");
 				pvo.setPrv_image(fileName);												
 			} catch (IOException e) {			
 				e.printStackTrace();
@@ -196,7 +196,7 @@ public class MypageServiceImpl implements MypageService {
 		String fileName="";
 		if(!svo.getFile().isEmpty()) {  // null 로 하면 경우에 따라서 오류!!!
 			try {
-				fileName = FileUploadUtil.fileUpload(svo.getFile(), request, "sreview");
+				fileName = FileUploadUtil.fileUpload(svo.getFile(), request, "review");
 				svo.setSrv_image(fileName);												
 			} catch (IOException e) {			
 				e.printStackTrace();

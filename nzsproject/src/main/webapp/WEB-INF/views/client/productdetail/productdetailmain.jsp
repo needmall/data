@@ -47,34 +47,36 @@
 // 				buy(p_name,pi_image,p_content,ps_count,ps_expiration,ps_price);
 				$(document).on('click',"#buy_buttun",function(){
 					//////////////////////////////////////////////////
+					
 					var c_num = $("#c_num").val();
 					var ps_num =$("#ps_num").val();
 					var ps_price = ${detail.ps_price };
 					var count = $("#count").val();
+					
 					$("#multiply_count").val(count);
 					all_price= ps_price * $("#count").val();
 					buy('${detail.p_name }','${detail.pi_image}','${detail.p_content }',count,'${detail.ps_expiration}','${detail.ps_price }');
-				
-					$.ajax({
-						
-						url :"/mypage/cartConfirmList.do",
-						type:"post",
-						data:"c_num="+c_num+"&ps_num="+ps_num,
-						dataType: "text",
-						success: function(data) {
-							console.log(data);
-							if(data ==1){
-								if(confirm("이미 장바구니에  등록되어있습니다. 장바구니로 이동하시겠습니까?")){
-									$("#hidden").attr({
-										"method":"post",
-										"action":"/mypage/mypageList.do?t=2"
-									});
-									$("#hidden").submit();
+					if(c_num !="null"){
+						$.ajax({
+							
+							url :"/mypage/cartConfirmList.do",
+							type:"post",
+							data:"c_num="+c_num+"&ps_num="+ps_num,
+							dataType: "text",
+							success: function(data) {
+								console.log(data);
+								if(data ==1){
+									if(confirm("이미 장바구니에  등록되어있습니다. 장바구니로 이동하시겠습니까?")){
+										$("#hidden").attr({
+											"method":"post",
+											"action":"/mypage/mypageList.do?t=2"
+										});
+										$("#hidden").submit();
+									}
 								}
 							}
-						}
-					})
-
+						})
+					}
 				});
 				
 				var ps_count = ${detail.ps_count };
@@ -158,7 +160,7 @@
 					
 					console.log(p_num);
 					console.log(c_num);
-					if(c_num ==0 ){
+					if(c_num =="null" ){
 						alert("로그인을 해주십시오.")
 					}else{
 						if(confirm("상품을 즐겨 찾기 하시겠습니까?")){
@@ -215,7 +217,7 @@
 					console.log(p_num);
 					console.log(c_num);
 				
-					if(c_num ==0 ){
+					if(c_num =="null" ){
 						alert("로그인을 해주십시오.")
 					}else{
 						if(confirm("상품을 즐겨 찾기 하시겠습니까?")){
@@ -269,7 +271,7 @@
 					var cart2_count = $("#count").val();
 					var ps_num =$("#ps_num").val();
 					var status =0;
-					if(c_num ==0 ){
+					if(c_num =="null" ){
 						alert("로그인을 해주십시오.")
 					}else{
 						$.ajax({
@@ -319,18 +321,25 @@
 
 				
 				$("#btn_cart_buy").click(function(){
+					var c_num =$("#c_num").val();
 					var value = ($("#ps_count").val() - $("#count").val());
 					var count = $("#count").val();
-					
-// 					console.log("value= "+ value);
-					$("#changeCount").val(value);
-					
-					$("#hidden").attr({
-						"method":"post",
-						"action":"/mypage/productBuy.do"
-					});
-					$("#hidden").submit();
+					if(c_num =="null"){
+						alert("로그인을 해주세요");
+						$("#myModal").modal("hide");
+					}else{
+						
+	// 					console.log("value= "+ value);
+						$("#changeCount").val(value);
+						
+						$("#hidden").attr({
+							"method":"post",
+							"action":"/mypage/productBuy.do"
+						});
+						$("#hidden").submit();
+					}
 				})
+				
 // 				console.log(${login})
 			});////////////////////////////////////////////////////////////풩션 끝
 			
@@ -415,7 +424,7 @@
 				
 				var accordion_sub = $("<div>");
 				accordion_sub.addClass("accordion_sub panel-footer");
-				accordion_sub.html("<img src='/uploadStorage/product/'"+prv_image+"' width='10%' height='10%'/>"+prv_content);
+				accordion_sub.html("<img src='/uploadStorage/review/'"+prv_image+"' width='10%' height='10%'/>"+prv_content);
 // 				console.log(prv_content);
 				
 				var buttun = $("<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>");
@@ -541,9 +550,11 @@
 		<input type="hidden" id="multiply_count" name="multiply_count" value="0">
 		
 		
-		
+		<c:if test="${empty login.c_num}">
+			<input type="hidden" id="c_num" name="c_num" value="null">
+		</c:if>
 		<c:if test="${login.c_num ==null}">
-			<input type="hidden" id="c_num" name="c_num" value="0">
+			<input type="hidden" id="c_num" name="c_num" value="null">
 		</c:if>
 		<c:if test="${login.c_num !=0}">
 			<input type="hidden" id="c_num" name="c_num" value="${login.c_num}">
