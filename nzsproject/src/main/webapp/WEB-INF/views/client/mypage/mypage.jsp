@@ -265,22 +265,21 @@ var t = "${t}";
 						productList(prv_image,prv_scope,prv_content,prv_date,prv_num);
 					})
 				})
-
-			})
-			$(document).on('click','.myReview',function(){   // 선택 시 선택 리뷰 나옴 
-				var prv_num = $(this).parents("tr").attr("data-num");
-				console.log("prv_num = " +prv_num)
-				$.getJSON("/mypage/myProductRselectList.do?prv_num="+prv_num, function(data){
-					var prv_num = this.prv_num;
-					var prv_date  =this.prv_date;
-					var prv_image =this.prv_image;
-					var prv_content = this.prv_content;
-					var prv_scope = this.prv_scope;
-					
-					$("#prv_scope").val(prv_scope);
-					$("#prv_content").val(prv_content);
-					$("#pf").val(prv_image);
-					$("#prv_num").val(prv_num);
+				$(document).on('click','.myReview',function(){   // 선택 시 선택 리뷰 나옴 
+					var prv_num = $(this).parents("tr").attr("data-num");
+					console.log("prv_num = " +prv_num)
+					$.getJSON("/mypage/myProductRselectList.do?prv_num="+prv_num, function(data){
+						var prv_num = this.prv_num;
+						var prv_date  =this.prv_date;
+						var prv_image =this.prv_image;
+						var prv_content = this.prv_content;
+						var prv_scope = this.prv_scope;
+						
+						$("#prv_scope").val(prv_scope);
+						$("#prv_content").val(prv_content);
+						$("#pf").val(prv_image);
+						$("#prv_num").val(prv_num);
+					})
 				})
 			})
 			
