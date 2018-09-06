@@ -138,9 +138,8 @@
 // 	}
 var count;
 var t = "${t}";
-
-
 		$(function(){
+			
 			if(t=="2"){
 				$("#nav a[href='#tab2']").tab("show");				
 			}else if(t=="3"){

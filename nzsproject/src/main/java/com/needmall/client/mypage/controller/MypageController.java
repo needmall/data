@@ -33,27 +33,29 @@ public class MypageController {
 //	/mypage/mycartList.do
 	
 	@RequestMapping("/mypageList.do")
-	public String mypageList(@RequestParam("t") int t, MycartVO mvo,Model model,HttpSession session) {
-		logger.info("mypageList 호 출");
-		LoginVO login = (LoginVO)session.getAttribute("login");
-		if(login!=null) {
-			mvo.setC_num(login.getC_num());
-		}else {
-			return "redirect:/member/login.do";
-		}
-		List<MycartVO> list = mypageService.mycartList(mvo);
-		logger.info(list.size());
-		if(list.size()>0) {
-//			logger.info("당황스럽네요 왜 안나오죠?"+list.size());
-			Date date =list.get(0).getCart1_date();
-			model.addAttribute("date",date);
-		}
-		model.addAttribute("t",t);
-		model.addAttribute("login",login);
-		model.addAttribute("cartList",list);
-		
-		return "mypage/mypage";
-	}
+	 public String mypageList(@RequestParam("t") int t, MycartVO mvo,Model model,HttpSession session) {
+	  logger.info("mypageList 호 출");
+	  LoginVO login = (LoginVO)session.getAttribute("login");
+	  if(!login.getC_id().isEmpty()) {
+	   mvo.setC_num(login.getC_num());
+	   
+	   List<MycartVO> list = mypageService.mycartList(mvo);
+	   logger.info(list.size());
+	   if(list.size()>0) {
+//	    logger.info("당황스럽네요 왜 안나오죠?"+list.size());
+	    Date date =list.get(0).getCart1_date();
+	    model.addAttribute("date",date);
+	   }
+	   model.addAttribute("t",t);
+	   model.addAttribute("login",login);
+	   model.addAttribute("cartList",list);
+	  }else {
+	   return "redirect:/member/login.do";
+	  }
+	  
+	  return "mypage/mypage";
+	 }
+
 	
 	@ResponseBody
 	@RequestMapping("/mybuyList.do")
