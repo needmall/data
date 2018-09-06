@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf"%>
 <link rel="stylesheet" type="text/css" href="/resources/include/css/productSellInsert.css" />
-
+<script type="text/javascript" src="/resources/include/js/common.js"></script>
 <script type="text/javascript">
 	$(function() {
 		/* 초기 설정 */
@@ -10,13 +10,22 @@
 		addDiscountValue($("#ps_price"));
 		
 		 
-		/* 수정 버튼 페이지 이동 */
+		/* 판매상품 정보수정  */
 		$("#updateBtn").click(function() {
-			$("#submitForm").attr({
-				"method" : "POST",
-				"action" : "/productsell/productupdate.do"
-			});
-			$("#submitForm").submit();
+			var p_price = $(".p_price").html().replace("원", "") * 1;
+			var p_name = "<c:out value='${Detail.p_name}' />";
+			
+			if(!chkData("#ps_price", "판매 가격을")) return;
+			else if(!chkNumber("#ps_price", "판매 가격이", 0, p_price)) return;
+			else if(!chkData("#ps_count", "판매 수량을")) return;
+			else if(!chkNumber("#ps_count", "판매 수량이", 0, 99999)) return;
+			else if(confirm(p_name + "를 수정 하시겠습니까?") == true) { 
+				$("#submitForm").attr({
+					"method" : "POST",
+					"action" : "/productsell/productupdate.do"
+				});
+				$("#submitForm").submit();
+			}
 		});
 		
 		/* 취소 버튼 */
@@ -51,17 +60,21 @@
 		
 		/* 할인율 입력 판매가가격 계산 */
 		$("#inputDiscount").change(function() {
+			if(!chkNumber("#inputDiscount", "할인율이", 0, 100)) return;
 			addDiscountValue($("#inputDiscount"));
 		});
 		
 		/* 판매가 입력 할인율 계산*/
 		$("#ps_price").change(function() {
+			var p_price = $(".p_price").html().replace("원", "") * 1;
+			
 			$("#inputDiscount").val("");
 			$("#inputDiscount").show();
 			$("#discount").hide();
 			
 			$("#changeBtn").attr("name", "1");
 			$("#changeBtn").html("선택");
+			if(!chkNumber("#ps_price", "판매 가격이", 0, p_price)) return;
 			addDiscountValue($("#ps_price"));
 		})
 			

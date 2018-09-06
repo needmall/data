@@ -51,10 +51,6 @@ public class ProductallController {
 			succes = "true";
 			model.addAttribute("succes", succes);
 		} 
-		 
-		// 모든 매장 판매 상품
-		List<ProductallVO> productAllList = productallService.productAllList();
-		model.addAttribute("productAllList", productAllList);
 		
 		return "client/productall/productList";   
 	}
@@ -66,8 +62,13 @@ public class ProductallController {
 		String listData = "";
 		if(pvo.getC_lat() > 0.0 && pvo.getC_lon() > 0.0) {
 			// 검색 주소의 위도, 경도
-			listData = productallService.productLocList(pvo, mapper);
-			
+			listData = productallService.productLocList(pvo, mapper);	
+		} 
+		/*else if(pvo.getC_lat() < 0.0 || pvo.getC_lon() < 0.0) {
+			listData = "code : 1";
+		}*/ 
+		else {
+			listData = productallService.productAllList(mapper);
 		}
 		return listData;
 	}

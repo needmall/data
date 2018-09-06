@@ -4,7 +4,9 @@ package com.needmall.seller.productsell.controller;
 
 
 
+
 import java.util.List;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -22,7 +24,7 @@ import com.needmall.common.vo.UserCommonVO;
 import com.needmall.seller.productsell.service.ProductsellService;
 import com.needmall.seller.productsell.vo.ProductInsertVO;
 import com.needmall.seller.productsell.vo.ProductListOneVO;
-import com.needmall.seller.statistic.serviece.SellerStatisticService;
+
 
 @Controller
 @RequestMapping(value="/productsell")
@@ -32,33 +34,29 @@ public class ProductsellController {
 	@Autowired
 	private ProductsellService productsellService;
 	
-	@Autowired
-	private SellerStatisticService sellerStatisticService;
-	
 	String s_id = "";
 	 
 	/* 판매 상품 목록 */
 	@RequestMapping(value="/list.do", method = RequestMethod.GET)
-	public String productList(Model model, HttpSession session) {
+	public String productList(Model model, HttpSession session){
 		logger.info("productList 호출 성공");
 		int st_num = 0;
 		LoginVO login = (LoginVO)session.getAttribute("login");
 		
 		// 세션 확인, 판매자 구분
-		if(login != null && !login.getS_id().isEmpty()) { 
+		if(!login.getS_id().isEmpty()) { 
 			s_id = login.getS_id();
 			
 			// 상품 판매 목록 조회
 			List<ProductsellVO> productList = productsellService.productList(s_id);
 			model.addAttribute("productList", productList);
-			 
+			  
 			// 통계 페이지 조회
 			st_num = productsellService.storeNumSelectOne(s_id);
 			model.addAttribute("st_num", st_num);
 			
-			
 		} else {
-			model.addAttribute("error", "로그인 실패 확인 후 다시 이용 하시기 바랍니다.");
+			model.addAttribute("code", 1);
 			return "redirect:/member/login.do";  
 		}
 		return "seller/productsell/productSellSelectList";
@@ -80,11 +78,11 @@ public class ProductsellController {
 				return "seller/productsell/productSellInsert";
 			} else {
 				// 기한 만료
-				model.addAttribute("error", "판매등록 기한이 만료 되었습니다.");
+				model.addAttribute("code", 2);
 				url = "/productsell/list.do";
 			}
 		} else {
-			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
+			model.addAttribute("code", 1);
 			url = "/member/login.do";
 		}
 		return "redirect:" + url;
@@ -101,7 +99,7 @@ public class ProductsellController {
 			ucvo.setS_id(s_id);
 			listData = productsellService.searchList(ucvo);
 		} else {
-			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
+			model.addAttribute("code", 1);
 			return "redirect:/member/login.do";
 		} 
 		return listData;
@@ -124,11 +122,11 @@ public class ProductsellController {
 				url = "/productsell/list.do";
 			} else {
 				url = "/productsell/writeform.do";
-				model.addAttribute("error", "상품 등록 실패, 관리자에 문의 하십시요.");
+				model.addAttribute("code", 3);
 			}
 			
 		} else {
-			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
+			model.addAttribute("code", 1);
 			url =  "/member/login.do";
 		}
 		
@@ -148,7 +146,7 @@ public class ProductsellController {
 			
 			//productsellService.product
 		} else {
-			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
+			model.addAttribute("code", 1);
 			return "redirect:/member/login.do";
 		}
 		return "seller/productsell/productSellSelectOne";
@@ -165,7 +163,7 @@ public class ProductsellController {
 			Detail = productsellService.productDetail(ivo);
 			model.addAttribute("Detail", Detail);
 		} else {
-			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
+			model.addAttribute("code", 1);
 			return "redirect:/member/login.do";
 		}
 		return "seller/productsell/productSellUpdate";
@@ -218,11 +216,11 @@ public class ProductsellController {
 				url = "/productsell/list.do";
 			} else {
 				url = "/productsell/detailform.do?ps_num=" + ivo.getPs_num();
-				model.addAttribute("error", "상품 삭제 실패, 관리자에 문의 하십시요.");
+				model.addAttribute("code", 4);
 			}
 			
 		} else {
-			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
+			model.addAttribute("code", 1);
 			url = "/member/login.do";
 		}
 		return "redirect:" + url;
@@ -259,12 +257,13 @@ public class ProductsellController {
 				// 수정 이동
 				url = "/productsell/list.do";
 			} else {
+				// 삭제 실패
 				url = "/productsell/detailform.do?ps_num=" + ivo.getPs_num();
-				model.addAttribute("error", "상품 삭제 실패, 관리자에 문의 하십시요.");
+				model.addAttribute("code", 4);
 			}
 			
 		} else {
-			model.addAttribute("error", "로그인 후 다시 이용 하시기 바랍니다.");
+			model.addAttribute("code", 1);
 			url = "/member/login.do";
 		}
 		return "redirect:" + url;

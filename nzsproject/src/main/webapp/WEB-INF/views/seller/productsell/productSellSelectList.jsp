@@ -115,10 +115,11 @@
 			</table>
 		</div>
 		</div>
+		<!-- 판매 상품 통계 페이지 -->
       <div role="tabpanel" class="tab-pane" id="statistics" aria-labelledby="statistics-tab">
-      	<jsp:include page="/seller/statistic/sellerStoreData.do" flush="false">
-    		<jsp:param name="st_num" value="${st_num}"/>    		
-		</jsp:include>	
+      	<c:import url="/seller/statistic/sellerStoreData.do">
+			<c:param name="st_num" value="${st_num}"></c:param>
+		</c:import>
       </div>
 	</div>
 </div>

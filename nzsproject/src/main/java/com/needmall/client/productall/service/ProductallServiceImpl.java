@@ -31,12 +31,18 @@ public class ProductallServiceImpl implements ProductallService {
 	}
 	
 	@Override
-	public List<ProductallVO> productAllList() {
+	public String productAllList(ObjectMapper mapper) {
 		List<ProductallVO> list = null;
+		String productLocList = "";
 		
 		list = productallDao.productAllList();
-		 
-		return list;
+		try {
+			productLocList = mapper.writeValueAsString(list);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		return productLocList;
 	}
 	
 	@Override
