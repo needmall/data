@@ -382,9 +382,7 @@ $(function() {
 					</c:when>
 				</c:choose>
 				<c:if test="${empty productFavList}">
-					<tr>
-						<td colspan="6" class="tac">등록된 상품이 존재하지 않습니다.</td>
-					</tr>
+					<div class="align-center"> 등록된 상품이 존재하지 않습니다.</div>
 				</c:if>
 			</div>
 		</div>
