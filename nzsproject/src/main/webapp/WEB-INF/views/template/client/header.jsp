@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<style type="text/css">
+	#mainlogo{background-color: white; width: 1140px; float: left;}
+	#mypage{margin-left: 155px; margin-right: 5px; width: 80px !important; display: inline-block;}
+	#mycart{ width: 80px !important; display: inline-block;}	
+</style>
  <div class="container"> 
   <!-- Static navbar -->
     <nav class="navbar navbar-default navbar-static-top"> <!-- navbar-default  -->
@@ -56,9 +60,11 @@
           
         </div><!--/.nav-collapse -->
 	  </div>
-	  <div><img src="/resources/images/needmall.png" height="90px" />
+	  <div id="mainlogo"><img src="/resources/images/needmallLogo.png" height="90px" />
+	  <a id="mypage" class="list-group-item"><img src="/resources/images/mypage.png" width="50px" /></a>
+	  <a id="mycart" class="list-group-item"><img src="/resources/images/mycart.jpg" width="50px" /></a>
 		<!-- <input type="text" value="검색창 위치   검색창 위치   검색창 위치   검색창 위치   검색창 위치   검색창 위치   검색창 위치   검색창 위치   검색창 위치   " ><input type="button" value="나의정보"><input type="button" value="장바구니"> -->	 
-	  <img src="/resources/images/search.png" height="90px" />
+	  <!-- <img src="/resources/images/h.png" height="90px" /> -->
 	  </div>
 	  
 	  <ul class="nav navbar-nav">

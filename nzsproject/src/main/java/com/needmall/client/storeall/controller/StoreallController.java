@@ -27,7 +27,7 @@ public class StoreallController {
 	 */
 	@RequestMapping(value="/storeall.do", method=RequestMethod.GET)
 	public String storeall() {
-		logger.info("storeall 호출 성공");		
+		logger.info("storeall 호출 성공");			
 		return "storeall/storeall";
 	}
 	
