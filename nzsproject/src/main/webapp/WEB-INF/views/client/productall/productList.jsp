@@ -305,7 +305,7 @@ $(function() {
 		<input type="hidden" id="review" name="review" />
 	</form>
 </div>
-<div class="container restaurant-list\">
+<div class="container restaurant-list">
 	<c:if test="${not empty succes}">
 		<div class="main_prodlist main_prodlist_list">
 			<h4>즐겨찾기 매장 상품</h4>

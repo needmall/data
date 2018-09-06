@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+.container {
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
 /* 주소 입력 */
 label {
 	padding: 10px;
