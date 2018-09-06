@@ -4,8 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style type="text/css">
 	#mainlogo{background-color: white; width: 1140px; float: left;}
-	#mypage{margin-left: 155px; margin-right: 5px; width: 80px !important; display: inline-block;}
-	#mycart{ width: 80px !important; display: inline-block;}	
+	#mypage{margin-left: 170px; padding:10px; margin-right: 5px; height:70px !important;  width: 75px !important; display: inline-block;}
+	#mycart{ height:70px !important; padding:10px; width: 75px !important; display: inline-block;}	
 </style>
  <div class="container"> 
   <!-- Static navbar -->
@@ -31,8 +31,7 @@
           <c:when test="${login.c_id != null and login.c_id != ''}">
           	<ul class="nav navbar-nav navbar-right">
 	            <li><a href="#"><strong>[고객]${login.c_name}</strong></a></li>
-	            <li><a href="/member/logout.do">로그아웃</a></li>
-	            <li><a href="#">고객센터</a></li>            
+	            <li><a href="/member/logout.do">로그아웃</a></li>      
 	            <li><a href="/productsell/list.do">셀러오피스</a></li>
 	            <li><a href="#"> </a></li>
           	</ul>
@@ -40,8 +39,7 @@
           <c:when test="${login.s_id != null and login.s_id != ''}">
           	<ul class="nav navbar-nav navbar-right">
 	            <li><a href="#"><strong>[판매자]${login.s_name}</strong></a></li>
-	            <li><a href="/member/logout.do">로그아웃</a></li>
-	            <li><a href="#">고객센터</a></li>            
+	            <li><a href="/member/logout.do">로그아웃</a></li>         
 	            <li><a href="/productsell/list.do">셀러오피스</a></li>
 	            <li><a href="#"> </a></li>
           	</ul>
@@ -49,8 +47,7 @@
           <c:otherwise>
           	<ul class="nav navbar-nav navbar-right">
 	            <li><a href="/member/login.do">로그인</a></li>
-	            <li><a href="/member/join_select.do">회원가입</a></li>
-	            <li><a href="#">고객센터</a></li>            
+	            <li><a href="/member/join_select.do">회원가입</a></li>        
 	            <li><a href="/productsell/list.do">셀러오피스</a></li>
 	            <li><a href="#"> </a></li>
           	</ul>
@@ -61,8 +58,8 @@
         </div><!--/.nav-collapse -->
 	  </div>
 	  <div id="mainlogo"><img src="/resources/images/needmallLogo.png" height="90px" />
-	  <a id="mypage" class="list-group-item"><img src="/resources/images/mypage.png" width="50px" /></a>
-	  <a id="mycart" class="list-group-item"><img src="/resources/images/mycart.jpg" width="50px" /></a>
+	  <a id="mypage" class="list-group-item" href="/mypage/mypageList.do?t=1"><img src="/resources/images/mypage.png" width="50px" /></a>
+	  <a id="mycart" class="list-group-item" href="/mypage/mypageList.do?t=2"><img src="/resources/images/mycart.jpg" width="50px" /></a>
 		<!-- <input type="text" value="검색창 위치   검색창 위치   검색창 위치   검색창 위치   검색창 위치   검색창 위치   검색창 위치   검색창 위치   검색창 위치   " ><input type="button" value="나의정보"><input type="button" value="장바구니"> -->	 
 	  <!-- <img src="/resources/images/h.png" height="90px" /> -->
 	  </div>
@@ -71,7 +68,6 @@
       <li class="active"><a href="/">Home</a></li>
       <li><a href="/productall/productList.do">전체 상품</a></li>
       <li><a href="/storeall/storeall.do">전체 스토어</a></li>
-      <li><a href="/mypage/mypageList.do">이벤트</a></li>
     </ul>
     </nav> 
 </div>
