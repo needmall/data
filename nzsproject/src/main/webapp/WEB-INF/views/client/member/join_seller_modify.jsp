@@ -111,9 +111,9 @@
 				</div>
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="s_pwd" class="col-sm-2 control-label">변경할 비밀 번호</label>
+				<label for="s_pwd" class="col-sm-2 control-label">변경할 비밀 번호(선택)</label>
 				<div class="col-sm-3">
-					<input type="password" id="s_pwd" name="s_pwd" maxlength="15" class="form-control" placeholder="변경할 비밀번호 입력" >
+					<input type="password" id="s_pwd" name="s_pwd" maxlength="15" class="form-control" placeholder="변경할 비밀번호 입력 (선택)" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>

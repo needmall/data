@@ -41,8 +41,10 @@ public interface MemberDao {
 	public String customerIdIdenSelect(MemberVO mvo);
 	public String sellerIdIdenSelect(MemberVO mvo);
 	
-	public String customerPwdSelect(MemberVO mvo);
-	
+	public String customerPwdSelect(MemberVO mvo);	
 	public int customerPwdFindUpdate(MemberVO mvo);
+	
+	public String sellerPwdSelect(MemberVO mvo);	
+	public int sellerPwdFindUpdate(MemberVO mvo);
 	
 }

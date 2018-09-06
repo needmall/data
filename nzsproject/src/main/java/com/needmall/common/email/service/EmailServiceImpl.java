@@ -49,14 +49,15 @@ public class EmailServiceImpl implements EmailService {
 			MimeMessage message = mailSender.createMimeMessage();
  
 			/*message.setFrom(new InternetAddress(evo.getFrom()));  
-			message.addRecipient(RecipientType.TO, new InternetAddress(evo.getTo()));
+			message.addRecipient(RecipientType.TO, new InternetAddress(evo.getC_mail()));
 			message.setSubject(evo.getSubject());
 			message.setText(evo.getText(), "utf-8", "html");*/
 			
 			message.setFrom(new InternetAddress("alfosmdfur@gmail.com"));  
-			message.addRecipient(RecipientType.TO, new InternetAddress("jg9870@naver.com"));
-			message.setSubject("[공지] 회원 가입 안내");
-			message.setText("<h1>회원가입이 완료되었습니다!!</h1><h4>NeedMall에 오신것을 격하게 환영합니다~!!</h4>", "utf-8", "html");
+			message.addRecipient(RecipientType.TO, new InternetAddress(evo.getTo()));
+			message.setSubject(evo.getSubject());
+			//message.setText("<h1>회원가입이 완료되었습니다!!</h1><h4>NeedMall에 오신것을 격하게 환영합니다~!!</h4>", "utf-8", "html");
+			message.setText(evo.getText(), "utf-8", "html");
 			
 			mailSender.send(message);
 			result = "성공적으로 이메일 발송이 완료되었습니다.";

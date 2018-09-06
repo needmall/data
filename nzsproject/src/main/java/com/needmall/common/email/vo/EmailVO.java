@@ -2,7 +2,7 @@ package com.needmall.common.email.vo;
 
 public class EmailVO {
 	private String from;
-	private String c_mail;
+	private String to;
 	private String subject;
 	private String text;
 	
@@ -14,12 +14,12 @@ public class EmailVO {
 		this.from = from;
 	}
 	
-	public String getC_mail() {
-		return c_mail;
+	public String getTo() {
+		return to;
 	}
 	
-	public void setC_mail(String c_mail) {
-		this.c_mail = c_mail;
+	public void setTo(String to) {
+		this.to = to;
 	}
 	
 	public String getSubject() {
@@ -40,7 +40,7 @@ public class EmailVO {
 
 	@Override
 	public String toString() {
-		return "EmailVO [from=" + from + ", c_mail=" + c_mail + ", subject=" + subject + ", text=" + text + "]";
+		return "EmailVO [from=" + from + ", to=" + to + ", subject=" + subject + ", text=" + text + "]";
 	}
 	
 	

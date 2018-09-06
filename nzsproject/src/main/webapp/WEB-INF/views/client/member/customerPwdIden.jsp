@@ -6,7 +6,7 @@
       <head>
       <meta charset="UTF-8" />
       
-         <title>customer 아이디 찾기</title>
+         <title>customer 비밀번호 찾기</title>
          
          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
          <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
@@ -17,6 +17,7 @@
           <!-- ★★ jQuery 쓰려면 무조건 정의 해줘야함! ↓↓↓ -->
 		  <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
           <script type="text/javascript" src="/resources/include/js/common.js"></script>
+          <script type="text/javascript" src="/resources/include/js/membercheck.js"></script>
           
           <!-- ★ cs_division 0 줄 방법 -->
           
@@ -37,10 +38,12 @@
           
           	$(function(){
           		errorCodeCheck();
+          		var c_pwd = createPW();
           		$("#customerPwdIden").click(function(){
           			if (!formCheck($('#c_id'), $('.error:eq(0)'), "아이디를")) return;
           			else if (!formCheck($('#c_mailName'), $('.error:eq(1)'), "이메일 주소를")) return;
           			else{
+          				$("#c_pwd").val(c_pwd);
           				$("#c_mail").val($("#c_mailName").val()+"@"+$("#c_mailDomain").val());
           				$("#memberForm").attr({
           					"method":"post",	// 주소가 같아서 method가 다르기 때문에 ㄱㅊ
@@ -65,11 +68,11 @@
       </head>
       <body>
          <div class="contentContainer">
-         <h2>아이디 찾기</h2>
+         <h2>비밀번호 찾기</h2>
 	<div class="well">
 		<form id="memberForm" class="form-horizontal">
 			<input type="hidden" name="c_mail" id="c_mail" />
-			<input type="hidden" name="c_address" id="c_address" />
+			<input type="hidden" name="c_pwd" id="c_pwd" />
 			
 			<div class="form-group form-group-sm">
 				<label for="c_name" class="col-sm-2 control-label">아이디</label>

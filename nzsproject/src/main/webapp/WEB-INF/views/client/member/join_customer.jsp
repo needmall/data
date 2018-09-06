@@ -18,6 +18,7 @@
 		  <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
           <script type="text/javascript" src="/resources/include/js/common.js"></script>
           <script type="text/javascript" src="/resources/include/js/join.js"></script>
+          <script type="text/javascript" src="/resources/include/js/membercheck.js"></script>
           
           <!-- daum map -->
           <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -81,6 +82,32 @@
 		            }
 		        }).open();
           	}
+          	var emailConfirm = emailConfirm();
+          	$(function(){
+
+          		$("#cIdenBut").click(function(){
+          			$("#emailConfirm").val(emailConfirm);
+          			$("#c_mail").val($("#c_mailName").val()+"@"+$("#c_mailDomain").val());
+          			$.ajax({
+        				url : "/member/customerEmailConfirm.do",
+        				type : "post",
+        				data : {c_mail:$('#c_mail').val(),
+        						emailConfirm:$('#emailConfirm').val()},
+        				error : function(){
+        					alert('사이트 접속에 문제로 정상 작동하지 못하였습니다. 잠시 후 다시 시도하세요.')
+        				},
+        				success : function(resultData){
+        					console.log("resultData : " + resultData);
+        					if(resultData=="1"){
+        						$("#c_iden").parents(".form-group").find(".error").html("전송완료.");
+        					}else if(resultData=="0"){
+        						$("#c_iden").parents(".form-group").find(".error").html("전송 실패.");
+        						idConfirm = 2;
+        					}
+        				}
+        			});	//ajax
+          		});	//#cIdenBut.click
+          	});	//$(function())
           
           </script> 
       </head>
@@ -90,6 +117,7 @@
 		<form id="memberForm" class="form-horizontal">
 			<input type="hidden" name="c_mail" id="c_mail" />
 			<input type="hidden" name="c_address" id="c_address" />
+			<input type="hidden" name="emailConfirm" id="emailConfirm" />
 			
 			<div class="form-group form-group-sm">
 				<label for="c_id" class="col-sm-2 control-label">사용자 ID</label>
@@ -182,6 +210,7 @@
 			
 			
 			<!-- 이메일 -->
+			
 			<div class="form-group form-group-sm">
 				<label for="c_mailName" class="col-sm-2 control-label">회원 이메일</label>
 				<div class="col-sm-3">
@@ -204,7 +233,7 @@
 			
 			
 			<div class="form-group form-group-sm">
-				<label for="c_name" class="col-sm-2 control-label">인증번호 입력</label>
+				<label for="c_iden" class="col-sm-2 control-label">인증번호 입력</label>
 				<div class="col-sm-3">
 					<input type="text" id="c_iden" name="c_iden" readonly="readonly" class="form-control">
 				</div>

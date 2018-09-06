@@ -17,6 +17,7 @@
 		  <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
           <script type="text/javascript" src="/resources/include/js/common.js"></script>
           <script type="text/javascript" src="/resources/include/js/join.js"></script>
+          <script type="text/javascript" src="/resources/include/js/membercheck.js"></script>
           
           <!-- daum map -->
           <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -121,6 +122,34 @@
 		            }
 		        }).open();
           	}
+          	
+          	var emailConfirm = emailConfirm();
+          	$(function(){
+
+          		$("#sIdenBut").click(function(){
+          			$("#emailConfirm").val(emailConfirm);
+          			$("#s_mail").val($("#s_mailName").val()+"@"+$("#s_mailDomain").val());
+          			$.ajax({
+        				url : "/member/sellerEmailConfirm.do",
+        				type : "post",
+        				data : {s_mail:$('#s_mail').val(),
+        						emailConfirm:$('#emailConfirm').val()},
+        				error : function(){
+        					alert('사이트 접속에 문제로 정상 작동하지 못하였습니다. 잠시 후 다시 시도하세요.')
+        				},
+        				success : function(resultData){
+        					console.log("resultData : " + resultData);
+        					if(resultData=="1"){
+        						$("#s_iden").parents(".form-group").find(".error").html("전송완료.");
+        					}else if(resultData=="0"){
+        						$("#s_iden").parents(".form-group").find(".error").html("전송 실패.");
+        						idConfirm = 2;
+        					}
+        				}
+        			});	//ajax
+          		});	//#cIdenBut.click
+          	});	//$(function())
+          
           </script> 
       </head>
       <body>
@@ -128,6 +157,7 @@
 	<div class="well">
 		<form id="memberForm" class="form-horizontal">
 			<input type="hidden" name="s_mail" id="s_mail" />
+			<input type="hidden" name="emailConfirm" id="emailConfirm" />
 			<input type="hidden" name="st_email" id="st_email" />
 			<input type="hidden" name="s_address" id="s_address" />
 			<input type="hidden" name="st_address" id="st_address" />
@@ -188,7 +218,7 @@
 			<!-- <div class="form-group form-group-sm">
 				<label for="s_address" class="col-sm-2 control-label">주소</label>
 				<div class="col-sm-3">
-					<input type="text" id="s_address" name="s_address" class="form-control" placeholder="c_address">	
+					<input type="text" id="s_address" name="s_address" class="form-control" placeholder="s_address">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -231,10 +261,24 @@
 						<option value="nate.com">네이트</option>																	
 					</select> 
 				</div>
+				<div class="col-sm-2">
+					<input type="button" id="sIdenBut" name="sIdenBut" value="인증"><br>
+				</div>
 				<div class="col-sm-3">
 					<p class="form-control-static error"></p>
 				</div>
 			</div>
+			
+			<div class="form-group form-group-sm">
+				<label for="s_iden" class="col-sm-2 control-label">인증번호 입력</label>
+				<div class="col-sm-3">
+					<input type="text" id="s_iden" name="s_iden" readonly="readonly" class="form-control">
+				</div>
+				<div class="col-sm-3">
+					<p class="form-control-static error"></p>
+				</div>						
+			</div>
+			
 			<div class="form-group form-group-sm">
 				<label for="s_cell" class="col-sm-2 control-label">핸드폰 번호</label>
 				<div class="col-sm-3">

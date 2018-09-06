@@ -47,6 +47,7 @@
 	}
 	
 	$(function(){
+		
 		// logout confirm
 		$("#logout").click(function(){
 			var message = confirm("로그아웃..하시겠습니까..?");
@@ -131,8 +132,8 @@
 					<div class="form-group">
 						<label for="c_pwd" class="col-sm-2 control-label">비밀번호 </label>
 						<div class="col-sm-4">
-							<input type="password" id="c_pwd" name="c_pwd" class="form-control" placeholder="Password">
-							<input type="hidden" id="s_pwd" name="s_pwd" class="form-control" placeholder="Password">
+							<input type="password" id="c_pwd" name="c_pwd" maxlength="15" class="form-control" placeholder="Password">
+							<input type="hidden" id="s_pwd" name="s_pwd" maxlength="15" class="form-control" placeholder="Password">
 						</div>
 						<p class="form-control-static error"></p>
 					</div>

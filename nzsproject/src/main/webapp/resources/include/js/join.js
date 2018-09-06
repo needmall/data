@@ -57,7 +57,7 @@ var stBnum = 1;
 $(function(){
 	errCodeCheck();
 	// 사용자에게 요구사항에 대한 문자열로 배열 초기화.
-	var message = ["영문, 숫자만 가능. 6~12자로 입력해주세요", "영문,숫자,특수문자만 가능. 8~15자 입력해 주세요.", "비밀번호와 비밀번호 확인란은 값이 일치해야 합니다.","","","","","", "- 포함 입력해주세요. 예시) 010-0000-0000","(선택) 입력시 -포함 입력해주세요.","-포함 입력해주세요. 예시)123-12-12345"];
+	var message = ["영문, 숫자만 가능. 6~12자로 입력해주세요", "영문,숫자,특수문자만 가능. 8~15자 입력해 주세요.", "비밀번호와 비밀번호 확인란은 값이 일치해야 합니다.","","","","","","- 포함 입력해주세요. 예시) 010-0000-0000","(선택) 입력시 -포함 입력해주세요.","-포함 입력해주세요. 예시)123-12-12345"];
 	
 	$('.error').each(function(index){
 		$('.error').eq(index).html(message[index]);
@@ -65,7 +65,7 @@ $(function(){
 	
 	// customer
 	$('#c_id, #c_pwd, #c_pwdCheck, #c_cell').bind("focus",function(){	// 이벤트는 focus
-		var idx = $("#c_id, #c_pwd, #c_pwdCheck, #c_cell").index(this);
+		var idx = $("#c_id, #c_pwd, #c_pwdCheck, #c_name, #c_birthday, #sample6_postcode, #sample6_address2, #c_mailName, #c_iden, #c_cell").index(this);
 		console.log("대상 : " + idx);
 		$(this).parents(".form-group").find(".error").html(message[idx]);
 	});
@@ -175,9 +175,15 @@ $(function(){
 		
 		
 		else if (!formCheck($('#c_mailName'), $('.error:eq(6)'), "이메일 주소를")) return;
+		else if (!formCheck($('#c_iden'), $('.error:eq(7)'), "인증번호를")) return;
+		
 		else if (!formCheck($('#c_cell'), $('.error:eq(8)'), "핸드폰번호를")) return;
 		else if (!inputVerify(2,'#c_cell','.error:eq(8)')) return;	
 		else if (idConfirm!=2){ alert("아이디 중복 체크 진행해 주세요."); return;}
+		else if ($("#emailConfirm").val()!=$("#c_iden").val()){
+			alert("인증번호가 일치하지 않습니다!");
+			return;
+		}
 		else {
 			$("#c_mail").val($("#c_mailName").val()+"@"+$("#c_mailDomain").val());
 			//$("#pinno").val($("#birth").val()+"-"+$("#gender").val());
@@ -194,6 +200,12 @@ $(function(){
 	$("#cIdenBut").click(function(){
 		if (!formCheck($('#c_mailName'), $('.error:eq(6)'), "이메일 주소를")) return;
 		$("#c_iden").attr("readonly",false);
+		
+	});
+	
+	$("#sIdenBut").click(function(){
+		if (!formCheck($('#s_mailName'), $('.error:eq(6)'), "이메일 주소를")) return;
+		$("#s_iden").attr("readonly",false);
 		
 	});
 	
@@ -223,7 +235,7 @@ $(function(){
 		else if (!formCheck($('#s_mailName'), $('.error:eq(7)'), "이메일 주소를")) return;
 		else if (!formCheck($('#s_cell'), $('.error:eq(8)'), "핸드폰번호를")) return;
 		else if (!inputVerify(2,'#s_cell','.error:eq(8)')) return;
-		else if (!formCheck($('#s_phone'), $('.error:eq(9)'), "유선전화번호를")) return;
+		//else if (!formCheck($('#s_phone'), $('.error:eq(9)'), "유선전화번호를")) return;
 		else if (!formCheck($('#st_bnum'), $('.error:eq(10)'), "사업자번호를")) return;
 		else if (!inputVerify(3,'#st_bnum','.error:eq(10)')) return;
 		else if (!formCheck($('#st_name'), $('.error:eq(11)'), "상호명을")) return;

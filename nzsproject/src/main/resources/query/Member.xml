@@ -161,8 +161,19 @@
 	</select>
 	
 	<update id="customerPwdFindUpdate" parameterType="member">
-		update customer set c_pwd='slemahf12!'
+		update customer set c_pwd= #{c_pwd}
 		where c_id= #{c_id} and c_mail= #{c_mail}
+	</update>
+	
+	<select id="sellerPwdSelect" parameterType="member" resultType="String">
+		select s_pwd
+		from seller
+		where s_id = #{s_id} and s_mail = #{s_mail}
+	</select>
+	
+	<update id="sellerPwdFindUpdate" parameterType="member">
+		update seller set s_pwd= #{s_pwd}
+		where s_id= #{s_id} and s_mail= #{s_mail}
 	</update>
 	
 </mapper>

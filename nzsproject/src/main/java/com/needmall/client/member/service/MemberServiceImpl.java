@@ -352,12 +352,51 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int customerPwdFindUpdate(String c_id, String c_mail) {
-		MemberVO mvo = new MemberVO();
-		mvo.setC_id(c_id);
-		mvo.setC_mail(c_mail);
-		
+	public int customerPwdFindUpdate(MemberVO mvo) {
+		if(!mvo.getC_pwd().isEmpty()){
+			logger.info("mvo.getC_id() : " + mvo.getC_id());
+			MemberSecurity sec = memberDao.customerSecuritySelect(mvo.getC_id());
+			mvo.setC_pwd(new String(OpenCrypt.getSHA256(mvo.getC_pwd(),sec.getSalt())));
+		}
 		int result = memberDao.customerPwdFindUpdate(mvo);
+			
+		return result;
+	}
+
+	@Override
+	public String sellerPwdSelect(String s_id, String s_mail) {
+		MemberVO mvo = new MemberVO();
+		mvo.setS_id(s_id);
+		mvo.setS_mail(s_mail);
+		
+		
+		logger.info("s_id : " + s_id);
+		
+		String s_pwd = memberDao.sellerPwdSelect(mvo);
+		logger.info("mvo : " + mvo);
+		logger.info("s_pwd : " + s_pwd);
+		
+		//LoginVO lvo = new LoginVO();
+		//lvo.sets_id(s_id);
+		//logger.info("lvo : " + lvo);
+		
+		if (s_pwd==null) {
+			logger.info("가입된 정보가 없습니다.");			
+			return null;
+		} else {
+			logger.info("존재하는 회원입니다.");
+			return s_pwd;
+		}
+	}
+
+	@Override
+	public int sellerPwdFindUpdate(MemberVO mvo) {
+		if(!mvo.getS_pwd().isEmpty()){
+			logger.info("mvo.gets_id() : " + mvo.getS_id());
+			MemberSecurity sec = memberDao.sellerSecuritySelect(mvo.getS_id());
+			mvo.setS_pwd(new String(OpenCrypt.getSHA256(mvo.getS_pwd(),sec.getSalt())));
+		}
+		int result = memberDao.sellerPwdFindUpdate(mvo);
 			
 		return result;
 	}

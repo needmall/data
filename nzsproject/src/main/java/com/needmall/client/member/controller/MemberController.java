@@ -18,6 +18,8 @@ import com.needmall.client.login.vo.LoginVO;
 import com.needmall.client.member.service.MemberService;
 import com.needmall.client.member.vo.JoinVO;
 import com.needmall.client.member.vo.MemberVO;
+import com.needmall.common.email.service.EmailService;
+import com.needmall.common.email.vo.EmailVO;
 
 @Controller
 @RequestMapping(value="/member")
@@ -29,6 +31,10 @@ public class MemberController {
 
 	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private EmailService emailService;
+	
 
 
 	/********************************************************************
@@ -530,9 +536,11 @@ public class MemberController {
 	 * customer pwd 찾기
 	 *************************************************************/
 	@RequestMapping(value="/customerPwdIden.do", method = RequestMethod.POST)
-	public ModelAndView customerPwdIdenProcess(@ModelAttribute LoginVO lvo, @RequestParam("c_id") String c_id, @RequestParam("c_mail") String c_mail, ModelAndView mav) {
+	public ModelAndView customerPwdIdenProcess(@ModelAttribute MemberVO mvo, @RequestParam("c_id") String c_id, @RequestParam("c_mail") String c_mail, @RequestParam("c_pwd") String c_pwd, ModelAndView mav) {
 		logger.info("customerPwdIdenProcess 메서드 호출 성공");
 		logger.info("전 mav : " + mav);
+		logger.info("c_pwd : "+c_pwd);
+		
 		// customerPwdIden : c_id, c_mail 로 일치 정보 있는지 확인
 		String pwdCheck = memberService.customerPwdSelect(c_id, c_mail);
 
@@ -548,8 +556,19 @@ public class MemberController {
 			//mav.addObject("c_id", memberService.customerPwdIden(c_name, c_mail));
 			mav.addObject("c_id", c_id);
 			mav.addObject("c_mail", c_mail);
-
-			memberService.customerPwdFindUpdate(c_id, c_mail);
+			mav.addObject("c_pwd", c_pwd);
+			
+			mvo.setC_pwd(c_pwd);
+			mvo.setC_id(c_id);
+			mvo.setC_mail(c_mail);
+			
+			EmailVO evo = new EmailVO();
+			evo.setTo(c_mail);
+			evo.setSubject("비밀번호 찾기 입니다.");
+			evo.setText("변경된 비밀번호는 " + c_pwd + "입니다.\n반드시 비밀번호를 재설정해주세요!");
+			emailService.sendMimeMail(evo); //email 보내기
+			
+			memberService.customerPwdFindUpdate(mvo);
 			logger.info("memberService.customerPwdIden : "+memberService.customerPwdSelect(c_id, c_mail));
 
 			mav.setViewName("member/pwdIdenSuccess");
@@ -557,6 +576,7 @@ public class MemberController {
 			// lvo.setC_id(memberService.customerPwdIden(c_id, c_mail));
 			//logger.info("lvo.getC_pwd() : "+lvo.getC_pwd());
 			logger.info("후 mav : " + mav);
+			logger.info("c_pwd : "+c_pwd);
 			return mav;
 		}
 
@@ -572,7 +592,91 @@ public class MemberController {
 		return "member/sellerPwdIden";
 	}
 
+	/**************************************************************
+	 * seller pwd 찾기
+	 *************************************************************/
+	@RequestMapping(value="/sellerPwdIden.do", method = RequestMethod.POST)
+	public ModelAndView sellerPwdIdenProcess(@ModelAttribute MemberVO mvo, @RequestParam("s_id") String s_id, @RequestParam("s_mail") String s_mail, @RequestParam("s_pwd") String s_pwd, ModelAndView mav) {
+		logger.info("sellerPwdIdenProcess 메서드 호출 성공");
+		logger.info("전 mav : " + mav);
+		logger.info("s_pwd : "+s_pwd);
+		
+		// sellerPwdIden : s_id, s_mail 로 일치 정보 있는지 확인
+		String pwdCheck = memberService.sellerPwdSelect(s_id, s_mail);
+
+		if(pwdCheck == null) {
+			logger.info("pwd가 존재하지 않아요!");
+			logger.info(pwdCheck);
+			mav.addObject("status", 1);
+			mav.setViewName("member/sellerPwdIden");
+			logger.info("mav : " + mav);
+			return mav;
+		} else {
+			logger.info(pwdCheck);
+			//mav.addObject("s_id", memberService.sellerPwdIden(s_name, s_mail));
+			mav.addObject("s_id", s_id);
+			mav.addObject("s_mail", s_mail);
+			mav.addObject("s_pwd", s_pwd);
+			
+			mvo.setS_pwd(s_pwd);
+			mvo.setS_id(s_id);
+			mvo.setS_mail(s_mail);
+			
+			EmailVO evo = new EmailVO();
+			evo.setTo(s_mail);
+			evo.setSubject("비밀번호 찾기 입니다.");
+			evo.setText("변경된 비밀번호는 " + s_pwd + "입니다.\n반드시 비밀번호를 재설정해주세요!");
+			emailService.sendMimeMail(evo); //email 보내기
+			
+			memberService.sellerPwdFindUpdate(mvo);
+			logger.info("memberService.sellerPwdIden : "+memberService.sellerPwdSelect(s_id, s_mail));
+
+			mav.setViewName("member/pwdIdenSuccess");
+
+			// lvo.sets_id(memberService.sellerPwdIden(s_id, s_mail));
+			//logger.info("lvo.gets_pwd() : "+lvo.gets_pwd());
+			logger.info("후 mav : " + mav);
+			logger.info("s_pwd : "+s_pwd);
+			return mav;
+		}
+
+	}
 
 
+	/********************************************************************
+	 * customer email 인증 메서드
+	 ********************************************************************/
+	// ↓ browser가 바로 응답해줄 수 있게 @ResponseBody	// console창에 sever 구동할때 "{[/member/userIdConfirm.do],methods=[POST]}" 뜸
+	@ResponseBody
+	@RequestMapping(value="/customerEmailConfirm.do", method=RequestMethod.POST)
+	public String customerEmailConfirm(@RequestParam("emailConfirm") String emailConfirm, @RequestParam("c_mail") String c_mail) {
+		EmailVO evo = new EmailVO();
+		evo.setTo(c_mail);
+		evo.setSubject("이메일 인증 입니다.");
+		evo.setText("인증번호는 " + emailConfirm + "입니다.");
+		logger.info("evo : " + evo);
+		String emailIden = emailService.sendMimeMail(evo); //email 보내기
+		//int result = memberService.customerEmailConfirm(emailConfirm);
+		logger.info(emailIden);
+		return emailIden;
+	}
+
+	/********************************************************************
+	 * seller email 인증 메서드
+	 ********************************************************************/
+	// ↓ browser가 바로 응답해줄 수 있게 @ResponseBody	// console창에 sever 구동할때 "{[/member/userIdConfirm.do],methods=[POST]}" 뜸
+	@ResponseBody
+	@RequestMapping(value="/sellerEmailConfirm.do", method=RequestMethod.POST)
+	public String sellerEmailConfirm(@RequestParam("emailConfirm") String emailConfirm, @RequestParam("s_mail") String s_mail) {
+		EmailVO evo = new EmailVO();
+		evo.setTo(s_mail);
+		evo.setSubject("이메일 인증 입니다.");
+		evo.setText("인증번호는 " + emailConfirm + "입니다.");
+		logger.info("evo : " + evo);
+		String emailIden = emailService.sendMimeMail(evo); //email 보내기
+		//int result = memberService.sellerEmailConfirm(emailConfirm);
+		logger.info(emailIden);
+		return emailIden;
+	}
 
 }
