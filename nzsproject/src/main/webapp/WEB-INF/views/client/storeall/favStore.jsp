@@ -4,12 +4,12 @@
 
 <style type="text/css">	
 	#favStoreArea {margin-left: 10px; width: 1100px; }
-	#favStoreArea .selectStore{margin:5px; padding:0; height:50px !important; width:auto;  float:left;}
-	#favStoreArea .starDiv{padding:0; margin:0px; height:50px !important; display: inline-block;}
-	#favStoreArea .starImg{ padding:0; margin: 0px; margin-left: 10px; margin-top: 10px; width: 20px;}
-	#favStoreArea .imgDiv{padding:0; margin: 0px; width:auto; height:50px !important; margin-right: 10px;  margin-left: 10px; display: inline-block;}
-	#favStoreArea .storeImg{padding:0; margin: 0px; width: 40px;}
-	#favStoreArea .nameDiv{padding:0; margin: 0px; height:50px !important; margin-top: 10px; width: 220px; display: inline-block;}	
+	#favStoreArea .selectStore{margin:5px; padding:0; height:50px !important; width:auto; display: inline-block; float:left; }
+	#favStoreArea .starDiv{padding:0; margin:0px; height:50px !important; display: inline-block; float:left;}
+	#favStoreArea .starImg{ padding:0; margin: 0px; margin-left: 10px; width: 20px;display: inline-block; float:left;}
+	#favStoreArea .imgDiv{padding:0; margin: 0px; width:auto; height:50px !important; margin-right: 10px;  margin-left: 10px; display: inline-block; float:left;}
+	#favStoreArea .storeImg{padding:0; margin: 0px; width: 40px;display: inline-block; float:left;}
+	#favStoreArea .nameDiv{padding:0;  margin: 0px; margin-left:10px;  height:50px !important; margin-top: 10px; width: 150px; display: inline-block; float:left;}	
 	
 </style>
 
@@ -31,6 +31,7 @@
 							var div = $("<a>");
 							div.attr("data-num",st_num);
 							div.addClass("selectStore list-group-item");
+							
 							var starDiv=$("<div>");
 							starDiv.addClass("starDiv");
 							var starImg=$("<img>");
