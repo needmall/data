@@ -200,6 +200,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- quartz 라이브러러리 -->
+		<dependency>
+		    <groupId>org.quartz-scheduler</groupId>
+		    <artifactId>quartz</artifactId>
+		    <version>2.3.0</version>
+		</dependency>
+
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>

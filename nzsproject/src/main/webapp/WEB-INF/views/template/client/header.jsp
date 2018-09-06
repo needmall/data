@@ -1,6 +1,14 @@
+<%@page import="com.needmall.client.login.vo.LoginVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%
+	LoginVO lvo= new LoginVO();
+	lvo.setC_id("customer_user1");
+	lvo.setC_name("김승주");
+	lvo.setC_num(1);
+	session.setAttribute("login", lvo);
+%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style type="text/css">
 	#mainlogo{background-color: white; width: 1140px; float: left;}

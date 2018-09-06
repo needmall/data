@@ -19,7 +19,7 @@ import com.needmall.common.vo.Category2depVO;
 import com.needmall.common.vo.ProductVO;
 import com.needmall.common.vo.ReqstoreVO;
 
-@Service
+@Service("productRegistService")
 public class ProductRegistServiceImpl implements ProductRegistService{
 
 	
@@ -198,6 +198,15 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 	public List<ReqproductRegistVO> productReqList() {
 		List<ReqproductRegistVO> list = productRegistDao.productReqList();
 		return list;
+	}
+
+	
+	/**
+	 * checkExpiration: quartz로 구동후 1분후 주기적으로 5분마다 실행 ( root-context 확인)
+	 */
+	@Override
+	public void checkExpiration() {
+		System.out.println("오분마다 찍혀야 한다");
 	}
 
 	
