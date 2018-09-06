@@ -20,17 +20,8 @@
 <!-- <script src="/resources/js/html5shiv.js"</script> -->
 <!-- [endif] -->
  
-<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
- <script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- 		 <link rel="stylesheet" type="text/css" href="/resources/include/css/common.css" /> -->
 <link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
-<!-- 부가적인 테마 -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
-
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
 
 <style type="text/css">
 /* 	div{border: 1px solid black;} */
@@ -48,6 +39,7 @@
       margin-left: auto; 
       margin-right: auto;   
    }
+   .selectedstname{clear: both; margin-top: 100px}
    #productsList .align-center {
       text-align : center; 
    }
@@ -145,7 +137,21 @@
 // 	    System.out.print("<a href=\"?page=" + totalPage + "\">끝</a>");
 // 	}
 var count;
+var t = "${t}";
+
+
 		$(function(){
+			if(t=="2"){
+				$("#nav a[href='#tab2']").tab("show");				
+			}else if(t=="3"){
+				$("#nav a[href='#tab3']").tab("show");
+			}else if(t=="4"){
+				$("#nav a[href='#tab4']").tab("show");
+			}else{
+				$("#nav a[href='#tab1']").tab("show");				
+			}
+			
+
 			$('.dropdown-toggle').dropdown();
 			
 			jQuery('.format-money').text(function() {
@@ -153,66 +159,62 @@ var count;
 			        jQuery(this).text().format()
 			    );
 			});
-		
-			$("#li_list3").click(function(){
-				var c_num = ${login.c_num};
-// 				console.log(c_num);
-				$.ajax({
-					url :"/mypage/pageList.do",
-					data: "c_num="+c_num,
-					type:"post",
-					dataType: "text",
-					success: function(data) {
-						var value =data;
-						var totalPages = parseInt(value/10);
-						if (totalPages%10 > 0) {  // 만약 52개면 6개 버튼을 만들기 위해서 
-							totalPages++;
-						}
-						if(totalPages == 0 ){
-							totalPages=1;
-						}
-						console.log(totalPages);
-						$('#pagination-demo').twbsPagination({
-			    			totalPages: totalPages,  // 전체 page 수
-			   				visiblePages: 10,  // 출력될 page 수
-			    			onPageClick: function (event, page) {
-			    				$(".goDetail").remove();
-			    				$('#page-content').text('Page' + page);
-			    				console.log("page  :="+page)
-			    				var pageValue = (page-1);  //인덱스 번호는 0부터 시작하므로
-			    				console.log("pageValue = " +pageValue)
-			    				count = (page-1)*10+1;
-			    				$.getJSON("/mypage/mybuyList.do?page="+pageValue+"&c_num="+c_num, function(data){
-// 			    					$("#tableList").html("");
-			    					if(data.length==0){
-			    						notitemReviewTag();
-			    					}
-			    					$(data).each(function() {
-			    						
-										var ps_num = this.ps_num;
-										var b2_num = this.b2_num;
-										var p_num = this.p_num;
-										var s_num = this.s_num;
-										var pi_image = this.pi_image;
-										var p_name = this.p_name;
-										var p_content = this.p_content;
-										var b_count = this.b_count;
-										var original_multiply_count = this.original_multiply_count;
-										var multiply_count = this.multiply_count;
-										var b_confirm = this.b_confirm;
-										var b1_date = this.b1_date;
-										
-										
-										buyList(ps_num,b2_num,p_num,s_num,pi_image,p_name,p_content,b_count,original_multiply_count,multiply_count,b_confirm,b1_date,count);
-										count= count+1;
-			    					})
-			    				})
-			         			
-							}
-						});
+			
+			var c_num = ${login.c_num};
+
+			$.ajax({
+				url :"/mypage/pageList.do?t=3",
+				data: "c_num="+c_num,
+				type:"post",
+				dataType: "text",
+				success: function(data) {
+					var value =data;
+					var totalPages = parseInt(value/10);
+					if (totalPages%10 > 0) {  // 만약 52개면 6개 버튼을 만들기 위해서 
+						totalPages++;
 					}
-				});
-			})
+					if(totalPages == 0 ){
+						totalPages=1;
+					}
+					console.log(totalPages);
+					$('#pagination-demo').twbsPagination({
+		    			totalPages: totalPages,  // 전체 page 수
+		   				visiblePages: 10,  // 출력될 page 수
+		    			onPageClick: function (event, page) {
+		    				$(".goDetail").remove();
+		    				$('#page-content').text('Page' + page);
+		    				console.log("page  :="+page)
+		    				var pageValue = (page-1);  //인덱스 번호는 0부터 시작하므로
+		    				console.log("pageValue = " +pageValue)
+		    				count = (page-1)*10+1;
+		    				$.getJSON("/mypage/mybuyList.do?page="+pageValue+"&c_num="+c_num+"&tab=3", function(data){
+// 			    					$("#tableList").html("");
+		    					if(data.length==0){
+		    						notitemReviewTag();
+		    					}
+		    					$(data).each(function() {
+									var ps_num = this.ps_num;
+									var b2_num = this.b2_num;
+									var p_num = this.p_num;
+									var s_num = this.s_num;
+									var pi_image = this.pi_image;
+									var p_name = this.p_name;
+									var p_content = this.p_content;
+									var b_count = this.b_count;
+									var original_multiply_count = this.original_multiply_count;
+									var multiply_count = this.multiply_count;
+									var b_confirm = this.b_confirm;
+									var b1_date = this.b1_date;
+										
+									buyList(ps_num,b2_num,p_num,s_num,pi_image,p_name,p_content,b_count,original_multiply_count,multiply_count,b_confirm,b1_date,count);
+									count= count+1;
+		    					})
+		    				})
+						}
+					});
+				}
+			});
+			
 			$(".goDetail td:not(:nth-last-child(1),:nth-last-child(2),:nth-last-child(3),:nth-last-child(4))").click(function() {					 //, :nth-last-child(2))
 				var ps_num = $(this).parents("tr").attr("data-num");				
 				location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
@@ -234,11 +236,7 @@ var count;
 				}
 			})
 			
-			$("#nav").click(function(){
-				$("#nav li").removeClass("active"); 
-				$(this).addClass("active");
-				console.log("나와라 네비네비");
-			})
+
 			//상품 리뷰
 			$(document).on('click','.btn_productR',function() {
 				var p_num = $(this).parents("tr").attr("data-p_num");
@@ -268,6 +266,22 @@ var count;
 						productList(prv_image,prv_scope,prv_content,prv_date,prv_num);
 					})
 				})
+				$(document).on('click','.myReview',function(){   // 선택 시 선택 리뷰 나옴 
+					var prv_num = $(this).parents("tr").attr("data-num");
+					console.log("prv_num = " +prv_num)
+					$.getJSON("/mypage/myProductRselectList.do?prv_num="+prv_num, function(data){
+						var prv_num = this.prv_num;
+						var prv_date  =this.prv_date;
+						var prv_image =this.prv_image;
+						var prv_content = this.prv_content;
+						var prv_scope = this.prv_scope;
+						
+						$("#prv_scope").val(prv_scope);
+						$("#prv_content").val(prv_content);
+						$("#pf").val(prv_image);
+						$("#prv_num").val(prv_num);
+					})
+				})
 			})
 			
 			//서비스 리뷰
@@ -275,53 +289,77 @@ var count;
 				var p_num = $(this).parents("tr").attr("data-p_num");
 				var s_num = $(this).parents("tr").attr("data-s_num");
 				var c_name = "${login.c_name}";
-				$(".modal-title").html("서비스 리뷰");
 				
+				console.log("p_num" + p_num);
+				console.log("s_num" + s_num);
+				console.log("c_name" + c_name);
+				
+				
+				
+				$(".modal-title").html("서비스 리뷰");
 				$(".myReview").remove();
 				
-				$("#form_sellerR").show();
 				$("#form_productR").hide();
+				$("#form_sellerR").show();
 				
-				$(".btn_hide2").show();
 				$(".btn_hide1").hide();
-				
+				$(".btn_hide2").show();
 				$(".p_num").val(p_num);
-				$.getJSON("/mypage/mySellerRList.do?p_num="+p_num, function(data){
+				$.getJSON("/mypage/mySellerRList.do?s_num="+s_num, function(data){
 // 					$("#tableList").html("");
 					if(data.length==0){
 						notList();
 					}
 					$(data).each(function() {
-						var prv_num = this.prv_num;
-						var prv_date  =this.prv_date;
-						var prv_image =this.prv_image;
-						var prv_content = this.prv_content;
-						var prv_scope = this.prv_scope;
-						productList(prv_image,prv_scope,prv_content,prv_date,prv_num);
+						var srv_num = this.srv_num;
+						var srv_date  =this.srv_date;
+						var srv_image =this.srv_image;
+						var srv_content = this.srv_content;
+						var srv_scope = this.srv_scope;
+						sellerList(srv_image,srv_scope,srv_content,srv_date,srv_num);
+					})
+				})
+				$(document).on('click','.myReview',function(){   // 선택 시 선택 리뷰 나옴 
+					var srv_num = $(this).parents(".myReview").attr("data-num");
+					$.getJSON("/mypage/mySellerRList.do?srv_num="+srv_num, function(data){
+						var srv_num = this.srv_num;
+						var srv_date  =this.srv_date;
+						var srv_image =this.srv_image;
+						var srv_content = this.srv_content;
+						var srv_scope = this.srv_scope;
+						
+						$("#srv_scope").val(srv_scope);
+						$("#srv_content").val(srv_content);
+						$("#sf").val(srv_image);
+						$("#srv_num").val(srv_num);
 					})
 				})
 			})
 			//
 			
-			$("#insert1").click(function() {
+			$("#insert1").click(function() { //삽입
 // 				$("#form_productR").attr({"method":"post","action":"/mypage/myProductRInsert.do","enctype":"multipart/form-data"});
 // 				$("#form_productR").submit();
-			
+			         console.log("prv_scope ="+$("#prv_scope").val());
+                	 console.log("prv_content ="+$("#prv_content").val());
+                	 console.log("file ="+$("#fa").val());
+                	 console.log("pa ="+$("#pa").val());
+                	 console.log("ca ="+$("#ca").val());
 				if(!checkForm("#prv_scope","별점을")) return;
                else if(!checkForm("#prv_content","내용을")) return;
 //                else if($('input[name=file]').attr('value')==null){
 //             	   alert("이미지 파일을 넣어주세요");
 //             	   return;
 //                }
-//                else if($('input[name=file]').attr('value')!=null){
-//             		var ext = $('input[name=file]').attr('value').split('.').pop().toLowerCase();	
-//             		if(jQuery.inArray(ext, ['gif','png','jpg','jpeg'])==-1){
-//             			alert("이미지 파일만 업로드 할 수 있습니다.");
-//             			return false;
-//             		}else{
-//             			return true;
-//             		}
-//                }
+               else if($('input[name=file]').attr('value')!=null){
+            		var ext = $('input[name=file]').attr('value').split('.').pop().toLowerCase();	
+            		if(jQuery.inArray(ext, ['gif','png','jpg','jpeg'])==-1){
+            			alert("이미지 파일만 업로드 할 수 있습니다.");
+            			return false;
+            		}else{
+            			return true;
+            		}
+               }
                else {
                   $("#form_productR").ajaxForm({ 
                      url:"/mypage/myProductRInsert.do",
@@ -343,6 +381,50 @@ var count;
                      }
                   });
                   $("#form_productR").submit();
+               }
+				
+				
+			})
+			
+			////////////////////////////////////////서비스 리뷰 삽입
+			$("#insert2").click(function() {
+				if(!checkForm("#srv_scope","별점을")) return;
+               else if(!checkForm("#srv_content","내용을")) return;
+//                else if($('input[name=file]').attr('value')==null){
+//             	   alert("이미지 파일을 넣어주세요");
+//             	   return;
+//                }
+               else if($('input[name=file]').attr('value')!=null){
+            		var ext = $('input[name=file]').attr('value').split('.').pop().toLowerCase();	
+            		if(jQuery.inArray(ext, ['gif','png','jpg','jpeg'])==-1){
+            			alert("이미지 파일만 업로드 할 수 있습니다.");
+            			return false;
+            		}else{
+            			return true;
+            		}
+               }
+				
+               else {
+                  $("#form_sellerR").ajaxForm({ 
+                     url:"/mypage/mySellerInsert.do",
+                     type:"post",
+                     enctype:"multipart/form-data",
+                     dataType :"text",
+                     error: function(){
+                        alert("시스템 오류 입니다. 관리자에게 문의하세요");
+                     },
+                     success : function(data){
+                        console.log(data);
+                        if(data==1){
+                        	formReset();
+                           $("#galleryModal").modal("hide");
+                        }else{
+                           alert("["+data+"]\n등록에 문제가 있어 완료하지 못하였습니다. 잠시 후 다시 시도해 주세요.");
+                           formReset();
+                        }                           
+                     }
+                  });
+                  $("#form_sellerR").submit();
                }
 				
 				
@@ -409,6 +491,19 @@ var count;
 			var td2 = $("<td>"+prv_scope+"</td>");
 			var td3 = $("<td>"+prv_content+"</td>");
 			var td4 = $("<td>"+prv_date+"</td>");
+			
+			tr.append(td1).append(td2).append(td3).append(td4)
+			$(".tableReview").append(tr);
+			
+		}
+		//상품 리뷰
+		function sellerList(srv_image,srv_scope,srv_content,srv_date,srv_num,c_name){
+			
+			var tr =$("<tr class='myReview' data-num="+srv_num+"></tr>");
+			var td1 = $("<td>사진 넣을거임</td>");
+			var td2 = $("<td>"+srv_scope+"</td>");
+			var td3 = $("<td>"+srv_content+"</td>");
+			var td4 = $("<td>"+srv_date+"</td>");
 			
 			tr.append(td1).append(td2).append(td3).append(td4)
 			$(".tableReview").append(tr);
@@ -595,16 +690,16 @@ var count;
 <!-- 	   					<li role="presentation" id="li_list1-2"><a role="menuitem" data-toggle="tab" tabindex="-1" href="#tab1-2">회원 탈퇴</a></li> -->
 <!-- 			    	</ul> -->
 <!-- 			  	</li> -->
-			  	<li><a href="#tab1" data-toggle="tab">회원정보 수정</a></li>
-				<li><a href="#tab2" data-toggle="tab" id="li_list2">장바구니</a></li>
-				<li><a href="#tab3" data-toggle="tab" id="li_list3">구매목록</a></li>
-				<li><a href="#tab4" data-toggle="tab">즐겨찾기</a></li>
+			  	<li data-toggle="tab"><a href="#tab1"  data-toggle="tab">회원정보 수정</a></li>
+				<li data-toggle="tab"><a href="#tab2"  data-toggle="tab" id="li_list2">장바구니</a></li>
+				<li data-toggle="tab"><a href="#tab3"  data-toggle="tab" id="li_list3">구매목록</a></li>
+				<li data-toggle="tab"><a href="#tab4"  data-toggle="tab">즐겨찾기</a></li>
 <!-- 				<li><a href="#tab3" data-toggle="tab">리뷰</a></li> -->
 			</ul>
 		</div>
 		<div class="tab-content">  <!-- 텝 시작 부분 -->
 			<div class="tab-pane active" id= "tab1"> <!-- 정보수정 페이지  -->
-				<jsp:include page="/WEB-INF/views/client/member/join_customer_modify.jsp"></jsp:include>
+<%-- 				<jsp:include page="/WEB-INF/views/client/member/join_customer_modify.jsp"></jsp:include> --%>
 			</div>
 			<div class="tab-pane" id="tab2">
 				<div id="page_group">
@@ -630,7 +725,6 @@ var count;
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	        <h4 class="modal-title" id="galleryModalLabel">title</h4>
 	      </div>
 	      <div class="modal-body">
@@ -641,7 +735,7 @@ var count;
 					<colgroup>
 						<col width="15%">
 						<col width="10%">
-						<col width="60%">
+						<col width="55%">
 						<col width="20%">
 					</colgroup>
 					
@@ -656,12 +750,13 @@ var count;
 	        </div>
 	        <hr>
 <!-- 	      	//////////////  Preview-->
-	        <form id="form_productR" name="form_productR">
+	        <form id="form_productR">
 	          <div class="form-group">
 	            <label class="control-label">작성자</label>
 	            <label for="prv_scope">별점 :</label>
 	            <input type="text" placeholder="0~5" style="width: 30px; text-align: right!important;" name="prv_scope" id="prv_scope" >
-	            <input type="text" class="form-control" maxlength="5" value="${login.c_id }" disabled="disabled"/>
+<%-- 	            <input type="text" class="form-control" maxlength="5" value="${login.c_id }" disabled="disabled"/> --%>
+				<label class="form-control" style="width: 100%">${login.c_id }</label>
 	          </div>
 	        
 		      <div class="form-group">
@@ -670,20 +765,22 @@ var count;
 		      </div>
 		      <div class="form-group">
 		            <label for="file" class="control-label">이미지</label>
-		            <input type="file" name="file" />
+		            <input type="file" name="file" id="pf"/>
 		      </div>
-		      <input type="hidden" name="c_num" class="c_num" value="${login.c_num}">
-		      <input type="hidden" name="p_num" class="p_num" value="0">
+		      <input type="hidden" name="c_num" class="c_num" id="pc" value="${login.c_num}">
+		      <input type="hidden" name="p_num" class="p_num" id="pp" value="0">
+		      <input type="hidden" name="prv_num" id="prv_num">
 		      
 	      	</form>
 	      	
 <!-- 	      	//////////////  Sreview-->
 	      	<form id="form_sellerR" name="form_sellerR">
+	      		<input type="hidden" name="srv_num" id="srv_num">
 	          <div class="form-group">
 	            <label class="control-label">작성자</label>
 	            <label for="srv_scope">별점 :</label>
 	            <input type="text" placeholder="0~5" style="width: 30px; text-align: right!important;" name="srv_scope" id="srv_scope" >
-	            <input type="text" class="form-control" maxlength="5" value="${login.c_id }" disabled="disabled" />
+	            <label class="form-control" style="width: 100%">${login.c_id }</label>
 	          </div>
 	        
 		      <div class="form-group">
@@ -692,10 +789,12 @@ var count;
 		      </div>
 		      <div class="form-group">
 		            <label for="file" class="control-label">이미지</label>
-		            <input type="file" name="file" />
+		            <input type="file" name="file" id="sf" />
 		      </div>
-		      <input type="hidden" name="c_num" value="${login.c_num}">
-		      <input type="hidden" name="s_num" value="0">
+		      <input type="hidden" name="c_num" id="sc" value="${login.c_num}">
+		      <input type="hidden" name="s_num" id="ss" value="0">
+		      <input type="hidden" name="srv_num" id="srv_num">
+		      
 	      	</form>
 	      </div>
 	      <div class="modal-footer btn_hide1">

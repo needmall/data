@@ -155,7 +155,7 @@
 		FROM
 		    sreview
 		WHERE
-		    c_num =#{c_num}
+		    c_num =#{c_num} and s_num =#{s_num}
 	</select>
 	<insert id="myProductRInsert" parameterType="Preview">
 	   INSERT INTO preview (
@@ -174,4 +174,48 @@
 		    #{prv_scope}
 		)
 	 </insert>
+	 <insert id="mySellerInsert" parameterType="Sreview">
+	 	INSERT INTO sreview (
+		    srv_num,
+		    c_num,
+		    s_num,
+		    srv_image,
+		    srv_content,
+		    srv_scope
+		) VALUES (
+		    sreview_seq.nextval,
+		    #{c_num},
+		    #{s_num},
+		    #{srv_image},
+		    #{srv_content},
+		    #{srv_scope}
+		)
+	 </insert>
+	 <select id="myProductRselectList" parameterType="Preview" resultType="Preview">
+		SELECT
+		    prv_num,
+		    c_num,
+		    p_num,
+		    prv_date,
+		    prv_image,
+		    prv_content,
+		    prv_scope
+		FROM
+		    preview
+		where prv_num={prv_num}
+	 </select>
+	 <select id="mySellerRselectList" parameterType="Sreview" resultType="Sreview">
+	 	SELECT
+		    srv_num,
+		    c_num,
+		    s_num,
+		    srv_date,
+		    srv_image,
+		    srv_content,
+		    srv_scope
+		FROM
+		    sreview
+		where srv_num=#{srv_num}
+	 </select>
+	 
 </mapper>

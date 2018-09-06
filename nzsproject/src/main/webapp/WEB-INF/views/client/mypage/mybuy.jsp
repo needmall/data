@@ -20,8 +20,8 @@
 	<!-- [if lt IE 9] -->
 	<!-- <script src="/resources/js/html5shiv.js"</script> -->
 	<!-- [endif] -->
-	<meta http-equiv="refresh" content="5; url=/mypage/mypageList.do">
-	<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
+	<meta http-equiv="refresh" content="5; url=/mypage/mypageList.do?t=3">
+<!-- 	<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script> -->
 
 	
 	<style type="text/css">
@@ -44,7 +44,7 @@
 			$("#btn_buypage").click(function(){
 				$(".hidden").attr({
 					"method":"post",
-					"action":"/mypage/mypageList.do"
+					"action":"/mypage/mypageList.do?t=3"
 				});
  				$(".hidden").submit();
 			})

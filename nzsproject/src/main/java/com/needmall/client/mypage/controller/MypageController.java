@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,13 +33,13 @@ public class MypageController {
 //	/mypage/mycartList.do
 	
 	@RequestMapping("/mypageList.do")
-	public String mypageList(MycartVO mvo,Model model,HttpSession session) {
+	public String mypageList(@RequestParam("t") int t, MycartVO mvo,Model model,HttpSession session) {
 		logger.info("mypageList 호 출");
 		LoginVO login = (LoginVO)session.getAttribute("login");
 		if(login!=null) {
 			mvo.setC_num(login.getC_num());
 		}else {
-			mvo.setC_num(0);//에러 띄어서 로그인 페이지로 보내야함;
+			return "redirect:/member/login.do";
 		}
 		List<MycartVO> list = mypageService.mycartList(mvo);
 		logger.info(list.size());
@@ -48,6 +48,7 @@ public class MypageController {
 			Date date =list.get(0).getCart1_date();
 			model.addAttribute("date",date);
 		}
+		model.addAttribute("t",t);
 		model.addAttribute("login",login);
 		model.addAttribute("cartList",list);
 		
@@ -195,7 +196,7 @@ public class MypageController {
 	}
 	//삽입
 	@ResponseBody
-	@RequestMapping(value="/myProductRInsert.do",method=RequestMethod.POST, produces ="text/plain; charset=UTF-8")
+	@RequestMapping(value="/myProductRInsert.do")
 	public int myProductRInsert(PreviewVO pvo, HttpServletRequest request, Model model) {
 		logger.info("myProductRInsert 호출");
 		int result = 0;
@@ -205,7 +206,15 @@ public class MypageController {
 	}
 	
 	//수정
-	
+	@ResponseBody
+	@RequestMapping(value="/mySellerInsert.do")
+	public int mySellerInsert(SreviewVO svo, HttpServletRequest request, Model model) {
+		logger.info("myProductRInsert 호출");
+		int result = 0;
+		result = mypageService.mySellerInsert(svo,request);
+		return result;
+		
+	}
 	//삭제
 	
 	
@@ -216,7 +225,7 @@ public class MypageController {
 		String value = "";
 		LoginVO login = (LoginVO)session.getAttribute("login");
 		svo.setC_num(login.getC_num());
-		List<PreviewVO> list =mypageService.mySellerRList(svo);
+		List<SreviewVO> list =mypageService.mySellerRList(svo);
 		try {
 			value=mapper.writeValueAsString(list);
 		}catch (Exception e) {
@@ -225,5 +234,35 @@ public class MypageController {
 		return value;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/mySellerRselectList.do")
+	public String mySellerRselectList(SreviewVO svo,HttpSession session,ObjectMapper mapper) {
+		String value = "";
+		LoginVO login = (LoginVO)session.getAttribute("login");
+		svo.setC_num(login.getC_num());
+		SreviewVO list =mypageService.mySellerRselectList(svo);
+		try {
+			value=mapper.writeValueAsString(list);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return value;
+		
+	}
+	@ResponseBody
+	@RequestMapping(value="/myProductRselectList.do")
+	public String myProductRselectList(PreviewVO pvo,HttpSession session,ObjectMapper mapper) {
+		String value = "";
+		LoginVO login = (LoginVO)session.getAttribute("login");
+		pvo.setC_num(login.getC_num());
+		PreviewVO list =mypageService.myProductRselectList(pvo);
+		try {
+			value=mapper.writeValueAsString(list);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return value;
+		
+	}
 	
 }

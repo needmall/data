@@ -20,9 +20,7 @@
 	<!-- [if lt IE 9] -->
 	<!-- <script src="/resources/js/html5shiv.js"</script> -->
 	<!-- [endif] -->
-	<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="/resources/include/js/jquery.twbsPagination.js"></script><script type="text/javascript" src="/resources/include/js/jquery.twbsPagination.js"></script>
-	<script type="text/javascript" src="/resources/include/js/common.js"></script>
+<script type="text/javascript" src="/resources/include/js/jquery.twbsPagination.js"></script>
 	
 	<style type="text/css">
 	/* 	div{border: 1px solid black;} */
@@ -39,13 +37,6 @@
 		
 	</style>
 	<script type="text/javascript">
-	$(function() {
-		jQuery('.format-money').text(function() {
-		    jQuery(this).text(
-		        jQuery(this).text().format()
-		    );
-		});
-	})
 		
 		
 		

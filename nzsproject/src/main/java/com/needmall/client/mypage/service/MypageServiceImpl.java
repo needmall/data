@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +93,7 @@ public class MypageServiceImpl implements MypageService {
 
 		if(key==0) {
 			confirm = mypageDao.mycartBuy1deptInsert(mvo);
-//			System.out.println("confirm"+confirm);
+			System.out.println("confirm"+confirm);
 		}
 		last_confirm = mypageDao.mycartBuy2deptInsert(mvo);
 		if(last_confirm ==1) {
@@ -114,7 +113,7 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public void dateCountUpdate(MycartVO mvo) {
 		int a =mypageDao.dateCountUpdate(mvo);
-//		System.out.println("dateCountUpdate "+ a);
+		System.out.println("dateCountUpdate "+ a);
 	}
 
 	@Override
@@ -168,7 +167,7 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<PreviewVO> mySellerRList(SreviewVO svo) {
+	public List<SreviewVO> mySellerRList(SreviewVO svo) {
 		// TODO Auto-generated method stub
 		return mypageDao.mySellerRList(svo);
 	}
@@ -190,10 +189,36 @@ public class MypageServiceImpl implements MypageService {
 		return result;
 	}
 
+	@Override
+	public int mySellerInsert(SreviewVO svo, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		int result = 0;		
+		String fileName="";
+		if(!svo.getFile().isEmpty()) {  // null 로 하면 경우에 따라서 오류!!!
+			try {
+				fileName = FileUploadUtil.fileUpload(svo.getFile(), request, "sreview");
+				svo.setSrv_image(fileName);												
+			} catch (IOException e) {			
+				e.printStackTrace();
+			}		
+		}
+		result = mypageDao.mySellerInsert(svo);
+		return result;
+	}
+
+	@Override
+	public SreviewVO mySellerRselectList(SreviewVO svo) {
+		// TODO Auto-generated method stub
+		return mypageDao.mySellerRselectList(svo);
+	}
+
+	@Override
+	public PreviewVO myProductRselectList(PreviewVO pvo) {
+		// TODO Auto-generated method stub
+		return mypageDao.myProductRselectList(pvo);
+	}
 
 
 
-
-	
 		
 }

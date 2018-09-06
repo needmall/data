@@ -2,8 +2,6 @@ package com.needmall.client.mypage.dao;
 
 import java.util.List;
 
-import com.needmall.client.member.vo.MemberSecurity;
-import com.needmall.client.member.vo.MemberVO;
 import com.needmall.client.mypage.vo.MycartVO;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.SreviewVO;
@@ -36,9 +34,17 @@ public interface MypageDao {
 
 	List<PreviewVO> myProductRList(PreviewVO pvo);
 
-	List<PreviewVO> mySellerRList(SreviewVO svo);
+	List<SreviewVO> mySellerRList(SreviewVO svo);
 
 	int myProductRInsert(PreviewVO pvo);
+
+	int mySellerInsert(SreviewVO svo);
+
+	SreviewVO mySellerRselectList(SreviewVO svo);
+
+	PreviewVO myProductRselectList(PreviewVO pvo);
+
+
 
 
 }

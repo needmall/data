@@ -32,9 +32,15 @@ public interface MypageService {
 
 	List<PreviewVO> myProductRList(PreviewVO pvo);
 
-	List<PreviewVO> mySellerRList(SreviewVO svo);
+	List<SreviewVO> mySellerRList(SreviewVO svo);
 
 	int myProductRInsert(PreviewVO pvo, HttpServletRequest request);
+
+	int mySellerInsert(SreviewVO svo, HttpServletRequest request);
+
+	SreviewVO mySellerRselectList(SreviewVO svo);
+
+	PreviewVO myProductRselectList(PreviewVO pvo);
 
 	
 }

@@ -21,11 +21,6 @@
 <!-- <script src="/resources/js/html5shiv.js"</script> -->
 <!-- [endif] -->
 
-<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="/resources/include/js/common.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- 		 <link rel="stylesheet" type="text/css" href="/resources/include/css/common.css" /> -->
-<link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
 
 <!-- 부가적인 테마 -->
 
@@ -317,7 +312,7 @@ var checkB = [];
 		</table>
 		
 		<div class="nav_div">
-			<input type="button" class="btn btn-default" id="btn_allBuy" value="전체 구매하기">
+<!-- 			<input type="button" class="btn btn-default" id="btn_allBuy" value="전체 구매하기"> -->
 		</div>
 		<!-- 		모달부분 -->
 		<div class="modal fade bs-example-modal-lg"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -67,7 +67,7 @@
 								if(confirm("이미 장바구니에  등록되어있습니다. 장바구니로 이동하시겠습니까?")){
 									$("#hidden").attr({
 										"method":"post",
-										"action":"/mypage/mypageList.do"
+										"action":"/mypage/mypageList.do?t=2"
 									});
 									$("#hidden").submit();
 								}
@@ -307,7 +307,7 @@
 									if(confirm("장바구니로 이동하시겠습니까?")){
 										$("#hidden").attr({
 											"method":"post",
-											"action":"/mypage/mypageList.do"
+											"action":"/mypage/mypageList.do?t=2"
 										});
 										$("#hidden").submit();
 									}

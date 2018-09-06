@@ -94,7 +94,7 @@ public class MypageDaoImpl implements MypageDao {
 	}
 
 	@Override
-	public List<PreviewVO> mySellerRList(SreviewVO svo) {
+	public List<SreviewVO> mySellerRList(SreviewVO svo) {
 		// TODO Auto-generated method stub
 		return session.selectList("mySellerRList",svo);
 	}
@@ -104,6 +104,25 @@ public class MypageDaoImpl implements MypageDao {
 		// TODO Auto-generated method stub
 		return session.insert("myProductRInsert",pvo);
 	}
+
+	@Override
+	public int mySellerInsert(SreviewVO svo) {
+		// TODO Auto-generated method stub
+		return session.insert("mySellerInsert",svo);
+	}
+
+	@Override
+	public SreviewVO mySellerRselectList(SreviewVO svo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("mySellerRselectList",svo);
+	}
+
+	@Override
+	public PreviewVO myProductRselectList(PreviewVO pvo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("myProductRselectList",pvo);
+	}
+
 
 
 }
