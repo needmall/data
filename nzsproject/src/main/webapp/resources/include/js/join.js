@@ -233,11 +233,13 @@ $(function(){
 		
 		
 		else if (!formCheck($('#s_mailName'), $('.error:eq(7)'), "이메일 주소를")) return;
+		else if (!formCheck($('#s_iden'), $('.error:eq(7)'), "인증번호를")) return;
+		
 		else if (!formCheck($('#s_cell'), $('.error:eq(8)'), "핸드폰번호를")) return;
 		else if (!inputVerify(2,'#s_cell','.error:eq(8)')) return;
 		//else if (!formCheck($('#s_phone'), $('.error:eq(9)'), "유선전화번호를")) return;
 		else if (!formCheck($('#st_bnum'), $('.error:eq(10)'), "사업자번호를")) return;
-		else if (!inputVerify(3,'#st_bnum','.error:eq(10)')) return;
+		else if (!inputVerify(3,'#st_bnum','.error:eq(12)')) return;
 		else if (!formCheck($('#st_name'), $('.error:eq(11)'), "상호명을")) return;
 		else if (!formCheck($('#sample6_postcode2'), $('.error:eq(12)'), "매장 우편번호를")) return;
 		else if (!formCheck($('#sample6_address22'), $('.error:eq(13)'), "매장 주소를")) return;
@@ -248,6 +250,10 @@ $(function(){
 		else if (!formCheck($('#st_emailName'), $('.error:eq(17)'), "이메일 주소를")) return;
 		
 		else if (idConfirm!=2){ alert("아이디 중복 체크 진행해 주세요."); return;}
+		else if ($("#emailConfirm").val()!=$("#s_iden").val()){
+			alert("인증번호가 일치하지 않습니다!");
+			return;
+		}
 		else if (stBnum!=2){ alert("사업자번호 중복 체크 진행해 주세요."); return;}
 		
 		else {
