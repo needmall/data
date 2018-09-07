@@ -48,6 +48,8 @@
 	group by months order by months desc
 	</select>
     <select id="popItem" resultType="productall">
-    
+    select p_name, subdata.pi_image from (SELECT product.p_num, sum(b_count) bcount from product inner join productsell on productsell.p_num = product.p_num 
+ 	inner join buy2dep on productsell.ps_num = buy2dep.PS_NUM where ps_regdate between  sysdate-30 and sysdate group by product.p_num) maindata 
+ 	inner join (select p_num, p_name, pi_image from product inner join proimage on product.pi_num = proimage.pi_num) subdata on maindata.p_num=subdata.p_num
     </select>
 </mapper>
