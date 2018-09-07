@@ -34,7 +34,7 @@
           <c:choose>
           <c:when test="${login.c_id != null and login.c_id != ''}">
           	<ul class="nav navbar-nav navbar-right">
-	            <li><a href="#"><strong>[고객]${login.c_name}</strong></a></li>
+	            <li><a href="#"><strong>[ ${login.c_name} ] 고객님</strong></a></li>
 	            <li><a href="/member/logout.do">로그아웃</a></li>      
 	            <li><a href="/productsell/list.do">셀러오피스</a></li>
 	            <li><a href="#"> </a></li>
