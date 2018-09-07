@@ -158,7 +158,7 @@
         <div class="col-md-4">
           <h2>마이페이지</h2>
           <p>정보 수정 / 장바구니 / 구매목록 / 즐겨찾기 등 회원 전반적인 정보관리</p>
-          <p><a class="btn btn-default" href="/mypage/mypageList.do" role="button">마이페이지 &raquo;</a></p>
+          <p><a class="btn btn-default" href="/mypage/mypageList.do?t=2" role="button">마이페이지 &raquo;</a></p>
         </div>
       </div>
     </div>

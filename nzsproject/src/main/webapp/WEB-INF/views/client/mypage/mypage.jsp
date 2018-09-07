@@ -140,15 +140,26 @@ var count;
 var t = "${t}";
 		$(function(){
 			
+			$("#customUpdate").click(function(){
+				$("#coustomer").submit();
+			})
+			
 			if(t=="2"){
 				$("#nav a[href='#tab2']").tab("show");				
 			}else if(t=="3"){
 				$("#nav a[href='#tab3']").tab("show");
-			}else if(t=="4"){
+			}else {
 				$("#nav a[href='#tab4']").tab("show");
-			}else{
-				$("#nav a[href='#tab1']").tab("show");				
 			}
+			
+			
+			/*
+			else if(t=="4"){
+				$("#nav a[href='#tab4']").tab("show");
+			}
+			 else{
+				$("#nav a[href='#tab1']").tab("show");				
+			} */
 			
 
 			$('.dropdown-toggle').dropdown();
@@ -189,7 +200,7 @@ var t = "${t}";
 		    				$.getJSON("/mypage/mybuyList.do?page="+pageValue+"&c_num="+c_num+"&tab=3", function(data){
 // 			    					$("#tableList").html("");
 		    					if(data.length==0){
-		    						notitemReviewTag();
+// 		    						notitemReviewTag();
 		    					}
 		    					$(data).each(function() {
 									var ps_num = this.ps_num;
@@ -757,19 +768,18 @@ var t = "${t}";
 	</script>
 </head>
 <body>
-
+ 	<form id="coustomer" action="/member/login.do" method="post">
+		 <input type="hidden" name="login" value="${login}">
+	</form> 
+	
 	<div class="all">	
 	<input type="hidden" name="total_count">	
 		<div role="tabpanel">
 			<ul id="nav" class="nav nav-tabs clearfix right" role="tablist"  >	
-<!-- 			  	<li role="presentation" class="dropdown"> -->
-<!-- 				  	<a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">회원정보 관리</a> -->
-<!-- 			    	<ul class="dropdown-menu" role="menu"> -->
-<!-- 			      		<li role="presentation" id="li_list1-1"><a role="menuitem" data-toggle="tab" tabindex="-1" href="#tab1-1">회원정보 수정</a></li> -->
-<!-- 	   					<li role="presentation" id="li_list1-2"><a role="menuitem" data-toggle="tab" tabindex="-1" href="#tab1-2">회원 탈퇴</a></li> -->
-<!-- 			    	</ul> -->
-<!-- 			  	</li> -->
-			  	<li data-toggle="tab"><a href="#tab1"  data-toggle="tab">회원정보 수정</a></li>
+
+<!-- 			  	<li data-toggle="tab"><a href="#tab1"  data-toggle="tab">회원정보 수정</a></li> -->
+			  	<li data-toggle="tab"><a href="/member/login.do"  data-toggle="tab" id="customUpdate">회원정보 수정</a></li>
+			  	
 				<li data-toggle="tab"><a href="#tab2"  data-toggle="tab" id="li_list2">장바구니</a></li>
 				<li data-toggle="tab"><a href="#tab3"  data-toggle="tab" id="li_list3">구매목록</a></li>
 				<li data-toggle="tab"><a href="#tab4"  data-toggle="tab">즐겨찾기</a></li>
@@ -778,7 +788,10 @@ var t = "${t}";
 		</div>
 		<div class="tab-content">  <!-- 텝 시작 부분 -->
 			<div class="tab-pane active" id= "tab1"> <!-- 정보수정 페이지  -->
-<%-- 				<jsp:include page="/WEB-INF/views/client/member/join_customer_modify.jsp"></jsp:include> --%>
+<%-- 				<c:import url="/member/login.do"> --%>
+<%-- 					<c:param name="login" value="{login}"></c:param> --%>
+<%-- 				</c:import> --%>
+				
 			</div>
 			<div class="tab-pane" id="tab2">
 				<div id="page_group">

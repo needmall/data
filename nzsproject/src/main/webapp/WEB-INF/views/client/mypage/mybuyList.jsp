@@ -45,7 +45,7 @@
 <body>
 	<div class="item_succes"><span>구매 성공 내역</span></div>
 	<hr/>
-	<div style="text-align: right ;"><input type="date"></div>
+<!-- 	<div style="text-align: right ;"><input type="date"></div> -->
 		<table class="table table-striped table-hover" id="tableList">
 			<colgroup>
 				<col width="5%">
