@@ -44,9 +44,10 @@
     	
     	#newsList:after{ clear:both}
     	.item img{margin-left: auto; margin-right: auto; }
-    	body {width: 1140px;margin-left: auto; margin-right: auto;}
-    	
+    	body {width: 1140px;margin-left: auto; margin-right: auto; min-height: 100px;}
+
 	</style>
+
 	<script type="text/javascript">
 		$(function() {
 			
