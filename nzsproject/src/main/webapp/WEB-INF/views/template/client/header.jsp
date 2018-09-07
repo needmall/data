@@ -11,11 +11,13 @@
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style type="text/css">
+     #header{ margin-bottom: 0px; height: 300.56}
 	#mainlogo{background-color: white; width: 1140px; float: left;}
 	#mypage{margin-left: 170px; padding:10px; margin-right: 5px; height:70px !important;  width: 75px !important; display: inline-block;}
 	#mycart{ height:70px !important; padding:10px; width: 75px !important; display: inline-block;}	
+	.container {margin-top: 0px; padding-top: 0px !important;}
 </style>
- <div class="container"> 
+ <div class="container" id="header"> 
   <!-- Static navbar -->
     <nav class="navbar navbar-default navbar-static-top"> <!-- navbar-default  -->
       <div class="container">

@@ -12,6 +12,7 @@ import com.needmall.client.login.vo.LoginVO;
 public class MainController {
 	Logger logger = Logger.getLogger(MainController.class);
 	
+	
 	@RequestMapping(value ="/", method = RequestMethod.GET)
 	public String main() {
 		return "index";

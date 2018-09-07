@@ -19,7 +19,7 @@
 <script type="text/javascript">
 	$(function() {
 		$(".goDetail").click(function() {
-			location.href="newsDetail.do?n_num="+$(this).attr("data-num");
+			location.href="news/newsDetail.do?n_num="+$(this).attr("data-num");
 		});
 		
 		

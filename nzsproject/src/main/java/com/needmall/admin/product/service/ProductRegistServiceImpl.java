@@ -206,7 +206,7 @@ public class ProductRegistServiceImpl implements ProductRegistService{
 	 */
 	@Override
 	public void checkExpiration() {
-		System.out.println("오분마다 찍혀야 한다");
+		productRegistDao.checkExpiration();
 	}
 
 	

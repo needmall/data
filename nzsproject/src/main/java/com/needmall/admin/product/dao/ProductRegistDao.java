@@ -26,4 +26,5 @@ public interface ProductRegistDao {
 	public int p_stateX(int p_num);
 	public int p_stateO(int p_num);	
 	public List<ReqproductRegistVO> productReqList();
+    public void checkExpiration();
 }

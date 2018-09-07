@@ -9,11 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.statistic.service.StatisticService;
 import com.needmall.admin.statistic.vo.CustomerDataVO;
 import com.needmall.admin.statistic.vo.SalesDataVO;
 import com.needmall.admin.statistic.vo.StoreDataVO;
+import com.needmall.common.vo.CustomerVO;
 
 @Controller
 @RequestMapping(value="/admin/statistic")
@@ -89,4 +92,16 @@ public class StatisticController {
 		return "admin/statistic/productSalesData";
 	}
 	
+	/**
+	 * popItem : 인기상품 반환
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/popItem.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
+	public String popItem(ObjectMapper mapper) {
+		logger.info("popItem 호출 성공");
+		String listData = statisticService.popItem(mapper);	
+		return listData; // 문자열 반환
+	}
 }

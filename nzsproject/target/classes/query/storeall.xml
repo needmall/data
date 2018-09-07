@@ -4,7 +4,7 @@
 	<select id="storeList" parameterType="customer" resultType="storeall">		      
 	      /* Storeall - storelist */
 	<![CDATA[
-	      select seller.S_NUM,CS_DIVISION,S_ID,S_PWD,S_NAME,S_GENDER,S_BIRTHDAY,S_ADDRESS,S_MAIL,S_PHONE,S_CELL,S_DATE, 
+	      select seller.S_NUM,CS_DIVISION,S_ID,
 	      ST_NUM,ST_BNUM,ST_NAME,ST_ADDRESS,ST_EMAIL,ST_HOURS,ST_CELL,ST_CEO,ST_LAT,ST_LON,ST_DATE,store.SI_DIVISION, 
 	      SI_IMAGE, calc_distance(#{c_lat}, #{c_lon},ST_LAT,ST_LON) as distance 
 	      from seller inner join store on seller.s_num=store.s_num inner join storeimage 

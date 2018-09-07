@@ -47,5 +47,7 @@
 	left outer join (select sum(b_count) bcount, ps_num from buy2dep group by ps_num) buydata on productsell.ps_num=buydata.ps_num) where ps_num = #{ps_num}
 	group by months order by months desc
 	</select>
+    <select id="popItem" resultType="productall">
     
+    </select>
 </mapper>

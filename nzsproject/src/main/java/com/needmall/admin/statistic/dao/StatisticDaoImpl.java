@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.needmall.admin.statistic.vo.CustomerDataVO;
 import com.needmall.admin.statistic.vo.SalesDataVO;
 import com.needmall.admin.statistic.vo.StoreDataVO;
+import com.needmall.client.productall.vo.ProductallVO;
 
 @Repository
 public class StatisticDaoImpl implements StatisticDao{
@@ -49,6 +50,11 @@ public class StatisticDaoImpl implements StatisticDao{
 	@Override
 	public List<SalesDataVO> productSalesData(SalesDataVO sdvo) {
 		return session.selectList("productSalesData", sdvo);
+	}
+
+	@Override
+	public List<ProductallVO> popItem() {
+		return session.selectList("popItem");
 	}	
 	
 	

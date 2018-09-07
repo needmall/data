@@ -5,6 +5,7 @@ import java.util.List;
 import com.needmall.admin.statistic.vo.CustomerDataVO;
 import com.needmall.admin.statistic.vo.SalesDataVO;
 import com.needmall.admin.statistic.vo.StoreDataVO;
+import com.needmall.client.productall.vo.ProductallVO;
 
 public interface StatisticDao {
 	public List<SalesDataVO> salesDataList();
@@ -14,4 +15,5 @@ public interface StatisticDao {
 	public List<SalesDataVO> productSalesList();
 	public List<SalesDataVO> storeSalesData(SalesDataVO sdvo);
 	public List<SalesDataVO> productSalesData(SalesDataVO sdvo);
+	public List<ProductallVO> popItem();
 }

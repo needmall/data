@@ -6,10 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.admin.statistic.dao.StatisticDao;
 import com.needmall.admin.statistic.vo.CustomerDataVO;
 import com.needmall.admin.statistic.vo.SalesDataVO;
 import com.needmall.admin.statistic.vo.StoreDataVO;
+import com.needmall.client.productall.vo.ProductallVO;
 
 
 @Service
@@ -52,6 +55,18 @@ public class StatisticServiceImpl implements StatisticService{
 	@Override
 	public List<SalesDataVO> productSalesData(SalesDataVO sdvo) {
 		return statisticDao.productSalesData(sdvo);
+	}
+
+	@Override
+	public String popItem(ObjectMapper mapper) {
+		List<ProductallVO> list = statisticDao.popItem();
+		String poplist="";
+		try {
+			mapper.writeValueAsString(list);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return poplist;
 	}
 	
 	

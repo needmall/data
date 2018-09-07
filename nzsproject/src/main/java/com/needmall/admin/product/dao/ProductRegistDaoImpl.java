@@ -94,6 +94,12 @@ public class ProductRegistDaoImpl implements ProductRegistDao{
 		return session.selectList("productReqList");
 	}
 
+	@Override
+	public void checkExpiration() {
+		session.update("checkExpiration");
+		
+	}
+
 	
 	
 	

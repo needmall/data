@@ -21,6 +21,6 @@ public interface ProductRegistService {
 	public int productUpdate(ProductRegistVO prvo, HttpServletRequest request);
 	public int stateUpdate(int p_num, int p_state);
 	public List<ReqproductRegistVO> productReqList();
-	void checkExpiration();
+	public void checkExpiration();
 	
 }

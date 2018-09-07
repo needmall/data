@@ -44,9 +44,9 @@
 		<put-attribute name="title" value="마이 페이지"/>
 		<put-attribute name="body" value="/WEB-INF/views/client/mypage/{1}.jsp"/>
 	</definition>
-	<definition name="news/*" extends="content">
+	<definition name="news/newsDetail*" extends="content">
 		<put-attribute name="title" value="공지사항"/>
-		<put-attribute name="body" value="/WEB-INF/views/client/news/{1}.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/views/client/news/newsDetail{1}.jsp"/>
 	</definition>
 	
 </tiles-definitions>
