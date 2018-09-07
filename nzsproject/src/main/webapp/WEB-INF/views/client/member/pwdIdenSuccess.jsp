@@ -17,9 +17,16 @@
 		<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
         <script type="text/javascript" src="/resources/include/js/common.js"></script>
         <script type="text/javascript" src="/resources/include/js/join.js"></script>
-                   
+        
+        <script type="text/javascript">
+        	$(function(){
+    		
+	    		
+        	}
+        </script>           
 	</head>
 	<body>
 		임시 비밀번호가 회원님의 메일로 전송되었습니다.
+		<!-- <input type="button" id="login" value="로그인" /> -->
 	</body>
 </html>

@@ -53,7 +53,7 @@ public class AdminNewsServiceImpl implements AdminNewsService {
 		int result = 0;		
 		String preimg= bvo.getN_file();
 		String fileName="";
-		if(!bvo.getFile().isEmpty()) {  // null 로 하면 경우에 따라서 오류!!!
+		if(!bvo.getFile().isEmpty() && bvo.getFile()!=null) {  // null 로 하면 경우에 따라서 오류!!!
 			try {
 				fileName = FileUploadUtil.fileUpload(bvo.getFile(), request, "news");
 				bvo.setN_file(fileName);				

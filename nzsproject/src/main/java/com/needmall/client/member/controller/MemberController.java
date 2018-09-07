@@ -235,7 +235,7 @@ public class MemberController {
 		// 세션에서 로그인 정보 중 아이디만 가지고 해당 아이디에 대한 상세내역  DB에서 조회
 		MemberVO vo = memberService.customerSelect(login.getC_id());
 		mav.addObject("member", vo);
-		mav.setViewName("member/login.jsp"); 
+		mav.setViewName("member/join_customer_modify"); 
 		return mav;
 	} 
 

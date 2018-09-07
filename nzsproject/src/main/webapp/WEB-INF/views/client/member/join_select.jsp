@@ -36,8 +36,8 @@
       </head>
 <body>
 	<div id="btnArea">
-	<input type="button" class="btn btn-default" id="customer" value="고 객 ">
-	<input type="button" class="btn btn-default" id="seller" value="판 매 자">
+		<input type="button" class="btn btn-default" id="customer" value="고 객 ">
+		<input type="button" class="btn btn-default" id="seller" value="판 매 자">
 	</div>	
 </body>
 </html>

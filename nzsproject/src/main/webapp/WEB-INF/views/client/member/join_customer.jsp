@@ -84,8 +84,8 @@
           	}
           	var emailConfirm = emailConfirm();
           	$(function(){
-
           		$("#cIdenBut").click(function(){
+          			if (!formCheck($('#c_mailName'), $('.error:eq(6)'), "이메일 주소를")) return;
           			$("#emailConfirm").val(emailConfirm);
           			$("#c_mail").val($("#c_mailName").val()+"@"+$("#c_mailDomain").val());
           			$.ajax({
@@ -122,7 +122,7 @@
 			<div class="form-group form-group-sm">
 				<label for="c_id" class="col-sm-2 control-label">사용자 ID</label>
 				<div class="col-sm-3">
-					<input type="text" id="c_id" name="c_id"  maxlength="12" class="form-control" placeholder="User ID" />
+					<input type="text" id="c_id" name="c_id"  maxlength="12" class="form-control" placeholder="ID" />
 				</div>
 				<div class="col-sm-2">
 					<input type="button" id="customerIdConfirmBtn" value="아이디 중복체크" class="form-control btn-primary" />
@@ -143,7 +143,7 @@
 			<div class="form-group form-group-sm">
 				<label for="c_pwdCheck" class="col-sm-2 control-label">비밀번호 확인</label>
 				<div class="col-sm-3">
-					<input type="password"  id="c_pwdCheck" name="c_pwdCheck" maxlength="15" class="form-control" placeholder="Password Confirm" >
+					<input type="password"  id="c_pwdCheck" name="c_pwdCheck" maxlength="15" class="form-control" placeholder="Password Check" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -152,7 +152,7 @@
 			<div class="form-group form-group-sm">
 				<label for="c_name" class="col-sm-2 control-label">회원이름</label>
 				<div class="col-sm-3">
-					<input type="text" id="c_name" name="c_name" maxlength="10" class="form-control" placeholder="NAME" >
+					<input type="text" id="c_name" name="c_name" maxlength="10" class="form-control" placeholder="Name" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -214,7 +214,7 @@
 			<div class="form-group form-group-sm">
 				<label for="c_mailName" class="col-sm-2 control-label">회원 이메일</label>
 				<div class="col-sm-3">
-					<input type="text" id="c_mailName" name="c_mailName" maxlength="60" class="form-control" placeholder="c_mail">
+					<input type="text" id="c_mailName" name="c_mailName" maxlength="60" class="form-control" placeholder="이메일 아이디만 입력해주세요">
 				</div>
 				<div class="col-sm-2">
 					<select id="c_mailDomain" class="form-control">

@@ -57,7 +57,7 @@ text-align:left;
 		<div class="form-group">
     		<label for="n_udate" class="col-sm-1 control-label" >내 용</label>
     		<div class="col-sm-11">
-    			<input type="text" class="form-control change" id="n_content" name="n_content" >
+    			<textarea class="form-control change" cols="400" rows="5" placeholder="내용을 입력하세요" name="n_content" ></textarea>    			
     		</div>
   		</div>	  	
 		<div class="form-group" > 
