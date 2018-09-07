@@ -893,15 +893,15 @@ var t = "${t}";
 	      </div>
 	      <div class="modal-footer btn_hide1">
 	      	<button type="button" class="btn btn-primary" id="insert1" >등록</button>
-	      	<button type="button" class="btn btn-primary" id="update1" >수정</button>	
-	      	<button type="button" class="btn btn-primary" id="delete1" >삭제</button>	
+<!-- 	      	<button type="button" class="btn btn-primary" id="update1" >수정</button>	 -->
+<!-- 	      	<button type="button" class="btn btn-primary" id="delete1" >삭제</button>	 -->
 	      	<button type="button" class="btn btn-default" data-dismiss="modal" >닫기</button>
 	      	
 	      </div>
 	      <div class="modal-footer btn_hide2">
 	      	<button type="button" class="btn btn-primary" id="insert2" >등록</button>
-	      	<button type="button" class="btn btn-primary" id="update2" >수정</button>	
-	      	<button type="button" class="btn btn-primary" id="delete2" >삭제</button>	
+<!-- 	      	<button type="button" class="btn btn-primary" id="update2" >수정</button>	 -->
+<!-- 	      	<button type="button" class="btn btn-primary" id="delete2" >삭제</button>	 -->
 	      	<button type="button" class="btn btn-default" data-dismiss="modal" >닫기</button>
 	      	
 	      </div>
