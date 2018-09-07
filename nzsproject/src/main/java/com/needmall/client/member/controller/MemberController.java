@@ -564,7 +564,7 @@ public class MemberController {
 			
 			EmailVO evo = new EmailVO();
 			evo.setTo(c_mail);
-			evo.setSubject("비밀번호 찾기 입니다.");
+			evo.setSubject("[NeedMall] 비밀번호 찾기 입니다.");
 			evo.setText("변경된 비밀번호는 " + c_pwd + "입니다.\n반드시 비밀번호를 재설정해주세요!");
 			emailService.sendMimeMail(evo); //email 보내기
 			
@@ -624,7 +624,7 @@ public class MemberController {
 			
 			EmailVO evo = new EmailVO();
 			evo.setTo(s_mail);
-			evo.setSubject("비밀번호 찾기 입니다.");
+			evo.setSubject("[NeedMall] 비밀번호 찾기 입니다.");
 			evo.setText("변경된 비밀번호는 " + s_pwd + "입니다.\n반드시 비밀번호를 재설정해주세요!");
 			emailService.sendMimeMail(evo); //email 보내기
 			
@@ -652,7 +652,7 @@ public class MemberController {
 	public String customerEmailConfirm(@RequestParam("emailConfirm") String emailConfirm, @RequestParam("c_mail") String c_mail) {
 		EmailVO evo = new EmailVO();
 		evo.setTo(c_mail);
-		evo.setSubject("이메일 인증 입니다.");
+		evo.setSubject("[NeedMall] 이메일 인증 입니다.");
 		evo.setText("인증번호는 " + emailConfirm + "입니다.");
 		logger.info("evo : " + evo);
 		String emailIden = emailService.sendMimeMail(evo); //email 보내기
@@ -670,7 +670,7 @@ public class MemberController {
 	public String sellerEmailConfirm(@RequestParam("emailConfirm") String emailConfirm, @RequestParam("s_mail") String s_mail) {
 		EmailVO evo = new EmailVO();
 		evo.setTo(s_mail);
-		evo.setSubject("이메일 인증 입니다.");
+		evo.setSubject("[NeedMall] 이메일 인증 입니다.");
 		evo.setText("인증번호는 " + emailConfirm + "입니다.");
 		logger.info("evo : " + evo);
 		String emailIden = emailService.sendMimeMail(evo); //email 보내기
