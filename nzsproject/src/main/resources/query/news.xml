@@ -3,7 +3,7 @@
 <mapper namespace="com.needmall.client.news.dao.NewsDao">
 		
 	<select id="newsList" resultType="news">
-		select n_num, n_title, n_date from news
+		select n_num, n_title, n_date from news order by n_date desc
 	</select>
 	<select id="newsDetail" parameterType="news" resultType="news">
 		select n_num, n_title, n_content, n_udate, n_file from news where n_num=#{n_num}

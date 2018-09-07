@@ -30,6 +30,11 @@ text-align:left;
 
 <script type="text/javascript">
 	$(function() {
+		var checkfile="${adminNewsDetail.n_file}";
+		if(checkfile ==""){
+			$(".checkimg").hide();
+		}
+		$(".checkimg")
 		//업데이트시 필요한 폼양식 숨기기
 		$(".updateItem").hide();
 		
@@ -40,7 +45,8 @@ text-align:left;
 			$("#updateBtn").hide();
 			$("#deleteBtn").hide();
 			$(".change").prop("readonly",false);			
-			$(".updateItem").show();						
+			$(".updateItem").show();
+			$(".checkimg").show();
 		});
 		
 		//수정버튼후 저장 버튼 클릭시
@@ -99,21 +105,22 @@ text-align:left;
     			<input type="text" class="form-control change" readonly="readonly" id="n_udate" name="n_udate" value="${adminNewsDetail.n_udate}">
     		</div>
   		</div> 
-  		<c:choose>
-		<c:when test="${not empty adminNewsDetail.n_file}">  		 		  
-		  	<div class="form-group">
+<%--   		<c:choose> --%>
+<%-- 		<c:when test="${not empty adminNewsDetail.n_file}">  		 		   --%>
+		  	<div class="form-group checkimg">
 		    	<label for="pi_image" class="col-sm-1 control-label">상품사진</label>
 		    	<div class="col-sm-11" id="filearea">
 		     		<img id="imgarea"class="img-thumbnail" src="/uploadStorage/news/${adminNewsDetail.n_file}"/>	     	
 		     		<input type="file" id="file" name="file"  class="updateItem">
 		     	</div>
 		  	</div>
-	  	</c:when>
-	  	</c:choose>
+<%-- 	  	</c:when> --%>
+<%-- 	  	</c:choose> --%>
 		<div class="form-group">
     		<label for="n_udate" class="col-sm-1 control-label" >내 용</label>
     		<div class="col-sm-11">
-    			<input type="text" class="form-control change" readonly="readonly" id="n_content" name="n_content" value="${adminNewsDetail.n_content}">
+    			<textarea class="form-control change" cols="400" rows="10" readonly="readonly" id="n_content" name="n_content" placeholder="내용을 입력하세요" name="n_content" >${adminNewsDetail.n_content}</textarea>  	
+    			
     		</div>
   		</div>	  	
 		<div class="form-group" > 

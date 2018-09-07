@@ -36,7 +36,7 @@
     
     <style type="text/css">
    		#middle{margin-left: auto; margin-right: auto; height: 440px; padding-left: 10px;}
-   		#todaychoice{ margin-left: 15px; margin-right:5px;   width: 570px; float: left;}
+   		#todaychoice{ margin-left: 15px; margin-right:25px;   width: 550px; float: left;}
     	
     	#newslist{width: 550px; }
     	h4{text-align: center; display: inline-block; font-weight: bold;}
