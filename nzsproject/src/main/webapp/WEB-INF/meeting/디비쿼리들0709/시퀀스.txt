@@ -1,0 +1,158 @@
+--------------------------------------------------------
+--  파일이 생성됨 - 금요일-9월-07-2018   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Sequence BUY1DEP_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."BUY1DEP_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 101 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence BUY2DEP_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."BUY2DEP_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 121 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence CART1DEP_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."CART1DEP_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 81 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence CART2DEP_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."CART2DEP_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 161 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence CATEGORY1DEP_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."CATEGORY1DEP_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence CATEGORY2DEP_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."CATEGORY2DEP_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence CINFO_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."CINFO_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 141 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence CUSTOMER_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."CUSTOMER_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 221 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence EMAILCONFIRM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."EMAILCONFIRM_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence FAVPRODUCT_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."FAVPRODUCT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 81 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence FAVSTORE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."FAVSTORE_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 81 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence FEES_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."FEES_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 81 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence LOGINCHECK_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."LOGINCHECK_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence MEMBERSECURITY_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."MEMBERSECURITY_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 261 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence NEWS_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."NEWS_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence PREQPRODUCT_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."PREQPRODUCT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence PREVIEW_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."PREVIEW_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence PROCINFO_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."PROCINFO_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence PRODUCT_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."PRODUCT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence PRODUCTSELL_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."PRODUCTSELL_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 181 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence PROIMAGE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."PROIMAGE_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence PROSINFO_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."PROSINFO_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence QNA_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."QNA_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence QNAREPLY_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."QNAREPLY_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence REQPRODUCT_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."REQPRODUCT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence REQSTORE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."REQSTORE_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 161 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence REVIEW_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."REVIEW_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence SELLER_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."SELLER_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 181 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence SINFO_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."SINFO_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 121 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence SREVIEW_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."SREVIEW_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence STORE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "NZS"."STORE_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 121 CACHE 20 NOORDER  NOCYCLE ;
