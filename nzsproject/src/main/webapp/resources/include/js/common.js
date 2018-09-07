@@ -72,8 +72,8 @@ function checkForm(item, msg){
 function formCheck(main, item, msg) {
    if($(main).val().replace(/\s/g,"")==""){
       $(item).html(msg+" 입력해 주세요").css("color","red");
-      //$(main).val("");
-      $(main).focus();
+      $(main).val("");
+      //$(main).focus();
       return false;      
    }else{
       return true;

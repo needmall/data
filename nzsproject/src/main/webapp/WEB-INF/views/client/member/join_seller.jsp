@@ -127,6 +127,7 @@
           	$(function(){
 
           		$("#sIdenBut").click(function(){
+          			if (!formCheck($('#s_mailName'), $('.error:eq(6)'), "이메일 주소를")) return;
           			$("#emailConfirm").val(emailConfirm);
           			$("#s_mail").val($("#s_mailName").val()+"@"+$("#s_mailDomain").val());
           			$.ajax({
@@ -289,7 +290,7 @@
 				</div>
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="s_phone" class="col-sm-2 control-label">유선 전화</label>
+				<label for="s_phone" class="col-sm-2 control-label">유선 전화 (선택)</label>
 				<div class="col-sm-3">
 					<input type="text" id="s_phone" name="s_phone" maxlength="15" class="form-control" placeholder="선택사항">	
 				</div>
@@ -303,7 +304,7 @@
 			<div class="form-group form-group-sm">
 				<label for="st_bnum" class="col-sm-2 control-label">사업자 번호</label>
 				<div class="col-sm-3">
-					<input type="text" id="st_bnum" name="st_bnum"  maxlength="20" class="form-control" placeholder="사업자 번호" />
+					<input type="text" id="st_bnum" name="st_bnum"  maxlength="20" class="form-control" placeholder="ex) 123-12-12345" />
 				</div>
 				<div class="col-sm-2">
 					<input type="button" id="stBnumConfirmBtn" value="사업자 번호 중복체크" class="form-control btn-primary" />
@@ -359,7 +360,7 @@
 			<div class="form-group form-group-sm">
 				<label for="st_hours" class="col-sm-2 control-label">영업 시간</label>
 				<div class="col-sm-3">
-					<input type="text" id="st_hours" name="st_hours" maxlength="15" class="form-control" placeholder="st_hours">	
+					<input type="text" id="st_hours" name="st_hours" maxlength="15" class="form-control" placeholder="영업시간">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -368,7 +369,7 @@
 			<div class="form-group form-group-sm">
 				<label for="st_cell" class="col-sm-2 control-label">매장 전화번호</label>
 				<div class="col-sm-3">
-					<input type="text" id="st_cell" name="st_cell" maxlength="15" class="form-control" placeholder="st_cell Number">	
+					<input type="text" id="st_cell" name="st_cell" maxlength="15" class="form-control" placeholder="매장 전화번호">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -378,7 +379,7 @@
 			<div class="form-group form-group-sm">
 				<label for="st_ceo" class="col-sm-2 control-label">대표자</label>
 				<div class="col-sm-3">
-					<input type="text" id="st_ceo" name="st_ceo" maxlength="10" class="form-control" placeholder="st_ceo" >
+					<input type="text" id="st_ceo" name="st_ceo" maxlength="10" class="form-control" placeholder="CEO" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -387,7 +388,7 @@
 			<div class="form-group form-group-sm">
 				<label for="st_emailName" class="col-sm-2 control-label">이메일</label>
 				<div class="col-sm-3">
-					<input type="text" id="st_emailName" name="st_emailName" maxlength="60" class="form-control" placeholder="st_email">
+					<input type="text" id="st_emailName" name="st_emailName" maxlength="60" class="form-control" placeholder="Email">
 				</div>
 				<div class="col-sm-2">
 					<select id="st_emailDomain" class="form-control">
