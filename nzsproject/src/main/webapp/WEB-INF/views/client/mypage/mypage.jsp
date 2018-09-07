@@ -768,7 +768,7 @@ var t = "${t}";
 	</script>
 </head>
 <body>
- 	<form id="coustomer" action="/member/login.do" method="post">
+ 	<form id="coustomer" action="/member/login.do" method="get">
 		 <input type="hidden" name="login" value="${login}">
 	</form> 
 	
