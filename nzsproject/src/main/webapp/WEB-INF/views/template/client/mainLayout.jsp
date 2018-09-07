@@ -45,6 +45,7 @@
     	#newsList:after{ clear:both}
     	.item img{margin-left: auto; margin-right: auto; height: 370px; width: 370px;}
     	body {width: 1140px;margin-left: auto; margin-right: auto; min-height: 100px;}
+    	.footer{    margin-left: -200px	 width: 1140px;}
 
 	</style>
 

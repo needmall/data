@@ -29,6 +29,9 @@ label {
 	width: 70px;
 	height: 40px;
 }
+.list-group-item{
+	height: 130px !important;
+}
 
 .fileImageProduct {
 	width: 70px;
