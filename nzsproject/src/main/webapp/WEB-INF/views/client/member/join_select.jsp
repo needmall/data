@@ -28,10 +28,16 @@
           		});
           	});
           </script> 
+          
+        <style type="text/css">
+        #btnArea{text-align: center;}
+   			.btn{ margin:30px; font-size: 50px; width: 300px; height: 200px;}
+		</style>
       </head>
 <body>
-	<input type="button" id="customer" value="고객">
-	<input type="button" id="seller" value="판매자">
-	<!-- client-setting.xml 안맞아서 404 및 500 떴었음 -->
+	<div id="btnArea">
+	<input type="button" class="btn btn-default" id="customer" value="고 객 ">
+	<input type="button" class="btn btn-default" id="seller" value="판 매 자">
+	</div>	
 </body>
 </html>

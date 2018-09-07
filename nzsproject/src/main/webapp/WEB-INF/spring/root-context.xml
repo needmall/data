@@ -55,7 +55,7 @@
 	    <!-- 시작하고 1분후에 실행한다. (milisecond) -->
 	    <property name="startDelay" value="60000" />
 	    <!-- 매 5	분마다 실행한다. (milisecond) -->
-	    <property name="repeatInterval" value="300000" />
+	    <property name="repeatInterval" value="360000" />
 	</bean>
 	
 	<!-- 유효기간 확인 스케줄러 -->
