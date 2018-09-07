@@ -49,14 +49,19 @@
 	</style>
 	<script type="text/javascript">
 		$(function() {
+			
+			$('.carousel').carousel({
+				  wrap: "true"
+				})
+				
 			$.ajax({
 				url:"/admin/statistic/popItem.do",  //전송 url
 				type:"get",  // 전송 시 method 방식				
-				dataType:"text",
+				dataType:"json",
 				success: function(result){
 					var cnt =0;
 					$(result).each(function() {	
-						if(cnt<5){
+						if(cnt<3){
 							var pi_image = this.pi_image;
 							var p_name = this.p_name;
 							var setitem = $(".item:eq("+cnt+")");
@@ -71,6 +76,7 @@
 					alert("시스템 오류 입니다. 관리자에게 문의하세요!!");							
 				}
 			});	
+						
 		});
 	</script>
 	
@@ -82,7 +88,7 @@
       
       
 	<div id="middle" >      
-		<div id="todaychoice">
+		<div id="todaychoice" class="carousel">
 			<h4>오늘의 인기 상품</h4>
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 			
@@ -113,19 +119,7 @@
 			      <div class="carousel-caption">
 			        	<h3></h3>		    			
 			      </div>
-			    </div>
-			       <div class="item">
-			      <img >
-			      <div class="carousel-caption">
-			        	<h3></h3>		    			
-			      </div>
-			    </div>  
-			       <div class="item">
-			      <img >
-			      <div class="carousel-caption">
-			        	<h3></h3>		    			
-			      </div>
-			    </div>      
+			    </div>			        
 			  </div>
 			
 			  <!-- Controls -->
@@ -162,9 +156,9 @@
           <p><a class="btn btn-default" href="/storeall/storeall.do" role="button">전체 스토어 보기 &raquo;</a></p>
        </div>
         <div class="col-md-4">
-          <h2>로그인 및 회원 관리</h2>
-          <p>회원 가입 / 정보 수정 / 회원 탈퇴 처리 완료. 로그인 및 로그아웃 처리 완료.</p>
-          <p><a class="btn btn-default" href="/member/login.do" role="button">회원관리 &raquo;</a></p>
+          <h2>마이페이지</h2>
+          <p>정보 수정 / 장바구니 / 구매목록 / 즐겨찾기 등 회원 전반적인 정보관리</p>
+          <p><a class="btn btn-default" href="/mypage/mypageList.do" role="button">마이페이지 &raquo;</a></p>
         </div>
       </div>
     </div>

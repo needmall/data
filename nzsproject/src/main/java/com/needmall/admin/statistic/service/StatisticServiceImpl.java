@@ -62,10 +62,11 @@ public class StatisticServiceImpl implements StatisticService{
 		List<ProductallVO> list = statisticDao.popItem();
 		String poplist="";
 		try {
-			mapper.writeValueAsString(list);
+			poplist = mapper.writeValueAsString(list);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
+		
 		return poplist;
 	}
 	

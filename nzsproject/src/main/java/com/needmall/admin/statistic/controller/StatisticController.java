@@ -101,7 +101,7 @@ public class StatisticController {
 	@RequestMapping(value="/popItem.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
 	public String popItem(ObjectMapper mapper) {
 		logger.info("popItem 호출 성공");
-		String listData = statisticService.popItem(mapper);	
+		String listData = statisticService.popItem(mapper);		
 		return listData; // 문자열 반환
 	}
 }
