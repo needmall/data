@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.needmall.common.vo.ProductsellVO;
 import com.needmall.common.vo.UserCommonVO;
+import com.needmall.seller.productsell.vo.ProductInfoVO;
 import com.needmall.seller.productsell.vo.ProductInsertVO;
 import com.needmall.seller.productsell.vo.ProductListOneVO;
 
@@ -20,5 +21,6 @@ public interface ProductsellService {
 	public int productDealUpdate(ProductInsertVO ivo);
 	public int feesConfirm(String s_id);
 	public int storeNumSelectOne(String s_id);
+	public String categoryList(ProductInfoVO ifvo);
 	
 }

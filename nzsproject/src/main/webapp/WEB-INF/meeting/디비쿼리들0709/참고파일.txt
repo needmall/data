@@ -1,0 +1,221 @@
+1. 메일 발송을 위한 라이브러리를 추가한다. (pom.xml)
+
+<!-- 메일 발송을 위한 라이브러리 -->
+<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+<dependency>
+    <groupId>javax.mail</groupId>
+    <artifactId>javax.mail-api</artifactId>
+    <version>1.5.5</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+<dependency>
+    <groupId>com.sun.mail</groupId>
+    <artifactId>javax.mail</artifactId>
+    <version>1.5.5</version>
+</dependency>
+
+2. 메일 발송을 위한 bean 설정을 한다.(servlet-context.xml)
+<!-- mail bean -->
+<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<beans:property name="host" value="smtp.gmail.com" />
+	<beans:property name="port" value="587" />
+	<beans:property name="username" value="각자 구글 아이디명" />  <!-- 구글 계정 아이디 -->
+	<beans:property name="password" value="각자 구글 비밀번호" /><!-- 구글 계정 비밀번호 -->
+	<beans:property name="javaMailProperties">
+		<beans:props>
+			<beans:prop key="mail.smtp.auth">true</beans:prop>
+			<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+			<beans:prop key="mail.smtp.timeout">8500</beans:prop> <!-- 메일 서버 연결시 timeout 시간 설정 -->
+			<beans:prop key="mail.debug">true</beans:prop>  <!-- log를 보고 싶다면 사용 -->
+		</beans:props>
+	</beans:property>
+</beans:bean>
+
+3. com.spring.common.email.vo 패키지에 EmailVO 클래스 생성하여 다금과 같이 코딩한다.
+
+package com.spring.common.email.vo;
+
+public class EmailVO {
+	private String from;
+	private String to;
+	private String subject;
+	private String text;
+	
+	public String getFrom() {
+		return from;
+	}
+	
+	public void setFrom(String from) {
+		this.from = from;
+	}
+	
+	public String getTo() {
+		return to;
+	}
+	
+	public void setTo(String to) {
+		this.to = to;
+	}
+	
+	public String getSubject() {
+		return subject;
+	}
+	
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	
+	public String getText() {
+		return text;
+	}
+	
+	public void setText(String text) {
+		this.text = text;
+	}
+	
+}
+
+4. com.spring.common.email.controller 패키지에 EmailController 클래스를 생성하여 다음과 같이 코딩한다.
+package com.spring.common.email.controller;
+
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.spring.common.email.service.EmailService;
+import com.spring.common.email.vo.EmailVO;
+
+@Controller
+@RequestMapping(value="/email")
+public class EmailController {
+	Logger logger = LoggerFactory.getLogger(EmailController.class);
+	
+	@Autowired
+	private EmailService emailService;
+	
+	@RequestMapping(value="/mailForm.do", method=RequestMethod.GET)
+	public void mailForm(){
+		
+	}
+	
+	/*****************************************************************
+	 * 참고: SimpleMailMessage 단순 메시지로 메일 발송.
+	 * ****************************************************************/
+	@ResponseBody
+	@RequestMapping(value="/sendSimpleMail.do", method=RequestMethod.GET, produces="text/plain; charset=utf-8")
+	public String sendSimpleMail(@ModelAttribute EmailVO evo) throws FileNotFoundException, URISyntaxException {
+		String result = "";
+		result = emailService.sendSimpleMail(evo);
+		return result;
+	}
+	
+	/*****************************************************************
+	 * 참고: 파일 첨부 또는 HTML로 구성되어 있는 경우 MimeMessage를 이용.
+	 * ****************************************************************/
+	@ResponseBody
+	@RequestMapping(value="/sendMimeMail.do", method=RequestMethod.GET, produces="text/plain; charset=utf-8")
+	public String sendMimeMail(@ModelAttribute EmailVO evo) throws FileNotFoundException, URISyntaxException {
+		String result = "";
+		result = emailService.sendMimeMail(evo);
+		return result;
+	}
+}
+
+5. com.spring.common.email.service 패키지에 EmailService 인터페이스 생성하여 다음과 같이 코딩한다.
+
+package com.spring.common.email.service;
+
+import com.spring.common.email.vo.EmailVO;
+
+public interface EmailService {
+	public String sendSimpleMail(EmailVO evo); 
+	public String sendMimeMail(EmailVO evo); 
+}
+
+6. com.spring.common.email.service 패키지에 EmailServiceImpl 클래스 생성하여 다음과 같이 코딩한다.
+
+package com.spring.common.email.service;
+
+import javax.mail.Message.RecipientType;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+
+import com.spring.common.email.vo.EmailVO;
+
+@Service
+public class EmailServiceImpl implements EmailService {
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	@Override
+	public String sendSimpleMail(EmailVO evo) {
+		String result = "";
+		try{
+			SimpleMailMessage message = new SimpleMailMessage();
+
+			/*message.setFrom(evo.getFrom());
+			message.setTo(evo.getTo());
+			message.setSubject(evo.getSubject());
+			message.setText(evo.getText());*/
+			
+			/* 확인 작업 */
+			message.setFrom("보내는 사람 이메일");
+			message.setTo("받는 사람 이메일");
+			message.setSubject("스프링으로 메일 발송 확인");
+			message.setText("스프링으로 메일 발송 테스트입니다.");
+			
+			mailSender.send(message);
+			result = "성공적으로 이메일 발송이 완료되었습니다.";
+		}catch(Exception e){
+			e.printStackTrace();
+			result = "이메일 발송에 필요한 데이터가 충족하지 못해서 정상적으로 발송하지 못하였습니다.";
+		}   
+		return result;
+	}
+
+	@Override
+	public String sendMimeMail(EmailVO evo) {
+		String result = "";
+		try{
+			MimeMessage message = mailSender.createMimeMessage();
+ 
+			/*message.setFrom(new InternetAddress(evo.getFrom()));  
+			message.addRecipient(RecipientType.TO, new InternetAddress(evo.getTo()));
+			message.setSubject(evo.getSubject());
+			message.setText(evo.getText(), "utf-8", "html");*/
+			
+			message.setFrom(new InternetAddress("보내는사람 이메일"));  
+			message.addRecipient(RecipientType.TO, new InternetAddress("받는사람 이메일"));
+			message.setSubject("[공지] 회원 가입 안내");
+			message.setText("<h1>회원가입이 완료되었습니다!!</h1><h4>My Project에 오신것을 격하게 환영합니다~!!</h4>", "utf-8", "html");
+			
+			mailSender.send(message);
+			result = "성공적으로 이메일 발송이 완료되었습니다.";
+		}catch(Exception e){
+			e.printStackTrace();
+			result = "이메일 발송에 필요한 데이터가 충족하지 못해서 정상적으로 발송하지 못하였습니다.";
+		} 
+		return result;
+	}
+
+}
+
+7. 보내는 사람과 받는 사람 이메일 수정 후 서버를 재구동한다. 브라우저를 열고 URL에 다음과 같이 요청한다.
+http://localhost:8080/email/sendSimpleMail.do
+
+http://localhost:8080/email/sendMimeMail.do

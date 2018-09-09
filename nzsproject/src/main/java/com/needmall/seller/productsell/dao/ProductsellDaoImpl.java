@@ -29,6 +29,11 @@ public class ProductsellDaoImpl implements ProductsellDao {
 	}
 	
 	@Override
+	public List<ProductInfoVO> categoryList(ProductInfoVO ifvo) {
+		return session.selectList("categoryList", ifvo);
+	}
+	
+	@Override
 	public int productInsert(ProductInsertVO ivo) {
 		return session.insert("productInsert", ivo);
 	}
@@ -67,5 +72,6 @@ public class ProductsellDaoImpl implements ProductsellDao {
 	public int storeNumSelectOne(String s_id) {
 		return session.selectOne("storeNumSelectOne", s_id);
 	}
+
 
 }

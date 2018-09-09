@@ -47,6 +47,23 @@ public class ProductsellServiceImpl implements ProductsellService {
 	}
 	
 	@Override
+	public String categoryList(ProductInfoVO ifvo) {
+		ObjectMapper mapper = new ObjectMapper();
+		String listData = "";
+		
+		List<ProductInfoVO> categoryList = productsellDao.categoryList(ifvo);
+		
+		try {
+			listData = mapper.writeValueAsString(categoryList);
+		} catch(JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		return listData;
+	}
+	
+	
+	@Override
 	public int productInsert(ProductInsertVO ivo) {
 		int result = 0;
 		
@@ -103,5 +120,7 @@ public class ProductsellServiceImpl implements ProductsellService {
 		result = productsellDao.storeNumSelectOne(s_id);
 		return result;
 	}
+
+	
 
 }

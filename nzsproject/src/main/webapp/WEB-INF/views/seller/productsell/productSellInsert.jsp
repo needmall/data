@@ -5,7 +5,7 @@
 
 <script type="text/javascript">
 	$(function() {
-		var num = 0;
+		
 		/* 초기 설정 */
 		setting();
 		
@@ -15,26 +15,17 @@
 			if(!chkData("#keyword", "판매할 상품 이름을")) return;
 			else {			
 				var url = "/productsell/search.do?keyword=" + $("#keyword").val();
-				num = 0;
-				// 검색 상품 리스트 초기화
-				$(document).find(".new_item").remove();
-				
-				$.getJSON(url, function(data) {
-					
-					$(data).each(function () {
-						num = num + 1;
-						var pi_image	= this.pi_image;
-						var p_name		= this.p_name;
-						var p_price		= this.p_price;
-						var p_content	= this.p_content;
-						var p_num		= this.p_num;
-						 
-						addItem(num, pi_image, p_name, p_price, p_content, p_num);
-					});
-				}).fail(function() {
-					alert("상품 검색을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
-				});
+				// 상품검색 결과 Json 동적 생성
+				addProductInfo(url);
 			}
+		});
+		
+		/* 판매상품 카테고리 선택 */
+		$(".category").click(function() {
+			var c2_num = $(this).attr("name");
+			var url = "/productsell/category.do?c2_num=" + c2_num;
+			// 카테고리 선택 결과 Json 동적 생성
+			addProductInfo(url);
 		});
 		
 		/* 상품 등록 요청 페이지 이동 */
@@ -219,6 +210,30 @@
 			"max" : max
 		});
 	}
+	
+	/* 상품 정보 동적 생성 */
+	function addProductInfo(url) {
+		var num = 0;
+		// 검색 상품 리스트 초기화
+		$(document).find(".new_item").remove();
+		
+		$.getJSON(url, function(data) {
+			
+			$(data).each(function () {
+				num = num + 1;
+				var pi_image	= this.pi_image;
+				var p_name		= this.p_name;
+				var p_price		= this.p_price;
+				var p_content	= this.p_content;
+				var p_num		= this.p_num;
+				 
+				addItem(num, pi_image, p_name, p_price, p_content, p_num);
+			});
+		}).fail(function() {
+			alert("상품 검색을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
+		});
+	}
+	
 	  
 	/* 검색 상품정보 동적 생성*/
 	function addItem(num, pi_image, p_name, p_price, p_content, p_num) {
@@ -287,6 +302,13 @@
 					<button type="button" id="searchBtn" class="btn btn-success addInline-block">검색</button>
 				</div>
 			</form>
+			<div>
+				<button type="button" class="btn btn-default category" name="1">도시락</button>
+				<button type="button" class="btn btn-default category" name="2">삼각김밥</button>
+				<button type="button" class="btn btn-default category" name="3">김밥</button>
+				<button type="button" class="btn btn-default category" name="4">샌드위치</button>
+				<button type="button" class="btn btn-default category" name="5">햄버거</button>
+			</div>
 		</div>
 		<div class="text-right">
 			<button type="button" id="reqProductBtn" class="btn btn-danger addInline-block">상품등록 요청</button>

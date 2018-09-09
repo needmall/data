@@ -22,6 +22,7 @@ import com.needmall.client.login.vo.LoginVO;
 import com.needmall.common.vo.ProductsellVO;
 import com.needmall.common.vo.UserCommonVO;
 import com.needmall.seller.productsell.service.ProductsellService;
+import com.needmall.seller.productsell.vo.ProductInfoVO;
 import com.needmall.seller.productsell.vo.ProductInsertVO;
 import com.needmall.seller.productsell.vo.ProductListOneVO;
 
@@ -98,6 +99,23 @@ public class ProductsellController {
 		if(!s_id.isEmpty()) {
 			ucvo.setS_id(s_id);
 			listData = productsellService.searchList(ucvo);
+		} else {
+			model.addAttribute("code", 1);
+			return "redirect:/member/login.do";
+		} 
+		return listData;
+	}
+	
+	/* 판매 상품 카테고리 선택 */
+	@ResponseBody
+	@RequestMapping(value="/category.do", method = RequestMethod.GET)
+	public String categoryList(ProductInfoVO ifvo, Model model) {
+		logger.info("categoryList 호출 성공");
+		String listData = "";
+		  
+		if(!s_id.isEmpty()) {
+			ifvo.setS_id(s_id);
+			listData = productsellService.categoryList(ifvo);
 		} else {
 			model.addAttribute("code", 1);
 			return "redirect:/member/login.do";
