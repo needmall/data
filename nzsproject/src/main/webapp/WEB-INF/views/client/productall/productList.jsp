@@ -124,7 +124,7 @@ $(function() {
 				var prv_count = this.prv_count;
 				var prv_scope = this.prv_scope;
 				var distance = this.distance;
-
+				console.log(data);
 				/* 목록 생성 */
 				addNewItem(ps_num, si_image, st_name, pi_image, p_name, p_price, ps_expiration, ps_count, ps_price, prv_count, prv_scope, distance);
 			});
@@ -139,7 +139,7 @@ $(function() {
 	/* 매장이름 형식 추가 */
 	function addStorename(item) {
 		$(item).each(function() {
-			var st_name = $(this).html().replace(/\s/, "<br>");
+			var st_name = $(this).html().replace(/\s/g, "<br>");
 			$(this).html(st_name);;
 		});
 	}
@@ -148,10 +148,6 @@ $(function() {
 	function addNewItem(ps_num, si_image, st_name, pi_image, p_name, p_price, ps_expiration, ps_count, ps_price, prv_count, prv_scope, distance) {
 		var new_div_contract = $("<div>");
 		new_div_contract.addClass("col-md-6 contract contract_periphery list-group-item");
-
-		/* var new_a_clearfix = $("<a>");
-		new_a_clearfix.attr("href","/productdetail/productdetailmain.do?ps_num="+ps_num);
-		new_a_clearfix.addClass("item clearfix"); */
 
 		var new_table = $("<table>");
 		var new_tbody = $("<tbody>");
@@ -181,7 +177,7 @@ $(function() {
 
 		var new_td_p = $("<td>");
 		var new_div_name = $("<div>");
-		new_div_name.addClass("restaurants-info sizeWith171");
+		new_div_name.addClass("restaurants-info sizeWith193");
 		var new_div_expiration = $("<div>");
 		new_div_expiration.attr("title", p_name);
 		new_div_expiration.addClass("restaurant-name ng-binding");
@@ -203,11 +199,10 @@ $(function() {
 
 		var new_td_ps = $("<td>");
 		var new_div_txt = $("<div>");
-		new_div_txt.addClass("restaurants-info align-center");
+		new_div_txt.addClass("restaurants-info align-center sizeWith58");
 		var new_span_txt = $("<span>");
 		new_span_txt.addClass("restaurant-name ng-binding");
 		new_span_txt.html("남은수량");
-		var new_div_space = $("<div>");
 		var new_span_count_ps = $("<span>");
 		new_span_count_ps.html(ps_count + "개");
 
@@ -231,17 +226,23 @@ $(function() {
 		var new_span_price = $("<span>");
 		new_span_price.addClass("p_price format-money");
 		new_span_price.html(p_price);
+		var new_span_priceWon = $("<span>");
+		new_span_priceWon.html("원");
 		var new_li_ps_price = $("<li>");
 		new_li_ps_price.addClass("payment-methods ng-binding yogiseo-payment");
 		var new_span_price_ps = $("<span>");
 		new_span_price_ps.addClass("ps_price format-money");
 		new_span_price_ps.html(ps_price);
+		var new_span_price_psWon = $("<span>");
+		new_span_price_psWon.html("원");
 		var new_li_m = $("<li>");
 		new_li_m.addClass("payment-methods ng-binding yogiseo-payment");
 		
 		var new_span_m = $("<span>");
-		if(distance > 0) {
-			new_span_m.html(Math.round(distance) + "m");	
+		if(distance > 1000) {
+			new_span_m.html((distance / 1000).toFixed(1) + "km");	
+		} else {
+			new_span_m.html((distance).toFixed(0) + "m");
 		}
 		
 		new_div_logo.append(new_img_si).append(new_p_name);
@@ -259,7 +260,7 @@ $(function() {
 		new_td_p.append(new_div_name);
 		new_tr.append(new_td_p);
 
-		new_div_txt.append(new_span_txt).append(new_div_space).append(new_span_count_ps);
+		new_div_txt.append(new_span_txt).append(new_span_count_ps);
 		new_td_ps.append(new_div_txt);
 		new_tr.append(new_td_ps);
 
@@ -269,9 +270,9 @@ $(function() {
 		new_td_discount.append(new_div_discount);
 		new_tr.append(new_td_discount);
 		
-		new_li_price.append(new_span_price);
+		new_li_price.append(new_span_price).append(new_span_priceWon);
 		new_ul_price.append(new_li_price);
-		new_li_ps_price.append(new_span_price_ps);
+		new_li_ps_price.append(new_span_price_ps).append(new_span_price_psWon);
 		new_ul_price.append(new_li_ps_price);
 		new_li_m.append(new_span_m);
 		new_ul_price.append(new_li_m);
@@ -333,7 +334,7 @@ $(function() {
 													</div>
 												</td>
 												<td>
-													<div class="restaurants-info sizeWith171">
+													<div class="restaurants-info sizeWith193">
 														<div class="restaurant-name ng-binding"
 															title="${FavList.p_name}">${FavList.p_name}</div>
 														<div class="restaurant-name ng-binding"
@@ -347,9 +348,8 @@ $(function() {
 													</div>
 												</td>
 												<td>
-													<div class="restaurants-info align-center">
+													<div class="restaurants-info align-center sizeWith58">
 														<span class="restaurant-name ng-binding">남은수량</span>
-														<div></div>
 														<span>${FavList.ps_count}개</span>
 													</div>
 												</td>
@@ -365,10 +365,11 @@ $(function() {
 												<td>
 													<div class="align-center">
 														<ul>
-															<li class="payment-methods ng-binding yogiseo-payment"><span
-																class="p_price format-money">${FavList.p_price}</span></li>
 															<li class="payment-methods ng-binding yogiseo-payment">
-																<span class="ps_price format-money">${FavList.ps_price}</span>
+																<span class="p_price format-money">${FavList.p_price}</span><span>원</span>
+															</li>
+															<li class="payment-methods ng-binding yogiseo-payment">
+																<span class="ps_price format-money">${FavList.ps_price}</span><span>원</span>
 															</li>
 														</ul>
 													</div>
@@ -388,7 +389,7 @@ $(function() {
 		</div>
 	</c:if>
 	<div class="main_prodlist main_prodlist_list periphery">
-		<h4> 주변 매장 상품</h4>
+		<h4>주변 매장 상품<span>(반경 : 3km)</span></h4>
 		<div class="periphery_list">
 			
 		</div>

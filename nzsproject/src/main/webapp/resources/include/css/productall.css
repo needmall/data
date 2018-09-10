@@ -27,10 +27,14 @@ label {
 /* 상품 정보 */
 .fileImageLogo {
 	width: 70px;
-	height: 40px;
+	height: 70px;
 }
 .list-group-item{
 	height: 130px !important;
+}
+
+.sizeWith58 {
+    width: 58px;	
 }
 
 .fileImageProduct {
@@ -42,8 +46,29 @@ ul {
 	list-style-type : none;
 }
 
-.p_price {
+.store_name {
+	margin-top	: 5px;
+	margin-bottom: 0px;
+}
+.p_price, .p_price + span {
 	text-decoration : line-through;
+	font-size : 12px;
+	color: graytext;
+}
+.ps_price + span {
+	font-size : 12px;
+}
+
+.ps_price {
+	font-weight:bold;
+	font-size : 15px;
+}
+
+.discountRate, .discountRate + span {
+	color: red;
+}
+.discountRate {
+	font-size: 30px;
 }
 
 .align-center {
@@ -54,8 +79,8 @@ tr {
 	
 }
 td {	
-	padding-left	: 7px;
-	padding-right	: 7px; 
+	padding-left	: 5px !important;
+	padding-right	: 5px !important; 
 }
 
 ul {
@@ -65,11 +90,10 @@ ul {
 
 .jb-th-1 {
 	width : 70px;
-	padding : 10px 0px;
+	height: 126px;
 }
 .jb-th-2 {
 	width : 30px;
-	bo
 }
 
 .item{
@@ -82,8 +106,7 @@ ul {
 }
 
 .col-md-6 {
-	width: 530px;
-	padding: 5px;
+	width: 559px;
 }
 
 .review_num:before {
@@ -92,7 +115,7 @@ ul {
 }
 
 .contract{ 	
-		margin: 7px;
+		margin: 5px;
 }
 h4{
 	padding-top:20px;
@@ -102,12 +125,15 @@ h4{
 }
 
 .list-group-item {
-	padding: 0 15px;
+	padding: 0 5px;
 }
 
-.sizeWith171 {
-	width: 171px;
+.sizeWith193 {
+	width: 193px;
 }
+
+
+
 /* 마우스 손 생성 */
 .list-group-item {
 	cursor: pointer;

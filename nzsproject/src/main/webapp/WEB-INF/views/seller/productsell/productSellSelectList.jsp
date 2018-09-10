@@ -4,12 +4,44 @@
 
 <script type="text/javascript">
 	$(function() {
-		
+		var date_val;
 		/* 상품 등록 페이지 이동 */
 		$("#reqProductBtn").click(function() {
 			location.href = "/productsell/writeform.do";
 		});
 		
+		/* 유통기한별 상태 변화 */
+		$(".ps_expiration").each(function() {
+			var expiration = new Date($(this).html());
+			var expiration_year = expiration.getFullYear();
+			var expiration_month = expiration.getMonth() + 1;
+			var expiration_day = expiration.getDate();
+			var expiration_hours = expiration.getHours()
+			var expiration_minutes = expiration.getMinutes();
+
+			var date = new Date();
+			var now_year = date.getFullYear();
+			var now_month = date.getMonth() + 1;
+			var now_day = date.getDate();
+			var now_hours = date.getHours()
+			var now_minutes = date.getMinutes();
+		
+			// 유통기한 1일 이상
+			if(expiration > date.setDate(date.getDate() - 1)) {
+				$(this).parent($(".productInfo")).children($(".status")).css('color', 'green');
+			} else if(expiration_year == now_year && expiration_month == now_month && expiration_day == now_day) {
+			// 유통기한 당일
+				$(this).parent($(".productInfo")).children($(".status")).css('color', 'yellow');
+				setInterval(function() {
+					// 유통기한 초과
+					if(expiration < date) {
+						$(this).parent($(".productInfo")).children($(".status")).css('color', 'red');
+					}
+				}, 5000);
+			}	
+		});
+		
+
 		/* 상세 페이지 이동 */
 		$(".productInfo").click(function() {
 			var ps_num = $(this).attr("data-num");
@@ -68,6 +100,7 @@
 						<th>갯수</th>
 						<th>유통기한</th>
 						<th>등록날짜</th>
+						<th>상태</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -97,10 +130,13 @@
 										<div>${List.ps_count}</div>
 									</td>
 									<td>
-										<div>${List.ps_expiration}</div>
+										<div class="ps_expiration">${List.ps_expiration}</div>
 									</td>
 									<td>
 										<div>${List.ps_udate}</div>
+									</td>
+									<td class="status">
+										
 									</td>
 								</tr>
 							</c:forEach>

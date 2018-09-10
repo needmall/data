@@ -394,7 +394,7 @@
 							<td class="paddingTd55" colspan="2">
 								<div class="form-group">
 									<label class="control-label" for="date">유통기한</label>
-									<input type="datetime-local" id="date" class="form-control adddisabled sizeInput225" min="" max="" aria-describedby="dateStatus" disabled />
+									<input type="datetime-local" id="date" class="form-control adddisabled sizeInput225" aria-describedby="dateStatus" disabled />
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<span id="dateStatus" class="sr-only"></span>
 								</div>

@@ -25,7 +25,7 @@
 	<select id="productLocList" parameterType="productall" resultType="productall">
 		SELECT ps_num, si_image, st_name, pi_image, p_name, p_price, TO_CHAR(ps_expiration ,'yyyy/mm/dd hh24:mi') AS ps_expiration, ps_count, ps_price, (SELECT COUNT(*) FROM preview prv WHERE prv.p_num = ps.p_num) AS prv_count, NVL((SELECT trunc(AVG(prv_scope),1) FROM preview prv WHERE prv.p_num = ps.p_num),0) AS prv_scope, calc_distance(#{c_lat}, #{c_lon}, st_lat, st_lon) AS distance
 		FROM storeimage si, store st, productsell ps, product p, proimage pi 
-		WHERE ps_state = 0 AND ps_count > 0 AND st.si_division = si.si_division AND st.s_num = ps.s_num AND ps.p_num = p.p_num AND p.pi_num = pi.pi_num
+		WHERE ps_state = 0 AND (SELECT calc_distance(#{c_lat}, #{c_lon}, st_lat, st_lon) AS distance FROM DUAL) <![CDATA[<]]> 3000 AND ps_count > 0  AND st.si_division = si.si_division AND st.s_num = ps.s_num AND ps.p_num = p.p_num AND p.pi_num = pi.pi_num
 		ORDER BY distance
 	</select>
 
