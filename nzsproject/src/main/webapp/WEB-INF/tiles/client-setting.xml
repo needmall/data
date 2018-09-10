@@ -30,10 +30,10 @@
 	</definition>
 	<definition name="seller/productsell/*" extends="content">
 		<put-attribute name="title" value="판매상품" />
-		<put-attribute name="body" value="/WEB-INF/views/seller/productsell/{1}.jsp" />
+		<put-attribute name="body" value="/WEB-INF/	`views/seller/productsell/{1}.jsp" />
 	</definition>
 	<definition name="member/*" extends="content">
-		<put-attribute name="title" value="회원" />
+		<put-attribute name="title" value="" />
 		<put-attribute name="body" value="/WEB-INF/views/client/member/{1}.jsp" />
 	</definition>
 	<definition name="seller/productrequest/*" extends="content">
