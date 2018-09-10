@@ -110,7 +110,9 @@
 					<p class="form-control-static error"></p>
 				</div>
 			</div>
-			<div class="form-group form-group-sm">
+			
+			
+			<!-- <div class="form-group form-group-sm">
 				<label for="c_pwd" class="col-sm-2 control-label">변경할 비밀 번호</label>
 				<div class="col-sm-3">
 					<input type="password" id="c_pwd" name="c_pwd" maxlength="15" class="form-control" placeholder="변경할 비밀번호 입력" >
@@ -127,7 +129,9 @@
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
 				</div>
-			</div>
+			</div> -->
+			
+			
 			<div class="form-group form-group-sm">
 				<label for="c_name" class="col-sm-2 control-label">회원이름</label>
 				<div class="col-sm-3">
@@ -210,7 +214,7 @@
 			<div class="form-group form-group-sm">
 				<label for="c_cell" class="col-sm-2 control-label">핸드폰 번호</label>
 				<div class="col-sm-3">
-					<input type="text" id="c_cell" name="c_cell" maxlength="15" class="form-control" placeholder="Phone Number" value="${member.c_cell}">	
+					<input type="text" id="c_cell" name="c_cell" maxlength="15" class="form-control" placeholder="ex)010-0000-0000" value="${member.c_cell}">	
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>

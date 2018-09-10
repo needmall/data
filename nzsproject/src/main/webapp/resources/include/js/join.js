@@ -64,14 +64,14 @@ $(function(){
 	});
 	
 	// customer
-	$('#c_id, #c_pwd, #c_pwdCheck, #c_name, #c_birthday, #sample6_address2, #c_mailName, #c_iden, #c_cell').bind("focus",function(){	// 이벤트는 focus
+	$('#c_id, #c_pwd, #c_pwdCheck, #c_name, #c_birthday, #c_mailName, #c_iden, #c_cell').bind("focus",function(){	// 이벤트는 focus
 		var idx = $("#c_id, #c_pwd, #c_pwdCheck, #c_name, #c_birthday, #sample6_address2, #c_mailName, #c_iden, #c_cell").index(this);
 		console.log("대상 : " + idx);
 		$(this).parents(".form-group").find(".error").html(message[idx]);
 	});
 	
 	// seller
-	$('#s_id, #s_pwd, #s_pwdCheck, #s_name, #s_birthday, #sample6_address2, #s_mailName, #s_iden, #s_cell').bind("focus",function(){	// 이벤트는 focus
+	$('#s_id, #s_pwd, #s_pwdCheck, #s_name, #s_birthday, #s_mailName, #s_iden, #s_cell').bind("focus",function(){	// 이벤트는 focus
 		var idx = $("#s_id, #s_pwd, #s_pwdCheck, #s_name, #s_birthday, #sample6_address2, #s_mailName, #s_iden, #s_cell, #st_bnum, #st_name").index(this);
 		console.log("대상 : " + idx);
 		$(this).parents(".form-group").find(".error").html(message[idx]);
@@ -94,7 +94,7 @@ $(function(){
 					if(resultData=="1"){
 						$("#c_id").parents(".form-group").find(".error").html("현재 사용 중인 아이디 입니다.");
 					}else if(resultData=="0"){
-						$("#c_id").parents(".form-group").find(".error").html("사용 가능한 아이디입니다.");
+						$("#c_id").parents(".form-group").find(".error").html("사용 가능한 아이디입니다.").css("color","blue");
 						idConfirm = 2;
 					}
 				}
@@ -119,7 +119,7 @@ $(function(){
 					if(resultData=="1"){
 						$("#s_id").parents(".form-group").find(".error").html("현재 사용 중인 아이디 입니다.");
 					}else if(resultData=="0"){
-						$("#s_id").parents(".form-group").find(".error").html("사용 가능한 아이디입니다.");
+						$("#s_id").parents(".form-group").find(".error").html("사용 가능한 아이디입니다.").css("color","blue");
 						idConfirm = 2;
 					}
 				}

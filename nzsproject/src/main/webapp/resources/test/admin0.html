@@ -1,18 +1,18 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
-		<!-- 브라우저의 호환성 보기 모드를 막고, 해당 브라우저에서 지원하는 가장 최신 버전의 방식으로 HTML 보여주도록 설정 -->
+		브라우저의 호환성 보기 모드를 막고, 해당 브라우저에서 지원하는 가장 최신 버전의 방식으로 HTML 보여주도록 설정
 		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-		<!-- viewport:화면에 보이는 영역을 제어하는 기술 width는 device-width로 설정. initial-scale는 초기비율 -->
+		viewport:화면에 보이는 영역을 제어하는 기술 width는 device-width로 설정. initial-scale는 초기비율
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-		<!-- 아이콘 표시 -->
+		아이콘 표시
 		
-		<!-- IE8이하 브라우저에서 HTML5를 인식하기 위해서 아래의 패스필터를 적용하면 된다. -->
-		<!-- [if lt IE 9]>
+		IE8이하 브라우저에서 HTML5를 인식하기 위해서 아래의 패스필터를 적용하면 된다.
+		[if lt IE 9]>
 			<script src="../js/html5shiv.js"></script>
-		<![endif] -->
+		<![endif]
 		
 		
 	
@@ -32,4 +32,93 @@
 		<a href="/news/newsList.do"> 공지사항</a>
 		
 	</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+<title>Login</title>
+
+<!-- 모바일 웹 페이지 설정 -->
+<link rel="shortcut icon" href="/resources/image/icon.png" />
+<link rel="apple-touch-icon" href="/resources/image/icon.png" />
+<!-- 모바일 웹 페이지 설정 끝 -->
+
+<!--[if lt IE 9]>
+<script src="/resources/include/js/html5shiv.js"></script>
+<![endif]-->
+
+<script type="text/javascript"
+	src="/resources/include/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/resources/include/js/common.js"></script>
+<script type="text/javascript">
+	/* 
+	 $(function(){
+		$("#loginBtn").click(function(){
+			alert("click");
+			console.log("클릭");
+			if (!formCheck($('#admin_id'), $('.error:eq(0)'), "아이디를")){
+				$('#admin_id').focus();
+				return;
+			}
+			else if (!formCheck($('#admin_pwd'),$('.error:eq(1)'), "비밀번호를")){
+				$('#admin_pwd').focus();
+				return;
+			} else ($('#admin_id').val()=="admin" && $('#admin_pwd').val()=="admin") {
+				location.href="/admin/product/productList.do"
+			}
+		});		
+	}); 
+	 */
+	 
+	$(function(){
+		$("#loginBtn").click(function(){
+			if (!formCheck($('#admin_id'), $('.error:eq(0)'), "아이디를")) return;
+			else if (!formCheck($('#admin_pwd'), $('.error:eq(1)'), "비밀번호를")) return;
+			else {
+				if($("#admin_id").val()=="admin" && $("#admin_pwd").val()=="admin"){
+					location.href="/admin/product/productList.do";
+				} else {
+					alert("아이디 / 비밀번호가 다릅니다");
+					return;
+				}
+			}
+		});
+	});
+</script>
+</head>
+<body>
+	<div class="contentContainer">
+		<div class="well">
+			<form id="loginForm" class="form-horizontal">
+					<div class="form-group">
+						<label for="admin_id" class="col-sm-2 control-label">아 이 디 </label>
+						<div class="col-sm-4">
+							<input type="text" id="admin_id" name="admin_id" class="form-control" placeholder="ID">
+						</div>
+						<p class="form-control-static error"></p>
+					</div>
+					<div class="form-group">
+						<label for="admin_pwd" class="col-sm-2 control-label">비밀번호 </label>
+						<div class="col-sm-4">
+							<input type="password" id="admin_pwd" name="admin_pwd" maxlength="15" class="form-control" placeholder="Password">
+						</div>
+						<p class="form-control-static error"></p>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-6">
+							<input type="button" value="로그인" id="loginBtn" name="loginBtn" class="btn btn-default" /> 
+						</div>
+					</div>
+					
+			</form>
+			
+		</div>
+	</div>
+</body>
 </html>

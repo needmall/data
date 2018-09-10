@@ -9,7 +9,8 @@
 	    <span class="icon-bar"></span>
 	    <span class="icon-bar"></span>
 	  </button>
-	  <a class="navbar-brand" href="/resources/index.html">NZS 관리자 페이지</a>
+	  <a class="navbar-brand" href="/admin/product/productList.do"><strong>NZS 관리자 페이지</strong></a>
+	  
 	</div>
 	<!-- 추후 필요 시 주석 해제 
 	<div id="navbar" class="navbar-collapse collapse">
@@ -23,4 +24,7 @@
 	    <input type="text" class="form-control" placeholder="Search...">
 	  </form>
 	</div> -->
+	<div class="navbar-form navbar-right">
+		<a class="nav navbar-brand" href="#"><strong>[관리자]</strong> 님 환영합니다!</a>
+	</div>
 </div>

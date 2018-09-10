@@ -61,7 +61,7 @@
 		$("#customerDelete").click(function(){
 			var message = confirm("정말로..탈퇴...하시겠습니까?");
 			if(message==true){
-				location.href="/member/customerDelete.do"
+				location.href="/member/delete_customer_check.do"
 			} else{
 				return false;
 			}
@@ -70,7 +70,7 @@
 		$("#sellerDelete").click(function(){
 			var message = confirm("정말로..탈퇴...하시겠습니까?");
 			if(message==true){
-				location.href="/member/sellerDelete.do"
+				location.href="/member/delete_seller_check.do"
 			} else{
 				return false;
 			}
@@ -100,7 +100,8 @@
 					</legend>
 					<span id="memberMenu" class="tac"> 
 						<a href="#" id="logout">로그아웃</a>&nbsp;&nbsp;&nbsp; 
-						<a href="/member/modify_customer_check.do">정보수정(비밀번호변경)</a>&nbsp;&nbsp;&nbsp; 
+						<a href="/member/modify_customer_check.do">회원정보수정</a>&nbsp;&nbsp;&nbsp; 
+						<a href="/member/customerModifyPwd.do">비밀번호 변경</a>&nbsp;&nbsp;&nbsp;
 						<a href="#" id="customerDelete">회원탈퇴</a>
 					</span>
 				</fieldset>
@@ -113,7 +114,8 @@
 					</legend>
 					<span id="memberMenu" class="tac"> 
 						<a href="#" id="logout">로그아웃</a>&nbsp;&nbsp;&nbsp; 
-						<a href="#" id="sellerModify">정보수정(비밀번호변경)</a>&nbsp;&nbsp;&nbsp; 
+						<a href="#" id="sellerModify">회원정보수정</a>&nbsp;&nbsp;&nbsp; 
+						<a href="/member/sellerModifyPwd.do">비밀번호 변경</a>&nbsp;&nbsp;&nbsp;
 						<a href="#" id="sellerDelete">회원탈퇴</a>
 					</span>
 				</fieldset>		

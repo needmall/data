@@ -77,7 +77,8 @@ public class LoginController {
 				}else { // 일치하면
 					logger.info("customer loginCheckResult 존재하오!!");
 					mav.addObject("login", loginCheckResult);
-					mav.setViewName("member/login");
+					//mav.setViewName("member/login");
+					mav.setViewName("redirect:/");
 					//★★★ loginCheck Table 채울거
 					return mav;
 				}  
@@ -100,7 +101,8 @@ public class LoginController {
 				}else { // 일치하면
 					logger.info("seller loginCheckResult 존재하오!!");
 					mav.addObject("login", loginCheckResult);
-					mav.setViewName("member/login");
+					//mav.setViewName("member/login");
+					mav.setViewName("redirect:/");
 					//★★★ loginCheck Table 채울거
 					return mav;
 				}

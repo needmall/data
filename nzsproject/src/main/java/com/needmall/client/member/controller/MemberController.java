@@ -217,7 +217,7 @@ public class MemberController {
 	}
 
 	/**************************************************************
-	 * customer 수정 폼
+	 * customer 정보 수정 폼
 	 **************************************************************/
 	@RequestMapping(value="/join_customer_modify.do", method = RequestMethod.GET) 
 	public ModelAndView customerModify(HttpSession session){
@@ -237,10 +237,33 @@ public class MemberController {
 		mav.addObject("member", vo);
 		mav.setViewName("member/join_customer_modify"); 
 		return mav;
-	} 
+	}
+	
+	/**************************************************************
+	 * customer 비밀번호 수정 폼
+	 **************************************************************/
+	@RequestMapping(value="/customerModifyPwd.do", method = RequestMethod.GET) 
+	public ModelAndView customerModifyPwd(HttpSession session){
+		logger.info("customerModifyPwd.do(비밀번호 수정폼) get 방식에 의한 메서드 호출 성공");
+		ModelAndView mav=new ModelAndView();
+		// session 객체에서 로그인 정보 얻기 
+		LoginVO login =(LoginVO)session.getAttribute("login");
+
+		// 추후 아래 부분에 대한 제어는 한곳에서 설정되도록 변경해 주면 된다 
+		// 혹 로그인되어 있지 않으면 로그인 화면으로 이동.
+		if(login==null){
+			mav.setViewName("member/login"); 
+			return mav;
+		}
+		// 세션에서 로그인 정보 중 아이디만 가지고 해당 아이디에 대한 상세내역  DB에서 조회
+		MemberVO vo = memberService.customerSelect(login.getC_id());
+		mav.addObject("member", vo);
+		mav.setViewName("member/customerModifyPwd"); 
+		return mav;
+	}
 
 	/**************************************************************
-	 * customer 수정 처리(AOP 예외 처리 후)
+	 * customer 정보 수정 처리(AOP 예외 처리 후)
 	 **************************************************************/
 	@RequestMapping(value="/join_customer_modify.do", method = RequestMethod.POST) 
 	public ModelAndView customerModifyProcess(MemberVO mvo, HttpSession session, ModelAndView mav){
@@ -267,6 +290,35 @@ public class MemberController {
 		mav.setViewName("redirect:/member/logout.do");
 		return mav;  
 	}
+	
+	/**************************************************************
+	 * customer 비밀번호 수정 처리(AOP 예외 처리 후)
+	 **************************************************************/
+	@RequestMapping(value="/customerModifyPwd.do", method = RequestMethod.POST) 
+	public ModelAndView customerModifyPwd(MemberVO mvo, HttpSession session, ModelAndView mav){
+		logger.info("customerModifyPwd.do post 방식에 의한 메서드 호출 성공");
+
+		LoginVO login =(LoginVO)session.getAttribute("login");
+
+		if(login==null){
+			mav.setViewName("member/login"); 
+			return mav;
+		}
+		// 세션으로 얻은 로그인 정보를 가지고 다시 회원테이블에 존재하는 확인
+		mvo.setC_id(login.getC_id());
+		MemberVO vo = memberService.customerSelect(mvo.getC_id());
+		// 기존 비빌번호로 회원정보를 확인하여 일치하면 수정 가능하도록 확인 작업
+		if (loginService.customerLoginSelect(mvo.getC_id(), mvo.getC_opwd()) == null ) {
+			mav.addObject("status", 1);
+			mav.addObject("member",vo);
+			mav.setViewName("member/customerModifyPwd");
+			return mav;
+		} 
+
+		memberService.customerPwdUpdate(mvo);
+		mav.setViewName("redirect:/member/logout.do");
+		return mav;  
+	}
 
 	/**************************************************************
 	 * seller 수정 폼
@@ -289,7 +341,30 @@ public class MemberController {
 		mav.addObject("member", vo);
 		mav.setViewName("member/join_seller_modify"); 
 		return mav;
-	} 
+	}
+	
+	/**************************************************************
+	 * seller 비밀번호 수정 폼
+	 **************************************************************/
+	@RequestMapping(value="/sellerModifyPwd.do", method = RequestMethod.GET) 
+	public ModelAndView sellerModifyPwd(HttpSession session){
+		logger.info("sellerModifyPwd.do(비밀번호 수정폼) get 방식에 의한 메서드 호출 성공");
+		ModelAndView mav=new ModelAndView();
+		// session 객체에서 로그인 정보 얻기 
+		LoginVO login =(LoginVO)session.getAttribute("login");
+
+		// 추후 아래 부분에 대한 제어는 한곳에서 설정되도록 변경해 주면 된다 
+		// 혹 로그인되어 있지 않으면 로그인 화면으로 이동.
+		if(login==null){
+			mav.setViewName("member/login"); 
+			return mav;
+		}
+		// 세션에서 로그인 정보 중 아이디만 가지고 해당 아이디에 대한 상세내역  DB에서 조회
+		MemberVO vo = memberService.sellerSelect(login.getS_id());
+		mav.addObject("member", vo);
+		mav.setViewName("member/sellerModifyPwd"); 
+		return mav;
+	}
 
 	/**************************************************************
 	 * seller 수정 처리(AOP 예외 처리 후)
@@ -316,6 +391,35 @@ public class MemberController {
 		} 
 
 		memberService.sellerUpdate(mvo);
+		mav.setViewName("redirect:/member/logout.do");
+		return mav;  
+	}
+	
+	/**************************************************************
+	 * seller 비밀번호 수정 처리(AOP 예외 처리 후)
+	 **************************************************************/
+	@RequestMapping(value="/sellerModifyPwd.do", method = RequestMethod.POST) 
+	public ModelAndView sellerModifyPwd(MemberVO mvo, HttpSession session, ModelAndView mav){
+		logger.info("sellerModifyPwd.do post 방식에 의한 메서드 호출 성공");
+
+		LoginVO login =(LoginVO)session.getAttribute("login");
+
+		if(login==null){
+			mav.setViewName("member/login"); 
+			return mav;
+		}
+		// 세션으로 얻은 로그인 정보를 가지고 다시 회원테이블에 존재하는 확인
+		mvo.setS_id(login.getS_id());
+		MemberVO vo = memberService.sellerSelect(mvo.getS_id());
+		// 기존 비빌번호로 회원정보를 확인하여 일치하면 수정 가능하도록 확인 작업
+		if (loginService.sellerLoginSelect(mvo.getS_id(), mvo.getS_opwd()) == null ) {
+			mav.addObject("status", 1);
+			mav.addObject("member",vo);
+			mav.setViewName("member/sellerModifyPwd");
+			return mav;
+		} 
+
+		memberService.sellerPwdUpdate(mvo);
 		mav.setViewName("redirect:/member/logout.do");
 		return mav;  
 	}
@@ -423,6 +527,111 @@ public class MemberController {
 		mav.setViewName("redirect:/member/join_seller_modify.do");
 		return mav;  
 	}
+	
+	/**************************************************************
+	 * customer 탈퇴시 비밀번호 확인 폼
+	 **************************************************************/
+	@RequestMapping(value="/delete_customer_check.do", method = RequestMethod.GET) 
+	public ModelAndView deleteCustomerCheck(HttpSession session){
+		logger.info("delete_customer_check.do(탈퇴시 비밀번호 확인폼) get 방식에 의한 메서드 호출 성공");
+		ModelAndView mav=new ModelAndView();
+		// session 객체에서 로그인 정보 얻기 
+		LoginVO login =(LoginVO)session.getAttribute("login");
+
+		// 추후 아래 부분에 대한 제어는 한곳에서 설정되도록 변경해 주면 된다 
+		// 혹 로그인되어 있지 않으면 로그인 화면으로 이동.
+		if(login==null){
+			mav.setViewName("member/login"); 
+			return mav;
+		}
+		// 세션에서 로그인 정보 중 아이디만 가지고 해당 아이디에 대한 상세내역  DB에서 조회
+		MemberVO vo = memberService.customerSelect(login.getC_id());
+		mav.addObject("member", vo);
+		mav.setViewName("member/delete_customer_check"); 
+		return mav;
+	} 
+
+	/**************************************************************
+	 * customer 탈퇴 비밀번호 확인 처리(AOP 예외 처리 후)
+	 **************************************************************/
+	@RequestMapping(value="/delete_customer_check.do", method = RequestMethod.POST) 
+	public ModelAndView deleteCustomerCheckProcess(MemberVO mvo, HttpSession session, ModelAndView mav){
+		logger.info("delete_customer_check.do post 방식에 의한 메서드 호출 성공");
+
+		LoginVO login =(LoginVO)session.getAttribute("login");
+
+		if(login==null){
+			mav.setViewName("member/login"); 
+			return mav;
+		}
+		// 세션으로 얻은 로그인 정보를 가지고 다시 회원테이블에 존재하는 확인
+		mvo.setC_id(login.getC_id());
+		MemberVO vo = memberService.customerSelect(mvo.getC_id());
+		// 기존 비빌번호로 회원정보를 확인하여 일치하면 수정 가능하도록 확인 작업
+		if (loginService.customerLoginSelect(mvo.getC_id(), mvo.getC_opwd()) == null ) {
+			mav.addObject("status", 1);
+			mav.addObject("member",vo);
+			mav.setViewName("member/delete_customer_check");
+			return mav;
+		} 
+
+		//memberService.customerUpdate(mvo);
+		mav.setViewName("redirect:/member/customerDelete.do");
+		return mav;  
+	}
+
+	/**************************************************************
+	 * seller 탈퇴시 비밀번호 확인 폼
+	 **************************************************************/
+	@RequestMapping(value="/delete_seller_check.do", method = RequestMethod.GET) 
+	public ModelAndView deleteSellerCheck(HttpSession session){
+		logger.info("delete_seller_check.do(수정폼) get 방식에 의한 메서드 호출 성공");
+		ModelAndView mav=new ModelAndView();
+		// session 객체에서 로그인 정보 얻기 
+		LoginVO login =(LoginVO)session.getAttribute("login");
+
+		// 추후 아래 부분에 대한 제어는 한곳에서 설정되도록 변경해 주면 된다 
+		// 혹 로그인되어 있지 않으면 로그인 화면으로 이동.
+		if(login==null){
+			mav.setViewName("member/login"); 
+			return mav;
+		}
+		// 세션에서 로그인 정보 중 아이디만 가지고 해당 아이디에 대한 상세내역  DB에서 조회
+		MemberVO vo = memberService.sellerSelect(login.getS_id());
+		mav.addObject("member", vo);
+		mav.setViewName("member/delete_seller_check"); 
+		return mav;
+	} 
+
+	/**************************************************************
+	 * seller 탈퇴 비밀번호 확인 처리(AOP 예외 처리 후)
+	 **************************************************************/
+	@RequestMapping(value="/delete_seller_check.do", method = RequestMethod.POST) 
+	public ModelAndView deleteSellerCheckProcess(MemberVO mvo, HttpSession session, ModelAndView mav){
+		logger.info("delete_seller_check.do post 방식에 의한 메서드 호출 성공");
+
+		LoginVO login =(LoginVO)session.getAttribute("login");
+
+		if(login==null){
+			mav.setViewName("member/login"); 
+			return mav;
+		}
+		// 세션으로 얻은 로그인 정보를 가지고 다시 회원테이블에 존재하는 확인
+		mvo.setS_id(login.getS_id());
+		MemberVO vo = memberService.sellerSelect(mvo.getS_id());
+		// 기존 비빌번호로 회원정보를 확인하여 일치하면 수정 가능하도록 확인 작업
+		if (loginService.sellerLoginSelect(mvo.getS_id(), mvo.getS_opwd()) == null ) {
+			mav.addObject("status", 1);
+			mav.addObject("member",vo);
+			mav.setViewName("member/delete_seller_check");
+			return mav;
+		} 
+
+		//memberService.sellerUpdate(mvo);
+		mav.setViewName("redirect:/member/sellerDelete.do");
+		return mav;  
+	}
+	
 
 	/********************************************************************
 	 * id 찾기 선택 폼(idIden)

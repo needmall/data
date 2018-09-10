@@ -401,4 +401,23 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public int customerPwdUpdate(MemberVO mvo) {		
+		MemberSecurity sec = memberDao.customerSecuritySelect(mvo.getC_id());
+		mvo.setC_pwd(new String(OpenCrypt.getSHA256(mvo.getC_pwd(),sec.getSalt())));
+		
+		int result = memberDao.customerPwdUpdate(mvo);
+
+		return result;
+	}
+
+	@Override
+	public int sellerPwdUpdate(MemberVO mvo) {
+		MemberSecurity sec = memberDao.sellerSecuritySelect(mvo.getS_id());
+		mvo.setS_pwd(new String(OpenCrypt.getSHA256(mvo.getS_pwd(),sec.getSalt())));
+		
+		int result = memberDao.sellerPwdUpdate(mvo);
+		return result;
+	}
+
 }

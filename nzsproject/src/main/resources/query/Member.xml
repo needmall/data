@@ -119,6 +119,11 @@
 		where c_id=#{c_id}
 	</update>
 	
+	<update id="customerPwdUpdate" parameterType="member">
+		update customer set c_pwd=#{c_pwd}	
+		where c_id=#{c_id}
+	</update>
+	
 	<select id="customerSelect" parameterType="String" resultType="member">
 		select c_num, cs_division, c_id, c_pwd, c_name, c_gender, c_address, c_mail, c_cell, c_birthday
 		from customer
@@ -133,6 +138,11 @@
 		s_address=#{s_address},
 		s_mail=#{s_mail},
 		s_cell=#{s_cell}
+		where s_id=#{s_id}
+	</update>
+	
+	<update id="sellerPwdUpdate" parameterType="member">
+		update seller set s_pwd=#{s_pwd}
 		where s_id=#{s_id}
 	</update>
 	
