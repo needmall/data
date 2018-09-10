@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.client.login.vo.LoginVO;
+import com.needmall.client.member.service.MemberService;
+import com.needmall.client.member.vo.MemberVO;
 import com.needmall.client.mypage.service.MypageService;
 import com.needmall.client.mypage.vo.MycartVO;
 import com.needmall.client.productdetail.vo.PreviewVO;
@@ -31,6 +33,8 @@ public class MypageController {
 
 	@Autowired
 	private MypageService mypageService;
+	@Autowired
+	private MemberService memberService;
 //	/mypage/mycartList.do
 	
 	@RequestMapping("/mypageList.do")
@@ -50,9 +54,19 @@ public class MypageController {
 	  Date date =list.get(0).getCart1_date();
 	  model.addAttribute("date",date);
 	  }
+	  if(!(login.getC_num()==0)) {
+		  MemberVO vo = memberService.customerSelect(login.getC_id());
+		  model.addAttribute("member", vo);
+	  }
+	  if(!(login.getS_num()==0)) {
+			MemberVO vo = memberService.sellerSelect(login.getS_id());
+			model.addAttribute("member", vo);
+	  }
+
 	  model.addAttribute("t",t);
 	  model.addAttribute("login",login);
 	  model.addAttribute("cartList",list);
+	  
 	  }else {
 	   return "redirect:/member/login.do";
 	  }

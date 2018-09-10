@@ -21,6 +21,7 @@
 <!-- [endif] -->
  
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
+<script type="text/javascript" src="/resources/include/js/modify.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
 
 <style type="text/css">
@@ -151,9 +152,9 @@ var t = "${t}";
 var b2_num;
 		$(function(){
 			
-			$("#customUpdate").click(function(){
-				$("#coustomer").submit();
-			})
+// 			$("#customUpdate").click(function(){
+// 				$("#coustomer").submit();
+// 			})
 			
 			if(t=="2"){
 				$("#nav a[href='#tab2']").tab("show");				
@@ -172,6 +173,25 @@ var b2_num;
 				$("#nav a[href='#tab1']").tab("show");				
 			} */
 			
+			
+			// customer 탈퇴 confirm
+			$("#customerDelete").click(function(){
+				var message = confirm("정말로..탈퇴...하시겠습니까?");
+				if(message==true){
+					location.href="/member/delete_customer_check.do"
+				} else{
+					return false;
+				}
+			});
+			// seller 탈퇴 confirm
+			$("#sellerDelete").click(function(){
+				var message = confirm("정말로..탈퇴...하시겠습니까?");
+				if(message==true){
+					location.href="/member/delete_seller_check.do"
+				} else{
+					return false;
+				}
+			});
 
 			$('.dropdown-toggle').dropdown();
 			
@@ -859,6 +879,19 @@ var b2_num;
 
 	      return new_div_contract;
 	   }
+		   
+       function errorCodeCheck(){
+     	  var status = '<c:out value="${status}" />';
+     	  if(status != ""){
+     	  		alert("기존 비밀번호 검증에 실패하였습니다. \n기존 비밀번호를 다시 확인해 주세요. ");
+     	  }
+       }
+       
+       loginCustomerId = "${member.c_id}";
+       function emailCheck(){
+     	  var c_mail = "${c_mail[1]}";
+     	  $("#c_mailDomain").val(c_mail).prop("selected", "true");
+       }
 	</script>
 </head>
 <body>
@@ -870,9 +903,23 @@ var b2_num;
 	<input type="hidden" name="total_count">	
 		<div role="tabpanel">
 			<ul id="nav" class="nav nav-tabs clearfix right" role="tablist"  >	
-
-<!-- 			  	<li data-toggle="tab"><a href="#tab1"  data-toggle="tab">회원정보 수정</a></li> -->
-			  	<li data-toggle="tab"><a href="/member/login.do"  data-toggle="tab" id="customUpdate">회원정보 수정</a></li>
+			  	<li class="dropdown">
+				    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+				      	회원정보<span class="caret"></span>
+				    </a>
+				    <ul class="dropdown-menu" role="menu">
+				    	<li data-toggle="tab"><a href="#tab1-1"  data-toggle="tab">정보변경</a></li>
+				    	<li data-toggle="tab"><a href="#tab1-2"  data-toggle="tab">비밀번호 변경</a></li>
+				    	<c:choose>
+					    	<c:when test="${login.c_id != null and login.c_id != ''}">
+					    		<li data-toggle="tab"><a href="#tab1-3"  data-toggle="tab" id="customerDelete">회원 탈퇴</a></li>
+					    	</c:when>
+					    	<c:when test="${login.s_id != null and login.s_id != ''}">
+					    		<li data-toggle="tab"><a href="#tab1-3"  data-toggle="tab" id="sellerDelete">회원 탈퇴</a></li>
+					    	</c:when>
+				    	</c:choose>
+				  	</ul>
+				</li>
 				<li data-toggle="tab"><a href="#tab2"  data-toggle="tab" id="li_list2">장바구니</a></li>
 				<li data-toggle="tab"><a href="#tab3"  data-toggle="tab" id="li_list3">구매목록</a></li>
 				<li data-toggle="tab"><a href="#tab4"  data-toggle="tab">즐겨찾기</a></li>
@@ -880,12 +927,42 @@ var b2_num;
 			</ul>
 		</div>
 		<div class="tab-content">  <!-- 텝 시작 부분 -->
-			<div class="tab-pane active" id= "tab1"> <!-- 정보수정 페이지  -->
-<%-- 				<c:import url="/member/login.do"> --%>
-<%-- 				</c:import> --%>
-				<c:if test=""></c:if>
-				
-			</div>
+			<c:choose>
+				<c:when test="${login.c_id != null and login.c_id != ''}">		
+					<div class="tab-pane" id="tab1-1">
+						<div id="page_group">
+							<jsp:include page="/WEB-INF/views/client/member/join_customer_modify.jsp"></jsp:include>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab1-2">
+						<div id="page_group">
+							<c:import url="/WEB-INF/views/client/member/customerModifyPwd.jsp"></c:import>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab1-3">
+						<div id="page_group">
+							
+						</div>
+					</div>
+				</c:when>
+				<c:when test="${login.s_id != null and login.s_id != ''}">
+					<div class="tab-pane" id="tab1-1">
+						<div id="page_group">
+							<c:import url="/member/modify_seller_check.jsp"></c:import>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab1-2">
+						<div id="page_group">
+							<c:import url="/member/sellerModifyPwd.jsp"></c:import>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab1-3">
+						<div id="page_group">
+							!!!!!
+						</div>
+					</div>
+				</c:when>
+			</c:choose>
 			<div class="tab-pane" id="tab2">
 				<div id="page_group">
 					<jsp:include page="mycart.jsp">
