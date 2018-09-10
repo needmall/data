@@ -39,7 +39,7 @@
 			<c:choose>
 				<c:when test="${not empty newsList}">
 					<c:forEach var="news" items="${newsList}" varStatus="status">
-						<tr class="goDetail " data-num="${news.n_num}" >
+						<tr class="goDetail" data-num="${news.n_num}" >
 							<td>${news.n_num}</td>
 							<td>${news.n_title}</td>
 							<td>${news.n_date}</td>						
@@ -47,7 +47,7 @@
 					</c:forEach>		
 				</c:when>
 				<c:otherwise>
-					<tr><td colspan="3">등록된 물품이 존재하지 않습니다.</td></tr>
+					<tr><td colspan="3">등록된 공지사항이 존재하지 않습니다.</td></tr>
 				</c:otherwise>
 			</c:choose>
 		</tbody>	

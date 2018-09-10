@@ -20,7 +20,7 @@ $(function() {
 		
 		// geolocation 확인
 		if (navigator.geolocation) {
-		
+			console.log("11111111111");
 			// 접속 위치 확인
 			navigator.geolocation.getCurrentPosition(function(position) {
 				var lat = position.coords.latitude;
@@ -35,6 +35,8 @@ $(function() {
 		} else {
 			// 모든 매장 검색
 			addItem();
+			console.log("2222222222");
+			
 		}
 		
 	
@@ -124,7 +126,7 @@ $(function() {
 				var prv_count = this.prv_count;
 				var prv_scope = this.prv_scope;
 				var distance = this.distance;
-				console.log(data);
+				
 				/* 목록 생성 */
 				addNewItem(ps_num, si_image, st_name, pi_image, p_name, p_price, ps_expiration, ps_count, ps_price, prv_count, prv_scope, distance);
 			});
@@ -389,7 +391,7 @@ $(function() {
 		</div>
 	</c:if>
 	<div class="main_prodlist main_prodlist_list periphery">
-		<h4>주변 매장 상품<span>(반경 : 3km)</span></h4>
+		<h4>주변 매장 상품&nbsp;&nbsp;<span>(반경 : 3km)</span></h4>
 		<div class="periphery_list">
 			
 		</div>
