@@ -94,7 +94,17 @@
    #productsList h4{
       padding-top: 20px;
    }
+   .table_receipt{
+   	margin-top: 10px;
+   	
+   }
+   .span_receipt{color: red;}
 </style>
+
+
+
+
+
 
 	<script type="text/javascript">
 // 	페이징 계산 ㅡㅡ 
@@ -138,6 +148,7 @@
 // 	}
 var count;
 var t = "${t}";
+var b2_num;
 		$(function(){
 			
 			$("#customUpdate").click(function(){
@@ -199,6 +210,7 @@ var t = "${t}";
 		    				count = (page-1)*10+1;
 		    				$.getJSON("/mypage/mybuyList.do?page="+pageValue+"&c_num="+c_num+"&tab=3", function(data){
 // 			    					$("#tableList").html("");
+								
 		    					if(data.length==0){
 // 		    						notitemReviewTag();
 		    					}
@@ -211,13 +223,20 @@ var t = "${t}";
 									var p_name = this.p_name;
 									var p_content = this.p_content;
 									var b_count = this.b_count;
+									var ps_expiration = this.ps_expiration;
 									var original_multiply_count = this.original_multiply_count;
 									var multiply_count = this.multiply_count;
 									var b_confirm = this.b_confirm;
 									var b1_date = this.b1_date;
-										
+									
+									var st_address = this.st_address;
+									var st_hours = this.st_hours;
+									var st_cell = this.st_cell;
+									var st_name = this.st_name;
 									buyList(ps_num,b2_num,p_num,s_num,pi_image,p_name,p_content,b_count,original_multiply_count,multiply_count,b_confirm,b1_date,count);
 									count= count+1;
+// 									$("#receiptModal-body").html("");
+// 									receiptDynamic(p_name,b_count,original_multiply_count,ps_expiration,b1_date,st_address,st_hours,st_cell,st_name);
 		    					})
 		    				})
 						}
@@ -225,15 +244,54 @@ var t = "${t}";
 				}
 			});
 			
+			
+			
+			
+			
+// 			receiptList
+			$(document).on('click','.receiptList',function() {
+				b2_num = $(this).parents("tr").attr("data-b2_num");
+				console.log("b2_num" + b2_num)
+				$("#receiptModal-body").html("");
+				$("#receiptModal-footer").html("");
+				//수정해야함
+				$.getJSON("/mypage/receiptList.do?&b2_num="+b2_num+"&tab=3", function(data){
+					$(data).each(function() {
+						var ps_num = this.ps_num;
+						var b2_num = this.b2_num;
+						var p_num = this.p_num;
+						var s_num = this.s_num;
+						var pi_image = this.pi_image;
+						var p_name = this.p_name;
+						var p_content = this.p_content;
+						var b_count = this.b_count;
+						var original_multiply_count = this.original_multiply_count;
+						var multiply_count = this.multiply_count;
+						var b_confirm = this.b_confirm;
+						var b1_date = this.b1_date;
+						var ps_expiration = this.ps_expiration;
+						var st_address = this.st_address;
+						var st_hours = this.st_hours;
+						var st_cell = this.st_cell;
+						var st_name = this.st_name;
+						
+						receiptDynamic(p_name,b_count,original_multiply_count,ps_expiration,b1_date,st_address,st_hours,st_cell,st_name,b_confirm);
+					})
+				})
+			})
+			
+			
+			
 			$(".goDetail td:not(:nth-last-child(1),:nth-last-child(2),:nth-last-child(3),:nth-last-child(4))").click(function() {					 //, :nth-last-child(2))
 				var ps_num = $(this).parents("tr").attr("data-num");				
 				location.href="/productdetail/productdetailmain.do?ps_num="+ps_num;	
 			});	
 			
+			//수령 확인 버튼
 			$(document).on('click','.btn_confirm',function() {
 				if(confirm("정말 수령 하시겠습니까?")){
-					var b2_num = $(this).parents("tr").attr("data-b2_num");
-					console.log("b2_num" + b2_num)
+// 					var b2_num = $(this).parents("tr").attr("data-b2_num");
+					console.log("b2_num  = " + b2_num)
 					$.ajax({
 						url :"/mypage/cartConfirmUpdate.do",
 						type: "post",
@@ -564,6 +622,39 @@ var t = "${t}";
 			
 		});//풩션 끝!
 
+		function receiptDynamic(p_name,b_count,orignal_multiply_count,ps_expiration,b1_date,st_address,st_hours,st_cell,st_name,b_confirm){
+			
+			var table = $("<table class='table_receipt'>");
+			var colgroup =$("<colgroup><col width='20%'><col width='10%'><col width='100%'></colgroup>")
+			var tr1 =$("<tr><th>상품명</th><td>:</td><td>"+p_name+"</td></tr>")
+			var tr2 =$("<tr><th>총 개수</th><td>:</td><td>"+b_count+"개</td></tr>")
+			var tr3 =$("<tr><th>총 가격</th><td>:</td><td>"+orignal_multiply_count+"원</td></tr>")
+			var tr4 =$("<tr><th>유통기한</th><td>:</td><td>"+ps_expiration+"</td></tr>")
+			var tr5 =$("<tr><th>구입일</th><td>:</td><td>"+b1_date+"</td></tr>")
+			var tr6 = $("<tr><th>상호명</th><td>:</td><td>"+st_name+"</td></tr>")
+			var tr7 = $("<tr><th>사업지</th><td>:</td><td>"+st_address+"</td></tr>")
+			var tr8 = $("<tr><th>영업 시간</th><td>:</td><td>"+st_hours+"</td></tr>")
+			var tr9 = $("<tr><th>영업 전화</th><td>:</td><td>"+st_cell+"</td></tr>")
+			
+			
+			table.append(colgroup).append(tr1).append(tr2).append(tr3).append(tr4).append(tr5).append(tr6).append(tr7).append(tr8).append(tr9);
+			
+			var hr =$("<hr/>")
+			
+			var label =$("<div><label>주의 사항</label></div>");
+			var div =$("<div><p style='color:red;'>수령 확인 후 교환 환불은 불가 하며  구매 후 유통기한이 지나지 않도록 주의 하십시오.</p><p style='color: red';>만약 구입 후 유통기한이 지날 시 찾아가도 상관이 없으시나 교환 및 환불은 불가합니다. </p></div>")
+
+			var btn1 =$("<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+			var btn2 =$("<input type='button' class='btn btn-default btn_confirm' name='btn_confirm' value='수령'>");
+			
+			
+			$("#receiptModal-body").append(table).append(hr).append(label).append(div);
+			
+			if(b_confirm==0){
+				$("#receiptModal-footer").append(btn1).append(btn2);
+			}
+			
+		}
 		function formReset(){
 			$("#form_sellerR").each(function(){
 				this.reset();
@@ -572,6 +663,7 @@ var t = "${t}";
 				this.reset();
 			})
 		}
+		
 		//상품 리뷰
 		function productList(prv_image,prv_scope,prv_content,prv_date,prv_num,c_name){
 			
@@ -621,9 +713,11 @@ var t = "${t}";
 			var div= $("<td><div class='list_td'></div></td>");
 			var input;
 			if(b_confirm==0){
-				input =("<input type='button' class='btn btn-default btn_confirm' name='btn_confirm' value='수령'>")
+// 				input =("<input type='button' class='btn btn-default btn_confirm' name='btn_confirm' value='수령'>")
+				input =("<button type='button' class='btn btn-default receiptList' data-toggle='modal' data-target='.bs-example-modal-lg'>수령</button>");
 			}else if(b_confirm){
-				input = ("<span class='label label-danger' style='font-size: 16px;'>완료</span>");
+// 				input = ("<span class='label label-danger' style='font-size: 16px;'>완료</span>");
+				input =("<button type='button' class='btn btn-default receiptList label-danger' data-toggle='modal' data-target='.bs-example-modal-lg'>완료</button>");
 			}
 			div.append(input);
 			
@@ -768,10 +862,9 @@ var t = "${t}";
 	</script>
 </head>
 <body>
- 	<form id="coustomer" action="/member/login.do" method="get">
+  	<form id="coustomer" action="/member/login.do" method="get">
 		 <input type="hidden" name="login" value="${login}">
-		 
-	</form> 
+	</form>
 	
 	<div class="all">	
 	<input type="hidden" name="total_count">	
@@ -780,7 +873,6 @@ var t = "${t}";
 
 <!-- 			  	<li data-toggle="tab"><a href="#tab1"  data-toggle="tab">회원정보 수정</a></li> -->
 			  	<li data-toggle="tab"><a href="/member/login.do"  data-toggle="tab" id="customUpdate">회원정보 수정</a></li>
-			  	
 				<li data-toggle="tab"><a href="#tab2"  data-toggle="tab" id="li_list2">장바구니</a></li>
 				<li data-toggle="tab"><a href="#tab3"  data-toggle="tab" id="li_list3">구매목록</a></li>
 				<li data-toggle="tab"><a href="#tab4"  data-toggle="tab">즐겨찾기</a></li>
@@ -790,8 +882,8 @@ var t = "${t}";
 		<div class="tab-content">  <!-- 텝 시작 부분 -->
 			<div class="tab-pane active" id= "tab1"> <!-- 정보수정 페이지  -->
 <%-- 				<c:import url="/member/login.do"> --%>
-<%-- 					<c:param name="login" value="{login}"></c:param> --%>
 <%-- 				</c:import> --%>
+				<c:if test=""></c:if>
 				
 			</div>
 			<div class="tab-pane" id="tab2">
@@ -909,7 +1001,26 @@ var t = "${t}";
 	    </div>
 	  </div>
 	</div>
+		<!-- 모달 -->
 	
+	<div class="modal fade bs-example-modal-lg receiptModal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">수령 확인</h4>
+	      </div>
+	      <div class="modal-body" id="receiptModal-body">
+			<!-- 내용 들어가는곳 -->
+			
+	      </div>
+	      <div class="modal-footer" id="receiptModal-footer">
+<!-- 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+<!-- 	        <input type='button' class='btn btn-default btn_confirm' name='btn_confirm' value='수령'> -->
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 	<div class="div_last"></div>
 </body>

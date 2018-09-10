@@ -146,6 +146,12 @@ public class MypageDaoImpl implements MypageDao {
 		return session.delete("myProductDelete",pvo);
 	}
 
+	@Override
+	public MycartVO receiptList(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("receiptList",mvo);
+	}
+
 
 
 }

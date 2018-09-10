@@ -18,10 +18,18 @@ public class MycartVO extends ProductdetailVO {
     
     //구매 
     private int b1_num =0;
-    private Date b1_date;
+    private String b1_date;
     private int b2_num=0;
     private int b_count=0;
     private int b_confirm=0;
+    
+    
+    //스토어
+    private String st_address ="";
+    private String st_hours ="";
+    private String st_cell ="";
+    private String st_name="";
+    
     
     //기타
     private int multiply_count=0;
@@ -76,10 +84,10 @@ public class MycartVO extends ProductdetailVO {
 	public void setB1_num(int b1_num) {
 		this.b1_num = b1_num;
 	}
-	public Date getB1_date() {
+	public String getB1_date() {
 		return b1_date;
 	}
-	public void setB1_date(Date b1_date) {
+	public void setB1_date(String b1_date) {
 		this.b1_date = b1_date;
 	}
 	public int getB2_num() {
@@ -99,6 +107,30 @@ public class MycartVO extends ProductdetailVO {
 	}
 	public void setB_confirm(int b_confirm) {
 		this.b_confirm = b_confirm;
+	}
+	public String getSt_address() {
+		return st_address;
+	}
+	public void setSt_address(String st_address) {
+		this.st_address = st_address;
+	}
+	public String getSt_hours() {
+		return st_hours;
+	}
+	public void setSt_hours(String st_hours) {
+		this.st_hours = st_hours;
+	}
+	public String getSt_cell() {
+		return st_cell;
+	}
+	public void setSt_cell(String st_cell) {
+		this.st_cell = st_cell;
+	}
+	public String getSt_name() {
+		return st_name;
+	}
+	public void setSt_name(String st_name) {
+		this.st_name = st_name;
 	}
 	public int getMultiply_count() {
 		return multiply_count;
@@ -129,7 +161,8 @@ public class MycartVO extends ProductdetailVO {
 		return "MycartVO [cart2_num=" + cart2_num + ", cart1_num=" + cart1_num + ", ps_num=" + ps_num + ", cart2_count="
 				+ cart2_count + ", cart1_date=" + cart1_date + ", c_num=" + c_num + ", price_value=" + price_value
 				+ ", b1_num=" + b1_num + ", b1_date=" + b1_date + ", b2_num=" + b2_num + ", b_count=" + b_count
-				+ ", b_confirm=" + b_confirm + ", multiply_count=" + multiply_count + ", original_multiply_count="
+				+ ", b_confirm=" + b_confirm + ", st_address=" + st_address + ", st_hours=" + st_hours + ", st_cell="
+				+ st_cell + ", st_name=" + st_name + ", multiply_count=" + multiply_count + ", original_multiply_count="
 				+ original_multiply_count + ", update_count=" + update_count + ", page=" + page + ", getPi_num()="
 				+ getPi_num() + ", getPi_image()=" + getPi_image() + ", getP_num()=" + getP_num() + ", getP_name()="
 				+ getP_name() + ", getP_price()=" + getP_price() + ", getP_date()=" + getP_date() + ", getP_update()="
@@ -141,12 +174,10 @@ public class MycartVO extends ProductdetailVO {
 				+ getPs_price() + ", getS_num()=" + getS_num() + ", getPs_state()=" + getPs_state() + ", getPs_udate()="
 				+ getPs_udate() + ", getState()=" + getState() + ", toString()=" + super.toString() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + "]";
-	} 
-    
-    
-    
+	}
 
-
-	
+ 
+    
+    
     
 }

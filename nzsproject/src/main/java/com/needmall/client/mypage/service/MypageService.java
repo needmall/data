@@ -50,5 +50,8 @@ public interface MypageService {
 
 	int myProductRupdate(PreviewVO pvo, HttpServletRequest request);
 
+	MycartVO receiptList(MycartVO mvo);
+
+
 	
 }

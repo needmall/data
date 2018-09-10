@@ -32,7 +32,7 @@ public class ProductdetailVO extends ProductsellVO {
 	private int cart1_num=0;	//카테 1dept 번호
 	private int ps_num=0;		//상품 판매 번호
 	private int cart2_count=0;	//장바구니 개수
-	private Date cart1_date;	//수정낧짜
+	private Date cart1_date;	//수정날짜
 	private int c_num=0;		//고객번호
 	
 	//ect

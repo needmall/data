@@ -23,7 +23,6 @@ import com.needmall.client.mypage.service.MypageService;
 import com.needmall.client.mypage.vo.MycartVO;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.SreviewVO;
-import com.needmall.common.vo.NewsVO;
 
 @Controller
 @RequestMapping(value="/mypage")
@@ -82,6 +81,20 @@ public class MypageController {
 		return value;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/receiptList.do")
+	public String receiptList(MycartVO mvo, ObjectMapper mapper) {
+		String value = "";
+		MycartVO list = mypageService.receiptList(mvo);
+		try {
+			value = mapper.writeValueAsString(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return value;
+		
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping("/pageList.do")//페이징 전체
@@ -94,6 +107,8 @@ public class MypageController {
 		return a;
 		
 	}
+	
+
 	
 	/////////////////////////////////////////////////////////////장바구니 로직
 //	@RequestMapping(value="/mycartList.do")

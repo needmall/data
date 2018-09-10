@@ -52,6 +52,9 @@ public interface MypageDao {
 
 	int myProductDelete(PreviewVO svo);
 
+	MycartVO receiptList(MycartVO mvo);
+
+
 
 
 

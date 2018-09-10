@@ -34,13 +34,6 @@ var arr = [];
 
 	$(function(){
 		
-		$('#myModal').on('shown.bs.modal', function () {
-		  	$('#myInput').focus();
-			$('#myModal').modal({
-			  backdrop: 'static',
-			  keyboard: false
-			})
-		})
 		
 		$(".update_btn").click(function() {
 			var ps_count = $(this).parents("tr").find(".ps_count").attr("data-num");   //db에 저장된 장바구니 개수
@@ -310,7 +303,7 @@ var arr = [];
 <!-- 			<input type="button" class="btn btn-default" id="btn_allBuy" value="전체 구매하기"> -->
 		</div>
 		<!-- 		모달부분 -->
-		<div class="modal fade bs-example-modal-lg"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal fade "  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog modal-lg" style="width: 1200px;" >
 		    <div class="modal-content">
 		      <div class="modal-header">

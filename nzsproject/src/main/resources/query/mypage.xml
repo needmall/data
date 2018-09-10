@@ -45,22 +45,26 @@
 		
         <![CDATA[
           	SELECT
-	     		to_char(X.b1_date,'yyyy-mm-dd')as b1_date,X.b_count as b_count,X.b_confirm as b_confirm,X.ps_expiration as ps_expiration,
+	     		to_char(X.b1_date,'yyyy-mm-dd') as b1_date,X.b_count as b_count,X.b_confirm as b_confirm,X.ps_expiration as ps_expiration,
 	     		X.ps_count as ps_count,X.p_price as p_price,X.ps_price as ps_price,X.p_name as p_name,X.p_date as p_date,X.p_content as p_content,
-	     		X.p_division as p_division,X.pi_image as pi_image,X.ps_num as ps_num,X.b2_num as b2_num,X.p_num as p_num,X.c_num as c_num,X.s_num as s_num
+	     		X.p_division as p_division,X.pi_image as pi_image,X.ps_num as ps_num,X.b2_num as b2_num,X.p_num as p_num,X.c_num as c_num,X.s_num as s_num,
+                X.st_address as st_address,X.st_hours as st_hours,X.st_cell as st_cell,X.st_name as st_name
 	           FROM(
 	              SELECT
 	                   rownum as rnum,A.b1_date,A.b_count,A.b_confirm,A.ps_expiration,A.ps_count,A.ps_price,A.p_name,A.p_price,
-	                   A.p_date,A.p_content,A.p_division,A.pi_image,A.ps_num,A.b2_num,A.p_num ,A.c_num,A.s_num
+	                   A.p_date,A.p_content,A.p_division,A.pi_image,A.ps_num,A.b2_num,A.p_num ,A.c_num,A.s_num,
+                       A.st_address,A.st_hours,A.st_cell,A.st_name
 	              FROM
 	                  (SELECT
 	                      b1_date,b_count,b_confirm,ps_expiration,ps_count,ps_price,p_name,p_price,p_date,p_content,p_division,pi_image,
-	                      productsell.ps_num,BUY2DEP.b2_num,PRODUCT.p_num,buy1dep.c_num,productsell.s_num
+	                      productsell.ps_num,BUY2DEP.b2_num,PRODUCT.p_num,buy1dep.c_num,productsell.s_num,store.st_address,store.st_hours,store.st_cell,store.st_name
 	                  FROM
 	                      buy1dep inner join buy2dep on buy1dep.b1_num = buy2dep.b1_num
 	                      inner join productsell on productsell.ps_num = buy2dep.ps_num
 	                      inner join product on product.p_num = productsell.p_num
 	                      inner join proimage on proimage.pi_num =product.pi_num
+                          inner join seller on productsell.s_num = seller.s_num
+                          inner join store on store.s_num = seller.s_num
 	                  WHERE
 	                       buy1dep.c_num = #{c_num} order by b1_date)A 
 	              WHERE
@@ -248,4 +252,19 @@
 		WHERE
 		    prv_num =#{prv_num}
 	 </delete>
+	 <select id="receiptList" resultType="mypage" parameterType="mypage">
+	 	SELECT
+              to_char(b1_date,'yyyy-mm-dd') as b1_date,b_count,b_confirm,ps_expiration,ps_count,ps_price,p_name,p_price,p_date,p_content,p_division,pi_image,
+              productsell.ps_num,BUY2DEP.b2_num,PRODUCT.p_num,buy1dep.c_num,productsell.s_num,store.st_address,store.st_hours,store.st_cell,store.st_name
+          FROM
+              buy1dep inner join buy2dep on buy1dep.b1_num = buy2dep.b1_num
+              inner join productsell on productsell.ps_num = buy2dep.ps_num
+              inner join product on product.p_num = productsell.p_num
+              inner join proimage on proimage.pi_num =product.pi_num
+                 inner join seller on productsell.s_num = seller.s_num
+                 inner join store on store.s_num = seller.s_num
+          WHERE
+               b2_num = #{b2_num}
+	 </select>
+
 </mapper>

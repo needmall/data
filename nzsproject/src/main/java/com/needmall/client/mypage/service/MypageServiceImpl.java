@@ -29,7 +29,6 @@ public class MypageServiceImpl implements MypageService {
 			list.get(i).setMultiply_count(result);
 			list.get(i).setOriginal_multiply_count(result2);
 		}
-		
 		return list;
 	}
 
@@ -61,7 +60,7 @@ public class MypageServiceImpl implements MypageService {
 		return value;
 	}
 
-	//구매페이지 리스
+	//구매페이지 리스트
 	@Override
 	public List<MycartVO> buyList(MycartVO mbvo) {
 		
@@ -302,7 +301,18 @@ public class MypageServiceImpl implements MypageService {
 		return result;
 	}
 
-
-
+	@Override
+	public MycartVO receiptList(MycartVO mvo) {
+		// TODO Auto-generated method stub
+		MycartVO list = mypageDao.receiptList(mvo);
 		
+		
+			int result = list.getPs_price() * list.getB_count();
+			int result2 =list.getP_price() * list.getB_count();	//할인가 * 개수
+			list.setMultiply_count(result);
+			list.setOriginal_multiply_count(result2);
+		
+		return list;
+	}
+
 }

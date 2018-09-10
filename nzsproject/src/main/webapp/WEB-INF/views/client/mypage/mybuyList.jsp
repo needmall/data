@@ -34,45 +34,39 @@
 		.tab-pane{padding-top: 50px;}
 		.div_last{height: 100px;}
 		#document_navi{text-align: center;}
-		
 	</style>
-	<script type="text/javascript">
-		
-		
-		
-	</script>
 </head>
 <body>
 	<div class="item_succes"><span>구매 성공 내역</span></div>
 	<hr/>
 <!-- 	<div style="text-align: right ;"><input type="date"></div> -->
-		<table class="table table-striped table-hover" id="tableList">
-			<colgroup>
-				<col width="5%">
-				<col width="10%">
-				<col width="50%">
-				<col width="5%">
-				<col width="8%">
-				<col width="8%">
-				<col width="7%">
-				<col width="7%">
-			</colgroup>
-			<tbody>
-				<tr>
-					<td>번호</td>
-					<td>물품명</td>
-					<td>물품설명</td>
-					<td>수량</td>
-					<td>가격</td>
-					<td>구입일</td>
-					<td>리 뷰</td>
-					<td>수령확인</td>
-				</tr>
-			</tbody>
-		</table>
-		<div class="text-center"> <!-- 페이징 버튼 -->
-			<ul id="pagination-demo" class="pagination-sm"></ul>
-		</div>
+	<table class="table table-striped table-hover" id="tableList">
+		<colgroup>
+			<col width="5%">
+			<col width="10%">
+			<col width="50%">
+			<col width="5%">
+			<col width="8%">
+			<col width="8%">
+			<col width="7%">
+			<col width="7%">
+		</colgroup>
+		<tbody>
+			<tr>
+				<td>번호</td>
+				<td>물품명</td>
+				<td>물품설명</td>
+				<td>수량</td>
+				<td>가격</td>
+				<td>구입일</td>
+				<td>리 뷰</td>
+				<td>수령확인</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="text-center"> <!-- 페이징 버튼 -->
+		<ul id="pagination-demo" class="pagination-sm"></ul>
+	</div>
 
 </body>
 </html>
