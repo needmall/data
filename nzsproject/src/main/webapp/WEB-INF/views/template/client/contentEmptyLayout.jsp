@@ -49,7 +49,7 @@
       <tiles:insertAttribute name="body"/>
     </div>
 <!--     <footer class="footer"> -->
-<!-- 		<!-- 풋터 설정 --> -->
+<!-- 		<!-- 풋터 설정 -->
 <%-- 		<tiles:insertAttribute name="footer"/> --%>
 <!--     </footer> -->
 

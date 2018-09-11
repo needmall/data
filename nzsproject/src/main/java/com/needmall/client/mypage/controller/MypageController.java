@@ -33,8 +33,6 @@ public class MypageController {
 
 	@Autowired
 	private MypageService mypageService;
-	@Autowired
-	private MemberService memberService;
 //	/mypage/mycartList.do
 	
 	@RequestMapping("/mypageList.do")
@@ -53,14 +51,6 @@ public class MypageController {
 //	    logger.info("당황스럽네요 왜 안나오죠?"+list.size());
 	  Date date =list.get(0).getCart1_date();
 	  model.addAttribute("date",date);
-	  }
-	  if(!(login.getC_num()==0)) {
-		  MemberVO vo = memberService.customerSelect(login.getC_id());
-		  model.addAttribute("member", vo);
-	  }
-	  if(!(login.getS_num()==0)) {
-			MemberVO vo = memberService.sellerSelect(login.getS_id());
-			model.addAttribute("member", vo);
 	  }
 
 	  model.addAttribute("t",t);
