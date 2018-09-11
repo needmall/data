@@ -859,18 +859,6 @@ var b2_num;
 	      return new_div_contract;
 	   }
 		   
-       function errorCodeCheck(){
-     	  var status = '<c:out value="${status}" />';
-     	  if(status != ""){
-     	  		alert("기존 비밀번호 검증에 실패하였습니다. \n기존 비밀번호를 다시 확인해 주세요. ");
-     	  }
-       }
-       
-       loginCustomerId = "${member.c_id}";
-       function emailCheck(){
-     	  var c_mail = "${c_mail[1]}";
-     	  $("#c_mailDomain").val(c_mail).prop("selected", "true");
-       }
 	</script>
 </head>
 <body>
@@ -913,12 +901,12 @@ var b2_num;
 				<c:when test="${login.c_id != null and login.c_id != ''}">		
 					<div class="tab-pane" id="tab1-1">
 						<div id="page_group">
-							<c:import url="/member/modify_customer_check.do"></c:import>
+<%-- 							<c:import url="/member/modify_customer_check.do"></c:import> --%>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab1-2">
 						<div id="page_group">							
-							<c:import url="/member/customerModifyPwd.do"></c:import>
+<%-- 							<c:import url="/member/customerModifyPwd.do"></c:import> --%>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab1-3">
@@ -930,12 +918,12 @@ var b2_num;
 				<c:when test="${login.s_id != null and login.s_id != ''}">
 					<div class="tab-pane" id="tab1-1">
 						<div id="page_group">
-							<c:import url="/member/modify_seller_check.do"></c:import>
+<%-- 							<c:import url="/member/modify_seller_check.do"></c:import> --%>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab1-2">
 						<div id="page_group">
-							<c:import url="/member/sellerModifyPwd.do"></c:import>
+<%-- 							<c:import url="/member/sellerModifyPwd.do"></c:import> --%>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab1-3">
