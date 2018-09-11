@@ -21,7 +21,6 @@
 <!-- [endif] -->
  
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
-<script type="text/javascript" src="/resources/include/js/modify.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/include/css/productdetail.css" />
 
 <style type="text/css">
@@ -891,7 +890,9 @@ var b2_num;
 				    	<li data-toggle="tab"><a href="#tab1-1"  data-toggle="tab">정보변경</a></li>
 				    	<li data-toggle="tab"><a href="#tab1-2"  data-toggle="tab">비밀번호 변경</a></li>
 				    	<c:choose>
+				    		
 					    	<c:when test="${login.c_id != null and login.c_id != ''}">
+					    		
 					    		<li data-toggle="tab"><a href="#tab1-3"  data-toggle="tab" id="customerDelete">회원 탈퇴</a></li>
 					    	</c:when>
 					    	<c:when test="${login.s_id != null and login.s_id != ''}">
@@ -906,6 +907,7 @@ var b2_num;
 <!-- 				<li><a href="#tab3" data-toggle="tab">리뷰</a></li> -->
 			</ul>
 		</div>
+		
 		<div class="tab-content">  <!-- 텝 시작 부분 -->
 			<c:choose>
 				<c:when test="${login.c_id != null and login.c_id != ''}">		
@@ -915,13 +917,13 @@ var b2_num;
 						</div>
 					</div>
 					<div class="tab-pane" id="tab1-2">
-						<div id="page_group">
+						<div id="page_group">							
 							<c:import url="/member/customerModifyPwd.do"></c:import>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab1-3">
 						<div id="page_group">
-<%-- 							<c:import url="/member/delete_customer_check.do"></c:import> --%>
+ 							<%-- <c:import url="/member/delete_customer_check.do"></c:import> --%>
 						</div>
 					</div>
 				</c:when>
@@ -938,7 +940,7 @@ var b2_num;
 					</div>
 					<div class="tab-pane" id="tab1-3">
 						<div id="page_group">
-							!!!!!
+						
 						</div>
 					</div>
 				</c:when>

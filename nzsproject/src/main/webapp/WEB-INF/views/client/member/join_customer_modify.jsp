@@ -22,7 +22,7 @@
           <!-- ★★ jQuery 쓰려면 무조건 정의 해줘야함! ↓↓↓ -->
 		  <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
           <script type="text/javascript" src="/resources/include/js/common.js"></script>
-          <script type="text/javascript" src="/resources/include/js/modify.js"></script>
+          <script type="text/javascript" src="/resources/include/js/modifyInf.js"></script>
           
           <!-- daum map -->
           <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -91,7 +91,7 @@
          <div class="contentContainer">
 	<div class="well">
 		<form id="memberForm" class="form-horizontal">
-			<input type="hidden" name="c_num" value="${member.c_num}" />
+			<input type="hidden" name="c_num" id="c_num" value="${member.c_num}" />
 			<input type="hidden" name="c_mail" id="c_mail" />
 			<input type="hidden" name="c_address" id="c_address" />
 			
