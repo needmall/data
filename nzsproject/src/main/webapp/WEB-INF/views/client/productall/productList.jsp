@@ -36,7 +36,6 @@ $(function() {
 			// 모든 매장 검색
 			addItem();
 			console.log("2222222222");
-			
 		}
 		
 	
@@ -283,7 +282,6 @@ $(function() {
 		new_tr.append(new_td_p_ps);
 
 		new_table.append(new_tbody).append(new_tr);
-		//new_a_clearfix.append(new_table);
 		new_div_contract.append(new_table);
 
 		$(".periphery_list").append(new_div_contract);

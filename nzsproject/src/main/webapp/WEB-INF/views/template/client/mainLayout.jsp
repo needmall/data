@@ -46,8 +46,8 @@ body {
 	min-height: 100px;
 }
 
-.footer	{
-	margin-left: -200px !important;	 
+.footer {
+	margin-left: -200px !important;
 }
 
 h4 {
@@ -68,12 +68,11 @@ h4 {
 }
 
 .item .width {
-	width : 560px;
-	height : 261px !important;
-	margin-left : auto;
-	margin-right : auto;
+	width: 560px;
+	height: 261px !important;
+	margin-left: auto;
+	margin-right: auto;
 }
-
 
 .carousel-indicators li {
 	border: 1px solid black;
@@ -117,129 +116,125 @@ table th {
 #carousel-example-generic-width {
 	height: 230px;
 }
-			
 </style>
 
 <script type="text/javascript">
-		$(function() {
-			
-			$('.carousel').carousel({
-				  wrap: "true"
-			});
-				
-			$.ajax({
-				url:"/admin/statistic/popItem.do",  //전송 url
-				type:"get",  // 전송 시 method 방식				
-				dataType:"json",
-				success: function(result){
-					var cnt =0;
-					$(result).each(function() {	
-						if(cnt<3){
-							var pi_image = this.pi_image;
-							var p_name = this.p_name;
-							var setitem = $(".item:eq("+cnt+")");
-							setitem.find("img").attr("src","/uploadStorage/product/"+pi_image);
-							setitem.find("h3").html(p_name);
-							cnt++;	
-						}
-					})
+	$(function() {
+
+		$('.carousel').carousel({
+			wrap : "true"
+		});
+
+		$.ajax({
+			url : "/admin/statistic/popItem.do", //전송 url
+			type : "get", // 전송 시 method 방식				
+			dataType : "json",
+			success : function(result) {
+				var cnt = 0;
+				$(result).each(function() {
+
+					var pi_image = this.pi_image;
+					var p_name = this.p_name;
 					
-				},
-				error:function(){  //실행시 오류가 발생하였을 경우
-					alert("시스템 오류 입니다. 관리자에게 문의하세요!!");							
-				}
-			});	// END AJAX
-						
-		}); // END JQUERY
-	</script>
+					addItem(pi_image, p_name);
+					
+					if (3 < cnt++) return false;
+				});
+				$("#carousel-example-generic-block").find(".carousel-inner").children(".item:eq(0)").addClass("active");
+			},
+			error : function() { //실행시 오류가 발생하였을 경우
+				alert("시스템 오류 입니다. 관리자에게 문의하세요!!");
+			}
+		}); // END AJAX
+
+	}); // END JQUERY
+	function addItem(pi_image, p_name) {
+		var div_item = $("<div>");
+		div_item.addClass("item");
+
+		var div_img = $("<div>");
+		var img = $("<img>");
+		img.attr("src", "/uploadStorage/product/" + pi_image);
+		img.addClass("center-block block");
+
+		var div_h3 = $("<div>");
+		div_h3.addClass("text-center")
+		var h3 = $("<h3>");
+		h3.html(p_name);
+
+		div_h3.append(h3);
+		div_img.append(img);
+		div_item.append(div_img).append(div_h3);
+		$("#carousel-example-generic-block").find(".carousel-inner").append(div_item);
+
+	}
+</script>
 </head>
 
 <body>
 	<!-- 헤더 설정  -->
 	<tiles:insertAttribute name="header" />
-	<div id="middle-1">
-		<div>
-			<h4>오늘의 인기 상품</h4>
-			<div id="carousel-example-generic-block" class="carousel slide"
-				data-ride="carousel">
+	<div>
+		<div id="middle-1">
+			<div>
+				<h4>오늘의 인기 상품</h4>
+				<div id="carousel-example-generic-block" class="carousel slide"
+					data-ride="carousel">
 
-				<!-- Indicators -->
-				<ol class="carousel-indicators">
-					<li data-target="#carousel-example-generic-block" data-slide-to="0"
-						class="active"></li>
-					<li data-target="#carousel-example-generic-block" data-slide-to="1"></li>
-					<li data-target="#carousel-example-generic-block" data-slide-to="2"></li>
-				</ol>
+					<!-- Indicators -->
+					<ol class="carousel-indicators">
+						<li data-target="#carousel-example-generic-block"
+							data-slide-to="0" class="active"></li>
+						<li data-target="#carousel-example-generic-block"
+							data-slide-to="1"></li>
+						<li data-target="#carousel-example-generic-block"
+							data-slide-to="2"></li>
+					</ol>
 
-				<!-- Wrapper for slides -->
-				<div class="carousel-inner" role="listbox">
-					<div class="item active">
-						<div>
-							<img class="center-block block">
-						</div>
-						<div class="text-center">
-							<h3></h3>
-						</div>
-					</div>
-					<div class="item">
-						<div>
-							<img class="center-block block">
-						</div>
-						<div class="text-center">
-							<h3></h3>
-						</div>
-					</div>
-					<div class="item">
-						<div>
-							<img class="center-block block">
-						</div>
-						<div class="text-center">
-							<h3></h3>
-						</div>
-					</div>
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner" role="listbox"></div>
 				</div>
-
-				<!-- Controls -->
-				<a class="left carousel-control" href="#carousel-example-generic-block" role="button" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				</a> <a class="right carousel-control" href="#carousel-example-generic-block" role="button" data-slide="next"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				</a>
 			</div>
 		</div>
 		<div id="middle-2">
 			<div id="listInfo">
-				
-					<h4>행사 안내</h4>
-					<div id="carousel-example-generic-width" class="carousel slide"
-						data-ride="carousel">
 
-						<!-- Indicators -->
-						<ol class="carousel-indicators">
-							<li data-target="#carousel-example-generic-width" data-slide-to="0" class="active"></li>
-							<li data-target="#carousel-example-generic-width" data-slide-to="1"></li>
-							<li data-target="#carousel-example-generic-width" data-slide-to="2"></li>
-						</ol>
+				<h4>행사 안내</h4>
+				<div id="carousel-example-generic-width" class="carousel slide"
+					data-ride="carousel">
 
-						<!-- Wrapper for slides -->
-						<div class="carousel-inner" role="listbox">
-							<div class="item active">
-								<div>
-									<img class="center-block width" src="/uploadStorage/event/2889D90184FF4377A8CA80ED720A082C.jpg">
-								</div>
+					<!-- Indicators -->
+					<ol class="carousel-indicators">
+						<li data-target="#carousel-example-generic-width"
+							data-slide-to="0" class="active"></li>
+						<li data-target="#carousel-example-generic-width"
+							data-slide-to="1"></li>
+						<li data-target="#carousel-example-generic-width"
+							data-slide-to="2"></li>
+					</ol>
+
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner" role="listbox">
+						<div class="item active">
+							<div>
+								<img class="center-block width"
+									src="/uploadStorage/event/2889D90184FF4377A8CA80ED720A082C.jpg">
 							</div>
-							<div class="item">
-								<div>
-									<img class="center-block width" src="/uploadStorage/event/C2EA8071FA254019A1B7EB873AA31859.jpg">
-								</div>
+						</div>
+						<div class="item">
+							<div>
+								<img class="center-block width"
+									src="/uploadStorage/event/C2EA8071FA254019A1B7EB873AA31859.jpg">
 							</div>
-							<div class="item">
-								<div>
-									<img class="center-block width" src="/uploadStorage/event/C350926620C5458383B7DDF7B0C19F8B.jpg">
-								</div>
+						</div>
+						<div class="item">
+							<div>
+								<img class="center-block width"
+									src="/uploadStorage/event/C350926620C5458383B7DDF7B0C19F8B.jpg">
 							</div>
 						</div>
 					</div>
+				</div>
 			</div>
 			<div id="newsList">
 				<h4>공지 사항</h4>
