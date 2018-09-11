@@ -49,7 +49,7 @@
       <body>
          <div class="contentContainer">
 	<div class="well">
-		<form id="memberForm2" class="form-horizontal">
+		<form id="memberForm" class="form-horizontal">
 			<input type="hidden" name="c_num"  value="${member.c_num}" />
 
 			
@@ -60,9 +60,9 @@
 				</div>
 			</div>
 			<div class="form-group form-group-sm">
-				<label for="c_opwd2" class="col-sm-2 control-label">기존 비밀 번호</label>
+				<label for="c_opwd" class="col-sm-2 control-label">기존 비밀 번호</label>
 				<div class="col-sm-3">
-					<input type="password" id="c_opwd2" name="c_opwd2" maxlength="15" class="form-control" placeholder="기존 비밀번호 입력" >
+					<input type="password" id="c_opwd" name="c_opwd" maxlength="15" class="form-control" placeholder="기존 비밀번호 입력" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -94,7 +94,7 @@
 				<div class="col-sm-offset-2 col-sm-6">
 					<input type="button" value="확인" id="customerPwdModify" class="btn btn-default" /> 
 					<input type="button" value="재작성" id="modifyReset" class="btn btn-default" />
-					<input type="button" value="취소" id="modifyCancel2" class="btn btn-default" />						
+					<input type="button" value="취소" id="modifyCancel" class="btn btn-default" />						
 				</div>	
 			</div>																										
 		</form>
