@@ -49,10 +49,9 @@
       <body>
          <div class="contentContainer">
 	<div class="well">
-		<form id="memberForm" class="form-horizontal">
-			<input type="hidden" name="c_num" id="c_num" value="${member.c_num}" />
-			<input type="hidden" name="c_mail" id="c_mail" />
-			<input type="hidden" name="c_address" id="c_address" />
+		<form id="memberPwdForm" class="form-horizontal">
+			<input type="hidden" name="c_num"  value="${member.c_num}" />
+
 			
 			<div class="form-group form-group-sm">
 				<label for="c_id" class="col-sm-2 control-label">사용자 ID</label>
@@ -63,7 +62,7 @@
 			<div class="form-group form-group-sm">
 				<label for="c_opwd" class="col-sm-2 control-label">기존 비밀 번호</label>
 				<div class="col-sm-3">
-					<input type="password" id="c_opwd" name="c_opwd" maxlength="15" class="form-control" placeholder="기존 비밀번호 입력" >
+					<input type="password" id="c_opwd1" name="c_opwd" maxlength="15" class="form-control" placeholder="기존 비밀번호 입력" >
 				</div>
 				<div class="col-sm-5">
 					<p class="form-control-static error"></p>
@@ -94,8 +93,8 @@
 			<div class="form-group">	
 				<div class="col-sm-offset-2 col-sm-6">
 					<input type="button" value="확인" id="customerPwdModify" class="btn btn-default" /> 
-					<input type="button" value="재작성" id="modifyReset" class="btn btn-default" />
-					<input type="button" value="취소" id="modifyCancel" class="btn btn-default" />						
+					<input type="button" value="재작성" id="customerPwdmodifyReset" class="btn btn-default" />
+					<input type="button" value="취소" id="customerPwdmodifyCancel" class="btn btn-default" />						
 				</div>	
 			</div>																										
 		</form>

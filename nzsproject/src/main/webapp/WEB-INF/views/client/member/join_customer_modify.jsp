@@ -91,7 +91,7 @@
          <div class="contentContainer">
 	<div class="well">
 		<form id="memberForm" class="form-horizontal">
-			<input type="hidden" name="c_num" id="c_num" value="${member.c_num}" />
+			<input type="hidden" name="c_num" value="${member.c_num}" />
 			<input type="hidden" name="c_mail" id="c_mail" />
 			<input type="hidden" name="c_address" id="c_address" />
 			

@@ -172,7 +172,7 @@ $(function(){
 	$("#customerPwdModify").click(function(){
 		//	입력값 체크
 		if (!formCheck($('#c_opwd'), $('.error:eq(0)'), "기존 비밀번호를")) return;
-		else if (!inputVerify(1,'#c_opwd', '.error:eq(0)')) return;
+		else if (!inputVerify(1,'#c_opwd1', '.error:eq(0)')) return;
 		else if (!formCheck($('#c_pwd'), $('.error:eq(1)'), "변경할 비밀번호를")) return;
 		else if (!inputVerify(1,'#c_pwd', '.error:eq(1)')) return;
 		else if (!customerIdPwdCheck()) return;	
@@ -222,13 +222,13 @@ $(function(){
 	});
 
 	
-	$("#modifyReset").click(function(){
+	$("#modifyReset,#customerPwdmodifyReset").click(function(){
 		$("#memberForm").each(function(){
 			this.reset();
 		}); 
 	});
 
-	$("#modifyCancel").click(function(){
+	$("#modifyCancel,#customerPwdmodifyCancel").click(function(){
 		location.href="/member/login.do";
 	});
 });

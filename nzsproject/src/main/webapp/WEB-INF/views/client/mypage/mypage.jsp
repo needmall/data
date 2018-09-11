@@ -172,26 +172,6 @@ var b2_num;
 			 else{
 				$("#nav a[href='#tab1']").tab("show");				
 			} */
-			
-			
-			// customer 탈퇴 confirm
-			$("#customerDelete").click(function(){
-				var message = confirm("정말로..탈퇴...하시겠습니까?");
-				if(message==true){
-					location.href="/member/delete_customer_check.do"
-				} else{
-					return false;
-				}
-			});
-			// seller 탈퇴 confirm
-			$("#sellerDelete").click(function(){
-				var message = confirm("정말로..탈퇴...하시겠습니까?");
-				if(message==true){
-					location.href="/member/delete_seller_check.do"
-				} else{
-					return false;
-				}
-			});
 
 			$('.dropdown-toggle').dropdown();
 			
@@ -931,29 +911,29 @@ var b2_num;
 				<c:when test="${login.c_id != null and login.c_id != ''}">		
 					<div class="tab-pane" id="tab1-1">
 						<div id="page_group">
-							<jsp:include page="/WEB-INF/views/client/member/join_customer_modify.jsp"></jsp:include>
+							<c:import url="/member/modify_customer_check.do"></c:import>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab1-2">
 						<div id="page_group">
-							<c:import url="/WEB-INF/views/client/member/customerModifyPwd.jsp"></c:import>
+							<c:import url="/member/customerModifyPwd.do"></c:import>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab1-3">
 						<div id="page_group">
-							
+<%-- 							<c:import url="/member/delete_customer_check.do"></c:import> --%>
 						</div>
 					</div>
 				</c:when>
 				<c:when test="${login.s_id != null and login.s_id != ''}">
 					<div class="tab-pane" id="tab1-1">
 						<div id="page_group">
-							<c:import url="/member/modify_seller_check.jsp"></c:import>
+							<c:import url="/member/modify_seller_check.do"></c:import>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab1-2">
 						<div id="page_group">
-							<c:import url="/member/sellerModifyPwd.jsp"></c:import>
+							<c:import url="/member/sellerModifyPwd.do"></c:import>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab1-3">

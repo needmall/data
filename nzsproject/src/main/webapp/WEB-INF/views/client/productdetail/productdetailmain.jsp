@@ -58,7 +58,6 @@
 					buy('${detail.p_name }','${detail.pi_image}','${detail.p_content }',count,'${detail.ps_expiration}','${detail.ps_price }');
 					if(c_num !="null"){
 						$.ajax({
-							
 							url :"/mypage/cartConfirmList.do",
 							type:"post",
 							data:"c_num="+c_num+"&ps_num="+ps_num,
@@ -134,10 +133,12 @@
 				$( ".ul- li" ).click(function() {
 					if($(this).index()==0){
 // 						console.log($(this).index());
-						itemReview();
+						precautions();
 					}else if($(this).index()==1){
-						sellerReview();
+						itemReview();
 					}else if($(this).index()==2){
+						sellerReview();
+					}else if($(this).index()==3){
 						sellInformation();
 					}
 		       })
@@ -342,7 +343,30 @@
 				
 // 				console.log(${login})
 			});////////////////////////////////////////////////////////////풩션 끝
-			
+			function precautions(){
+				var div1 = $("<div style='width: 100%; text-align: center;'>");
+				var div2 = $("<div style='display: inline-block; width: 55%'>");
+				var ol = $("<ol style='text-align: left;'>");
+				
+				var li1 = $("<li>Need Malld은 다양한 편의점이 입점된 오픈마켓 쇼핑몰입니다.</li>")
+				var p1 = $("<p>각 편의점 마다 할인 가격은 다르며 수령 방법은 직접 수령 밖에 되지 않습니다.(배달 x)</p>");
+				
+				var li2 = $("<li>유통기한이 끝나는 순간 제품은 구입을 할 수 없게 됩니다.</li>")
+				var span = $("<span>저희는 유통기한을 준수 하며 만약 장바구니에 넣어놓을 경우 사는게 자동으로 삭제되며</span>");
+				var p2 = $("<p>구입 후 제품의 소비기간이 지나면 폐기 먹지 말고 폐기처분 해주셔야 합니다.</p>");
+				
+				var li3 = $("<li>유통기한이 끝나기 전에 구입 후 찾아가지 않을경우 .</li>")
+				var p3 = $("<p>제품이 변질 되거나 상하는거를 방지 하기위해 구입 후 3일시 폐기처분 합니다.</p>");
+				
+				var li4 = $("<li>상품 파손, 불량 등 문제가 있을 경우 사진 촬영후 연락 바랍니다.</li>")
+				var p4 = $("<p>이메일 : NZS@gmail.com 로 연락주세요</p>");
+				div1.append(div2);
+				div2.append(ol);
+				ol.append(li1).append(p1).append(li2).append(span).append(p2).append(li3).append(p3).append(li3).append(li4).append(p4);
+				
+				
+				$("#contentTB").append(div1); 
+			}
 			
 			
 			function sellerReview(){
@@ -650,6 +674,7 @@
 	<form class="form-inline">
  		<div class="form-group">
 		<ul class="ul- list-group" >
+			<li class="form-control"  ><a>상품 주의사항</a></li>
 			<li class="form-control"  ><a>상품 리뷰</a></li>
 			<li class="form-control" ><a>서비스 리뷰</a></li>
 			<li class="form-control" ><a>판매자 정보</a></li>
