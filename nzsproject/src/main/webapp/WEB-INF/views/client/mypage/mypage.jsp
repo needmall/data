@@ -907,6 +907,7 @@ var b2_num;
 <!-- 				<li><a href="#tab3" data-toggle="tab">리뷰</a></li> -->
 			</ul>
 		</div>
+		
 		<div class="tab-content">  <!-- 텝 시작 부분 -->
 			<c:choose>
 				<c:when test="${login.c_id != null and login.c_id != ''}">		
