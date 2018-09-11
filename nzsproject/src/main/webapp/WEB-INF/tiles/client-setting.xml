@@ -33,7 +33,7 @@
 	</definition>
 	<definition name="seller/productsell/*" extends="content">
 		<put-attribute name="title" value="판매상품" />
-		<put-attribute name="body" value="/WEB-INF/	`views/seller/productsell/{1}.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/seller/productsell/{1}.jsp" />
 	</definition>
 	
 <!-- 	마이페이지 회원 -->
