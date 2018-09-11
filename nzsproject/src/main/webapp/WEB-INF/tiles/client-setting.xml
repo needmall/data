@@ -35,7 +35,7 @@
 		<put-attribute name="title" value="판매상품" />
 		<put-attribute name="body" value="/WEB-INF/views/seller/productsell/{1}.jsp" />
 	</definition>
-	
+	 
 <!-- 	마이페이지 회원 -->
 	<definition name="member/modify_customer_check" extends="empty">
 		<put-attribute name="title" value="" />
