@@ -56,6 +56,7 @@ $(function(){
 					"action":"/member/join_customer_modify.do"
 				});
 				$("#memberForm").submit();
+				
 			} else {
 				return false;
 			}			
