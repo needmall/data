@@ -44,10 +44,11 @@ public class ProductsellController {
 		int st_num = 0;
 		LoginVO login = (LoginVO)session.getAttribute("login");
 		logger.info("출력 : " + login);
+		
 		// 세션 확인, 판매자 구분
 		if(login != null && !login.getS_id().isEmpty() ) { 
 			s_id = login.getS_id();
-			logger.info("출력 : " + s_id);
+			logger.info("아이디 출력 : " + s_id);
 			// 상품 판매 목록 조회
 			List<ProductsellVO> productList = productsellService.productList(s_id);
 			model.addAttribute("productList", productList);
@@ -59,7 +60,7 @@ public class ProductsellController {
 		} else {
 			model.addAttribute("code", 1);
 			return "redirect:/member/login.do";  
-		}
+		} 
 		return "seller/productsell/productSellSelectList";
 	}
 	
