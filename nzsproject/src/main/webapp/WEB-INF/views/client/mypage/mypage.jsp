@@ -180,6 +180,7 @@ var b2_num;
 			    );
 			});
 			
+			
 			var c_num = ${login.c_num};
 
 			$.ajax({
