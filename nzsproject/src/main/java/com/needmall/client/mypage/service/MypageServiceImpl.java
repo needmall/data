@@ -8,8 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.client.mypage.dao.MypageDao;
 import com.needmall.client.mypage.vo.MycartVO;
+import com.needmall.client.productall.vo.ProductallVO;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.SreviewVO;
 import com.needmall.common.file.FileUploadUtil;
@@ -315,4 +319,29 @@ public class MypageServiceImpl implements MypageService {
 		return list;
 	}
 
+	@Override
+	public String recentItem(ObjectMapper mapper) {
+		// TODO Auto-generated method stub
+			List<ProductallVO> list = mypageDao.recentItem();
+			String value="";
+			try {
+				value = mapper.writeValueAsString(list);
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
+		return value;
+	}
+	
+	@Override
+	public String sellItem(ObjectMapper mapper) {
+		// TODO Auto-generated method stub
+			List<ProductallVO> list = mypageDao.sellItem();
+			String value="";
+			try {
+				value = mapper.writeValueAsString(list);
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
+		return value;
+	}
 }

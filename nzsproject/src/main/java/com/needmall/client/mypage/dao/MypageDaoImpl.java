@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.needmall.client.mypage.vo.MycartVO;
+import com.needmall.client.productall.vo.ProductallVO;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.SreviewVO;
 
@@ -152,6 +153,15 @@ public class MypageDaoImpl implements MypageDao {
 		return session.selectOne("receiptList",mvo);
 	}
 
-
+	@Override
+	public List<ProductallVO> recentItem() {
+		// TODO Auto-generated method stub
+		return session.selectList("recentItem");
+	}
+	@Override
+	public List<ProductallVO> sellItem() {
+		// TODO Auto-generated method stub
+		return session.selectList("sellItem");
+	}
 
 }

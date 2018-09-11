@@ -3,6 +3,7 @@ package com.needmall.client.mypage.dao;
 import java.util.List;
 
 import com.needmall.client.mypage.vo.MycartVO;
+import com.needmall.client.productall.vo.ProductallVO;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.SreviewVO;
 
@@ -53,6 +54,10 @@ public interface MypageDao {
 	int myProductDelete(PreviewVO svo);
 
 	MycartVO receiptList(MycartVO mvo);
+
+	List<ProductallVO> recentItem();
+
+	List<ProductallVO> sellItem();
 
 
 
