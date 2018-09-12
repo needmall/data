@@ -555,7 +555,7 @@
 	.h4color{background-color: #F6F6F6; font-size: 20px; font-weight: bold;}
 	.div_buttun{text-align: right!important; margin: 15px 5px 0px 760px ;}
  	.cart{margin-right: 60px !important;} 
-	.div_table{height: 380px; width: 100%}
+	.div_table{height: 430px; width: 100%}
 	.div_last{height: 100px;}
 </style>
 

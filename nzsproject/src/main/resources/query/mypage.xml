@@ -57,7 +57,8 @@
 	              FROM
 	                  (SELECT
 	                      b1_date,b_count,b_confirm,ps_expiration,ps_count,ps_price,p_name,p_price,p_date,p_content,p_division,pi_image,
-	                      productsell.ps_num,BUY2DEP.b2_num,PRODUCT.p_num,buy1dep.c_num,productsell.s_num,store.st_address,store.st_hours,store.st_cell,store.st_name
+	                      productsell.ps_num,BUY2DEP.b2_num,PRODUCT.p_num,buy1dep.c_num,productsell.s_num,store.st_address,store.st_hours,
+	                      store.st_cell,store.st_name
 	                  FROM
 	                      buy1dep inner join buy2dep on buy1dep.b1_num = buy2dep.b1_num
 	                      inner join productsell on productsell.ps_num = buy2dep.ps_num
