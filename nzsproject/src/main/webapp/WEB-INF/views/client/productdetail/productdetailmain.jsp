@@ -387,7 +387,7 @@
 						var srv_content = this.srv_content;
 						var srv_scope = this.srv_scope;
 						var c_id= this.c_id;
-
+						
 						itemReviewTag(srv_date,srv_image,srv_content,srv_scope,c_id);
 					})
 				})
@@ -437,13 +437,13 @@
 			}
 			
 			function itemReviewTag(prv_date,prv_image,prv_content,prv_scope,c_id,msg) {
-
+				console.log("prv_image = " +prv_image)
 				var accordion_banner = $("<div>");
 				accordion_banner.addClass("accordion_banner panel panel-default");
 				
 				var accordion_title = $("<div>");
 				accordion_title.addClass("accordion_title panel-body panel panel-default");
-				accordion_title.html("아이디"+c_id+"님의 리뷰 입니다. &nbsp;&nbsp;평점 :"+prv_scope+"점&nbsp;&nbsp;&nbsp;&nbsp;"+prv_date+"작성");
+				accordion_title.html("아이디"+c_id+"님의 리뷰 입니다. &nbsp;&nbsp;평점 :"+prv_scope+"점&nbsp;&nbsp;&nbsp;&nbsp;"+prv_date+" 작성");
 				//accordion_title.html(prv_date);
 				
 				var accordion_sub = $("<div>");
@@ -451,7 +451,7 @@
 				if(prv_image==null){
 					accordion_sub.html(""+prv_content);
 				}else{
-					accordion_sub.html("<img src='/uploadStorage/review/'"+prv_image+"' width='10%' height='10%'/>"+prv_content);
+					accordion_sub.html("<img src='/uploadStorage/review/"+prv_image+"' width='10%' height='10%'/>"+prv_content);
 				}
 				
 				var buttun = $("<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>");
@@ -478,8 +478,9 @@
 					table.html(
 							"<tr><td>판매점 이름<td><td >"+data.st_name+"<td></tr>"
 							+"<tr><td>판매점 주소<td><td>"+data.st_address+"<td></tr>"
+							+"<tr><td>판매 시간<td><td>"+data.st_hours+"<td></tr>"
 							+"<tr><td>판매점 이메일<td><td>"+data.st_email+"<td></tr>"
-							+"<tr><td>고객문의 대표번호<td><td>"+data.st_bnum+"<td></tr>"
+							+"<tr><td>고객문의 대표번호<td><td>"+data.st_cell+"<td></tr>"
 							+"<tr><td>판매자명  <td><td>"+data.st_ceo+"<td></tr>"
 					);
 					div.append(table.append(colgroup));
@@ -492,7 +493,7 @@
 				$(".container-fluid").html("");
 				var div_row = $("<div class='row'>");
 				var div_head=$("<div class='col-md-4' style='width: 30%; padding-left: 50px; '>");
-				
+				console.log("pi_image = "+pi_image)
 				var img =$("<img src='/uploadStorage/product/"+pi_image+"' width='200px' height='200px;'>");
 				
 				div_head.append(img);
@@ -539,7 +540,7 @@
 <style>
 /*  	div{border: 1px solid black;} */
 	#table_left{ padding: 10px;}
-	#simg{width: 350px; height: 350px; float: left; margin-right: 30px;margin-top: 15px; margin-left: 15px;  }
+	#simg{width: 400px; height: 400px; float: left; margin-right: 30px;margin-top: 15px; margin-left: 15px;  }
 	table tr td{
 		font-size: 15px;
 		padding: 8px;
@@ -597,7 +598,7 @@
 	</div>
 	<br/>
 	<div>
-		<h4 class="h4color">판매 브랜드 : ${detail.p_division }</h4>
+		<h4 class="h4color">판매 브랜드 : ${detail.p_division } ${detail.st_name}</h4>
 	</div>
 	  
 	<div class="list-group-item">
@@ -656,6 +657,13 @@
 					<td>:</td>
 					<td>
 						<input id="count" type="number" min="1" max="${detail.ps_count }" value="1">
+					</td>
+				</tr>
+				<tr>
+					<td>판매점 주소</td>
+					<td>:</td>
+					<td>
+						<span>${detail.st_address} </span>
 					</td>
 				</tr>
 				<tr>

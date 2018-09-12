@@ -911,8 +911,10 @@ var b2_num;
 					</div>
 					<div class="tab-pane" id="tab1-3">
 						<div id="page_group">
- 							<%-- <c:import url="/member/delete_customer_check.do"></c:import> --%>
+<%--  							<c:import url="/member/delete_customer_check.do"></c:import> --%>
 						</div>
+						
+<%-- 						<iframe><jsp:include page="/member/modify_customer_check.do"></jsp:include>></iframe> --%>
 					</div>
 				</c:when>
 				<c:when test="${login.s_id != null and login.s_id != ''}">
