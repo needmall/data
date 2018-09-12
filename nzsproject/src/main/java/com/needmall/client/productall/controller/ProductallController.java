@@ -42,7 +42,7 @@ public class ProductallController {
 		if(login != null) {
 			// 사용자 정보 대입
 			c_id = login.getC_id();
-			
+			logger.info("c_id : " + c_id);
 			// 즐겨찾기 매장 판매 상품
 			List<ProductallVO> productFavList = productallService.productFavList(c_id);
 			model.addAttribute("productFavList", productFavList);

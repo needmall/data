@@ -77,9 +77,9 @@
 			
 			if(!chkData("#date", "유통기한을")) return;
 			else if(!chkData("#ps_price", "판매 가격을")) return;
-			else if(!chkNumber("#ps_price", "판매 가격이", 0, p_price)) return;
+			else if(!chkNumber("#ps_price", "판매 가격이", 100, p_price)) return;
 			else if(!chkData("#ps_count", "판매 수량을")) return;
-			else if(!chkNumber("#ps_count", "판매 수량이", 0, 99999)) return;
+			else if(!chkNumber("#ps_count", "판매 수량이", 1, 99999)) return;
 			else if(confirm(p_name + "를 등록 하시겠습니까?") == true) {
 				$("#submitForm").attr({
 					"method" : "POST",
