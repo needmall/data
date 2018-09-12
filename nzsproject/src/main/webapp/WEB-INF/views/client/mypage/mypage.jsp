@@ -180,6 +180,7 @@ var b2_num;
 			    );
 			});
 			
+			
 			var c_num = ${login.c_num};
 
 			$.ajax({
@@ -859,18 +860,6 @@ var b2_num;
 	      return new_div_contract;
 	   }
 		   
-       function errorCodeCheck(){
-     	  var status = '<c:out value="${status}" />';
-     	  if(status != ""){
-     	  		alert("기존 비밀번호 검증에 실패하였습니다. \n기존 비밀번호를 다시 확인해 주세요. ");
-     	  }
-       }
-       
-       loginCustomerId = "${member.c_id}";
-       function emailCheck(){
-     	  var c_mail = "${c_mail[1]}";
-     	  $("#c_mailDomain").val(c_mail).prop("selected", "true");
-       }
 	</script>
 </head>
 <body>
@@ -907,35 +896,36 @@ var b2_num;
 <!-- 				<li><a href="#tab3" data-toggle="tab">리뷰</a></li> -->
 			</ul>
 		</div>
-		
 		<div class="tab-content">  <!-- 텝 시작 부분 -->
 			<c:choose>
 				<c:when test="${login.c_id != null and login.c_id != ''}">		
 					<div class="tab-pane" id="tab1-1">
 						<div id="page_group">
-							<c:import url="/member/modify_customer_check.do"></c:import>
+<%-- 							<c:import url="/member/modify_customer_check.do"></c:import> --%>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab1-2">
 						<div id="page_group">							
-							<c:import url="/member/customerModifyPwd.do"></c:import>
+<%-- 							<c:import url="/member/customerModifyPwd.do"></c:import> --%>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab1-3">
 						<div id="page_group">
- 							<%-- <c:import url="/member/delete_customer_check.do"></c:import> --%>
+<%--  							<c:import url="/member/delete_customer_check.do"></c:import> --%>
 						</div>
+						
+<%-- 						<iframe><jsp:include page="/member/modify_customer_check.do"></jsp:include>></iframe> --%>
 					</div>
 				</c:when>
 				<c:when test="${login.s_id != null and login.s_id != ''}">
 					<div class="tab-pane" id="tab1-1">
 						<div id="page_group">
-							<c:import url="/member/modify_seller_check.do"></c:import>
+<%-- 							<c:import url="/member/modify_seller_check.do"></c:import> --%>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab1-2">
 						<div id="page_group">
-							<c:import url="/member/sellerModifyPwd.do"></c:import>
+<%-- 							<c:import url="/member/sellerModifyPwd.do"></c:import> --%>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab1-3">

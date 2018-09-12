@@ -287,7 +287,7 @@ public class MemberController {
 		} 
 
 		memberService.customerUpdate(mvo);
-		mav.setViewName("redirect:/member/logout.do");
+		mav.setViewName("redirect:/");
 		return mav;  
 	}
 	
@@ -391,7 +391,7 @@ public class MemberController {
 		} 
 
 		memberService.sellerUpdate(mvo);
-		mav.setViewName("redirect:/member/logout.do");
+		mav.setViewName("redirect:/");
 		return mav;  
 	}
 	

@@ -72,7 +72,7 @@
 						<th>할인율</th>
 						<th>갯수</th>
 						<th>유통기한</th>
-						<th>등록날짜</th>
+						<th>등록일</th>
 					</tr>
 				</thead>
 				<tbody>

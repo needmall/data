@@ -129,8 +129,8 @@ $(function(){
 	
 	// st_bnum(사업자번호) 중복 확인
 	$("#stBnumConfirmBtn").click(function(){
-		if (!formCheck($('#st_bnum'), $('.error:eq(9)'), "사업자 번호를")) return;
-		else if (!inputVerify(3,'#st_bnum','.error:eq(9)')) return;
+		if (!formCheck($('#st_bnum'), $('.error:eq(10)'), "사업자 번호를")) return;
+		else if (!inputVerify(3,'#st_bnum','.error:eq(10)')) return;
 		else{
 			$.ajax({
 				url : "/member/stBnumConfirm.do",
@@ -144,7 +144,7 @@ $(function(){
 					if(resultData=="1"){
 						$("#st_bnum").parents(".form-group").find(".error").html("현재 사용 중인 사업자번호 입니다.");
 					}else if(resultData=="2"){
-						$("#st_bnum").parents(".form-group").find(".error").html("사용 가능한 사업자번호 입니다.");
+						$("#st_bnum").parents(".form-group").find(".error").html("사용 가능한 사업자번호 입니다.").css("color","blue");
 						stBnum = 2;	
 					}
 				}

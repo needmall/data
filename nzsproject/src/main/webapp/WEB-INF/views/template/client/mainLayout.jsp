@@ -39,6 +39,7 @@
     <![endif]-->
 
 <style type="text/css">
+/* div{border: 1px solid black;} */
 body {
 	width: 1140px !important;
 	margin-left: auto;
@@ -47,9 +48,8 @@ body {
 }
 
 .footer {
-	margin-left: -200px !important;
+	margin-left: -380px !important;
 }
-
 h4 {
 	text-align: center;
 	display: inline-block;
@@ -88,6 +88,7 @@ h4 {
 	height: 280px;
 }
 
+
 .table-responsive th:nth-child(2) {
 	width: 300px;
 }
@@ -116,6 +117,16 @@ table th {
 #carousel-example-generic-width {
 	height: 230px;
 }
+.last_div{
+	padding-top: 100px;
+}
+.container{
+	margin-right: 0px;
+	margin-left: 0px;
+}
+#middle-1 h4{
+	margin-left: 10px;
+}
 </style>
 
 <script type="text/javascript">
@@ -137,8 +148,9 @@ table th {
 					var p_name = this.p_name;
 					
 					addItem(pi_image, p_name);
-					
+					carousel(cnt);
 					if (3 < cnt++) return false;
+					
 				});
 				$("#carousel-example-generic-block").find(".carousel-inner").children(".item:eq(0)").addClass("active");
 			},
@@ -146,14 +158,58 @@ table th {
 				alert("시스템 오류 입니다. 관리자에게 문의하세요!!");
 			}
 		}); // END AJAX
+		$.ajax({
+			url:"/mypage/recentItem.do",
+			type : "get", // 전송 시 method 방식				
+			dataType : "json",
+			success : function(result) {
+				var cnt = 0;
+				$(result).each(function() {
 
+					var pi_image = this.pi_image;
+					var p_name = this.p_name;
+					var ps_num = this.ps_num;
+					var add = $("#recently_item");
+					addRecentItem(pi_image, p_name,ps_num,add);
+				});
+			}
+		})
+		$.ajax({
+			url:"/mypage/sellItem.do",
+			type : "get", // 전송 시 method 방식				
+			dataType : "json",
+			success : function(result) {
+				var cnt = 0;
+				$(result).each(function() {
+
+					var pi_image = this.pi_image;
+					var p_name = this.p_name;
+					var ps_num = this.ps_num;
+					var add = $("#sell_item");
+					addRecentItem(pi_image, p_name,ps_num,add);
+				});
+			}
+		})
 	}); // END JQUERY
+	function carousel(c){
+		var li = $("<li data-target='#carousel-example-generic-block' data-slide-to="+c+" class='active'></li>")
+		$("#carousel").append(li);
+	}
+	function addRecentItem(pi_image, p_name,ps_num,add){
+		var div= $("<div class='col-xs-6 col-md-3' style='width: 146px; height: 150px;'>");
+		var a = $("<a href='/productdetail/productdetailmain.do?ps_num="+ps_num+"' class='thumbnail'>");
+		var img =$("<img src='/uploadStorage/product/"+pi_image+"' style='width: 100%; height: 100px;'>");
+		a.append(img);
+		div.append(a);
+		
+		add.append(div);
+	}
 	function addItem(pi_image, p_name) {
-		var div_item = $("<div>");
+		var div_item = $("<div style='width: 100%; height: 100%;'>");
 		div_item.addClass("item");
 
 		var div_img = $("<div>");
-		var img = $("<img>");
+		var img = $("<img style='width: 55%; height:55%'>");
 		img.attr("src", "/uploadStorage/product/" + pi_image);
 		img.addClass("center-block block");
 
@@ -171,24 +227,19 @@ table th {
 </script>
 </head>
 
+
 <body>
 	<!-- 헤더 설정  -->
 	<tiles:insertAttribute name="header" />
-	<div>
+	<div >
 		<div id="middle-1">
 			<div>
 				<h4>오늘의 인기 상품</h4>
-				<div id="carousel-example-generic-block" class="carousel slide"
-					data-ride="carousel">
+				<div id="carousel-example-generic-block" class="carousel slide" data-ride="carousel">
 
 					<!-- Indicators -->
-					<ol class="carousel-indicators">
-						<li data-target="#carousel-example-generic-block"
-							data-slide-to="0" class="active"></li>
-						<li data-target="#carousel-example-generic-block"
-							data-slide-to="1"></li>
-						<li data-target="#carousel-example-generic-block"
-							data-slide-to="2"></li>
+					<ol class="carousel-indicators" id="carousel">
+						
 					</ol>
 
 					<!-- Wrapper for slides -->
@@ -196,9 +247,17 @@ table th {
 				</div>
 			</div>
 		</div>
+		
+		<h4>가장 가격이 싼 상품 Top8</h4>
+		<div class="row" id="sell_item" ></div>
+
+		<h4>유통기한이 가장 많이 남은 상품</h4>
+		<div class="row" id="recently_item" ></div>
+		
+		<br>
+		
 		<div id="middle-2">
 			<div id="listInfo">
-
 				<h4>행사 안내</h4>
 				<div id="carousel-example-generic-width" class="carousel slide"
 					data-ride="carousel">
@@ -212,6 +271,9 @@ table th {
 						<li data-target="#carousel-example-generic-width"
 							data-slide-to="2"></li>
 					</ol>
+					
+					
+					
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
@@ -242,7 +304,7 @@ table th {
 			</div>
 		</div>
 	</div>
-
+	<div class="last_div"></div>
 	<footer class="footer">
 		<!-- 푸터 설정 -->
 		<tiles:insertAttribute name="footer" />

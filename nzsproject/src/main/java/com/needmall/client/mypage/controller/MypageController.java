@@ -324,5 +324,22 @@ public class MypageController {
 		result = mypageService.myProductRupdate(pvo,request);
 		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/recentItem.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
+	public String recentItem(ObjectMapper mapper) {
+		logger.info("popItem 호출 성공");
+		String listData = mypageService.recentItem(mapper);		
+		return listData; // 문자열 반환
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/sellItem.do", method=RequestMethod.GET, produces ="text/plain; charset=UTF-8")
+	public String sellItem(ObjectMapper mapper) {
+		logger.info("popItem 호출 성공");
+		String listData = mypageService.sellItem(mapper);		
+		return listData; // 문자열 반환
+	}
+	
 
 }

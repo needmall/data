@@ -2,19 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.needmall.client.productdetail.dao.ProductdetailDao">
 	<select id="productdetailmain" resultType="productdetail" parameterType="productdetail">
-		select pi_image,p_name,p_price,p_content,ps_regdate,ps_expiration
-		,ps_count,ps_price,ps_state,ps_udate,c1_name,c2_name,p_division,seller.s_num,store.st_num,product.p_num,ps_num
-		
+        select pi_image,p_name,p_price,p_content,ps_regdate,ps_expiration
+		,ps_count,ps_price,ps_state,ps_udate,c1_name,c2_name,p_division,seller.s_num,store.st_num,product.p_num,ps_num,st_name,st_hours,st_address
 		
 		from proimage 
-		
+
 		inner join product on proimage.pi_num = product.pi_num
 		inner join productsell on product.p_num = productsell.p_num
 		inner join category2dep on product.c2_num = category2dep.c2_num
 		inner join category1dep on category1dep.c1_num = category2dep.c1_num
         inner join seller on productsell.s_num = seller.s_num 
         inner join store on store.s_num = seller.s_num
-		 
+        
 		WHERE productsell.ps_num =#{ps_num}
 	</select>
 

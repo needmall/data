@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.needmall.client.mypage.vo.MycartVO;
 import com.needmall.client.productdetail.vo.PreviewVO;
 import com.needmall.client.productdetail.vo.SreviewVO;
@@ -51,6 +52,10 @@ public interface MypageService {
 	int myProductRupdate(PreviewVO pvo, HttpServletRequest request);
 
 	MycartVO receiptList(MycartVO mvo);
+
+	String recentItem(ObjectMapper mapper);
+
+	String sellItem(ObjectMapper mapper);
 
 
 	
