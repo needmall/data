@@ -107,7 +107,7 @@ function inputVerify(index, data, printarea){
    var data_regExp = new RegExp(pattern[index]);
    var match = data_regExp.exec($(data).val());
    if(match==null){
-      $(printarea).html("입력값이 형식에 맞지 않습니다. 다시 입력해주세요.");
+      $(printarea).html("입력값이 형식에 맞지 않습니다. 다시 입력해주세요.").css("color","red");
       $(data).val("");
       return false;
    } else {
