@@ -75,14 +75,11 @@ public class ProductsellController {
 			// 수수료 기한 납부 확인
 			result = productsellService.feesConfirm(s_id);
 			
-			if(result > 0) {
-				// 상품 등록
-				return "seller/productsell/productSellInsert";
-			} else {
+			if(result == 0) {
 				// 기한 만료
 				model.addAttribute("code", 2);
-				return "seller/productsell/productSellInsert";
-			}
+			} 
+			return "seller/productsell/productSellInsert";
 		} else {
 			model.addAttribute("code", 1);
 			url = "/member/login.do";
