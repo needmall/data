@@ -5,7 +5,15 @@
 
 <script type="text/javascript">
 	$(function() {
-		
+		var code = "<c:out value='${code}' />";
+
+		switch (code) {
+		case "2":
+			alert("수수료 납부 기한을 초과 하였습니다.\n등록후 다시 이용 하시기 바랍니다.");
+			window.history.back();
+			break;
+		}
+
 		/* 초기 설정 */
 		setting();
 		

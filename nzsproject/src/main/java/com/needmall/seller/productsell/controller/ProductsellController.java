@@ -81,7 +81,7 @@ public class ProductsellController {
 			} else {
 				// 기한 만료
 				model.addAttribute("code", 2);
-				url = "/productsell/list.do";
+				return "seller/productsell/productSellInsert";
 			}
 		} else {
 			model.addAttribute("code", 1);

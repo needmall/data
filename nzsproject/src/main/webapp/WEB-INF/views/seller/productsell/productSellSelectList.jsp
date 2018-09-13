@@ -4,11 +4,6 @@
 
 <script type="text/javascript">
 	$(function() {
-		var code = $(location).attr('search');
-		if(code) {
-			
-			console.log(code.substring(1,2));
-		}
 		
 		/* 상품 등록 페이지 이동 */
 		$("#reqProductBtn").click(function() {
