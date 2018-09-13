@@ -89,7 +89,7 @@
 			<div class="form-group form-group-sm">
 				<label for="s_mailName" class="col-sm-2 control-label">회원 이메일</label>
 				<div class="col-sm-3">
-					<input type="text" id="s_mailName" name="s_mailName" maxlength="60" class="form-control" placeholder="s_mail">
+					<input type="text" id="s_mailName" name="s_mailName" maxlength="60" class="form-control" placeholder="이메일 아이디만">
 				</div>
 				<div class="col-sm-2">
 					<select id="s_mailDomain" class="form-control">
