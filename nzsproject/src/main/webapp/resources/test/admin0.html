@@ -91,11 +91,107 @@
 		});
 	});
 </script>
+<style type="text/css">
+.member {
+ font-size: 50px;
+ text-shadow: 0 0 10px #666;
+ color: #fff;
+ margin: 0 auto;
+ text-align: center;
+ text-transform: capitalize;
+ font-family: "맑은 고딕";
+ font-style: italic;
+ margin-top: 450px;
+}
+
+
+
+
+
+
+body {
+ font-family: "맑은 고딕";
+ font-size: 12px;
+}
+
+.form {
+ width: 398px;
+ height: 250px;
+ border-radius: 25px;
+ border: 5px double #999;
+ margin: 30px auto;
+}
+
+
+
+
+.form2 {
+ width: 280px;
+ min-width: 320px;
+ height: 100px;
+ margin: 60px auto;
+ margin-left:20px;
+}
+
+.form3 {
+ float: left;
+ /*   background:#f00;  */
+}
+
+.form3 label {
+ width: 100px;
+ height: 20px;
+ /*  display: block; */
+ float: left;
+}
+
+.form4 {
+ padding: 0px 0px 0px 70px;
+}
+
+#wrap {
+
+ width: 400px;
+ height: 300px;
+ margin: 0 auto;
+}
+
+.clear {
+ clear: both;
+}
+
+
+#loginBtn {
+ float: left;
+ /*  display:block; */
+ height: 90px;
+ width:100px;
+ background: #FFBB00;
+ border-radius: 5px;
+ border: none;
+ font-family: "맑은 고딕";
+ margin-left: 30px;
+}
+input[type="button"] {
+ height: 30px;
+ background: gray;
+ border-radius: 5px;
+/*  width: 140px; */
+ font-family:"맑은 고딕";
+ margin-top:10px;
+ margin-right:20px;
+}
+input[type="checkbox"] {
+ margin-top:20px;
+}
+
+
+</style>
 </head>
 <body>
 	<div class="contentContainer">
 		<div class="well">
-			<form id="loginForm" class="form-horizontal">
+<!-- 			<form id="loginForm" class="form-horizontal">
 					<div class="form-group">
 						<label for="admin_id" class="col-sm-2 control-label">아 이 디 </label>
 						<div class="col-sm-4">
@@ -116,9 +212,36 @@
 						</div>
 					</div>
 					
-			</form>
-			
-		</div>
+			</form> 
+			</div>-->
+			<form>
+			  <div id="wrap">
+			   <h1 class="member">Admin login</h1>
+			   <div class="form">
+			    <div class="form2">
+			     <div class="form3">
+			      	<div class="form-group">
+						<label for="admin_id" class="col-sm-2 control-label">아 이 디 </label>
+						<div class="col-sm-4">
+							<input type="text" id="admin_id" name="admin_id" class="form-control" placeholder="ID">
+						</div>
+						<p class="form-control-static error"></p>
+					</div>
+					<div class="form-group">
+						<label for="admin_pwd" class="col-sm-2 control-label">비밀번호 </label>
+						<div class="col-sm-4">
+							<input type="password" id="admin_pwd" name="admin_pwd" maxlength="15" class="form-control" placeholder="Password">
+						</div>
+						<p class="form-control-static error"></p>
+					</div>
+			     </div>
+			     <input type="button" value="로그인" id="loginBtn" name="loginBtn" class="btn btn-default" /> 
+			    </div>
+			   </div>
+			  </div>
+			 </form>
+
+		
 	</div>
 </body>
 </html>

@@ -122,6 +122,12 @@
  					cls : $('.expire'),
 					time: psexpiration
 				});
+				var ps_count =${detail.ps_count }
+				
+				if(ps_count ==0){
+					$(".expire").hide();
+				}
+				
         		// 할인율 계산
        			var p_price 		= ${detail.p_price}
        			var ps_price 		= ${detail.ps_price}

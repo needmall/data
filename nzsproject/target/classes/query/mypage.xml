@@ -269,14 +269,14 @@
 	 </select>
 	 <select id="recentItem" resultType="mypage">
 	 	<![CDATA[
-			SELECT
+            			SELECT
 			    rownum as rnum,product.p_num,product.c2_num,product.p_name,product.p_price,product.p_date,product.p_udate,product.p_content,product.p_division,product.pi_num,product.p_state,
 			    productsell.ps_num,productsell.p_num,productsell.ps_regdate,productsell.ps_expiration,productsell.ps_count,productsell.ps_price,productsell.s_num,productsell.ps_state,productsell.ps_udate,
 			    proimage.pi_num,proimage.pi_image
 			FROM
 			    product inner join productsell on product.p_num = productsell.p_num inner join proimage on product.pi_num =  proimage.pi_num
 			WHERE 
-			    ps_expiration > sysdate and rownum < 9 order by ps_expiration desc
+			    ps_expiration > sysdate and rownum < 9 and p_state =0 and ps_count !=0 order by ps_expiration desc
 		 	]]>
 	 </select>
 	 	 <select id="sellItem" resultType="mypage">
@@ -285,11 +285,11 @@
 		    from 
 			    (SELECT
 				    rownum as rnum,product.p_name,product.p_state,
-				    productsell.ps_expiration,productsell.ps_price,proimage.pi_image,ps_num
+				    productsell.ps_expiration,productsell.ps_price,proimage.pi_image,ps_num,productsell.ps_count
 				FROM
 				    product inner join productsell on product.p_num = productsell.p_num inner join proimage on product.pi_num =  proimage.pi_num
 				WHERE 
-				    ps_expiration > sysdate order by ps_price)A
+				    ps_expiration > sysdate and p_state =0 and ps_count !=0 order by ps_price)A
 			where rownum <9
 			order by ps_price
 		 	]]>

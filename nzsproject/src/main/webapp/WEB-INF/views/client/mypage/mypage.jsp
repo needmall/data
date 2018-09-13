@@ -645,7 +645,7 @@ var b2_num;
 			var div =$("<div><p style='color:red;'>수령 확인 후 교환 환불은 불가 하며  구매 후 유통기한이 지나지 않도록 주의 하십시오.</p><p style='color: red';>만약 구입 후 유통기한이 지날 시 찾아가도 상관이 없으시나 교환 및 환불은 불가합니다. </p></div>")
 
 			var btn1 =$("<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
-			var btn2 =$("<input type='button' class='btn btn-default btn_confirm' name='btn_confirm' value='수령'>");
+			var btn2 =$("<input type='button' class='btn btn-primary btn_confirm' name='btn_confirm' value='수령'>");
 			
 			
 			$("#receiptModal-body").append(table).append(hr).append(label).append(div);
