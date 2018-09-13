@@ -16,7 +16,7 @@
 		WHERE ps_num = #{ps_num} AND s_id = #{s_id} ORDER BY p_name
 	</select>
 	
-	<!-- 수수료 납부 기한확인 -->
+	<!-- 수수료 납부 확인 -->
 	<select id="feesConfirm" parameterType="String" resultType="int">
 		SELECT NVL((SELECT COUNT(*)
 		FROM seller s INNER JOIN fees f ON s.s_num = f.s_num
@@ -30,7 +30,7 @@
 		WHERE p_state = 0 AND p_name LIKE '%' || #{keyword} || '%' AND p_division = (SELECT si_division FROM seller s INNER JOIN store st ON s.s_num = st.s_num WHERE s_id = #{s_id})
 	</select>
 	
-	<!-- 상품정보 검색 -->
+	<!-- 카테고리 검색 -->
 	<select id="categoryList" parameterType="productinfo" resultType="productinfo">
 		SELECT p_num, pi_image, p_name, p_price, p_content
 		FROM product p INNER JOIN proimage pi ON pi.pi_num = p.pi_num
