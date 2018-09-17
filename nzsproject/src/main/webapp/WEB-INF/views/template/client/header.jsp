@@ -71,7 +71,7 @@
 	  <ul class="nav navbar-nav">
       <li class="active"><a href="/">Home</a></li>
       <li><a href="/productall/productList.do">전체 상품</a></li>
-      <li><a href="/storeall/storeall.do">전체 스토어</a></li>
+      <li><a href="/storeall/storeall.do">전체 매장</a></li>
     </ul>
     </nav> 
 </div>
